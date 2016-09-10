@@ -40,7 +40,7 @@ ol, ul {
 .container-fluid {
 	padding: 0;
 }
-#landing-div, #dashboard-div {
+#landing-div, #secondary-div {
 	height: 725px;
 	/*background-image: url("pottery.jpeg");*/
 	/*background-image: url("https://hd.unsplash.com/photo-1460518451285-97b6aa326961");*/
@@ -49,6 +49,9 @@ ol, ul {
 	background-size: cover;
 	background-position: bottom center;
 	background-repeat: no-repeat;
+}
+#secondary-div {
+	height: 250px;
 }
 #landing-div-row {
 	height: inherit;
@@ -79,6 +82,9 @@ ol, ul {
 }
 .you {
 	color: orange;
+}
+#secondary-header {
+	margin-left: 30%;
 }
 .navbar-brand h1 {
 	color: white;
@@ -211,9 +217,32 @@ hr {
 .single-course-text h4 {
 	font-size: 1.5em;
 }
-#beats {
-	background-image: url("beats.jpeg");
-	background-size: cover;
+.form-display {
+	margin-top: 85px;
+	margin-bottom: 50px;
+	border: 2px solid orange;
+	border-radius: 3px;
+}
+.form-display input {
+	border: 2px solid lightgray;
+}
+.form-display input:focus {
+	outline: none;
+	border: 2px solid orange;
+}
+.form-submit-button {
+	margin-bottom: 20px;
+}
+.google-login {
+	margin-top: 0;
+}
+.form-display p {
+	text-align: center;
+	font-size: 1.1em;
+	margin-bottom: 20px;
+}
+.signup-display p {
+	margin-top: 20px;
 }
 
 footer {

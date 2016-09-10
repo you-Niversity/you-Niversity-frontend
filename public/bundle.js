@@ -21986,27 +21986,41 @@
 	
 	var _secondaryTemplate2 = _interopRequireDefault(_secondaryTemplate);
 	
+	var _signupForm = __webpack_require__(/*! ./components/signup-form.js */ 248);
+	
+	var _signupForm2 = _interopRequireDefault(_signupForm);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//import layouts here
-	
-	
-	//import components here
+	//below is an example of ES6 destructuring
 	exports.default = _react2.default.createElement(
 	  _reactRouter.Router,
 	  { history: _reactRouter.browserHistory },
 	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _landingPage2.default }),
 	  _react2.default.createElement(
 	    _reactRouter.Route,
-	    { path: 'login' },
+	    { path: '/login' },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { component: _secondaryTemplate2.default },
-	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _loginForm2.default })
+	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _signupForm2.default })
+	    )
+	  ),
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: '/signup' },
+	    _react2.default.createElement(
+	      _reactRouter.Route,
+	      { component: _secondaryTemplate2.default },
+	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _signupForm2.default })
 	    )
 	  )
 	);
-	//below is an example of ES6 destructuring
+	
+	//import layouts here
+	
+	
+	//import components here
 
 /***/ },
 /* 173 */
@@ -30029,17 +30043,18 @@
 	      _react2.default.createElement('div', { className: 'col-sm-4' }),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-4' },
+	        { className: 'col-sm-4 form-display' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'LoginDisplay' },
+	          { className: 'login-display' },
 	          _react2.default.createElement(UserLoginForm, {
 	            onLoginSubmit: this.handleLoginSubmit
 	          }),
+	          _react2.default.createElement('input', { type: 'submit', value: 'Login with Google', className: 'google-login form-submit-button' }),
 	          _react2.default.createElement(
-	            'button',
+	            'p',
 	            null,
-	            'Sign In With Google'
+	            'Not signed up yet? Create an account!'
 	          )
 	        )
 	      )
@@ -30092,7 +30107,7 @@
 	        value: this.state.password,
 	        onChange: this.handlePasswordChange
 	      }),
-	      _react2.default.createElement('input', { type: 'submit', value: 'Post' })
+	      _react2.default.createElement('input', { type: 'submit', value: 'Login', className: 'form-submit-button' })
 	    );
 	  }
 	});
@@ -30129,14 +30144,22 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      null,
+	      { className: 'container-fluid' },
 	      _react2.default.createElement(
-	        'h1',
-	        null,
-	        'This is the secondary template.'
-	      ),
-	      _react2.default.createElement(_navbarSecondary2.default, null),
-	      this.props.children
+	        'div',
+	        { id: 'secondary-div' },
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'landing-div-row', className: 'row' },
+	          _react2.default.createElement('div', { className: 'col-sm-1' }),
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'center-content', className: 'col-sm-10' },
+	            _react2.default.createElement(_navbarSecondary2.default, null),
+	            this.props.children
+	          )
+	        )
+	      )
 	    );
 	  }
 	
@@ -30179,7 +30202,7 @@
 	          { className: "container-fluid" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "navbar-header" },
+	            { className: "navbar-header", id: "secondary-header" },
 	            _react2.default.createElement(
 	              "a",
 	              { className: "navbar-brand", href: "#" },
@@ -30200,28 +30223,6 @@
 	                "niversity"
 	              )
 	            )
-	          ),
-	          _react2.default.createElement(
-	            "ul",
-	            { className: "nav navbar-nav navbar-right" },
-	            _react2.default.createElement(
-	              "li",
-	              null,
-	              _react2.default.createElement(
-	                "a",
-	                { href: "#" },
-	                "login"
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "li",
-	              null,
-	              _react2.default.createElement(
-	                "a",
-	                { href: "#" },
-	                "signup"
-	              )
-	            )
 	          )
 	        )
 	      )
@@ -30230,6 +30231,182 @@
 	});
 	
 	exports.default = NavbarSecondary;
+
+/***/ },
+/* 248 */
+/*!***************************************!*\
+  !*** ./app/components/signup-form.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SignupDisplay = _react2.default.createClass({
+	  displayName: 'SignupDisplay',
+	
+	  handleUserSubmit: function handleUserSubmit(user) {
+	    $.ajax({
+	      url: 'http://localhost:3000/auth/signup',
+	      dataType: 'json',
+	      type: 'POST',
+	      data: user,
+	      success: function (data) {
+	        console.log('Successfully added user');
+	      }.bind(this),
+	      error: function (xhr, status, err) {
+	        console.log('http://localhost:3000/auth/signup', status, err.toString());
+	      }.bind(this)
+	    });
+	  },
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement('div', { className: 'col-sm-4' }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-4 form-display' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'signup-display' },
+	          _react2.default.createElement('input', { type: 'submit', value: 'Sign Up with Google', className: 'google-signup form-submit-button' }),
+	          _react2.default.createElement(AddUserForm, {
+	            onUserSubmit: this.handleUserSubmit
+	          }),
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'Already signed up? Login ',
+	            _react2.default.createElement(
+	              'a',
+	              { href: '' },
+	              'here'
+	            ),
+	            '.'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var AddUserForm = _react2.default.createClass({
+	  displayName: 'AddUserForm',
+	
+	  getInitialState: function getInitialState() {
+	    return { first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '' };
+	  },
+	  handleFirstNameChange: function handleFirstNameChange(event) {
+	    this.setState({ first_name: event.target.value });
+	  },
+	  handleLastNameChange: function handleLastNameChange(event) {
+	    this.setState({ last_name: event.target.value });
+	  },
+	  handleEmailChange: function handleEmailChange(event) {
+	    this.setState({ email: event.target.value });
+	  },
+	  handleProfilePicChange: function handleProfilePicChange(event) {
+	    this.setState({ profile_pic: event.target.value });
+	  },
+	  handleCityChange: function handleCityChange(event) {
+	    this.setState({ city: event.target.value });
+	  },
+	  handleStateChange: function handleStateChange(event) {
+	    this.setState({ state: event.target.value });
+	  },
+	  handlePasswordChange: function handlePasswordChange(event) {
+	    this.setState({ password: event.target.value });
+	  },
+	  handleConfirmPasswordChange: function handleConfirmPasswordChange(event) {
+	    this.setState({ confirm_password: event.target.value });
+	  },
+	  handleSubmit: function handleSubmit(event) {
+	    event.preventDefault();
+	    var first_name = this.state.first_name.trim();
+	    var last_name = this.state.last_name.trim();
+	    var email = this.state.email.trim();
+	    var profile_pic = this.state.profile_pic.trim();
+	    var city = this.state.city.trim();
+	    var state = this.state.state.trim();
+	    var password = this.state.password.trim();
+	    if (!first_name || !last_name || !email || !password) {
+	      console.log('some fields are missing');
+	      return;
+	    }
+	    this.props.onUserSubmit({
+	      first_name: first_name,
+	      last_name: last_name,
+	      email: email,
+	      profile_pic: profile_pic,
+	      city: city,
+	      state: state,
+	      password: password
+	    });
+	    this.setState({ first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '' });
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'form',
+	      { className: 'addUserForm', onSubmit: this.handleSubmit },
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        placeholder: 'first name',
+	        value: this.state.first_name,
+	        onChange: this.handleFirstNameChange
+	      }),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        placeholder: 'last name',
+	        value: this.state.last_name,
+	        onChange: this.handleLastNameChange
+	      }),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        placeholder: 'email',
+	        value: this.state.email,
+	        onChange: this.handleEmailChange
+	      }),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        placeholder: 'profile picture url',
+	        value: this.state.profile_pic,
+	        onChange: this.handleProfilePicChange
+	      }),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        placeholder: 'city',
+	        value: this.state.city,
+	        onChange: this.handleCityChange
+	      }),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        placeholder: 'state',
+	        value: this.state.state,
+	        onChange: this.handleStateChange
+	      }),
+	      _react2.default.createElement('input', {
+	        type: 'text',
+	        placeholder: 'password',
+	        value: this.state.password,
+	        onChange: this.handlePasswordChange
+	      }),
+	      _react2.default.createElement('input', { type: 'submit', value: 'Sign Up' })
+	    );
+	  }
+	});
+	
+	exports.default = SignupDisplay;
 
 /***/ }
 /******/ ]);

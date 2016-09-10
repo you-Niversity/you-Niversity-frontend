@@ -1,9 +1,11 @@
 'use strict';
 
+import React from 'react';
+
 var SignupDisplay = React.createClass({
   handleUserSubmit: function(user){
     $.ajax({
-      url: this.props.url,
+      url: 'http://localhost:3000/auth/signup',
       dataType: 'json',
       type: 'POST',
       data: user,
@@ -11,7 +13,7 @@ var SignupDisplay = React.createClass({
         console.log('Successfully added user');
       }.bind(this),
       error: function(xhr, status, err){
-        console.log(this.props.url, status, err.toString());
+        console.log('http://localhost:3000/auth/signup', status, err.toString());
       }.bind(this)
     });
   },
@@ -20,10 +22,9 @@ var SignupDisplay = React.createClass({
     return (
       <div className="row">
         <div className="col-sm-4"></div>
-        <div className="col-sm-4">
-          <div className="SignupDisplay">
-            <button>Sign Up With Google</button>
-            <p>or</p>
+        <div className="col-sm-4 form-display">
+          <div className="signup-display">
+            <input type="submit" value="Sign Up with Google" className="google-signup form-submit-button"/>
             <AddUserForm
               onUserSubmit={this.handleUserSubmit}
             />
@@ -132,13 +133,10 @@ var AddUserForm = React.createClass({
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
-        <input type="submit" value="Post"/>
+        <input type="submit" value="Sign Up"/>
       </form>
     )
   }
 });
 
-ReactDOM.render(
-  <SignupDisplay url="http://localhost:3000/auth/signup" />,
-  document.getElementById('signup')
-);
+export default SignupDisplay;

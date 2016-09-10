@@ -22,12 +22,13 @@ var LoginDisplay = React.createClass({
     return (
       <div className="row">
         <div className="col-sm-4"></div>
-        <div className="col-sm-4">
-          <div className="LoginDisplay">
+        <div className="col-sm-4 form-display">
+          <div className="login-display">
             <UserLoginForm
               onLoginSubmit={this.handleLoginSubmit}
             />
-            <button>Sign In With Google</button>
+            <input type="submit" value="Login with Google" className="google-login form-submit-button"/>
+            <p>Not signed up yet? Create an account!</p>
           </div>
         </div>
       </div>
@@ -78,7 +79,7 @@ var UserLoginForm = React.createClass({
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
-        <input type="submit" value="Post"/>
+        <input type="submit" value="Login" className="form-submit-button"/>
       </form>
     )
   }
