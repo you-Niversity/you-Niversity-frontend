@@ -1,0 +1,228 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 100;
+}
+ol, ul {
+	list-style: none;
+}
+
+/*begin custom style*/
+.container-fluid {
+	padding: 0;
+}
+#landing-div, #dashboard-div {
+	height: 725px;
+	/*background-image: url("pottery.jpeg");*/
+	/*background-image: url("https://hd.unsplash.com/photo-1460518451285-97b6aa326961");*/
+	/*background-image: url("../images/leaves.jpeg");*/
+	background-image: url("https://hd.unsplash.com/photo-1425141708895-60ba4a72e556");
+	background-size: cover;
+	background-position: bottom center;
+	background-repeat: no-repeat;
+}
+#landing-div-row {
+	height: inherit;
+}
+#dashboard-div, #dashboard-div-row {
+	height: 275px;
+	background-position: center;
+}
+#center-content {
+	/*border-right: 1px solid lightgray;
+	border-left: 1px solid lightgray;*/
+	height: inherit;
+}
+.navbar {
+	margin-top: 50px;
+	border-bottom: 1px solid lightgray;
+}
+.navbar img {
+	width: 75px;
+	margin-top: -33px;
+	margin-left: 10px;
+}
+.navbar-brand {
+	text-shadow: none;
+}
+#you-niversity {
+	padding-left: 0;
+}
+.you {
+	color: orange;
+}
+.navbar-brand h1 {
+	color: white;
+	font-size: 4em;
+	/*margin-top: -10px;*/
+	font-family: 'Clicker Script', cursive;
+}
+.navbar-right {
+	margin-right: 0;
+}
+.navbar a {
+	color: white;
+	text-shadow: none;
+}
+.navbar-nav>li>a:hover {
+	border-radius: 3px;
+	background-color: rgba(255, 255, 255, 0.25);
+}
+.dashboard-nav>li>a {
+	width: 100%;
+	color: white;
+	background-color: orange;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 3px;
+	margin: 0 0 5px 0;
+}
+#profile-img {
+	width:75px;
+	height:75px;
+	margin-top: -25px;
+	border-radius: 100%;
+	background-image: url("woman.jpeg");
+	background-size: cover;
+}
+#landing-message {
+	margin-top: 125px;
+}
+#landing-div-row #landing-search-div {
+	margin-top: 125px;
+}
+#dashboard-search-div {
+	margin-top: 25px;
+}
+#search-bar {
+	background-color: rgba(255, 255, 255, 0.15);
+	height: 80px;
+	border-radius: 3px;
+}
+
+#landing-div-row h2, h3 {
+	text-align: center;
+	color: white;
+}
+#landing-div-row h2 {
+	color: orange;
+}
+#landing-div-row h2 {
+	margin-top: 15px;
+	font-family: 'Reenie Beanie', cursive;
+	font-family: 'Dancing Script', cursive;
+	font-family: 'Clicker Script', cursive;
+	/*font-family: 'La Belle Aurore', cursive;*/
+	font-size: 4.8em;
+	text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.8);
+
+}
+#landing-div-row h3 {
+	font-size: 1.5em;
+	text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.8);
+}
+input {
+	width: 100%;
+	height: 40px;
+	margin-top: 20px;
+	border-radius: 3px;
+	border-style: none;
+}
+input:focus {
+	outline: none;
+	border: 2px solid orange;
+}
+#search-bar h4 {
+	color: white;
+	height: 30px;
+	margin-top: 30px;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 1.2em;
+}
+
+#class-display h3 {
+	color: black;
+	font-size: 2em;
+	margin: 50px 0;
+}
+#course-block {
+	margin-bottom: 50px;
+}
+#course-block-top {
+	margin-bottom: 0;
+}
+.single-course {
+	width: 48%;
+	height: 200px;
+	border-radius: 3px;
+	padding: 1%;
+	margin: 1%;
+	background-size: cover;
+	float: left;
+}
+.single-course:hover {
+	border: 5px solid white;
+}
+#course-block a, #course-block-top a {
+	color: white;
+	text-decoration: none;
+}
+.single-course-text {
+	width: 80%;
+	font-weight: bold;
+	margin-left: 10%;
+	margin-top: 65px;
+	text-align: center;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+}
+hr {
+	margin: 10px 0;
+}
+.single-course-text h4 {
+	font-size: 1.5em;
+}
+#beats {
+	background-image: url("beats.jpeg");
+	background-size: cover;
+}
+
+footer {
+	width: 100%;
+	height:75px;
+	color: white;
+	text-align: center;
+	background-color: black;
+}
+#footer-text {
+	padding-top: 20px;
+}
