@@ -9,9 +9,9 @@ var SecondaryTemplate = React.createClass({
     return (
       <div className="container-fluid">
         <div id="secondary-div">
-          <div id="landing-div-row" className="row">
-            <div className="col-sm-1"></div>
-            <div id="center-content" className="col-sm-10">
+          <div id="secondary-div-row" className="row">
+            <div className="col-sm-2"></div>
+            <div id="center-content" className="col-sm-8">
               <NavbarSecondary />
               {this.props.children}
             </div>

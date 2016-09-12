@@ -2,6 +2,7 @@
 import React from 'react';
 import nocache from 'superagent-no-cache';
 import request from 'superagent';
+import AddCourseDisplay from './add-course-display.js';
 
 {/*var SearchBar = React.createClass({
   handleChange: function() {
@@ -91,6 +92,7 @@ var CourseList = React.createClass({
   render: function() {
 
     var courseNodes = this.props.data.map(function(course) {
+      console.log(course);
       if ((this.props.filterText !== '' && course.title.indexOf(this.props.filterText) === -1)){
         console.log('if');
         return;
@@ -210,7 +212,6 @@ var AddCourseForm = React.createClass({
           value={this.state.seats}
           onChange={this.handleSeatsChange}
         />
-
 
         <input
           type="text"

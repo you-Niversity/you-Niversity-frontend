@@ -84,7 +84,7 @@ ol, ul {
 	color: orange;
 }
 #secondary-header {
-	margin-left: 30%;
+	margin-left: 25%;
 }
 .navbar-brand h1 {
 	color: white;
@@ -135,7 +135,7 @@ ol, ul {
 	border-radius: 3px;
 }
 
-#landing-div-row h2, h3 {
+#landing-div-row h2, #landing-div-row h3 {
 	text-align: center;
 	color: white;
 }
@@ -144,10 +144,7 @@ ol, ul {
 }
 #landing-div-row h2 {
 	margin-top: 15px;
-	font-family: 'Reenie Beanie', cursive;
-	font-family: 'Dancing Script', cursive;
 	font-family: 'Clicker Script', cursive;
-	/*font-family: 'La Belle Aurore', cursive;*/
 	font-size: 4.8em;
 	text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.8);
 
@@ -245,6 +242,102 @@ hr {
 	margin-top: 20px;
 }
 
+/*single course display*/
+
+#single-course-display {
+	margin-top: 80px;
+	line-height: 1.3;
+}
+.center {
+	text-align: center;
+}
+.bold {
+	font-weight: 700;
+}
+.left-course-display {
+	padding: 10px;
+	font-size: 1.5em;
+	border: 3px solid orange;
+	border-radius: 3px;
+}
+.left-course-display p {
+	margin: 20px 0;
+}
+#title-container {
+	margin: 0;
+	padding: 0;
+}
+#course-title {
+	vertical-align: bottom;
+	font-size: 2em;
+	color: orange;
+	margin-top: 13px;
+	font-weight: bold;
+}
+#course-description {
+	margin-top: 20px;
+	font-size: 1.4em;
+	font-weight: 400;
+	line-height: 1.3;
+}
+#course-prereqs {
+	margin-top: 20px;
+	font-size: 1.2em;
+	font-weight: 400;
+	line-height: 1.3;
+}
+.instructor-profile-img {
+	width: 80%;
+	padding-bottom: 80%;
+	margin-left: 10%;
+	border-radius: 100%;
+	background-size: cover;
+}
+.student-profile-img {
+	width: 80%;
+	padding-bottom: 80%;
+	margin-left: 10%;
+	margin-bottom: 10px;
+	border-radius: 100%;
+	border: 2px solid orange;
+	background-size: cover;
+}
+.btn-div {
+	background-color: orange;
+	border-radius: 3px;
+	padding: 10px;
+	margin: 10px 0;
+	width: 100%;
+	text-align: center;
+	font-weight: 700;
+}
+.no-padding {
+	padding: 0;
+	margin-top: 20px;
+}
+#taught-by p {
+	font-size: 1.3em;
+	margin-bottom: 10px;
+}
+
+#roster-div {
+	margin: 20px 0;
+	border: 2px solid orange;
+}
+#roster-div h2 {
+	font-weight: 700;
+	font-size: 1.5em;
+}
+#roster-div p {
+	font-size: 1.3em;
+	margin-bottom: 10px;
+}
+
+
+
+
+
+/*footer*/
 footer {
 	width: 100%;
 	height:75px;
