@@ -142,13 +142,14 @@ var RosterList = React.createClass({
   render: function(){
     console.log("*****");
     console.log(this.props.data[0]);
+
     var rosterNodes = this.props.data.map(function(student){
-      console.log(student);
       return (
-        <Student>
+        <Student
           first_name={student.first_name}
           last_name={student.last_name}
           profile_pic={student.profile_pic}
+          key={student.id}>
         </Student>
       )
     }.bind(this));
