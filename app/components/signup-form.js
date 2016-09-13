@@ -1,34 +1,37 @@
 'use strict';
 
 import React from 'react';
+import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import request from 'superagent';
 
 var SignupDisplay = React.createClass({
+
   handleUserSubmit: function(user){
-    $.ajax({
-      url: 'http://localhost:3000/auth/signup',
-      dataType: 'json',
-      type: 'POST',
-      data: user,
-      success: function(data){
-        console.log('Successfully added user');
-      }.bind(this),
-      error: function(xhr, status, err){
-        console.log('http://localhost:3000/auth/signup', status, err.toString());
-      }.bind(this)
-    });
+    console.log(user);
+    request
+      .post("http://localhost:8080/auth/signup")
+      .send(user)
+      .end(function(err, res){
+        if (err || !res.ok) {
+          console.log("there was an error in creating this user");
+        } else {
+          console.log("successfully created user");
+          location.href = '/';
+        }
+      });
   },
 
   render: function(){
     return (
       <div className="row">
-        <div className="col-sm-4"></div>
-        <div className="col-sm-4 form-display">
+        <div className="col-sm-1"></div>
+        <div className="col-sm-10 form-display">
           <div className="signup-display">
             <input type="submit" value="Sign Up with Google" className="google-signup form-submit-button"/>
             <AddUserForm
               onUserSubmit={this.handleUserSubmit}
             />
-            <p>Already signed up? Login <a href="">here</a>.</p>
+            <p>Already signed up? Login <Link to="/login">here</Link>.</p>
           </div>
         </div>
       </div>
@@ -86,11 +89,12 @@ var AddUserForm = React.createClass({
       state: state,
       password: password
     });
-    this.setState({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: ''})
+    this.setState({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: ''});
   },
   render: function() {
     return (
-      <form className="addUserForm"           onSubmit={this.handleSubmit}>
+      <form className="addUserForm" onSubmit={this.handleSubmit}>
+      <div className="col-sm-6">
         <input
           type="text"
           placeholder="first name"
@@ -115,6 +119,8 @@ var AddUserForm = React.createClass({
           value={this.state.profile_pic}
           onChange={this.handleProfilePicChange}
         />
+      </div>
+      <div className="col-sm-6">
         <input
           type="text"
           placeholder="city"
@@ -133,6 +139,14 @@ var AddUserForm = React.createClass({
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
+        <input
+          type="text"
+          placeholder="confirm password"
+        />
+      </div>
+
+
+
         <input type="submit" value="Sign Up"/>
       </form>
     )

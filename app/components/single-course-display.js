@@ -14,9 +14,9 @@ var SingleCourseDisplay = React.createClass({
     };
   },
 
-  getCourseDataFromAPI: function(){
+  getCourseDataFromAPI: function(id){
     request
-      .get("http://localhost:8080/classes/4")
+      .get("http://localhost:8080/classes/" + id)
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing this course from the API");
@@ -26,9 +26,9 @@ var SingleCourseDisplay = React.createClass({
       }.bind(this))
   },
 
-  getRosterFromAPI: function(){
+  getRosterFromAPI: function(id){
     request
-      .get("http://localhost:8080/rosters/4")
+      .get("http://localhost:8080/rosters/" + id)
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing this roster from the API");
@@ -44,8 +44,11 @@ var SingleCourseDisplay = React.createClass({
   },
 
   componentDidMount: function(){
-    this.getCourseDataFromAPI();
-    this.getRosterFromAPI();
+    console.log("****");
+    console.log(this.props.params.id);
+    var id = this.props.params.id;
+    this.getCourseDataFromAPI(id);
+    this.getRosterFromAPI(id);
     this.getInstructorReviewsFromAPI();
   },
 
@@ -80,11 +83,10 @@ var SingleCourseDisplay = React.createClass({
 var CourseDateTimePlaceInstructorDisplay = React.createClass({
   render: function(){
     console.log(this.props.data.date);
-    //var date = 'September 24th, 2016'; //(this.props.data.date).toLocaleDateString('en-US');
     return (
       <div className="left-course-display center">
-        <p className="bold">September 24th, 2016</p>
-        <p>6a.m. to 8a.m.</p>
+        <p className="bold">{this.props.data.date}</p>
+        <p>{this.props.data.start_time} to {this.props.data.end_time}</p>
         <p className="bold">{this.props.data.address}</p>
         <p>{this.props.data.city}, {this.props.data.state}</p>
         <div className="btn-div">${this.props.data.price}</div>

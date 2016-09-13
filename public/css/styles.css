@@ -179,6 +179,7 @@ input:focus, textarea:focus {
 	color: black;
 	font-size: 2em;
 	margin: 50px 0;
+	text-align: center;
 }
 #course-block {
 	margin-bottom: 50px;
@@ -197,6 +198,13 @@ input:focus, textarea:focus {
 }
 .single-course:hover {
 	border: 5px solid white;
+	/*filter: blur(20px) grayscale(20%);*/
+	-webkit-filter: grayscale(60%);
+	-moz-filter: grayscale(60%);
+	-o-filter: grayscale(60%);
+	-ms-filter: grayscale(60%);
+	filter: grayscale(60%);
+
 }
 #course-block a, #course-block-top a {
 	color: white;
@@ -350,9 +358,6 @@ hr {
   overflow: hidden;
   border-width: 0;
 }
-
-
-
 
 /*footer*/
 footer {

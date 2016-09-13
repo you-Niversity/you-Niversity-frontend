@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 //below is an example of ES6 destructuring
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 
 //import layouts here
 
@@ -11,6 +11,7 @@ import LandingPage from './components/landing-page';
 import LoginDisplay from './components/login-form';
 import CourseDisplay from './components/course-display';
 import SingleCourseDisplay from './components/single-course-display';
+import PrimaryTemplate from './components/primary-template';
 import SecondaryTemplate from './components/secondary-template';
 import SignUpDisplay from './components/signup-form.js';
 import AddCourseDisplay from './components/add-course-display.js';
@@ -18,7 +19,7 @@ import AddCourseDisplay from './components/add-course-display.js';
 var AppRouter = React.createClass({
   render: function () {
     return (
-      <Router history={hashHistory}>
+      <Router history={browserHistory}>
         <Route path="/" component={LandingPage} />
         <Route path="/login" component={SecondaryTemplate}>
           <IndexRoute component={LoginDisplay} />
@@ -29,12 +30,12 @@ var AppRouter = React.createClass({
           </Route>
         </Route>
         <Route path="/courses/:id">
-          <Route component={SecondaryTemplate}>
+          <Route component={PrimaryTemplate}>
             <IndexRoute component={SingleCourseDisplay} />
           </Route>
         </Route>
-        <Route path="/newcourse">
-          <Route component={SecondaryTemplate}>
+        <Route path="/addcourse">
+          <Route component={PrimaryTemplate}>
             <IndexRoute component={AddCourseDisplay} />
           </Route>
         </Route>

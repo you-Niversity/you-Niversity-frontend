@@ -1,6 +1,8 @@
 'use strict';
 import React from 'react';
+import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import CourseDisplay from './course-display.js';
+import Navbar from './navbar.js';
 
 var LandingPage = React.createClass({
 
@@ -19,31 +21,6 @@ var LandingPage = React.createClass({
         </div>
         <CourseDisplay />
       </div>
-    );
-  }
-});
-
-
-var Navbar = React.createClass({
-
-  render: function(){
-    return (
-      <nav className="row">
-        <nav className="navbar">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <a className="navbar-brand" href="#"><img src="../../images/owl.png" /></a>
-              <a id="you-niversity" className="navbar-brand" href="#">
-                <h1> <span className="you">yoU</span>niversity</h1>
-              </a>
-            </div>
-            <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">login</a></li>
-              <li><a href="#">signup</a></li>
-            </ul>
-          </div>
-        </nav>
-      </nav>
     );
   }
 });

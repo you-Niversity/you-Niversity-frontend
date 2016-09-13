@@ -1,21 +1,23 @@
 'use strict';
 import React from 'react';
+import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import request from 'superagent';
 
 var LoginDisplay = React.createClass({
 
   handleLoginSubmit: function(user){
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      type: 'POST',
-      data: user,
-      success: function(data){
-        console.log('Successfully logged in');
-      }.bind(this),
-      error: function(xhr, status, err){
-        console.log(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+    console.log(user);
+    request
+      .post("http://localhost:8080/auth/login")
+      .send(user)
+      .end(function(err, res){
+        if (err || !res.ok) {
+          console.log("there was an error in logging in this user");
+        } else {
+          console.log("successfully logged in user");
+          location.href = '/';
+        }
+      });
   },
 
   render: function(){
@@ -28,7 +30,7 @@ var LoginDisplay = React.createClass({
               onLoginSubmit={this.handleLoginSubmit}
             />
             <input type="submit" value="Login with Google" className="google-login form-submit-button"/>
-            <p>Not signed up yet? Create an account!</p>
+            <p>Not signed up yet? <Link to="/signup"> Create an account!</Link></p>
           </div>
         </div>
       </div>
@@ -47,22 +49,23 @@ var UserLoginForm = React.createClass({
   handlePasswordChange: function(event){
     this.setState({password: event.target.value})
   },
+
   handleSubmit: function(event){
     event.preventDefault();
     var email = this.state.email.trim();
-    var password = this.state.email.trim();
-  if(!email || !password){
-    console.log('some fields are missing');
-    return;
-  }
-  this.props.onLoginSubmit({
-    email: email,
-    password: password
-  }),
-  this.setState({
+    var password = this.state.password.trim();
+    if(!email || !password){
+      console.log('some fields are missing');
+      return;
+    }
+    this.props.onLoginSubmit({
+      email: email,
+      password: password
+    });
+    this.setState({
       email: '',
       password: ''
-    })
+    });
   },
   render: function(){
     return (

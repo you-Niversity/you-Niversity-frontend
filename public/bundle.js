@@ -21986,6 +21986,10 @@
 	
 	var _singleCourseDisplay2 = _interopRequireDefault(_singleCourseDisplay);
 	
+	var _primaryTemplate = __webpack_require__(/*! ./components/primary-template */ 267);
+	
+	var _primaryTemplate2 = _interopRequireDefault(_primaryTemplate);
+	
 	var _secondaryTemplate = __webpack_require__(/*! ./components/secondary-template */ 263);
 	
 	var _secondaryTemplate2 = _interopRequireDefault(_secondaryTemplate);
@@ -22000,14 +22004,17 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//below is an example of ES6 destructuring
+	//import layouts here
+	
+	
+	//import components here
 	var AppRouter = _react2.default.createClass({
 	  displayName: 'AppRouter',
 	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      _reactRouter.Router,
-	      { history: _reactRouter.hashHistory },
+	      { history: _reactRouter.browserHistory },
 	      _react2.default.createElement(_reactRouter.Route, { path: '/', component: _landingPage2.default }),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
@@ -22028,27 +22035,23 @@
 	        { path: '/courses/:id' },
 	        _react2.default.createElement(
 	          _reactRouter.Route,
-	          { component: _secondaryTemplate2.default },
+	          { component: _primaryTemplate2.default },
 	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _singleCourseDisplay2.default })
 	        )
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
-	        { path: '/newcourse' },
+	        { path: '/addcourse' },
 	        _react2.default.createElement(
 	          _reactRouter.Route,
-	          { component: _secondaryTemplate2.default },
+	          { component: _primaryTemplate2.default },
 	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _addCourseDisplay2.default })
 	        )
 	      )
 	    );
 	  }
 	});
-	
-	//import layouts here
-	
-	
-	//import components here
+	//below is an example of ES6 destructuring
 	exports.default = AppRouter;
 
 /***/ },
@@ -27908,9 +27911,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 173);
+	
 	var _courseDisplay = __webpack_require__(/*! ./course-display.js */ 237);
 	
 	var _courseDisplay2 = _interopRequireDefault(_courseDisplay);
+	
+	var _navbar = __webpack_require__(/*! ./navbar.js */ 266);
+	
+	var _navbar2 = _interopRequireDefault(_navbar);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -27932,79 +27941,13 @@
 	          _react2.default.createElement(
 	            'div',
 	            { id: 'center-content', className: 'col-sm-8' },
-	            _react2.default.createElement(Navbar, null),
+	            _react2.default.createElement(_navbar2.default, null),
 	            _react2.default.createElement(WelcomeText, null),
 	            _react2.default.createElement(SearchBar, null)
 	          )
 	        )
 	      ),
 	      _react2.default.createElement(_courseDisplay2.default, null)
-	    );
-	  }
-	});
-	
-	var Navbar = _react2.default.createClass({
-	  displayName: 'Navbar',
-	
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'nav',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        'nav',
-	        { className: 'navbar' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'container-fluid' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'navbar-header' },
-	            _react2.default.createElement(
-	              'a',
-	              { className: 'navbar-brand', href: '#' },
-	              _react2.default.createElement('img', { src: '../../images/owl.png' })
-	            ),
-	            _react2.default.createElement(
-	              'a',
-	              { id: 'you-niversity', className: 'navbar-brand', href: '#' },
-	              _react2.default.createElement(
-	                'h1',
-	                null,
-	                ' ',
-	                _react2.default.createElement(
-	                  'span',
-	                  { className: 'you' },
-	                  'yoU'
-	                ),
-	                'niversity'
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'nav navbar-nav navbar-right' },
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                'a',
-	                { href: '#' },
-	                'login'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                'a',
-	                { href: '#' },
-	                'signup'
-	              )
-	            )
-	          )
-	        )
-	      )
 	    );
 	  }
 	});
@@ -28100,6 +28043,8 @@
 	
 	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 173);
+	
 	var _superagent = __webpack_require__(/*! superagent */ 240);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
@@ -28162,14 +28107,9 @@
 	      if (err) {
 	        console.log('There was an error grabbing the classes from the API.');
 	      } else {
-	        console.log(res.body);
 	        this.setState({ data: res.body });
 	      }
 	    }.bind(this));
-	  },
-	
-	  handleCourseSubmit: function handleCourseSubmit(course) {
-	    console.log("post request goes here");
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -28194,7 +28134,6 @@
 	  render: function render() {
 	
 	    var courseNodes = this.props.data.map(function (course) {
-	      console.log(course);
 	      if (this.props.filterText !== '' && course.title.indexOf(this.props.filterText) === -1) {
 	        console.log('if');
 	        return;
@@ -28202,9 +28141,9 @@
 	      return _react2.default.createElement(Course, {
 	        title: course.title,
 	        image_url: course.image_url,
-	        description: course.description,
-	        prerequisites: course.prerequisites,
-	        key: course.id });
+	        date: course.date,
+	        key: course.id,
+	        id: course.id });
 	    }.bind(this));
 	
 	    return _react2.default.createElement(
@@ -28241,9 +28180,10 @@
 	    var courseStyle = {
 	      backgroundImage: 'url(' + this.props.image_url + ')'
 	    };
+	
 	    return _react2.default.createElement(
-	      'a',
-	      { href: '' },
+	      _reactRouter.Link,
+	      { to: '/courses/' + this.props.id },
 	      _react2.default.createElement(
 	        'div',
 	        { style: courseStyle, className: 'single-course' },
@@ -28253,7 +28193,7 @@
 	          _react2.default.createElement(
 	            'p',
 	            null,
-	            'September 23 | 8:30 a.m.'
+	            this.props.date
 	          ),
 	          _react2.default.createElement('hr', null),
 	          _react2.default.createElement(
@@ -28263,127 +28203,6 @@
 	          )
 	        )
 	      )
-	    );
-	  }
-	});
-	
-	var AddCourseForm = _react2.default.createClass({
-	  displayName: 'AddCourseForm',
-	
-	  getInitialState: function getInitialState() {
-	    return { title: '', description: '', prerequisites: '', price: '', seats: '', image_url: '' };
-	  },
-	  handleTitleChange: function handleTitleChange(event) {
-	    this.setState({ title: event.target.value });
-	  },
-	  handleDescriptionChange: function handleDescriptionChange(event) {
-	    this.setState({ description: event.target.value });
-	  },
-	  handlePrereqChange: function handlePrereqChange(event) {
-	    this.setState({ prerequisites: event.target.value });
-	  },
-	  handlePriceChange: function handlePriceChange(event) {
-	    this.setState({ price: event.target.value });
-	  },
-	  handleSeatsChange: function handleSeatsChange(event) {
-	    this.setState({ seats: event.target.value });
-	  },
-	  handleImageUrlChange: function handleImageUrlChange(event) {
-	    this.setState({ image_url: event.target.value });
-	  },
-	  handleSubmit: function handleSubmit(event) {
-	    event.preventDefault();
-	    var title = this.state.title.trim();
-	    var description = this.state.description.trim();
-	    var prerequisites = this.state.prerequisites.trim();
-	    var price = this.state.price.trim();
-	    var seats = this.state.seats.trim();
-	    var image_url = this.state.image_url.trim();
-	    if (!title || !description || !prerequisites || !price || !seats) {
-	      return;
-	    }
-	    this.props.onCourseSubmit({ title: title, description: description, prerequisites: prerequisites, price: price, total_seats: seats, image_url: image_url });
-	    console.log('now clear the form');
-	    this.setState({ title: '', description: '', prerequisites: '', price: '', seats: '', image_url: '' });
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'form',
-	      { className: 'addCourseForm', onSubmit: this.handleSubmit },
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'course title',
-	        value: this.state.title,
-	        onChange: this.handleTitleChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'course description',
-	        value: this.state.description,
-	        onChange: this.handleDescriptionChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'course prerequsites',
-	        value: this.state.prerequisites,
-	        onChange: this.handlePrereqChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'number',
-	        placeholder: 'price per seat',
-	        value: this.state.price,
-	        onChange: this.handlePriceChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'number of seats',
-	        value: this.state.seats,
-	        onChange: this.handleSeatsChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        id: 'image_url',
-	        placeholder: 'image_url',
-	        value: this.state.image_url,
-	        onChange: this.handleImageUrlChange
-	      }),
-	      '/*',
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'course duration',
-	        value: this.state.duration,
-	        onChange: this.handleDurationChange
-	      }),
-	      '*/ /*',
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'course address',
-	        value: this.state.address,
-	        onChange: this.handleAddressChange
-	      }),
-	      '*/ /*',
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'course city',
-	        value: this.state.city,
-	        onChange: this.handleCityChange
-	      }),
-	      '*/ /*',
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'course state',
-	        value: this.state.state,
-	        onChange: this.handleStateChange
-	      }),
-	      '*/ /*',
-	      _react2.default.createElement('input', {
-	        type: 'number',
-	        placeholder: 'course zipcode',
-	        value: this.state.zipcode,
-	        onChange: this.handleZipcodeChange
-	      }),
-	      '*/',
-	      _react2.default.createElement('input', { type: 'submit', value: 'Post' })
 	    );
 	  }
 	});
@@ -36300,6 +36119,12 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 173);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 240);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var LoginDisplay = _react2.default.createClass({
@@ -36307,17 +36132,14 @@
 	
 	
 	  handleLoginSubmit: function handleLoginSubmit(user) {
-	    $.ajax({
-	      url: this.props.url,
-	      dataType: 'json',
-	      type: 'POST',
-	      data: user,
-	      success: function (data) {
-	        console.log('Successfully logged in');
-	      }.bind(this),
-	      error: function (xhr, status, err) {
-	        console.log(this.props.url, status, err.toString());
-	      }.bind(this)
+	    console.log(user);
+	    _superagent2.default.post("http://localhost:8080/auth/login").send(user).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error in logging in this user");
+	      } else {
+	        console.log("successfully logged in user");
+	        location.href = '/';
+	      }
 	    });
 	  },
 	
@@ -36339,7 +36161,12 @@
 	          _react2.default.createElement(
 	            'p',
 	            null,
-	            'Not signed up yet? Create an account!'
+	            'Not signed up yet? ',
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/signup' },
+	              ' Create an account!'
+	            )
 	          )
 	        )
 	      )
@@ -36360,10 +36187,11 @@
 	  handlePasswordChange: function handlePasswordChange(event) {
 	    this.setState({ password: event.target.value });
 	  },
+	
 	  handleSubmit: function handleSubmit(event) {
 	    event.preventDefault();
 	    var email = this.state.email.trim();
-	    var password = this.state.email.trim();
+	    var password = this.state.password.trim();
 	    if (!email || !password) {
 	      console.log('some fields are missing');
 	      return;
@@ -36371,7 +36199,8 @@
 	    this.props.onLoginSubmit({
 	      email: email,
 	      password: password
-	    }), this.setState({
+	    });
+	    this.setState({
 	      email: '',
 	      password: ''
 	    });
@@ -36438,8 +36267,8 @@
 	    };
 	  },
 	
-	  getCourseDataFromAPI: function getCourseDataFromAPI() {
-	    _superagent2.default.get("http://localhost:8080/classes/4").end(function (err, res) {
+	  getCourseDataFromAPI: function getCourseDataFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing this course from the API");
 	      } else {
@@ -36448,8 +36277,8 @@
 	    }.bind(this));
 	  },
 	
-	  getRosterFromAPI: function getRosterFromAPI() {
-	    _superagent2.default.get("http://localhost:8080/rosters/4").end(function (err, res) {
+	  getRosterFromAPI: function getRosterFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/rosters/" + id).end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing this roster from the API");
 	      } else {
@@ -36464,8 +36293,11 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    this.getCourseDataFromAPI();
-	    this.getRosterFromAPI();
+	    console.log("****");
+	    console.log(this.props.params.id);
+	    var id = this.props.params.id;
+	    this.getCourseDataFromAPI(id);
+	    this.getRosterFromAPI(id);
 	    this.getInstructorReviewsFromAPI();
 	  },
 	
@@ -36510,19 +36342,20 @@
 	
 	  render: function render() {
 	    console.log(this.props.data.date);
-	    //var date = 'September 24th, 2016'; //(this.props.data.date).toLocaleDateString('en-US');
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'left-course-display center' },
 	      _react2.default.createElement(
 	        'p',
 	        { className: 'bold' },
-	        'September 24th, 2016'
+	        this.props.data.date
 	      ),
 	      _react2.default.createElement(
 	        'p',
 	        null,
-	        '6a.m. to 8a.m.'
+	        this.props.data.start_time,
+	        ' to ',
+	        this.props.data.end_time
 	      ),
 	      _react2.default.createElement(
 	        'p',
@@ -36741,7 +36574,6 @@
 	
 	
 	  render: function render() {
-	    console.log('children!');
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'container-fluid' },
@@ -36774,7 +36606,7 @@
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -36784,43 +36616,45 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 173);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var NavbarSecondary = _react2.default.createClass({
-	  displayName: "NavbarSecondary",
+	  displayName: 'NavbarSecondary',
 	
 	
 	  render: function render() {
 	    return _react2.default.createElement(
-	      "nav",
-	      { className: "row" },
+	      'nav',
+	      { className: 'row' },
 	      _react2.default.createElement(
-	        "nav",
-	        { className: "navbar" },
+	        'nav',
+	        { className: 'navbar' },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "container-fluid" },
+	          'div',
+	          { className: 'container-fluid' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "navbar-header", id: "secondary-header" },
+	            'div',
+	            { className: 'navbar-header', id: 'secondary-header' },
 	            _react2.default.createElement(
-	              "a",
-	              { className: "navbar-brand", href: "#" },
-	              _react2.default.createElement("img", { src: "../../images/owl.png" })
+	              _reactRouter.Link,
+	              { className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement('img', { src: '../../images/owl.png' })
 	            ),
 	            _react2.default.createElement(
-	              "a",
-	              { id: "you-niversity", className: "navbar-brand", href: "#" },
+	              _reactRouter.Link,
+	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
 	              _react2.default.createElement(
-	                "h1",
+	                'h1',
 	                null,
-	                " ",
+	                ' ',
 	                _react2.default.createElement(
-	                  "span",
-	                  { className: "you" },
-	                  "yoU"
+	                  'span',
+	                  { className: 'you' },
+	                  'yoU'
 	                ),
-	                "niversity"
+	                'niversity'
 	              )
 	            )
 	          )
@@ -36849,23 +36683,27 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 173);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 240);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var SignupDisplay = _react2.default.createClass({
 	  displayName: 'SignupDisplay',
 	
+	
 	  handleUserSubmit: function handleUserSubmit(user) {
-	    $.ajax({
-	      url: 'http://localhost:3000/auth/signup',
-	      dataType: 'json',
-	      type: 'POST',
-	      data: user,
-	      success: function (data) {
-	        console.log('Successfully added user');
-	      }.bind(this),
-	      error: function (xhr, status, err) {
-	        console.log('http://localhost:3000/auth/signup', status, err.toString());
-	      }.bind(this)
+	    console.log(user);
+	    _superagent2.default.post("http://localhost:8080/auth/signup").send(user).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error in creating this user");
+	      } else {
+	        console.log("successfully created user");
+	        location.href = '/';
+	      }
 	    });
 	  },
 	
@@ -36873,10 +36711,10 @@
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
-	      _react2.default.createElement('div', { className: 'col-sm-4' }),
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-4 form-display' },
+	        { className: 'col-sm-10 form-display' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'signup-display' },
@@ -36889,8 +36727,8 @@
 	            null,
 	            'Already signed up? Login ',
 	            _react2.default.createElement(
-	              'a',
-	              { href: '' },
+	              _reactRouter.Link,
+	              { to: '/login' },
 	              'here'
 	            ),
 	            '.'
@@ -36959,54 +36797,218 @@
 	    return _react2.default.createElement(
 	      'form',
 	      { className: 'addUserForm', onSubmit: this.handleSubmit },
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'first name',
-	        value: this.state.first_name,
-	        onChange: this.handleFirstNameChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'last name',
-	        value: this.state.last_name,
-	        onChange: this.handleLastNameChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'email',
-	        value: this.state.email,
-	        onChange: this.handleEmailChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'profile picture url',
-	        value: this.state.profile_pic,
-	        onChange: this.handleProfilePicChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'city',
-	        value: this.state.city,
-	        onChange: this.handleCityChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'state',
-	        value: this.state.state,
-	        onChange: this.handleStateChange
-	      }),
-	      _react2.default.createElement('input', {
-	        type: 'text',
-	        placeholder: 'password',
-	        value: this.state.password,
-	        onChange: this.handlePasswordChange
-	      }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'first name',
+	          value: this.state.first_name,
+	          onChange: this.handleFirstNameChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'last name',
+	          value: this.state.last_name,
+	          onChange: this.handleLastNameChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'email',
+	          value: this.state.email,
+	          onChange: this.handleEmailChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'profile picture url',
+	          value: this.state.profile_pic,
+	          onChange: this.handleProfilePicChange
+	        })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'city',
+	          value: this.state.city,
+	          onChange: this.handleCityChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'state',
+	          value: this.state.state,
+	          onChange: this.handleStateChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'password',
+	          value: this.state.password,
+	          onChange: this.handlePasswordChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'confirm password'
+	        })
+	      ),
 	      _react2.default.createElement('input', { type: 'submit', value: 'Sign Up' })
 	    );
 	  }
 	});
 	
 	exports.default = SignupDisplay;
+
+/***/ },
+/* 266 */
+/*!**********************************!*\
+  !*** ./app/components/navbar.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 173);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Navbar = _react2.default.createClass({
+	  displayName: 'Navbar',
+	
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'nav',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'nav',
+	        { className: 'navbar' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container-fluid' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-header' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement('img', { src: '../../images/owl.png' })
+	            ),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                ' ',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'you' },
+	                  'yoU'
+	                ),
+	                'niversity'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'nav navbar-nav navbar-right' },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/addcourse' },
+	                '+ add course'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/login' },
+	                'login'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/signup' },
+	                'signup'
+	              )
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Navbar;
+
+/***/ },
+/* 267 */
+/*!********************************************!*\
+  !*** ./app/components/primary-template.js ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _navbar = __webpack_require__(/*! ./navbar.js */ 266);
+	
+	var _navbar2 = _interopRequireDefault(_navbar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SecondaryTemplate = _react2.default.createClass({
+	  displayName: 'SecondaryTemplate',
+	
+	
+	  render: function render() {
+	    console.log('children!');
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'container-fluid' },
+	      _react2.default.createElement(
+	        'div',
+	        { id: 'secondary-div' },
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'secondary-div-row', className: 'row' },
+	          _react2.default.createElement('div', { className: 'col-sm-2' }),
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'center-content', className: 'col-sm-8' },
+	            _react2.default.createElement(_navbar2.default, null),
+	            this.props.children
+	          )
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	exports.default = SecondaryTemplate;
 
 /***/ }
 /******/ ]);
