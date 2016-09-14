@@ -21974,7 +21974,7 @@
 	
 	var _landingPage2 = _interopRequireDefault(_landingPage);
 	
-	var _loginForm = __webpack_require__(/*! ./components/login-form */ 261);
+	var _loginForm = __webpack_require__(/*! ./components/login-form */ 262);
 	
 	var _loginForm2 = _interopRequireDefault(_loginForm);
 	
@@ -21982,19 +21982,19 @@
 	
 	var _courseDisplay2 = _interopRequireDefault(_courseDisplay);
 	
-	var _singleCourseDisplay = __webpack_require__(/*! ./components/single-course-display */ 262);
+	var _singleCourseDisplay = __webpack_require__(/*! ./components/single-course-display */ 263);
 	
 	var _singleCourseDisplay2 = _interopRequireDefault(_singleCourseDisplay);
 	
-	var _primaryTemplate = __webpack_require__(/*! ./components/primary-template */ 267);
+	var _primaryTemplate = __webpack_require__(/*! ./components/primary-template */ 264);
 	
 	var _primaryTemplate2 = _interopRequireDefault(_primaryTemplate);
 	
-	var _secondaryTemplate = __webpack_require__(/*! ./components/secondary-template */ 263);
+	var _secondaryTemplate = __webpack_require__(/*! ./components/secondary-template */ 265);
 	
 	var _secondaryTemplate2 = _interopRequireDefault(_secondaryTemplate);
 	
-	var _signupForm = __webpack_require__(/*! ./components/signup-form.js */ 265);
+	var _signupForm = __webpack_require__(/*! ./components/signup-form.js */ 267);
 	
 	var _signupForm2 = _interopRequireDefault(_signupForm);
 	
@@ -27917,7 +27917,7 @@
 	
 	var _courseDisplay2 = _interopRequireDefault(_courseDisplay);
 	
-	var _navbar = __webpack_require__(/*! ./navbar.js */ 266);
+	var _navbar = __webpack_require__(/*! ./navbar.js */ 261);
 	
 	var _navbar2 = _interopRequireDefault(_navbar);
 	
@@ -36104,6 +36104,104 @@
 
 /***/ },
 /* 261 */
+/*!**********************************!*\
+  !*** ./app/components/navbar.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 173);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Navbar = _react2.default.createClass({
+	  displayName: 'Navbar',
+	
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'nav',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'nav',
+	        { className: 'navbar' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container-fluid' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-header' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement('img', { src: '../../images/owl.png' })
+	            ),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                ' ',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'you' },
+	                  'yoU'
+	                ),
+	                'niversity'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'nav navbar-nav navbar-right' },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/addcourse' },
+	                '+ add course'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/login' },
+	                'login'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/signup' },
+	                'signup'
+	              )
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Navbar;
+
+/***/ },
+/* 262 */
 /*!**************************************!*\
   !*** ./app/components/login-form.js ***!
   \**************************************/
@@ -36229,7 +36327,7 @@
 	exports.default = LoginDisplay;
 
 /***/ },
-/* 262 */
+/* 263 */
 /*!*************************************************!*\
   !*** ./app/components/single-course-display.js ***!
   \*************************************************/
@@ -36547,7 +36645,61 @@
 	exports.default = SingleCourseDisplay;
 
 /***/ },
-/* 263 */
+/* 264 */
+/*!********************************************!*\
+  !*** ./app/components/primary-template.js ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _navbar = __webpack_require__(/*! ./navbar.js */ 261);
+	
+	var _navbar2 = _interopRequireDefault(_navbar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SecondaryTemplate = _react2.default.createClass({
+	  displayName: 'SecondaryTemplate',
+	
+	
+	  render: function render() {
+	    console.log('children!');
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'container-fluid' },
+	      _react2.default.createElement(
+	        'div',
+	        { id: 'secondary-div' },
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'secondary-div-row', className: 'row' },
+	          _react2.default.createElement('div', { className: 'col-sm-2' }),
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'center-content', className: 'col-sm-8' },
+	            _react2.default.createElement(_navbar2.default, null),
+	            this.props.children
+	          )
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	exports.default = SecondaryTemplate;
+
+/***/ },
+/* 265 */
 /*!**********************************************!*\
   !*** ./app/components/secondary-template.js ***!
   \**********************************************/
@@ -36563,7 +36715,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _navbarSecondary = __webpack_require__(/*! ./navbar-secondary.js */ 264);
+	var _navbarSecondary = __webpack_require__(/*! ./navbar-secondary.js */ 266);
 	
 	var _navbarSecondary2 = _interopRequireDefault(_navbarSecondary);
 	
@@ -36600,7 +36752,7 @@
 	exports.default = SecondaryTemplate;
 
 /***/ },
-/* 264 */
+/* 266 */
 /*!********************************************!*\
   !*** ./app/components/navbar-secondary.js ***!
   \********************************************/
@@ -36667,7 +36819,7 @@
 	exports.default = NavbarSecondary;
 
 /***/ },
-/* 265 */
+/* 267 */
 /*!***************************************!*\
   !*** ./app/components/signup-form.js ***!
   \***************************************/
@@ -36742,8 +36894,9 @@
 	var AddUserForm = _react2.default.createClass({
 	  displayName: 'AddUserForm',
 	
+	
 	  getInitialState: function getInitialState() {
-	    return { first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '' };
+	    return { first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false };
 	  },
 	  handleFirstNameChange: function handleFirstNameChange(event) {
 	    this.setState({ first_name: event.target.value });
@@ -36769,8 +36922,32 @@
 	  handleConfirmPasswordChange: function handleConfirmPasswordChange(event) {
 	    this.setState({ confirm_password: event.target.value });
 	  },
-	  handleSubmit: function handleSubmit(event) {
+	  validateUserInput: function validateUserInput(event) {
 	    event.preventDefault();
+	
+	    if (!this.state.first_name || !this.state.last_name || !this.state.email || !this.state.profile_pic || !this.state.city || !this.state.state || !this.state.password || !this.state.confirm_password) {
+	      console.log('All fields required.');
+	      this.setState({ allFieldsRequiredError: true });
+	      console.log(this.state.allFieldsRequiredError);
+	    } else {
+	      this.setState({ allFieldsRequiredError: false });
+	    }
+	    console.log("*******");
+	
+	    if (this.state.password !== this.state.confirm_password) {
+	      console.log('Passwords don\'t match.');
+	      this.setState({ passwordMatchingError: true });
+	      console.log(this.state.passwordMatchingError);
+	    } else {
+	      this.setState({ passwordMatchingError: false });
+	    }
+	    console.log("*******");
+	    this.handleSubmit();
+	  },
+	
+	  handleSubmit: function handleSubmit() {
+	    console.log("*******");
+	
 	    var first_name = this.state.first_name.trim();
 	    var last_name = this.state.last_name.trim();
 	    var email = this.state.email.trim();
@@ -36778,25 +36955,51 @@
 	    var city = this.state.city.trim();
 	    var state = this.state.state.trim();
 	    var password = this.state.password.trim();
-	    if (!first_name || !last_name || !email || !password) {
-	      console.log('some fields are missing');
+	    var confirm_password = this.state.confirm_password.trim();
+	    console.log(this.state.allFieldsRequiredError);
+	
+	    if (this.state.allFieldsRequiredError === true || this.state.passwordMatchingError === true) {
+	      console.log("An error needs to be addressed");
 	      return;
+	    } else {
+	      console.log("*******");
+	      this.props.onUserSubmit({
+	        first_name: first_name,
+	        last_name: last_name,
+	        email: email,
+	        profile_pic: profile_pic,
+	        city: city,
+	        state: state,
+	        password: password
+	      });
+	
+	      this.setState({ first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false });
+	      console.log("*******");
 	    }
-	    this.props.onUserSubmit({
-	      first_name: first_name,
-	      last_name: last_name,
-	      email: email,
-	      profile_pic: profile_pic,
-	      city: city,
-	      state: state,
-	      password: password
-	    });
-	    this.setState({ first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '' });
 	  },
 	  render: function render() {
+	
+	    var errorMessageStyle = {
+	      color: 'red',
+	      fontWeight: 'bold'
+	    };
+	
+	    var passwordErrorMessage = this.state.passwordMatchingError ? _react2.default.createElement(
+	      'p',
+	      { style: errorMessageStyle },
+	      '*passwords do not match'
+	    ) : null;
+	    var requiredFieldsErrorMessage = this.state.allFieldsRequiredError ? _react2.default.createElement(
+	      'p',
+	      { style: errorMessageStyle },
+	      '*all fields required'
+	    ) : null;
+	
 	    return _react2.default.createElement(
 	      'form',
-	      { className: 'addUserForm', onSubmit: this.handleSubmit },
+	      { className: 'addUserForm', onSubmit: this.validateUserInput },
+	      passwordErrorMessage,
+	      requiredFieldsErrorMessage,
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-6' },
@@ -36848,7 +37051,9 @@
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
-	          placeholder: 'confirm password'
+	          placeholder: 'confirm password',
+	          value: this.state.confirm_password,
+	          onChange: this.handleConfirmPasswordChange
 	        })
 	      ),
 	      _react2.default.createElement('input', { type: 'submit', value: 'Sign Up' })
@@ -36857,158 +37062,6 @@
 	});
 	
 	exports.default = SignupDisplay;
-
-/***/ },
-/* 266 */
-/*!**********************************!*\
-  !*** ./app/components/navbar.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 173);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Navbar = _react2.default.createClass({
-	  displayName: 'Navbar',
-	
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'nav',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        'nav',
-	        { className: 'navbar' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'container-fluid' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'navbar-header' },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { className: 'navbar-brand', to: '/' },
-	              _react2.default.createElement('img', { src: '../../images/owl.png' })
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
-	              _react2.default.createElement(
-	                'h1',
-	                null,
-	                ' ',
-	                _react2.default.createElement(
-	                  'span',
-	                  { className: 'you' },
-	                  'yoU'
-	                ),
-	                'niversity'
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'nav navbar-nav navbar-right' },
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/addcourse' },
-	                '+ add course'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/login' },
-	                'login'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/signup' },
-	                'signup'
-	              )
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = Navbar;
-
-/***/ },
-/* 267 */
-/*!********************************************!*\
-  !*** ./app/components/primary-template.js ***!
-  \********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _navbar = __webpack_require__(/*! ./navbar.js */ 266);
-	
-	var _navbar2 = _interopRequireDefault(_navbar);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SecondaryTemplate = _react2.default.createClass({
-	  displayName: 'SecondaryTemplate',
-	
-	
-	  render: function render() {
-	    console.log('children!');
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'container-fluid' },
-	      _react2.default.createElement(
-	        'div',
-	        { id: 'secondary-div' },
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'secondary-div-row', className: 'row' },
-	          _react2.default.createElement('div', { className: 'col-sm-2' }),
-	          _react2.default.createElement(
-	            'div',
-	            { id: 'center-content', className: 'col-sm-8' },
-	            _react2.default.createElement(_navbar2.default, null),
-	            this.props.children
-	          )
-	        )
-	      )
-	    );
-	  }
-	
-	});
-	
-	exports.default = SecondaryTemplate;
 
 /***/ }
 /******/ ]);

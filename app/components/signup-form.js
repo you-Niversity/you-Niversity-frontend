@@ -40,8 +40,9 @@ var SignupDisplay = React.createClass({
 });
 
 var AddUserForm = React.createClass({
+
   getInitialState: function(){
-    return({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: ''})
+    return({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false})
   },
   handleFirstNameChange: function(event){
     this.setState({first_name: event.target.value})
@@ -67,8 +68,32 @@ var AddUserForm = React.createClass({
   handleConfirmPasswordChange: function(event){
     this.setState({confirm_password: event.target.value})
   },
-  handleSubmit: function(event){
+  validateUserInput: function(event){
     event.preventDefault();
+
+    if(!this.state.first_name || !this.state.last_name || !this.state.email || !this.state.profile_pic || !this.state.city || !this.state.state || !this.state.password || !this.state.confirm_password){
+      console.log('All fields required.');
+      this.setState({allFieldsRequiredError: true});
+      console.log(this.state.allFieldsRequiredError);
+    } else {
+      this.setState({allFieldsRequiredError: false});
+    }
+    console.log("*******");
+
+    if (this.state.password !== this.state.confirm_password) {
+      console.log('Passwords don\'t match.');
+      this.setState({passwordMatchingError: true})
+      console.log(this.state.passwordMatchingError);
+    } else {
+      this.setState({passwordMatchingError: false});
+    }
+    console.log("*******");
+    this.handleSubmit();
+  },
+
+  handleSubmit: function(){
+    console.log("*******");
+
     var first_name = this.state.first_name.trim();
     var last_name = this.state.last_name.trim();
     var email = this.state.email.trim();
@@ -76,24 +101,46 @@ var AddUserForm = React.createClass({
     var city = this.state.city.trim();
     var state = this.state.state.trim();
     var password = this.state.password.trim();
-    if(!first_name || !last_name || !email || !password){
-      console.log('some fields are missing');
+    var confirm_password = this.state.confirm_password.trim();
+    console.log(this.state.allFieldsRequiredError);
+
+    if (this.state.allFieldsRequiredError === true || this.state.passwordMatchingError === true) {
+      console.log("An error needs to be addressed");
       return;
+
+    } else {
+      console.log("*******");
+      this.props.onUserSubmit({
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        profile_pic: profile_pic,
+        city: city,
+        state: state,
+        password: password
+      });
+
+      this.setState({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false});
+      console.log("*******");
+
     }
-    this.props.onUserSubmit({
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      profile_pic: profile_pic,
-      city: city,
-      state: state,
-      password: password
-    });
-    this.setState({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: ''});
   },
   render: function() {
+
+    var errorMessageStyle = {
+      color: 'red',
+      fontWeight: 'bold',
+    }
+
+    var passwordErrorMessage = (this.state.passwordMatchingError) ? <p style={errorMessageStyle}>*passwords do not match</p> : null;
+    var requiredFieldsErrorMessage = (this.state.allFieldsRequiredError) ? <p style={errorMessageStyle}>*all fields required</p> : null;
+
     return (
-      <form className="addUserForm" onSubmit={this.handleSubmit}>
+      <form className="addUserForm" onSubmit={this.validateUserInput}>
+
+      {passwordErrorMessage}
+      {requiredFieldsErrorMessage}
+
       <div className="col-sm-6">
         <input
           type="text"
@@ -142,12 +189,11 @@ var AddUserForm = React.createClass({
         <input
           type="text"
           placeholder="confirm password"
+          value={this.state.confirm_password}
+          onChange={this.handleConfirmPasswordChange}
         />
       </div>
-
-
-
-        <input type="submit" value="Sign Up"/>
+      <input type="submit" value="Sign Up"/>
       </form>
     )
   }

@@ -47,5 +47,4 @@ var UserDashboard = React.createClass({
   }
 });
 
-
 export default LoginDisplay;
