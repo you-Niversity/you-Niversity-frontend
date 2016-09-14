@@ -331,9 +331,10 @@ hr {
 }
 
 #roster-div {
-	margin: 20px 0;
+	margin: 20px -15px;
 	border: 2px solid orange;
 }
+
 #roster-div h2 {
 	font-weight: 700;
 	font-size: 1.5em;
@@ -341,8 +342,14 @@ hr {
 #roster-div p {
 	font-size: 1.3em;
 	margin-bottom: 10px;
+	min-height: 60px;
 }
-
+.roster-list {
+	margin-top: 20px;
+}
+.dashboard-display {
+	margin: 120px 0 20px 0;
+}
 /*create course display*/
 .create-course h2 {
 	color: white;

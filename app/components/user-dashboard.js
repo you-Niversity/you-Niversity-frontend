@@ -1,7 +1,8 @@
 'use strict';
 import React from 'react';
 import request from 'superagent';
-
+import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import CourseList from './courses/course-list.js';
 
 var UserDashboard = React.createClass({
 
@@ -15,36 +16,67 @@ var UserDashboard = React.createClass({
 
   getUserDataFromAPI: function(id){
     request
-      .get("http://localhost:8080/users" + id)
+      .get("http://localhost:8080/users/" + id)
       .end(function(err, res){
         if(err){
           console.log("error getting user data");
         } else {
           this.setState({userData: res.body[0]})
-          console.log(this.state);
+          console.log(this.state.userData);
         }
       }.bind(this))
   },
 
   getClassesTeachingFromAPI: function(id){
-    console.log("write the request");
+    request
+      .get("http://localhost:8080/users/" + id + "/teaching")
+      .end(function(err, res){
+        if(err){
+          console.log("error getting user data");
+        } else {
+          this.setState({classesTeaching: res.body})
+          console.log(this.state.classesTeaching);
+        }
+      }.bind(this))
   },
 
   getClassesTakingFromAPI: function(id){
-    console.log("write the request");
+    request
+      .get("http://localhost:8080/users/" + id + "/taking")
+      .end(function(err, res){
+        if(err){
+          console.log("error getting user data");
+        } else {
+          this.setState({classesTaking: res.body})
+          console.log(this.state.classesTaking);
+        }
+      }.bind(this))
   },
 
   componentDidMount: function(){
-    this.getUserDataFromAPI(4);
+    var id = this.props.params.id;
+    this.getUserDataFromAPI(id);
+    this.getClassesTeachingFromAPI(id);
+    this.getClassesTakingFromAPI(id);
   },
 
   render: function(){
     return (
       <div>
-        <p>{this.state.userData}</p>
+      <div className="CourseDisplay dashboard-display">
+        <CourseList
+          data={this.state.classesTeaching}
+          header="Classes You're Teaching"
+        />
+        <CourseList
+          data={this.state.classesTaking}
+          header="Classes You're Taking"
+        />
+      </div>
       </div>
     );
   }
 });
 
-export default LoginDisplay;
+
+export default UserDashboard;

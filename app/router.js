@@ -9,12 +9,13 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 //import components here
 import LandingPage from './components/landing-page';
 import LoginDisplay from './components/login-form';
-import CourseDisplay from './components/course-display';
-import SingleCourseDisplay from './components/single-course-display';
+import CourseDisplay from './components/courses/course-display';
+import SingleCourseDisplay from './components/courses/single-course-display';
 import PrimaryTemplate from './components/primary-template';
 import SecondaryTemplate from './components/secondary-template';
 import SignUpDisplay from './components/signup-form.js';
-import AddCourseDisplay from './components/add-course-display.js';
+import AddCourseDisplay from './components/courses/add-course-display.js';
+import UserDashboard from './components/user-dashboard.js';
 
 var AppRouter = React.createClass({
   render: function () {
@@ -37,6 +38,11 @@ var AppRouter = React.createClass({
         <Route path="/addcourse">
           <Route component={PrimaryTemplate}>
             <IndexRoute component={AddCourseDisplay} />
+          </Route>
+        </Route>
+        <Route path="/users/:id">
+          <Route component={PrimaryTemplate}>
+            <IndexRoute component={UserDashboard} />
           </Route>
         </Route>
       </Router>

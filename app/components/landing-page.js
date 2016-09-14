@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
-import CourseDisplay from './course-display.js';
+import CourseDisplay from './courses/course-display.js';
 import Navbar from './navbar.js';
 
 var LandingPage = React.createClass({

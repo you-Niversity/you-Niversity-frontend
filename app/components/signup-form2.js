@@ -13,7 +13,7 @@ var SignupDisplay = React.createClass({
       .send(user)
       .end(function(err, res){
         if (err || !res.ok) {
-          console.log("there was an error in creating this user");
+          console.log("DO VALIDATIONS HERE");
         } else {
           console.log("successfully created user");
           location.href = '/';
@@ -68,8 +68,33 @@ var AddUserForm = React.createClass({
   handleConfirmPasswordChange: function(event){
     this.setState({confirm_password: event.target.value})
   },
-  handleSubmit: function(event){
+  validateUserInput: function(event){
+
     event.preventDefault();
+
+    if(!this.state.first_name || !this.state.last_name || !this.state.email || !this.state.profile_pic || !this.state.city || !this.state.state || !this.state.password || !this.state.confirm_password){
+      console.log('All fields required.');
+      this.setState({allFieldsRequiredError: true});
+      console.log(this.state.allFieldsRequiredError);
+    } else {
+      this.setState({allFieldsRequiredError: false});
+    }
+    console.log("*******");
+
+    if (this.state.password !== this.state.confirm_password) {
+      console.log('Passwords don\'t match.');
+      this.setState({passwordMatchingError: true})
+      console.log(this.state.passwordMatchingError);
+    } else {
+      this.setState({passwordMatchingError: false});
+    }
+    console.log("*******");
+    this.handleSubmit();
+  },
+
+  handleSubmit: function(){
+    console.log("*******");
+
     var first_name = this.state.first_name.trim();
     var last_name = this.state.last_name.trim();
     var email = this.state.email.trim();
@@ -78,50 +103,29 @@ var AddUserForm = React.createClass({
     var state = this.state.state.trim();
     var password = this.state.password.trim();
     var confirm_password = this.state.confirm_password.trim();
-    var passwordMatchingError = this.state.passwordMatchingError;
-    var allFieldsRequiredError = this.state.allFieldsRequiredError;
+    console.log(this.state.allFieldsRequiredError);
 
-    var required = function(){
-      if(!first_name || !last_name || !email || !profile_pic || !city || !state || !password || !confirm_password){
-        console.log('All fields required.');
-        this.setState({allFieldsRequiredError: false});
-      } else {
-        this.setState({allFieldsRequiredError: false});
-      }
-    };
+    if (this.state.allFieldsRequiredError === true || this.state.passwordMatchingError === true) {
+      console.log("An error needs to be addressed");
+      return;
 
-    var password = function(){
-      if (password !== confirm_password) {
-        console.log('Passwords don\'t match.');
-        this.setState({passwordMatchingError: true})
-      } else {
-        this.setState({passwordMatchingError: false});
-      }
-    };
+    } else {
+      console.log("*******");
+      this.props.onUserSubmit({
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        profile_pic: profile_pic,
+        city: city,
+        state: state,
+        password: password
+      });
 
-    var submit = function(){
-      if (allFieldsRequiredError === true || passwordMatchingError === true) {
-        console.log("An error needs to be addressed");
-        return;
-      } else {
-        this.props.onUserSubmit({
-          first_name: first_name,
-          last_name: last_name,
-          email: email,
-          profile_pic: profile_pic,
-          city: city,
-          state: state,
-          password: password
-        });
-      };
+      this.setState({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false});
+      console.log("*******");
+
     }
-    Promise.all([required(), password(), submit()]).then(function() {
-        this.setState({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false});
-    }, function() {
-      console.log('something failed');
-    });
   },
-
   render: function() {
 
     var errorMessageStyle = {
@@ -133,7 +137,8 @@ var AddUserForm = React.createClass({
     var requiredFieldsErrorMessage = (this.state.allFieldsRequiredError) ? <p style={errorMessageStyle}>*all fields required</p> : null;
 
     return (
-      <form className="addUserForm" onSubmit={this.handleSubmit}>
+      <form className="addUserForm" onSubmit={this.validateUserInput}>
+
       {passwordErrorMessage}
       {requiredFieldsErrorMessage}
 

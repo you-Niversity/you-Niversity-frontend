@@ -3,7 +3,6 @@ import React from 'react';
 import nocache from 'superagent-no-cache';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
-import AddCourseDisplay from './add-course-display.js';
 
 {/*var SearchBar = React.createClass({
   handleChange: function() {
@@ -74,7 +73,6 @@ var CourseDisplay = React.createClass({
           filterText={this.state.filterText}
           onUserInput={this.handleUserInput}
         />*/}
-        {/*<AddCourseForm onCourseSubmit={this.handleCourseSubmit}/>*/}
         <CourseList
           data={this.state.data}
           filterText={this.state.filterText}

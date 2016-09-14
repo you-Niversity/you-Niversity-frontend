@@ -3,6 +3,7 @@
 import React from 'react';
 import nocache from 'superagent-no-cache';
 import request from 'superagent';
+import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 
 var SingleCourseDisplay = React.createClass({
 
@@ -21,6 +22,7 @@ var SingleCourseDisplay = React.createClass({
         if(err){
           console.log("There was an error grabbing this course from the API");
         } else {
+          console.log(res.body[0].user_id);
           this.setState({courseData: res.body[0]});
         }
       }.bind(this))
@@ -133,7 +135,7 @@ var TaughtBy = React.createClass({
     return (
         <div className="center" id="taught-by">
           <p className="bold">Your Instructor</p>
-          <p>{this.props.data.first_name} {this.props.data.last_name}</p>
+          <Link to={'/users/'+this.props.data.user_id}><p>{this.props.data.first_name} {this.props.data.last_name}</p></Link>
           <div className="instructor-profile-img" style={instructorImageStyle}></div>
         </div>
     );
@@ -165,7 +167,7 @@ var RosterList = React.createClass({
         </div>
         <div className="row">
           <div className="col-sm-2"></div>
-          <div className="col-sm-8">
+          <div className="col-sm-8 roster-list">
             <div className="row">
               {rosterNodes}
             </div>
