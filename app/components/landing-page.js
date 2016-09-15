@@ -6,6 +6,31 @@ import Navbar from './navbar.js';
 
 var LandingPage = React.createClass({
 
+  getInitialState: function() {
+    return {
+      lat: 0,
+      lng: 0
+    };
+  },
+
+  getUserLocation: function(){
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log(position);
+      this.setState({lat: position.coords.latitude, lng: position.coords.longitude});
+      console.log(this.state);
+    }.bind(this));
+  },
+
+
+
+
+
+
+
+  componentDidMount: function(){
+    this.getUserLocation();
+  },
+
   render: function(){
     return (
       <div className="container-fluid">

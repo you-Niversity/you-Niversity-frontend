@@ -18,7 +18,7 @@ var SignupDisplay = React.createClass({
           console.log("successfully created user");
           location.href = '/';
         }
-      });
+      }.bind(this));
   },
 
   render: function(){
@@ -42,7 +42,7 @@ var SignupDisplay = React.createClass({
 var AddUserForm = React.createClass({
 
   getInitialState: function(){
-    return({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false})
+    return({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: ''})
   },
   handleFirstNameChange: function(event){
     this.setState({first_name: event.target.value})
@@ -68,6 +68,7 @@ var AddUserForm = React.createClass({
   handleConfirmPasswordChange: function(event){
     this.setState({confirm_password: event.target.value})
   },
+
   handleSubmit: function(event){
     event.preventDefault();
     var first_name = this.state.first_name.trim();
@@ -78,30 +79,35 @@ var AddUserForm = React.createClass({
     var state = this.state.state.trim();
     var password = this.state.password.trim();
     var confirm_password = this.state.confirm_password.trim();
-    var passwordMatchingError = this.state.passwordMatchingError;
-    var allFieldsRequiredError = this.state.allFieldsRequiredError;
+    var passwordMatchingError = false;
+    var allFieldsRequiredError = false;
+    var passwordMinimumCharsError = false;
 
-    var required = function(){
       if(!first_name || !last_name || !email || !profile_pic || !city || !state || !password || !confirm_password){
         console.log('All fields required.');
-        this.setState({allFieldsRequiredError: false});
+        allFieldsRequiredError = true;
       } else {
-        this.setState({allFieldsRequiredError: false});
+        allFieldsRequiredError = false;
       }
-    };
 
-    var password = function(){
+      if(password.length < 8) {
+        console.log('password is too short');
+        passwordMinimumCharsError = true;
+      } else {
+        passwordMinimumCharsError = false;
+      }
+
       if (password !== confirm_password) {
         console.log('Passwords don\'t match.');
-        this.setState({passwordMatchingError: true})
+        passwordMatchingError = true;
       } else {
-        this.setState({passwordMatchingError: false});
+        passwordMatchingError = false;
       }
-    };
 
-    var submit = function(){
-      if (allFieldsRequiredError === true || passwordMatchingError === true) {
+
+      if (allFieldsRequiredError === true || passwordMatchingError === true || passwordMinimumCharsError === true) {
         console.log("An error needs to be addressed");
+        this.setState({passwordMatchingError: passwordMatchingError, allFieldsRequiredError: allFieldsRequiredError, passwordMinimumCharsError: passwordMinimumCharsError});
         return;
       } else {
         this.props.onUserSubmit({
@@ -114,11 +120,9 @@ var AddUserForm = React.createClass({
           password: password
         });
       };
-    }
-    Promise.all([required(), password(), submit()]).then(function() {
-        this.setState({first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false});
-    }, function() {
-      console.log('something failed');
+
+    this.setState({
+      first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false, passwordMinimumCharsError: false
     });
   },
 
@@ -127,9 +131,11 @@ var AddUserForm = React.createClass({
     var errorMessageStyle = {
       color: 'red',
       fontWeight: 'bold',
+      margin: '10px 0'
     }
 
     var passwordErrorMessage = (this.state.passwordMatchingError) ? <p style={errorMessageStyle}>*passwords do not match</p> : null;
+    var passwordMinimumCharsError = (this.state.passwordMinimumCharsError) ? <p style={errorMessageStyle}>*password should be at least 8 characters</p> : null;
     var requiredFieldsErrorMessage = (this.state.allFieldsRequiredError) ? <p style={errorMessageStyle}>*all fields required</p> : null;
 
     return (
@@ -178,7 +184,7 @@ var AddUserForm = React.createClass({
         />
         <input
           type="text"
-          placeholder="password"
+          placeholder="password (8 character minimum)"
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
