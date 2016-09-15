@@ -2,8 +2,11 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
+import { connect } from 'react-redux';
+import store from '../store';
+import { userLoginSuccess } from '../actions/user-actions';
 
-var LoginDisplay = React.createClass({
+ var LoginDisplay = React.createClass({
 
   handleLoginSubmit: function(user){
     console.log(user);
@@ -15,12 +18,13 @@ var LoginDisplay = React.createClass({
           console.log("there was an error in logging in this user");
         } else {
           console.log("successfully logged in user");
-          location.href = '/';
+          this.props.login(res.body);
         }
-      });
+      }.bind(this));
   },
 
   render: function(){
+    console.log(this.props);
     return (
       <div className="row">
         <div className="col-sm-4"></div>
@@ -88,4 +92,17 @@ var UserLoginForm = React.createClass({
   }
 });
 
-export default LoginDisplay;
+
+
+const mapStateToProps = function(store) {
+  return store;
+}
+const mapDispatchToProps = function(dispatch){
+  return {
+    login: function(user){
+      dispatch(userLoginSuccess(user));
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(LoginDisplay);
