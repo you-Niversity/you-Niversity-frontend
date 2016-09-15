@@ -35,6 +35,8 @@ var CourseDisplay = React.createClass({
         <AllCourseList
           data={this.state.data}
           filterText={this.props.filterText}
+          lat={this.props.lat}
+          lng={this.props.lng}
         />
       </div>
     );
@@ -48,10 +50,19 @@ var AllCourseList = React.createClass({
       var filterTextLowerCase = this.props.filterText.toLowerCase();
       var courseTitleLowerCase = course.title.toLowerCase();
 
-      if ((this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
-        console.log('you are a maven and a master');
+      var radius = 0.41675;
+      var userLat = this.props.lat;
+      var userLng = this.props.lng;
+      var withinLatRadius = (course.lat < (userLat + radius) && course.lat > (userLat - radius));
+      var withinLngRadius = (course.lng > (userLng - radius) && course.lng < (userLng + radius));
+      var withinRadius = ((course.lng > (userLng - radius) && course.lng < (userLng + radius)) && (course.lat < (userLat + radius) && course.lat > (userLat - radius)));
+
+
+
+      if ((withinRadius === false) || (this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
         return;
       }
+
 
       return (
         <Course

@@ -30310,6 +30310,7 @@
 	  getUserLocation: function getUserLocation(callback) {
 	    navigator.geolocation.getCurrentPosition(function (position) {
 	      this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
+	      console.log(this.state);
 	      callback();
 	    }.bind(this));
 	  },
@@ -30364,7 +30365,9 @@
 	        )
 	      ),
 	      _react2.default.createElement(_courseDisplay2.default, {
-	        filterText: this.state.filterText
+	        filterText: this.state.filterText,
+	        lat: this.state.lat,
+	        lng: this.state.lng
 	      })
 	    );
 	  }
@@ -30512,7 +30515,9 @@
 	      { className: 'CourseDisplay' },
 	      _react2.default.createElement(AllCourseList, {
 	        data: this.state.data,
-	        filterText: this.props.filterText
+	        filterText: this.props.filterText,
+	        lat: this.props.lat,
+	        lng: this.props.lng
 	      })
 	    );
 	  }
@@ -30527,8 +30532,14 @@
 	      var filterTextLowerCase = this.props.filterText.toLowerCase();
 	      var courseTitleLowerCase = course.title.toLowerCase();
 	
-	      if (this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
-	        console.log('you are a maven and a master');
+	      var radius = 0.41675;
+	      var userLat = this.props.lat;
+	      var userLng = this.props.lng;
+	      var withinLatRadius = course.lat < userLat + radius && course.lat > userLat - radius;
+	      var withinLngRadius = course.lng > userLng - radius && course.lng < userLng + radius;
+	      var withinRadius = course.lng > userLng - radius && course.lng < userLng + radius && course.lat < userLat + radius && course.lat > userLat - radius;
+	
+	      if (withinRadius === false || this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
 	        return;
 	      }
 	

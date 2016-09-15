@@ -26,6 +26,7 @@ var LandingPage = React.createClass({
   getUserLocation: function(callback){
     navigator.geolocation.getCurrentPosition(function(position) {
       this.setState({lat: position.coords.latitude, lng: position.coords.longitude});
+      console.log(this.state);
       callback();
     }.bind(this));
   },
@@ -75,6 +76,8 @@ var LandingPage = React.createClass({
         </div>
         <CourseDisplay
           filterText={this.state.filterText}
+          lat={this.state.lat}
+          lng={this.state.lng}
         />
       </div>
     );
