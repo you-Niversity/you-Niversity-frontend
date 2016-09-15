@@ -45,10 +45,14 @@ var AllCourseList = React.createClass({
   render: function() {
 
     var courseNodes = this.props.data.map(function(course) {
-      if ((this.props.filterText !== '' && course.title.indexOf(this.props.filterText) === -1)){
-        console.log('if');
+      var filterTextLowerCase = this.props.filterText.toLowerCase();
+      var courseTitleLowerCase = course.title.toLowerCase();
+
+      if ((this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
+        console.log('you are a maven and a master');
         return;
-      };
+      }
+
       return (
         <Course
           title={course.title}
