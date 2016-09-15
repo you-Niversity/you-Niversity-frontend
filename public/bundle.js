@@ -30295,15 +30295,21 @@
 	      lat: 0,
 	      lng: 0,
 	      city: null,
-	      state: null
+	      state: null,
+	      filterText: ''
 	    };
+	  },
+	
+	  handleUserInput: function handleUserInput(filterText) {
+	    console.log(filterText);
+	    this.setState({
+	      filterText: filterText
+	    });
 	  },
 	
 	  getUserLocation: function getUserLocation(callback) {
 	    navigator.geolocation.getCurrentPosition(function (position) {
-	      console.log(position);
 	      this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
-	      console.log(this.state);
 	      callback();
 	    }.bind(this));
 	  },
@@ -30315,12 +30321,10 @@
 	    geocoder.geocode({ 'location': latlng }, function (results, status) {
 	      if (status === 'OK') {
 	        if (results[1]) {
-	          console.log(results[0].address_components[2].long_name);
 	          var city = results[0].address_components[2].long_name;
 	          var state = results[0].address_components[4].short_name;
 	
 	          this.setState({ city: city, state: state });
-	          console.log(this.state);
 	        } else {
 	          window.alert('No results found');
 	        }
@@ -30351,13 +30355,17 @@
 	            _react2.default.createElement(_navbar2.default, null),
 	            _react2.default.createElement(WelcomeText, null),
 	            _react2.default.createElement(SearchBar, {
+	              filterText: this.state.filterText,
+	              handleUserInput: this.handleUserInput,
 	              city: this.state.city,
 	              state: this.state.state
 	            })
 	          )
 	        )
 	      ),
-	      _react2.default.createElement(_courseDisplay2.default, null)
+	      _react2.default.createElement(_courseDisplay2.default, {
+	        filterText: this.state.filterText
+	      })
 	    );
 	  }
 	});
@@ -30393,6 +30401,10 @@
 	  displayName: 'SearchBar',
 	
 	
+	  handleChange: function handleChange() {
+	    this.props.handleUserInput(this.refs.filterTextInput.value);
+	  },
+	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -30412,7 +30424,10 @@
 	              null,
 	              _react2.default.createElement('input', {
 	                type: 'text',
-	                placeholder: 'Search courses' })
+	                placeholder: 'Search courses',
+	                value: this.props.filterText,
+	                ref: 'filterTextInput',
+	                onChange: this.handleChange })
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -30468,67 +30483,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var SearchBar = _react2.default.createClass({
-	  displayName: 'SearchBar',
-	
-	  handleChange: function handleChange() {
-	    this.props.onUserInput(this.refs.filterTextInput.value);
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { id: 'landing-search-div', className: 'row' },
-	      _react2.default.createElement('div', { className: 'col-sm-3' }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-6' },
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'search-bar', className: 'row' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-6' },
-	            _react2.default.createElement(
-	              'form',
-	              null,
-	              _react2.default.createElement('input', {
-	                type: 'text',
-	                placeholder: 'Search courses',
-	                value: this.props.filterText,
-	                ref: 'filterTextInput',
-	                onChange: this.handleChange
-	              })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-6' },
-	            _react2.default.createElement(
-	              'h4',
-	              null,
-	              'within 25 miles of Loveland, CO'
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
 	var CourseDisplay = _react2.default.createClass({
 	  displayName: 'CourseDisplay',
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      data: [],
-	      filterText: ''
+	      data: []
 	    };
-	  },
-	
-	  handleUserInput: function handleUserInput(filterText) {
-	    this.setState({
-	      filterText: filterText
-	    });
 	  },
 	
 	  getCoursesFromAPI: function getCoursesFromAPI() {
@@ -30549,13 +30510,9 @@
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'CourseDisplay' },
-	      _react2.default.createElement(SearchBar, {
-	        filterText: this.state.filterText,
-	        onUserInput: this.handleUserInput
-	      }),
 	      _react2.default.createElement(AllCourseList, {
 	        data: this.state.data,
-	        filterText: this.state.filterText
+	        filterText: this.props.filterText
 	      })
 	    );
 	  }

@@ -5,50 +5,12 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
 import Course from './course.js';
 
-var SearchBar = React.createClass({
-  handleChange: function() {
-    this.props.onUserInput(
-      this.refs.filterTextInput.value
-    )
-  },
-  render: function() {
-    return (
-      <div id="landing-search-div" className="row">
-        <div className="col-sm-3"></div>
-        <div className="col-sm-6">
-          <div id="search-bar" className="row">
-            <div className="col-sm-6">
-              <form>
-                <input
-                  type="text"
-                  placeholder="Search courses"
-                  value={this.props.filterText}
-                  ref="filterTextInput"
-                  onChange={this.handleChange}
-                />
-              </form>
-            </div>
-            <div className="col-sm-6"><h4>within 25 miles of Loveland, CO</h4></div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-});
-
 
 var CourseDisplay = React.createClass({
   getInitialState: function() {
     return {
       data: [],
-      filterText: ''
     };
-  },
-
-  handleUserInput: function(filterText){
-    this.setState({
-      filterText: filterText
-    });
   },
 
   getCoursesFromAPI: function() {
@@ -70,13 +32,9 @@ var CourseDisplay = React.createClass({
   render: function() {
     return (
       <div className="CourseDisplay">
-        <SearchBar
-          filterText={this.state.filterText}
-          onUserInput={this.handleUserInput}
-        />
         <AllCourseList
           data={this.state.data}
-          filterText={this.state.filterText}
+          filterText={this.props.filterText}
         />
       </div>
     );

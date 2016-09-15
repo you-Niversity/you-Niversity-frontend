@@ -11,15 +11,21 @@ var LandingPage = React.createClass({
       lat: 0,
       lng: 0,
       city: null,
-      state: null
+      state: null,
+      filterText: ''
     };
+  },
+
+  handleUserInput: function(filterText){
+    console.log(filterText);
+    this.setState({
+      filterText: filterText
+    });
   },
 
   getUserLocation: function(callback){
     navigator.geolocation.getCurrentPosition(function(position) {
-      console.log(position);
       this.setState({lat: position.coords.latitude, lng: position.coords.longitude});
-      console.log(this.state);
       callback();
     }.bind(this));
   },
@@ -32,12 +38,10 @@ var LandingPage = React.createClass({
     geocoder.geocode({'location': latlng}, function(results, status) {
       if (status === 'OK') {
         if (results[1]) {
-          console.log(results[0].address_components[2].long_name);
           var city = results[0].address_components[2].long_name;
           var state = results[0].address_components[4].short_name;
 
           this.setState({city: city, state: state});
-          console.log(this.state);
         } else {
           window.alert('No results found');
         }
@@ -61,13 +65,17 @@ var LandingPage = React.createClass({
               <Navbar />
               <WelcomeText />
               <SearchBar
+                filterText={this.state.filterText}
+                handleUserInput={this.handleUserInput}
                 city={this.state.city}
                 state={this.state.state}
               />
             </div>
           </div>
         </div>
-        <CourseDisplay />
+        <CourseDisplay
+          filterText={this.state.filterText}
+        />
       </div>
     );
   }
@@ -90,6 +98,12 @@ var WelcomeText = React.createClass({
 
 var SearchBar = React.createClass({
 
+  handleChange: function() {
+    this.props.handleUserInput(
+      this.refs.filterTextInput.value
+    )
+  },
+
   render: function() {
     return (
       <div id="landing-search-div" className="row">
@@ -100,12 +114,10 @@ var SearchBar = React.createClass({
               <form>
                 <input
                   type="text"
-                  placeholder="Search courses" />
-
-                  {/* value={this.props.filterText}
+                  placeholder="Search courses"
+                  value={this.props.filterText}
                   ref="filterTextInput"
-                  onChange={this.handleChange}*/}
-
+                  onChange={this.handleChange} />
               </form>
             </div>
             <div className="col-sm-6"><h4>within 25 miles of {this.props.city}, {this.props.state}</h4></div>
