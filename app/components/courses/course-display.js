@@ -5,7 +5,7 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
 import Course from './course.js';
 
-{/*var SearchBar = React.createClass({
+var SearchBar = React.createClass({
   handleChange: function() {
     this.props.onUserInput(
       this.refs.filterTextInput.value
@@ -34,7 +34,7 @@ import Course from './course.js';
       </div>
     )
   }
-});*/}
+});
 
 
 var CourseDisplay = React.createClass({
@@ -70,10 +70,10 @@ var CourseDisplay = React.createClass({
   render: function() {
     return (
       <div className="CourseDisplay">
-        {/*<SearchBar
+        <SearchBar
           filterText={this.state.filterText}
           onUserInput={this.handleUserInput}
-        />*/}
+        />
         <AllCourseList
           data={this.state.data}
           filterText={this.state.filterText}

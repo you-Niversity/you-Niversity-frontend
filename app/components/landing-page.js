@@ -9,26 +9,46 @@ var LandingPage = React.createClass({
   getInitialState: function() {
     return {
       lat: 0,
-      lng: 0
+      lng: 0,
+      city: null,
+      state: null
     };
   },
 
-  getUserLocation: function(){
+  getUserLocation: function(callback){
     navigator.geolocation.getCurrentPosition(function(position) {
       console.log(position);
       this.setState({lat: position.coords.latitude, lng: position.coords.longitude});
       console.log(this.state);
+      callback();
     }.bind(this));
   },
 
 
+  geocodeLatLng: function() {
+    var geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(40.588507799999995,-105.0742159);
 
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      if (status === 'OK') {
+        if (results[1]) {
+          console.log(results[0].address_components[2].long_name);
+          var city = results[0].address_components[2].long_name;
+          var state = results[0].address_components[4].short_name;
 
-
-
+          this.setState({city: city, state: state});
+          console.log(this.state);
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    }.bind(this));
+  },
 
   componentDidMount: function(){
-    this.getUserLocation();
+    this.getUserLocation(this.geocodeLatLng);
   },
 
   render: function(){
@@ -40,7 +60,10 @@ var LandingPage = React.createClass({
             <div id="center-content" className="col-sm-8">
               <Navbar />
               <WelcomeText />
-              <SearchBar />
+              <SearchBar
+                city={this.state.city}
+                state={this.state.state}
+              />
             </div>
           </div>
         </div>
@@ -85,7 +108,7 @@ var SearchBar = React.createClass({
 
               </form>
             </div>
-            <div className="col-sm-6"><h4>within 25 miles of Loveland, CO</h4></div>
+            <div className="col-sm-6"><h4>within 25 miles of {this.props.city}, {this.props.state}</h4></div>
           </div>
         </div>
       </div>
