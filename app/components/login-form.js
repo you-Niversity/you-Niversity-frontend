@@ -29,15 +29,20 @@ import { userLoginSuccess } from '../actions/user-actions';
           console.log(this.state.loginErrorMessage);
         } else {
           console.log(res.body.profile.id);
-          var id = res.body.profile.id;
+          var id = res.body.profile.id
+
           console.log("successfully logged in user");
-          this.props.login(res.body);
-          location.href = '/users/' + id;
+          this.props.login(res.body)
+          console.log('sooooooo close');
+          var userDashboard = '/users/' + this.props.userState.profile.id
+          location.href = userDashboard;
         }
       }.bind(this));
   },
 
   render: function(){
+    console.log("Current userState:");
+    console.log(this.props.userState);
     return (
       <div className="row">
         <div className="col-sm-4"></div>
@@ -73,8 +78,8 @@ var UserLoginForm = React.createClass({
     event.preventDefault();
     var email = this.state.email.trim();
     var password = this.state.password.trim();
-    console.log(this.props.loginErrorMessage !== null);
-    console.log(this.props.err);
+    {/*console.log(this.props.loginErrorMessage !== null);
+    console.log(this.props.err);*/}
 
     if(!email || !password){
       console.log('some fields are missing');
@@ -98,8 +103,8 @@ var UserLoginForm = React.createClass({
   },
 
   render: function(){
-    console.log(this.props.loginErrorMessage);
-    console.log(this.props.err);
+    {/*console.log(this.props.loginErrorMessage);
+    console.log(this.props.err);*/}
 
     var errorMessageStyle = {
       color: 'red',

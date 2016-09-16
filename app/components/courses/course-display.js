@@ -37,6 +37,7 @@ var CourseDisplay = React.createClass({
           filterText={this.props.filterText}
           lat={this.props.lat}
           lng={this.props.lng}
+          radius={this.props.radius}
         />
       </div>
     );
@@ -50,19 +51,27 @@ var AllCourseList = React.createClass({
       var filterTextLowerCase = this.props.filterText.toLowerCase();
       var courseTitleLowerCase = course.title.toLowerCase();
 
-      var radius = 0.41675;
+      console.log(this.props.radius);
+      var radius = this.props.radius;
       var userLat = this.props.lat;
       var userLng = this.props.lng;
+      console.log(radius, userLat, userLng);
       var withinLatRadius = (course.lat < (userLat + radius) && course.lat > (userLat - radius));
       var withinLngRadius = (course.lng > (userLng - radius) && course.lng < (userLng + radius));
       var withinRadius = ((course.lng > (userLng - radius) && course.lng < (userLng + radius)) && (course.lat < (userLat + radius) && course.lat > (userLat - radius)));
+      console.log(course.city, withinRadius, withinLngRadius, withinLatRadius);
 
-
-
-      if ((withinRadius === false) || (this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
+      if ((this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
+        console.log("if statement");
         return;
       }
 
+      if(withinRadius === false) {
+        console.log('radius changed');
+        return;
+      }
+
+      console.log("*********************");
 
       return (
         <Course

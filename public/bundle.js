@@ -30291,11 +30291,14 @@
 	
 	
 	  getInitialState: function getInitialState() {
+	    console.log("Current userState:");
+	    console.log(this.props.userState);
 	    return {
 	      lat: 0,
 	      lng: 0,
-	      city: null,
-	      state: null,
+	      radius: 0.25005,
+	      city: 'getting',
+	      state: 'location',
 	      filterText: ''
 	    };
 	  },
@@ -30307,17 +30310,24 @@
 	    });
 	  },
 	
+	  handleRadiusInput: function handleRadiusInput(radius) {
+	    console.log(radius);
+	    this.setState({
+	      radius: radius
+	    });
+	    console.log(this.state);
+	  },
+	
 	  getUserLocation: function getUserLocation(callback) {
 	    navigator.geolocation.getCurrentPosition(function (position) {
 	      this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
-	      console.log(this.state);
 	      callback();
 	    }.bind(this));
 	  },
 	
 	  geocodeLatLng: function geocodeLatLng() {
 	    var geocoder = new google.maps.Geocoder();
-	    var latlng = new google.maps.LatLng(40.588507799999995, -105.0742159);
+	    var latlng = new google.maps.LatLng(this.state.lat, this.state.lng);
 	
 	    geocoder.geocode({ 'location': latlng }, function (results, status) {
 	      if (status === 'OK') {
@@ -30326,6 +30336,10 @@
 	          var state = results[0].address_components[4].short_name;
 	
 	          this.setState({ city: city, state: state });
+	          sessionStorage.setItem('city', city);
+	          sessionStorage.setItem('state', state);
+	          sessionStorage.setItem('lat', this.state.lat);
+	          sessionStorage.setItem('lng', this.state.lng);
 	        } else {
 	          window.alert('No results found');
 	        }
@@ -30336,7 +30350,17 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    this.getUserLocation(this.geocodeLatLng);
+	    if (sessionStorage.getItem('city')) {
+	      console.log('session storage saved!');
+	      var city = sessionStorage.getItem('city');
+	      var state = sessionStorage.getItem('state');
+	      var lat = sessionStorage.getItem('lat');
+	      var lng = sessionStorage.getItem('lng');
+	      this.setState({ city: city, state: state, lat: lat, lng: lng });
+	    } else {
+	      console.log('no session storage yet');
+	      this.getUserLocation(this.geocodeLatLng);
+	    }
 	  },
 	
 	  render: function render() {
@@ -30358,6 +30382,8 @@
 	            _react2.default.createElement(SearchBar, {
 	              filterText: this.state.filterText,
 	              handleUserInput: this.handleUserInput,
+	              radius: this.state.radius,
+	              handleRadiusInput: this.handleRadiusInput,
 	              city: this.state.city,
 	              state: this.state.state
 	            })
@@ -30367,7 +30393,8 @@
 	      _react2.default.createElement(_courseDisplay2.default, {
 	        filterText: this.state.filterText,
 	        lat: this.state.lat,
-	        lng: this.state.lng
+	        lng: this.state.lng,
+	        radius: this.state.radius
 	      })
 	    );
 	  }
@@ -30408,6 +30435,10 @@
 	    this.props.handleUserInput(this.refs.filterTextInput.value);
 	  },
 	
+	  handleRadiusChange: function handleRadiusChange() {
+	    this.props.handleRadiusInput(this.refs.radiusInput.value);
+	  },
+	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -30421,13 +30452,13 @@
 	          { id: 'search-bar', className: 'row', 'data-arbitrary': 'stuff' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-sm-6' },
+	            { className: 'col-sm-5' },
 	            _react2.default.createElement(
 	              'form',
 	              null,
 	              _react2.default.createElement('input', {
 	                type: 'text',
-	                placeholder: 'Search courses',
+	                placeholder: ' Search courses',
 	                value: this.props.filterText,
 	                ref: 'filterTextInput',
 	                onChange: this.handleChange })
@@ -30435,11 +30466,41 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-sm-6' },
+	            { className: 'col-sm-7' },
 	            _react2.default.createElement(
 	              'h4',
 	              null,
-	              'within 25 miles of ',
+	              'within',
+	              _react2.default.createElement(
+	                'select',
+	                { value: this.props.radius, ref: 'radiusInput', onChange: this.handleRadiusChange },
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '0.08335' },
+	                  '5'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '0.1667' },
+	                  '10'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '0.25005' },
+	                  '15'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '0.41675' },
+	                  '25'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '0.8335' },
+	                  '50'
+	                )
+	              ),
+	              'miles of ',
 	              this.props.city,
 	              ', ',
 	              this.props.state
@@ -30517,7 +30578,8 @@
 	        data: this.state.data,
 	        filterText: this.props.filterText,
 	        lat: this.props.lat,
-	        lng: this.props.lng
+	        lng: this.props.lng,
+	        radius: this.props.radius
 	      })
 	    );
 	  }
@@ -30532,16 +30594,27 @@
 	      var filterTextLowerCase = this.props.filterText.toLowerCase();
 	      var courseTitleLowerCase = course.title.toLowerCase();
 	
-	      var radius = 0.41675;
+	      console.log(this.props.radius);
+	      var radius = this.props.radius;
 	      var userLat = this.props.lat;
 	      var userLng = this.props.lng;
+	      console.log(radius, userLat, userLng);
 	      var withinLatRadius = course.lat < userLat + radius && course.lat > userLat - radius;
 	      var withinLngRadius = course.lng > userLng - radius && course.lng < userLng + radius;
 	      var withinRadius = course.lng > userLng - radius && course.lng < userLng + radius && course.lat < userLat + radius && course.lat > userLat - radius;
+	      console.log(course.city, withinRadius, withinLngRadius, withinLatRadius);
 	
-	      if (withinRadius === false || this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
+	      if (this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
+	        console.log("if statement");
 	        return;
 	      }
+	
+	      if (withinRadius === false) {
+	        console.log('radius changed');
+	        return;
+	      }
+	
+	      console.log("*********************");
 	
 	      return _react2.default.createElement(_course2.default, {
 	        title: course.title,
@@ -32429,14 +32502,19 @@
 	      } else {
 	        console.log(res.body.profile.id);
 	        var id = res.body.profile.id;
+	
 	        console.log("successfully logged in user");
 	        this.props.login(res.body);
-	        location.href = '/users/' + id;
+	        console.log('sooooooo close');
+	        var userDashboard = '/users/' + this.props.userState.profile.id;
+	        location.href = userDashboard;
 	      }
 	    }.bind(this));
 	  },
 	
 	  render: function render() {
+	    console.log("Current userState:");
+	    console.log(this.props.userState);
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
@@ -32487,8 +32565,8 @@
 	    event.preventDefault();
 	    var email = this.state.email.trim();
 	    var password = this.state.password.trim();
-	    console.log(this.props.loginErrorMessage !== null);
-	    console.log(this.props.err);
+	    {/*console.log(this.props.loginErrorMessage !== null);
+	      console.log(this.props.err);*/}
 	
 	    if (!email || !password) {
 	      console.log('some fields are missing');
@@ -32512,8 +32590,8 @@
 	  },
 	
 	  render: function render() {
-	    console.log(this.props.loginErrorMessage);
-	    console.log(this.props.err);
+	    {/*console.log(this.props.loginErrorMessage);
+	      console.log(this.props.err);*/}
 	
 	    var errorMessageStyle = {
 	      color: 'red',
@@ -32944,6 +33022,8 @@
 	
 	
 	  render: function render() {
+	    console.log("Current userState:");
+	    console.log(this.props.userState);
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'container-fluid' },
@@ -32997,6 +33077,9 @@
 	
 	
 	  render: function render() {
+	    console.log("Current userState:");
+	    console.log(this.props.userState);
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'container-fluid' },

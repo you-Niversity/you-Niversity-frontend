@@ -159,17 +159,25 @@ input, textarea {
 	margin-top: 20px;
 	border-radius: 3px;
 }
+select {
+	width: 15%;
+	height: 40px;
+	border-radius: 3px;
+	margin:0 10px;
+	color: black;
+	font-weight: 300;
+}
 textarea {
 	height: 130px;
 }
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
 	outline: none;
 	border: 2px solid orange;
 }
 #search-bar h4 {
 	color: white;
 	height: 30px;
-	margin-top: 30px;
+	margin-top: 20px;
 	text-align: left;
 	vertical-align: middle;
 	font-size: 1.2em;

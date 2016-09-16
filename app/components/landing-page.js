@@ -7,11 +7,14 @@ import Navbar from './navbar.js';
 var LandingPage = React.createClass({
 
   getInitialState: function() {
+    console.log("Current userState:");
+    console.log(this.props.userState);
     return {
       lat: 0,
       lng: 0,
-      city: null,
-      state: null,
+      radius: 0.25005,
+      city: 'getting',
+      state: 'location',
       filterText: ''
     };
   },
@@ -23,10 +26,17 @@ var LandingPage = React.createClass({
     });
   },
 
+  handleRadiusInput: function(radius){
+    console.log(radius);
+    this.setState({
+      radius: radius
+    });
+    console.log(this.state);
+  },
+
   getUserLocation: function(callback){
     navigator.geolocation.getCurrentPosition(function(position) {
       this.setState({lat: position.coords.latitude, lng: position.coords.longitude});
-      console.log(this.state);
       callback();
     }.bind(this));
   },
@@ -34,7 +44,7 @@ var LandingPage = React.createClass({
 
   geocodeLatLng: function() {
     var geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(40.588507799999995,-105.0742159);
+    var latlng = new google.maps.LatLng(this.state.lat, this.state.lng);
 
     geocoder.geocode({'location': latlng}, function(results, status) {
       if (status === 'OK') {
@@ -43,6 +53,10 @@ var LandingPage = React.createClass({
           var state = results[0].address_components[4].short_name;
 
           this.setState({city: city, state: state});
+          sessionStorage.setItem('city', city);
+          sessionStorage.setItem('state', state);
+          sessionStorage.setItem('lat', this.state.lat);
+          sessionStorage.setItem('lng', this.state.lng);
         } else {
           window.alert('No results found');
         }
@@ -53,7 +67,17 @@ var LandingPage = React.createClass({
   },
 
   componentDidMount: function(){
-    this.getUserLocation(this.geocodeLatLng);
+    if(sessionStorage.getItem('city')) {
+      console.log('session storage saved!');
+      var city = sessionStorage.getItem('city');
+      var state = sessionStorage.getItem('state');
+      var lat = sessionStorage.getItem('lat');
+      var lng = sessionStorage.getItem('lng');
+      this.setState({city: city, state: state, lat: lat, lng: lng});
+    } else {
+      console.log('no session storage yet');
+      this.getUserLocation(this.geocodeLatLng);
+    }
   },
 
   render: function(){
@@ -68,6 +92,8 @@ var LandingPage = React.createClass({
               <SearchBar
                 filterText={this.state.filterText}
                 handleUserInput={this.handleUserInput}
+                radius={this.state.radius}
+                handleRadiusInput={this.handleRadiusInput}
                 city={this.state.city}
                 state={this.state.state}
               />
@@ -78,6 +104,7 @@ var LandingPage = React.createClass({
           filterText={this.state.filterText}
           lat={this.state.lat}
           lng={this.state.lng}
+          radius={this.state.radius}
         />
       </div>
     );
@@ -107,23 +134,40 @@ var SearchBar = React.createClass({
     )
   },
 
+  handleRadiusChange: function() {
+    this.props.handleRadiusInput(
+      this.refs.radiusInput.value
+    )
+  },
+
   render: function() {
     return (
       <div id="landing-search-div" className="row">
         <div className="col-sm-1"></div>
         <div className="col-sm-10">
           <div id="search-bar" className="row" data-arbitrary="stuff">
-            <div className="col-sm-6">
+            <div className="col-sm-5">
               <form>
                 <input
                   type="text"
-                  placeholder="Search courses"
+                  placeholder=" Search courses"
                   value={this.props.filterText}
                   ref="filterTextInput"
                   onChange={this.handleChange} />
               </form>
             </div>
-            <div className="col-sm-6"><h4>within 25 miles of {this.props.city}, {this.props.state}</h4></div>
+            <div className="col-sm-7">
+              <h4>within
+                <select value={this.props.radius} ref="radiusInput" onChange={this.handleRadiusChange}>
+                  <option value="0.08335">5</option>
+                  <option value="0.1667">10</option>
+                  <option value="0.25005">15</option>
+                  <option value="0.41675">25</option>
+                  <option value="0.8335">50</option>
+                </select>
+                miles of {this.props.city}, {this.props.state}
+              </h4>
+            </div>
           </div>
         </div>
       </div>

@@ -6,6 +6,9 @@ import NavbarSecondary from './navbar-secondary.js';
 var SecondaryTemplate = React.createClass({
 
   render: function(){
+    console.log("Current userState:");
+    console.log(this.props.userState);
+
     return (
       <div className="container-fluid">
         <div id="secondary-div">
