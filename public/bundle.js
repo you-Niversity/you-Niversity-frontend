@@ -30294,8 +30294,8 @@
 	    console.log("Current userState:");
 	    console.log(this.props.userState);
 	    return {
-	      lat: 40.5885019,
-	      lng: -105.0741237,
+	      lat: null,
+	      lng: null,
 	      radius: 0.8335,
 	      city: 'getting',
 	      state: 'location',
@@ -30557,7 +30557,9 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      data: []
+	      data: [],
+	      showMap: true,
+	      showList: false
 	    };
 	  },
 	
@@ -30575,7 +30577,29 @@
 	    this.getCoursesFromAPI();
 	  },
 	
+	  handleViewChange: function handleViewChange() {
+	    this.setState({ showMap: !this.state.showMap, showList: !this.state.showList });
+	    console.log(this.state.showMap, this.state.showList);
+	  },
+	
 	  render: function render() {
+	
+	    var mapView = this.state.showMap ? _react2.default.createElement(_mapDisplay2.default, {
+	      data: this.state.data,
+	      filterText: this.props.filterText,
+	      center: [Number(this.props.lat), Number(this.props.lng)],
+	      radius: this.props.radius,
+	      zoom: 8
+	    }) : null;
+	
+	    var listView = this.state.showList ? _react2.default.createElement(AllCourseList, {
+	      data: this.state.data,
+	      filterText: this.props.filterText,
+	      lat: Number(this.props.lat),
+	      lng: Number(this.props.lng),
+	      radius: this.props.radius
+	    }) : null;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'CourseDisplay' },
@@ -30590,23 +30614,25 @@
 	        _react2.default.createElement(
 	          'h4',
 	          null,
-	          'List | Map '
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'course-display-change', onClick: this.handleViewChange },
+	            'List'
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'black' },
+	            ' | '
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'course-display-change', onClick: this.handleViewChange },
+	            'Map'
+	          )
 	        )
 	      ),
-	      _react2.default.createElement(_mapDisplay2.default, {
-	        data: this.state.data,
-	        filterText: this.props.filterText,
-	        center: [Number(this.props.lat), Number(this.props.lng)],
-	        radius: this.props.radius,
-	        zoom: 8
-	      }),
-	      _react2.default.createElement(AllCourseList, {
-	        data: this.state.data,
-	        filterText: this.props.filterText,
-	        lat: Number(this.props.lat),
-	        lng: Number(this.props.lng),
-	        radius: this.props.radius
-	      })
+	      mapView,
+	      listView
 	    );
 	  }
 	});
@@ -32402,7 +32428,6 @@
 	    };
 	
 	    var mapMarkers = this.props.data.map(function (marker) {
-	      console.log(marker.id);
 	      return _react2.default.createElement(
 	        Marker,
 	        null,
@@ -32411,7 +32436,7 @@
 	        'lng=',
 	        marker.lng,
 	        'key=',
-	        marker.id + 1000,
+	        "marker:" + marker.id,
 	        'id=',
 	        marker.id
 	      );
@@ -33265,8 +33290,7 @@
 	
 	      if (process.env.NODE_ENV !== 'production') {
 	        if (this.props.defaultCenter !== nextProps.defaultCenter) {
-	          console.warn('GoogleMap: defaultCenter prop changed. ' + // eslint-disable-line
-	          'You can\'t change default props.');
+	          //deleted warning here
 	        }
 	
 	        if (this.props.defaultZoom !== nextProps.defaultZoom) {

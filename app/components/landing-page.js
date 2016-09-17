@@ -10,8 +10,8 @@ var LandingPage = React.createClass({
     console.log("Current userState:");
     console.log(this.props.userState);
     return {
-      lat: 40.5885019,
-      lng: -105.0741237,
+      lat: null,
+      lng: null,
       radius: 0.8335,
       city: 'getting',
       state: 'location',

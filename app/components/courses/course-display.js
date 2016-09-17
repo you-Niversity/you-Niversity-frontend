@@ -11,6 +11,8 @@ var CourseDisplay = React.createClass({
   getInitialState: function() {
     return {
       data: [],
+      showMap: true,
+      showList: false
     };
   },
 
@@ -30,14 +32,14 @@ var CourseDisplay = React.createClass({
     this.getCoursesFromAPI();
   },
 
-  render: function() {
-    return (
-      <div className="CourseDisplay">
-      <div className="row" id="class-display">
-        <h3>Upcoming Classes</h3>
-        <h4>List | Map </h4>
-      </div>
+  handleViewChange: function(){
+    this.setState({showMap: !this.state.showMap, showList: !this.state.showList})
+    console.log(this.state.showMap, this.state.showList);
+  },
 
+  render: function() {
+
+    var mapView = (this.state.showMap) ?
         <MapDisplay
           data={this.state.data}
           filterText={this.props.filterText}
@@ -45,7 +47,9 @@ var CourseDisplay = React.createClass({
           radius={this.props.radius}
           zoom={8}
         />
+        : null;
 
+    var listView = (this.state.showList) ?
         <AllCourseList
           data={this.state.data}
           filterText={this.props.filterText}
@@ -53,6 +57,22 @@ var CourseDisplay = React.createClass({
           lng={Number(this.props.lng)}
           radius={this.props.radius}
         />
+        : null;
+
+    return (
+      <div className="CourseDisplay">
+      <div className="row" id="class-display">
+        <h3>Upcoming Classes</h3>
+        <h4>
+          <span className="course-display-change" onClick={this.handleViewChange}>List</span>
+          <span className="black"> | </span>
+          <span className="course-display-change" onClick={this.handleViewChange}>Map</span>
+        </h4>
+      </div>
+
+        {mapView}
+        {listView}
+
       </div>
     );
   }

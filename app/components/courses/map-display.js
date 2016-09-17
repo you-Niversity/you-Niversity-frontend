@@ -16,12 +16,11 @@ var MapDisplay = React.createClass({
     }
 
     var mapMarkers = this.props.data.map(function(marker){
-      console.log(marker.id);
       return (
         <Marker>
           lat={marker.lat}
           lng={marker.lng}
-          key={marker.id + 1000}
+          key={"marker:" + marker.id}
           id={marker.id}
         </Marker>
       )

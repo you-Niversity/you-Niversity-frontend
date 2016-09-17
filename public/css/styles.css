@@ -380,6 +380,11 @@ hr {
   border-width: 0;
 }
 
+.course-display-change:hover {
+	background-color: lightgray;
+	border-radius: 3px;
+	cursor: pointer;
+}
 /*footer*/
 footer {
 	width: 100%;
