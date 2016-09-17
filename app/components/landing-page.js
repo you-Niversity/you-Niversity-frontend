@@ -10,9 +10,9 @@ var LandingPage = React.createClass({
     console.log("Current userState:");
     console.log(this.props.userState);
     return {
-      lat: 0,
-      lng: 0,
-      radius: 0.25005,
+      lat: 40.5885019,
+      lng: -105.0741237,
+      radius: 0.8335,
       city: 'getting',
       state: 'location',
       filterText: ''
@@ -36,7 +36,7 @@ var LandingPage = React.createClass({
 
   getUserLocation: function(callback){
     navigator.geolocation.getCurrentPosition(function(position) {
-      this.setState({lat: position.coords.latitude, lng: position.coords.longitude});
+      this.setState({lat: Number(position.coords.latitude), lng: Number(position.coords.longitude)});
       callback();
     }.bind(this));
   },
@@ -96,6 +96,7 @@ var LandingPage = React.createClass({
                 handleRadiusInput={this.handleRadiusInput}
                 city={this.state.city}
                 state={this.state.state}
+
               />
             </div>
           </div>

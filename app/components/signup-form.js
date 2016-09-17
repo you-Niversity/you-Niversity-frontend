@@ -135,7 +135,9 @@ var AddUserForm = React.createClass({
     }
 
     var passwordErrorMessage = (this.state.passwordMatchingError) ? <p style={errorMessageStyle}>*passwords do not match</p> : null;
+
     var passwordMinimumCharsError = (this.state.passwordMinimumCharsError) ? <p style={errorMessageStyle}>*password should be at least 8 characters</p> : null;
+
     var requiredFieldsErrorMessage = (this.state.allFieldsRequiredError) ? <p style={errorMessageStyle}>*all fields required</p> : null;
 
     return (

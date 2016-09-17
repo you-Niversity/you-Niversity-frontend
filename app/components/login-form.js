@@ -17,6 +17,7 @@ import { userLoginSuccess } from '../actions/user-actions';
 
   handleLoginSubmit: function(user){
     console.log(user);
+
     request
       .post("http://localhost:8080/auth/login")
       .send(user)
@@ -33,9 +34,8 @@ import { userLoginSuccess } from '../actions/user-actions';
 
           console.log("successfully logged in user");
           this.props.login(res.body)
-          console.log('sooooooo close');
           var userDashboard = '/users/' + this.props.userState.profile.id
-          location.href = userDashboard;
+          browserHistory.push(userDashboard);
         }
       }.bind(this));
   },

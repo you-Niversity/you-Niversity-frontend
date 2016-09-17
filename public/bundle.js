@@ -24443,7 +24443,7 @@
 	
 	var _landingPage2 = _interopRequireDefault(_landingPage);
 	
-	var _loginForm = __webpack_require__(/*! ./components/login-form */ 280);
+	var _loginForm = __webpack_require__(/*! ./components/login-form */ 304);
 	
 	var _loginForm2 = _interopRequireDefault(_loginForm);
 	
@@ -24451,27 +24451,27 @@
 	
 	var _courseDisplay2 = _interopRequireDefault(_courseDisplay);
 	
-	var _singleCourseDisplay = __webpack_require__(/*! ./components/courses/single-course-display */ 282);
+	var _singleCourseDisplay = __webpack_require__(/*! ./components/courses/single-course-display */ 306);
 	
 	var _singleCourseDisplay2 = _interopRequireDefault(_singleCourseDisplay);
 	
-	var _primaryTemplate = __webpack_require__(/*! ./components/primary-template */ 283);
+	var _primaryTemplate = __webpack_require__(/*! ./components/primary-template */ 307);
 	
 	var _primaryTemplate2 = _interopRequireDefault(_primaryTemplate);
 	
-	var _secondaryTemplate = __webpack_require__(/*! ./components/secondary-template */ 284);
+	var _secondaryTemplate = __webpack_require__(/*! ./components/secondary-template */ 308);
 	
 	var _secondaryTemplate2 = _interopRequireDefault(_secondaryTemplate);
 	
-	var _signupForm = __webpack_require__(/*! ./components/signup-form.js */ 286);
+	var _signupForm = __webpack_require__(/*! ./components/signup-form.js */ 310);
 	
 	var _signupForm2 = _interopRequireDefault(_signupForm);
 	
-	var _addCourseDisplay = __webpack_require__(/*! ./components/courses/add-course-display.js */ 287);
+	var _addCourseDisplay = __webpack_require__(/*! ./components/courses/add-course-display.js */ 311);
 	
 	var _addCourseDisplay2 = _interopRequireDefault(_addCourseDisplay);
 	
-	var _userDashboard = __webpack_require__(/*! ./components/user-dashboard.js */ 303);
+	var _userDashboard = __webpack_require__(/*! ./components/user-dashboard.js */ 327);
 	
 	var _userDashboard2 = _interopRequireDefault(_userDashboard);
 	
@@ -30280,7 +30280,7 @@
 	
 	var _courseDisplay2 = _interopRequireDefault(_courseDisplay);
 	
-	var _navbar = __webpack_require__(/*! ./navbar.js */ 279);
+	var _navbar = __webpack_require__(/*! ./navbar.js */ 303);
 	
 	var _navbar2 = _interopRequireDefault(_navbar);
 	
@@ -30294,9 +30294,9 @@
 	    console.log("Current userState:");
 	    console.log(this.props.userState);
 	    return {
-	      lat: 0,
-	      lng: 0,
-	      radius: 0.25005,
+	      lat: 40.5885019,
+	      lng: -105.0741237,
+	      radius: 0.8335,
 	      city: 'getting',
 	      state: 'location',
 	      filterText: ''
@@ -30320,7 +30320,7 @@
 	
 	  getUserLocation: function getUserLocation(callback) {
 	    navigator.geolocation.getCurrentPosition(function (position) {
-	      this.setState({ lat: position.coords.latitude, lng: position.coords.longitude });
+	      this.setState({ lat: Number(position.coords.latitude), lng: Number(position.coords.longitude) });
 	      callback();
 	    }.bind(this));
 	  },
@@ -30386,6 +30386,7 @@
 	              handleRadiusInput: this.handleRadiusInput,
 	              city: this.state.city,
 	              state: this.state.state
+	
 	            })
 	          )
 	        )
@@ -30545,6 +30546,10 @@
 	
 	var _course2 = _interopRequireDefault(_course);
 	
+	var _mapDisplay = __webpack_require__(/*! ./map-display.js */ 279);
+	
+	var _mapDisplay2 = _interopRequireDefault(_mapDisplay);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var CourseDisplay = _react2.default.createClass({
@@ -30574,11 +30579,32 @@
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'CourseDisplay' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row', id: 'class-display' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Upcoming Classes'
+	        ),
+	        _react2.default.createElement(
+	          'h4',
+	          null,
+	          'List | Map '
+	        )
+	      ),
+	      _react2.default.createElement(_mapDisplay2.default, {
+	        data: this.state.data,
+	        filterText: this.props.filterText,
+	        center: [Number(this.props.lat), Number(this.props.lng)],
+	        radius: this.props.radius,
+	        zoom: 8
+	      }),
 	      _react2.default.createElement(AllCourseList, {
 	        data: this.state.data,
 	        filterText: this.props.filterText,
-	        lat: this.props.lat,
-	        lng: this.props.lng,
+	        lat: Number(this.props.lat),
+	        lng: Number(this.props.lng),
 	        radius: this.props.radius
 	      })
 	    );
@@ -30594,33 +30620,26 @@
 	      var filterTextLowerCase = this.props.filterText.toLowerCase();
 	      var courseTitleLowerCase = course.title.toLowerCase();
 	
-	      console.log(this.props.radius);
 	      var radius = this.props.radius;
 	      var userLat = this.props.lat;
 	      var userLng = this.props.lng;
-	      console.log(radius, userLat, userLng);
 	      var withinLatRadius = course.lat < userLat + radius && course.lat > userLat - radius;
 	      var withinLngRadius = course.lng > userLng - radius && course.lng < userLng + radius;
 	      var withinRadius = course.lng > userLng - radius && course.lng < userLng + radius && course.lat < userLat + radius && course.lat > userLat - radius;
-	      console.log(course.city, withinRadius, withinLngRadius, withinLatRadius);
 	
 	      if (this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
-	        console.log("if statement");
 	        return;
 	      }
 	
 	      if (withinRadius === false) {
-	        console.log('radius changed');
 	        return;
 	      }
-	
-	      console.log("*********************");
 	
 	      return _react2.default.createElement(_course2.default, {
 	        title: course.title,
 	        image_url: course.image_url,
 	        date: course.date,
-	        key: course.id,
+	        key: 'course' + course.id,
 	        id: course.id });
 	    }.bind(this));
 	
@@ -30630,16 +30649,7 @@
 	      _react2.default.createElement('div', { className: 'col-sm-2' }),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-8', id: 'class-display' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'Upcoming Classes'
-	          )
-	        ),
+	        { className: 'col-sm-8' },
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'course-block', className: 'row' },
@@ -32354,6 +32364,3142 @@
 
 /***/ },
 /* 279 */
+/*!***********************************************!*\
+  !*** ./app/components/courses/map-display.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _googleMapReact = __webpack_require__(/*! google-map-react */ 280);
+	
+	var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var MapDisplay = _react2.default.createClass({
+	  displayName: 'MapDisplay',
+	
+	
+	  render: function render() {
+	    var mapStyle = {
+	      width: '76%',
+	      height: '400px',
+	      marginLeft: '12%',
+	      marginBottom: '20px'
+	    };
+	
+	    var mapMarkers = this.props.data.map(function (marker) {
+	      console.log(marker.id);
+	      return _react2.default.createElement(
+	        Marker,
+	        null,
+	        'lat=',
+	        marker.lat,
+	        'lng=',
+	        marker.lng,
+	        'key=',
+	        marker.id + 1000,
+	        'id=',
+	        marker.id
+	      );
+	    }.bind(this));
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { style: mapStyle, id: 'map' },
+	      _react2.default.createElement(
+	        _googleMapReact2.default,
+	        {
+	          bootstrapURLKeys: {
+	            key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
+	            language: 'en'
+	          },
+	          defaultCenter: this.props.center,
+	          defaultZoom: this.props.zoom },
+	        mapMarkers
+	      )
+	    );
+	  }
+	
+	});
+	
+	var Marker = _react2.default.createClass({
+	  displayName: 'Marker',
+	  render: function render() {
+	    var _markerStyle;
+	
+	    var MARKER_SIZE = 40;
+	    var markerStyle = (_markerStyle = {
+	      position: 'absolute',
+	      width: MARKER_SIZE,
+	      height: MARKER_SIZE,
+	      left: -MARKER_SIZE / 2,
+	      top: -MARKER_SIZE / 2
+	    }, _defineProperty(_markerStyle, 'width', '20px'), _defineProperty(_markerStyle, 'height', '20px'), _defineProperty(_markerStyle, 'backgroundColor', 'orange'), _defineProperty(_markerStyle, 'color', 'orange'), _defineProperty(_markerStyle, 'fontSize', '3em'), _defineProperty(_markerStyle, 'fontWeight', '700'), _defineProperty(_markerStyle, 'border', '2px solid lightgray'), _defineProperty(_markerStyle, 'borderRadius', '100%'), _markerStyle);
+	
+	    return _react2.default.createElement('div', { style: markerStyle });
+	  }
+	});
+	
+	exports.default = MapDisplay;
+
+/***/ },
+/* 280 */
+/*!*****************************************!*\
+  !*** ./~/google-map-react/lib/index.js ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _google_map = __webpack_require__(/*! ./google_map.js */ 281);
+	
+	var _google_map2 = _interopRequireDefault(_google_map);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _google_map2.default;
+
+/***/ },
+/* 281 */
+/*!**********************************************!*\
+  !*** ./~/google-map-react/lib/google_map.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 34);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ 124);
+	
+	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+	
+	var _marker_dispatcher = __webpack_require__(/*! ./marker_dispatcher */ 282);
+	
+	var _marker_dispatcher2 = _interopRequireDefault(_marker_dispatcher);
+	
+	var _google_map_map = __webpack_require__(/*! ./google_map_map */ 284);
+	
+	var _google_map_map2 = _interopRequireDefault(_google_map_map);
+	
+	var _google_map_markers = __webpack_require__(/*! ./google_map_markers */ 285);
+	
+	var _google_map_markers2 = _interopRequireDefault(_google_map_markers);
+	
+	var _google_map_markers_prerender = __webpack_require__(/*! ./google_map_markers_prerender */ 287);
+	
+	var _google_map_markers_prerender2 = _interopRequireDefault(_google_map_markers_prerender);
+	
+	var _google_map_loader = __webpack_require__(/*! ./utils/loaders/google_map_loader */ 288);
+	
+	var _google_map_loader2 = _interopRequireDefault(_google_map_loader);
+	
+	var _detect = __webpack_require__(/*! ./utils/detect */ 290);
+	
+	var _detect2 = _interopRequireDefault(_detect);
+	
+	var _geo = __webpack_require__(/*! ./utils/geo */ 291);
+	
+	var _geo2 = _interopRequireDefault(_geo);
+	
+	var _array_helper = __webpack_require__(/*! ./utils/array_helper */ 296);
+	
+	var _array_helper2 = _interopRequireDefault(_array_helper);
+	
+	var _is_plain_object = __webpack_require__(/*! ./utils/is_plain_object */ 297);
+	
+	var _is_plain_object2 = _interopRequireDefault(_is_plain_object);
+	
+	var _pick = __webpack_require__(/*! ./utils/pick */ 298);
+	
+	var _pick2 = _interopRequireDefault(_pick);
+	
+	var _raf = __webpack_require__(/*! ./utils/raf */ 299);
+	
+	var _raf2 = _interopRequireDefault(_raf);
+	
+	var _log = __webpack_require__(/*! ./utils/math/log2 */ 300);
+	
+	var _log2 = _interopRequireDefault(_log);
+	
+	var _isNumber = __webpack_require__(/*! ./utils/isNumber */ 301);
+	
+	var _isNumber2 = _interopRequireDefault(_isNumber);
+	
+	var _omit = __webpack_require__(/*! ./utils/omit */ 286);
+	
+	var _omit2 = _interopRequireDefault(_omit);
+	
+	var _detectElementResize = __webpack_require__(/*! ./utils/detectElementResize */ 302);
+	
+	var _detectElementResize2 = _interopRequireDefault(_detectElementResize);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var kEPS = 0.00001;
+	var K_GOOGLE_TILE_SIZE = 256;
+	// real minZoom calculated here _getMinZoom
+	var K_IDLE_TIMEOUT = 100;
+	var K_IDLE_CLICK_TIMEOUT = 300;
+	var DEFAULT_MIN_ZOOM = 3;
+	
+	function defaultOptions_() /* maps */{
+	  return {
+	    overviewMapControl: false,
+	    streetViewControl: false,
+	    rotateControl: true,
+	    mapTypeControl: false,
+	    // disable poi
+	    styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] }],
+	    minZoom: DEFAULT_MIN_ZOOM };
+	}
+	
+	var latLng2Obj = function latLng2Obj(latLng) {
+	  return (0, _is_plain_object2.default)(latLng) ? latLng : { lat: latLng[0], lng: latLng[1] };
+	};
+	
+	var GoogleMap = function (_Component) {
+	  _inherits(GoogleMap, _Component);
+	
+	  // eslint-disable-line
+	
+	  function GoogleMap(props) {
+	    _classCallCheck(this, GoogleMap);
+	
+	    var _this = _possibleConstructorReturn(this, (GoogleMap.__proto__ || Object.getPrototypeOf(GoogleMap)).call(this, props));
+	
+	    _this._getMinZoom = function () {
+	      if (_this.geoService_.getWidth() > 0 || _this.geoService_.getHeight() > 0) {
+	        var tilesPerWidth = Math.ceil(_this.geoService_.getWidth() / K_GOOGLE_TILE_SIZE) + 2;
+	        var tilesPerHeight = Math.ceil(_this.geoService_.getHeight() / K_GOOGLE_TILE_SIZE) + 2;
+	        var maxTilesPerDim = Math.max(tilesPerWidth, tilesPerHeight);
+	        return Math.ceil((0, _log2.default)(maxTilesPerDim));
+	      }
+	      return DEFAULT_MIN_ZOOM;
+	    };
+	
+	    _this._computeMinZoom = function (minZoomOverride, minZoom) {
+	      if (minZoomOverride) {
+	        return minZoom || DEFAULT_MIN_ZOOM;
+	      }
+	      return _this._getMinZoom();
+	    };
+	
+	    _this._mapDomResizeCallback = function () {
+	      _this.resetSizeOnIdle_ = true;
+	      if (_this.maps_) {
+	        _this.maps_.event.trigger(_this.map_, 'resize');
+	      }
+	    };
+	
+	    _this._initMap = function () {
+	      // only initialize the map once
+	      if (_this.initialized_) {
+	        return;
+	      }
+	      _this.initialized_ = true;
+	
+	      var propsCenter = latLng2Obj(_this.props.center || _this.props.defaultCenter);
+	      console.log(propsCenter);
+	      _this.geoService_.setView(propsCenter, _this.props.zoom || _this.props.defaultZoom, 0);
+	
+	      _this._onBoundsChanged(); // now we can calculate map bounds center etc...
+	
+	      var bootstrapURLKeys = _extends({}, _this.props.apiKey && { key: _this.props.apiKey }, _this.props.bootstrapURLKeys);
+	
+	      _this.props.googleMapLoader(bootstrapURLKeys).then(function (maps) {
+	        if (!_this.mounted_) {
+	          return;
+	        }
+	
+	        var centerLatLng = _this.geoService_.getCenter();
+	
+	        var propsOptions = {
+	          zoom: _this.props.zoom || _this.props.defaultZoom,
+	          center: new maps.LatLng(centerLatLng.lat, centerLatLng.lng)
+	        };
+	
+	        // prevent to exapose full api
+	        // next props must be exposed (console.log(Object.keys(pick(maps, isPlainObject))))
+	        // "Animation", "ControlPosition", "MapTypeControlStyle", "MapTypeId",
+	        // "NavigationControlStyle", "ScaleControlStyle", "StrokePosition",
+	        // "SymbolPath", "ZoomControlStyle",
+	        // "event", "DirectionsStatus", "DirectionsTravelMode", "DirectionsUnitSystem",
+	        // "DistanceMatrixStatus",
+	        // "DistanceMatrixElementStatus", "ElevationStatus", "GeocoderLocationType",
+	        // "GeocoderStatus", "KmlLayerStatus",
+	        // "MaxZoomStatus", "StreetViewStatus", "TransitMode", "TransitRoutePreference",
+	        // "TravelMode", "UnitSystem"
+	        var mapPlainObjects = (0, _pick2.default)(maps, _is_plain_object2.default);
+	        var options = typeof _this.props.options === 'function' ? _this.props.options(mapPlainObjects) : _this.props.options;
+	        var defaultOptions = defaultOptions_(mapPlainObjects);
+	
+	        var draggableOptions = _this.props.draggable !== undefined && { draggable: _this.props.draggable };
+	
+	        var minZoom = _this._computeMinZoom(options.minZoomOverride, options.minZoom);
+	        _this.minZoom_ = minZoom;
+	
+	        var preMapOptions = _extends({}, defaultOptions, {
+	          minZoom: minZoom
+	        }, options, propsOptions);
+	
+	        _this.defaultDraggableOption_ = preMapOptions.draggable !== undefined ? preMapOptions.draggable : _this.defaultDraggableOption_;
+	
+	        var mapOptions = _extends({}, preMapOptions, draggableOptions);
+	
+	        mapOptions.minZoom = _this._checkMinZoom(mapOptions.minZoom, minZoom);
+	
+	        var map = new maps.Map(_reactDom2.default.findDOMNode(_this.refs.google_map_dom), mapOptions);
+	        _this.map_ = map;
+	        _this.maps_ = maps;
+	
+	        // render in overlay
+	        var this_ = _this;
+	        var overlay = _this.overlay_ = Object.assign(new maps.OverlayView(), {
+	          onAdd: function onAdd() {
+	            var K_MAX_WIDTH = typeof screen !== 'undefined' ? screen.width + 'px' : '2000px';
+	            var K_MAX_HEIGHT = typeof screen !== 'undefined' ? screen.height + 'px' : '2000px';
+	
+	            var div = document.createElement('div');
+	            this.div = div;
+	            div.style.backgroundColor = 'transparent';
+	            div.style.position = 'absolute';
+	            div.style.left = '0px';
+	            div.style.top = '0px';
+	            div.style.width = K_MAX_WIDTH; // prevents some chrome draw defects
+	            div.style.height = K_MAX_HEIGHT;
+	
+	            var panes = this.getPanes();
+	            panes.overlayMouseTarget.appendChild(div);
+	
+	            _reactDom2.default.unstable_renderSubtreeIntoContainer(this_, _react2.default.createElement(_google_map_markers2.default, {
+	              experimental: this_.props.experimental,
+	              onChildClick: this_._onChildClick,
+	              onChildMouseDown: this_._onChildMouseDown,
+	              onChildMouseEnter: this_._onChildMouseEnter,
+	              onChildMouseLeave: this_._onChildMouseLeave,
+	              geoService: this_.geoService_,
+	              projectFromLeftTop: true,
+	              distanceToMouse: this_.props.distanceToMouse,
+	              getHoverDistance: this_._getHoverDistance,
+	              dispatcher: this_.markersDispatcher_
+	            }), div,
+	            // remove prerendered markers
+	            function () {
+	              return this_.setState({ overlayCreated: true });
+	            });
+	          },
+	          onRemove: function onRemove() {
+	            _reactDom2.default.unmountComponentAtNode(this.div);
+	          },
+	          draw: function draw() {
+	            var div = overlay.div;
+	            var overlayProjection = overlay.getProjection();
+	            var bounds = map.getBounds();
+	            var ne = bounds.getNorthEast();
+	            var sw = bounds.getSouthWest();
+	            var ptx = overlayProjection.fromLatLngToDivPixel(new maps.LatLng(ne.lat(), sw.lng()));
+	
+	            // need round for safari still can't find what need for firefox
+	            var ptxRounded = (0, _detect2.default)().isSafari ? { x: Math.round(ptx.x), y: Math.round(ptx.y) } : { x: ptx.x, y: ptx.y };
+	
+	            this_.updateCounter_++;
+	            this_._onBoundsChanged(map, maps, !this_.props.debounced);
+	
+	            if (!this_.googleApiLoadedCalled_) {
+	              this_._onGoogleApiLoaded({ map: map, maps: maps });
+	              this_.googleApiLoadedCalled_ = true;
+	            }
+	
+	            div.style.left = ptxRounded.x + 'px';
+	            div.style.top = ptxRounded.y + 'px';
+	            if (this_.markersDispatcher_) {
+	              this_.markersDispatcher_.emit('kON_CHANGE');
+	            }
+	          }
+	        });
+	
+	        overlay.setMap(map);
+	
+	        maps.event.addListener(map, 'zoom_changed', function () {
+	          // recalc position at zoom start
+	          if (this_.geoService_.getZoom() !== map.getZoom()) {
+	            if (!this_.zoomAnimationInProgress_) {
+	              this_.zoomAnimationInProgress_ = true;
+	              this_._onZoomAnimationStart();
+	            }
+	
+	            var TIMEOUT_ZOOM = 300;
+	
+	            if (new Date().getTime() - _this.zoomControlClickTime_ < TIMEOUT_ZOOM) {
+	              // there is strange Google Map Api behavior in chrome when zoom animation of map
+	              // is started only on second raf call, if was click on zoom control
+	              // or +- keys pressed, so i wait for two rafs before change state
+	
+	              // this does not fully prevent animation jump
+	              // but reduce it's occurence probability
+	              (0, _raf2.default)(function () {
+	                return (0, _raf2.default)(function () {
+	                  this_.updateCounter_++;
+	                  this_._onBoundsChanged(map, maps);
+	                });
+	              });
+	            } else {
+	              this_.updateCounter_++;
+	              this_._onBoundsChanged(map, maps);
+	            }
+	          }
+	        });
+	
+	        maps.event.addListener(map, 'idle', function () {
+	          if (_this.resetSizeOnIdle_) {
+	            _this._setViewSize();
+	            var currMinZoom = _this._computeMinZoom(_this.props.options.minZoomOverride, _this.props.options.minZoom);
+	
+	            if (currMinZoom !== _this.minZoom_) {
+	              _this.minZoom_ = currMinZoom;
+	              map.setOptions({ minZoom: currMinZoom });
+	            }
+	
+	            _this.resetSizeOnIdle_ = false;
+	          }
+	
+	          if (this_.zoomAnimationInProgress_) {
+	            this_.zoomAnimationInProgress_ = false;
+	            this_._onZoomAnimationEnd();
+	          }
+	
+	          var div = overlay.div;
+	          var overlayProjection = overlay.getProjection();
+	          var bounds = map.getBounds();
+	          var ne = bounds.getNorthEast();
+	          var sw = bounds.getSouthWest();
+	          var ptx = overlayProjection.fromLatLngToDivPixel(new maps.LatLng(ne.lat(), sw.lng()));
+	          // need round for safari still can't find what need for firefox
+	          var ptxRounded = (0, _detect2.default)().isSafari ? { x: Math.round(ptx.x), y: Math.round(ptx.y) } : { x: ptx.x, y: ptx.y };
+	
+	          this_.updateCounter_++;
+	          this_._onBoundsChanged(map, maps);
+	
+	          if (_this.mouse_) {
+	            var latLng = _this.geoService_.unproject(_this.mouse_, true);
+	            _this.mouse_.lat = latLng.lat;
+	            _this.mouse_.lng = latLng.lng;
+	          }
+	
+	          _this._onChildMouseMove();
+	
+	          this_.dragTime_ = 0;
+	          div.style.left = ptxRounded.x + 'px';
+	          div.style.top = ptxRounded.y + 'px';
+	          if (this_.markersDispatcher_) {
+	            this_.markersDispatcher_.emit('kON_CHANGE');
+	            if (this_.fireMouseEventOnIdle_) {
+	              this_.markersDispatcher_.emit('kON_MOUSE_POSITION_CHANGE');
+	            }
+	          }
+	        });
+	
+	        maps.event.addListener(map, 'mouseover', function () {
+	          // has advantage over div MouseLeave
+	          this_.mouseInMap_ = true;
+	        });
+	
+	        maps.event.addListener(map, 'mouseout', function () {
+	          // has advantage over div MouseLeave
+	          this_.mouseInMap_ = false;
+	          this_.mouse_ = null;
+	          this_.markersDispatcher_.emit('kON_MOUSE_POSITION_CHANGE');
+	        });
+	
+	        maps.event.addListener(map, 'drag', function () {
+	          this_.dragTime_ = new Date().getTime();
+	          this_._onDrag();
+	        });
+	      }).catch(function (e) {
+	        console.error(e); // eslint-disable-line no-console
+	        throw e;
+	      });
+	    };
+	
+	    _this._onGoogleApiLoaded = function () {
+	      if (_this.props.onGoogleApiLoaded) {
+	        var _this$props;
+	
+	        if (process.env.NODE_ENV !== 'production' && _this.props.yesIWantToUseGoogleMapApiInternals !== true) {
+	          console.warn('GoogleMap: ' + // eslint-disable-line
+	          'Usage of internal api objects is dangerous ' + 'and can cause a lot of issues.\n' + 'To hide this warning add yesIWantToUseGoogleMapApiInternals={true} ' + 'to <GoogleMap instance');
+	        }
+	
+	        (_this$props = _this.props).onGoogleApiLoaded.apply(_this$props, arguments);
+	      }
+	    };
+	
+	    _this._getHoverDistance = function () {
+	      return _this.props.hoverDistance;
+	    };
+	
+	    _this._onDrag = function () {
+	      var _this$props2;
+	
+	      return _this.props.onDrag && (_this$props2 = _this.props).onDrag.apply(_this$props2, arguments);
+	    };
+	
+	    _this._onZoomAnimationStart = function () {
+	      var _this$props3;
+	
+	      return _this.props.onZoomAnimationStart && (_this$props3 = _this.props).onZoomAnimationStart.apply(_this$props3, arguments);
+	    };
+	
+	    _this._onZoomAnimationEnd = function () {
+	      var _this$props4;
+	
+	      return _this.props.onZoomAnimationEnd && (_this$props4 = _this.props).onZoomAnimationEnd.apply(_this$props4, arguments);
+	    };
+	
+	    _this._onChildClick = function () {
+	      if (_this.props.onChildClick) {
+	        var _this$props5;
+	
+	        return (_this$props5 = _this.props).onChildClick.apply(_this$props5, arguments);
+	      }
+	      return undefined;
+	    };
+	
+	    _this._onChildMouseDown = function (hoverKey, childProps) {
+	      _this.childMouseDownArgs_ = [hoverKey, childProps];
+	      if (_this.props.onChildMouseDown) {
+	        _this.props.onChildMouseDown(hoverKey, childProps, _extends({}, _this.mouse_));
+	      }
+	    };
+	
+	    _this._onChildMouseUp = function () {
+	      if (_this.childMouseDownArgs_) {
+	        if (_this.props.onChildMouseUp) {
+	          var _this$props6;
+	
+	          (_this$props6 = _this.props).onChildMouseUp.apply(_this$props6, _toConsumableArray(_this.childMouseDownArgs_).concat([_extends({}, _this.mouse_)]));
+	        }
+	        _this.childMouseDownArgs_ = null;
+	        _this.childMouseUpTime_ = new Date().getTime();
+	      }
+	    };
+	
+	    _this._onChildMouseMove = function () {
+	      if (_this.childMouseDownArgs_) {
+	        if (_this.props.onChildMouseMove) {
+	          var _this$props7;
+	
+	          (_this$props7 = _this.props).onChildMouseMove.apply(_this$props7, _toConsumableArray(_this.childMouseDownArgs_).concat([_extends({}, _this.mouse_)]));
+	        }
+	      }
+	    };
+	
+	    _this._onChildMouseEnter = function () {
+	      if (_this.props.onChildMouseEnter) {
+	        var _this$props8;
+	
+	        return (_this$props8 = _this.props).onChildMouseEnter.apply(_this$props8, arguments);
+	      }
+	      return undefined;
+	    };
+	
+	    _this._onChildMouseLeave = function () {
+	      if (_this.props.onChildMouseLeave) {
+	        var _this$props9;
+	
+	        return (_this$props9 = _this.props).onChildMouseLeave.apply(_this$props9, arguments);
+	      }
+	      return undefined;
+	    };
+	
+	    _this._setViewSize = function () {
+	      if (!_this.mounted_) return;
+	
+	      var mapDom = _reactDom2.default.findDOMNode(_this.refs.google_map_dom);
+	      _this.geoService_.setViewSize(mapDom.clientWidth, mapDom.clientHeight);
+	      _this._onBoundsChanged();
+	    };
+	
+	    _this._onWindowResize = function () {
+	      _this.resetSizeOnIdle_ = true;
+	    };
+	
+	    _this._onMapMouseMove = function (e) {
+	      if (!_this.mouseInMap_) return;
+	
+	      var currTime = new Date().getTime();
+	      var K_RECALC_CLIENT_RECT_MS = 50;
+	
+	      if (currTime - _this.mouseMoveTime_ > K_RECALC_CLIENT_RECT_MS) {
+	        _this.boundingRect_ = e.currentTarget.getBoundingClientRect();
+	      }
+	      _this.mouseMoveTime_ = currTime;
+	
+	      var mousePosX = e.clientX - _this.boundingRect_.left;
+	      var mousePosY = e.clientY - _this.boundingRect_.top;
+	
+	      if (!_this.mouse_) {
+	        _this.mouse_ = { x: 0, y: 0, lat: 0, lng: 0 };
+	      }
+	
+	      _this.mouse_.x = mousePosX;
+	      _this.mouse_.y = mousePosY;
+	
+	      var latLng = _this.geoService_.unproject(_this.mouse_, true);
+	      _this.mouse_.lat = latLng.lat;
+	      _this.mouse_.lng = latLng.lng;
+	
+	      _this._onChildMouseMove();
+	
+	      if (currTime - _this.dragTime_ < K_IDLE_TIMEOUT) {
+	        _this.fireMouseEventOnIdle_ = true;
+	      } else {
+	        _this.markersDispatcher_.emit('kON_MOUSE_POSITION_CHANGE');
+	        _this.fireMouseEventOnIdle_ = false;
+	      }
+	    };
+	
+	    _this._onClick = function () {
+	      var _this$props10;
+	
+	      return _this.props.onClick && !_this.childMouseDownArgs_ && new Date().getTime() - _this.childMouseUpTime_ > K_IDLE_CLICK_TIMEOUT && _this.dragTime_ === 0 && (_this$props10 = _this.props).onClick.apply(_this$props10, arguments);
+	    };
+	
+	    _this._onMapClick = function (event) {
+	      if (_this.markersDispatcher_) {
+	        // support touch events and recalculate mouse position on click
+	        _this._onMapMouseMove(event);
+	        var currTime = new Date().getTime();
+	        if (currTime - _this.dragTime_ > K_IDLE_TIMEOUT) {
+	          if (_this.mouse_) {
+	            _this._onClick(_extends({}, _this.mouse_, {
+	              event: event
+	            }));
+	          }
+	
+	          _this.markersDispatcher_.emit('kON_CLICK', event);
+	        }
+	      }
+	    };
+	
+	    _this._onMapMouseDownNative = function (event) {
+	      if (!_this.mouseInMap_) return;
+	
+	      _this._onMapMouseDown(event);
+	      if (_this.props.draggable === false) {
+	        event.preventDefault();
+	        event.stopPropagation();
+	      }
+	    };
+	
+	    _this._onMapMouseDown = function (event) {
+	      if (_this.markersDispatcher_) {
+	        var currTime = new Date().getTime();
+	        if (currTime - _this.dragTime_ > K_IDLE_TIMEOUT) {
+	          // Hovered marker detected at mouse move could be deleted at mouse down time
+	          // so it will be good to force hovered marker recalculation
+	          _this._onMapMouseMove(event);
+	          _this.markersDispatcher_.emit('kON_MDOWN', event);
+	        }
+	      }
+	    };
+	
+	    _this._onMapMouseDownCapture = function () {
+	      if ((0, _detect2.default)().isChrome) {
+	        // to fix strange zoom in chrome
+	        if (!_this.mouse_) {
+	          _this.zoomControlClickTime_ = new Date().getTime();
+	        }
+	      }
+	    };
+	
+	    _this._onKeyDownCapture = function () {
+	      if ((0, _detect2.default)().isChrome) {
+	        _this.zoomControlClickTime_ = new Date().getTime();
+	      }
+	    };
+	
+	    _this._onTouchMove = function (event) {
+	      if (_this.refs.google_map_dom) {
+	        var mapDom = _reactDom2.default.findDOMNode(_this.refs.google_map_dom);
+	        if (mapDom.contains(event.target)) {
+	          event.preventDefault();
+	        }
+	      }
+	    };
+	
+	    _this._isCenterDefined = function (center) {
+	      return center && ((0, _is_plain_object2.default)(center) && (0, _isNumber2.default)(center.lat) && (0, _isNumber2.default)(center.lng) || center.length === 2 && (0, _isNumber2.default)(center[0]) && (0, _isNumber2.default)(center[1]));
+	    };
+	
+	    _this._onBoundsChanged = function (map, maps, callExtBoundsChange) {
+	      if (map) {
+	        var gmC = map.getCenter();
+	        _this.geoService_.setView([gmC.lat(), gmC.lng()], map.getZoom(), 0);
+	      }
+	
+	      if ((_this.props.onChange || _this.props.onBoundsChange) && _this.geoService_.canProject()) {
+	        var zoom = _this.geoService_.getZoom();
+	        var bounds = _this.geoService_.getBounds();
+	        var centerLatLng = _this.geoService_.getCenter();
+	
+	        if (!(0, _array_helper2.default)(bounds, _this.prevBounds_, kEPS)) {
+	          if (callExtBoundsChange !== false) {
+	            var marginBounds = _this.geoService_.getBounds(_this.props.margin);
+	            if (_this.props.onBoundsChange) {
+	              _this.props.onBoundsChange(_this.centerIsObject_ ? _extends({}, centerLatLng) : [centerLatLng.lat, centerLatLng.lng], zoom, bounds, marginBounds);
+	            }
+	
+	            if (_this.props.onChange) {
+	              _this.props.onChange({
+	                center: _extends({}, centerLatLng),
+	                zoom: zoom,
+	                bounds: {
+	                  nw: {
+	                    lat: bounds[0],
+	                    lng: bounds[1]
+	                  },
+	                  se: {
+	                    lat: bounds[2],
+	                    lng: bounds[3]
+	                  }
+	                },
+	                marginBounds: {
+	                  nw: {
+	                    lat: marginBounds[0],
+	                    lng: marginBounds[1]
+	                  },
+	                  se: {
+	                    lat: marginBounds[2],
+	                    lng: marginBounds[3]
+	                  }
+	                },
+	
+	                size: _this.geoService_.hasSize() ? {
+	                  width: _this.geoService_.getWidth(),
+	                  height: _this.geoService_.getHeight()
+	                } : {
+	                  width: 0,
+	                  height: 0
+	                }
+	              });
+	            }
+	
+	            _this.prevBounds_ = bounds;
+	          }
+	        }
+	        // uncomment for strange bugs
+	        if (process.env.NODE_ENV !== 'production') {
+	          // compare with google calculations
+	          if (map) {
+	            var locBounds = map.getBounds();
+	            var ne = locBounds.getNorthEast();
+	            var sw = locBounds.getSouthWest();
+	
+	            var _gmC = map.getCenter();
+	            // compare with google map
+	
+	            if (!(0, _array_helper2.default)([centerLatLng.lat, centerLatLng.lng], [_gmC.lat(), _gmC.lng()], kEPS)) {
+	              console.info('GoogleMap center not eq:', // eslint-disable-line no-console
+	              [centerLatLng.lat, centerLatLng.lng], [_gmC.lat(), _gmC.lng()]);
+	            }
+	
+	            if (!(0, _array_helper2.default)(bounds, // eslint-disable-line
+	            [ne.lat(), sw.lng(), sw.lat(), ne.lng()], kEPS // eslint-disable-line no-console
+	            ) && !_this.props.resetBoundsOnResize) {
+	              // eslint-disable-line no-console
+	              // this is normal if this message occured on resize
+	              console.info('GoogleMap bounds not eq:', '\n', // eslint-disable-line no-console
+	              bounds, '\n', [ne.lat(), sw.lng(), sw.lat(), ne.lng()]);
+	            }
+	          }
+	        }
+	      }
+	    };
+	
+	    _this.mounted_ = false;
+	    _this.initialized_ = false;
+	    _this.googleApiLoadedCalled_ = false;
+	
+	    _this.map_ = null;
+	    _this.maps_ = null;
+	    _this.prevBounds_ = null;
+	
+	    _this.mouse_ = null;
+	    _this.mouseMoveTime_ = 0;
+	    _this.boundingRect_ = null;
+	    _this.mouseInMap_ = true;
+	
+	    _this.dragTime_ = 0;
+	    _this.fireMouseEventOnIdle_ = false;
+	    _this.updateCounter_ = 0;
+	
+	    _this.markersDispatcher_ = new _marker_dispatcher2.default(_this);
+	    _this.geoService_ = new _geo2.default(K_GOOGLE_TILE_SIZE);
+	    _this.centerIsObject_ = (0, _is_plain_object2.default)(_this.props.center);
+	
+	    _this.minZoom_ = DEFAULT_MIN_ZOOM;
+	    _this.defaultDraggableOption_ = true;
+	
+	    _this.zoomControlClickTime_ = 0;
+	
+	    _this.childMouseDownArgs_ = null;
+	    _this.childMouseUpTime_ = 0;
+	
+	    if (process.env.NODE_ENV !== 'production') {
+	      if (_this.props.apiKey) {
+	        console.warn('GoogleMap: ' + // eslint-disable-line no-console
+	        'apiKey is deprecated, use ' + 'bootstrapURLKeys={{key: YOUR_API_KEY}} instead.');
+	      }
+	
+	      if (_this.props.onBoundsChange) {
+	        console.warn('GoogleMap: ' + // eslint-disable-line no-console
+	        'onBoundsChange is deprecated, use ' + 'onChange({center, zoom, bounds, ...other}) instead.');
+	      }
+	
+	      if (_this.props.center === undefined && _this.props.defaultCenter === undefined) {
+	        console.warn('GoogleMap: center or defaultCenter' + // eslint-disable-line no-console
+	        'property must be defined');
+	      }
+	
+	      if (_this.props.zoom === undefined && _this.props.defaultZoom === undefined) {
+	        console.warn('GoogleMap: zoom or defaultZoom' + // eslint-disable-line no-console
+	        'property must be defined');
+	      }
+	    }
+	
+	    if (_this._isCenterDefined(_this.props.center || _this.props.defaultCenter)) {
+	      var propsCenter = latLng2Obj(_this.props.center || _this.props.defaultCenter);
+	      _this.geoService_.setView(propsCenter, _this.props.zoom || _this.props.defaultZoom, 0);
+	    }
+	
+	    _this.zoomAnimationInProgress_ = false;
+	
+	    _this.state = {
+	      overlayCreated: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(GoogleMap, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      this.mounted_ = true;
+	      window.addEventListener('resize', this._onWindowResize);
+	      window.addEventListener('keydown', this._onKeyDownCapture, true);
+	
+	      // prevent touch devices from moving the entire browser window on drag
+	      window.addEventListener('touchmove', this._onTouchMove);
+	
+	      var mapDom = _reactDom2.default.findDOMNode(this.refs.google_map_dom);
+	      // gmap can't prevent map drag if mousedown event already occured
+	      // the only workaround I find is prevent mousedown native browser event
+	      _reactDom2.default.findDOMNode(this.refs.google_map_dom).addEventListener('mousedown', this._onMapMouseDownNative, true);
+	
+	      window.addEventListener('mouseup', this._onChildMouseUp, false);
+	
+	      var bootstrapURLKeys = _extends({}, this.props.apiKey && { key: this.props.apiKey }, this.props.bootstrapURLKeys);
+	
+	      this.props.googleMapLoader(bootstrapURLKeys); // we can start load immediatly
+	
+	      setTimeout(function () {
+	        // to detect size
+	        _this2._setViewSize();
+	        if (_this2._isCenterDefined(_this2.props.center || _this2.props.defaultCenter)) {
+	          _this2._initMap();
+	        }
+	      }, 0, this);
+	      if (this.props.resetBoundsOnResize) {
+	        var that = this;
+	        _detectElementResize2.default.addResizeListener(mapDom, that._mapDomResizeCallback);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var _this3 = this;
+	
+	      if (process.env.NODE_ENV !== 'production') {
+	        if (this.props.defaultCenter !== nextProps.defaultCenter) {
+	          console.warn('GoogleMap: defaultCenter prop changed. ' + // eslint-disable-line
+	          'You can\'t change default props.');
+	        }
+	
+	        if (this.props.defaultZoom !== nextProps.defaultZoom) {
+	          console.warn('GoogleMap: defaultZoom prop changed. ' + // eslint-disable-line
+	          'You can\'t change default props.');
+	        }
+	      }
+	
+	      if (!this._isCenterDefined(this.props.center) && this._isCenterDefined(nextProps.center)) {
+	        setTimeout(function () {
+	          return _this3._initMap();
+	        }, 0);
+	      }
+	
+	      if (this.map_) {
+	        var centerLatLng = this.geoService_.getCenter();
+	        if (this._isCenterDefined(nextProps.center)) {
+	          var nextPropsCenter = latLng2Obj(nextProps.center);
+	          var currCenter = this._isCenterDefined(this.props.center) ? latLng2Obj(this.props.center) : null;
+	
+	          if (!currCenter || Math.abs(nextPropsCenter.lat - currCenter.lat) + Math.abs(nextPropsCenter.lng - currCenter.lng) > kEPS) {
+	            if (Math.abs(nextPropsCenter.lat - centerLatLng.lat) + Math.abs(nextPropsCenter.lng - centerLatLng.lng) > kEPS) {
+	              this.map_.panTo({ lat: nextPropsCenter.lat, lng: nextPropsCenter.lng });
+	            }
+	          }
+	        }
+	
+	        if (nextProps.zoom !== undefined) {
+	          // if zoom chaged by user
+	          if (Math.abs(nextProps.zoom - this.props.zoom) > 0) {
+	            this.map_.setZoom(nextProps.zoom);
+	          }
+	        }
+	
+	        if (this.props.draggable !== undefined && nextProps.draggable === undefined) {
+	          // reset to default
+	          this.map_.setOptions({ draggable: this.defaultDraggableOption_ });
+	        } else if (this.props.draggable !== nextProps.draggable) {
+	          // also prevent this on window 'mousedown' event to prevent map move
+	          this.map_.setOptions({ draggable: nextProps.draggable });
+	        }
+	
+	        // use shallowEqual to try avoid calling map._setOptions if only the ref changes
+	        if (nextProps.options !== undefined && !(0, _shallowEqual2.default)(this.props.options, nextProps.options)) {
+	          var mapPlainObjects = (0, _pick2.default)(this.maps_, _is_plain_object2.default);
+	          var options = typeof nextProps.options === 'function' ? nextProps.options(mapPlainObjects) : nextProps.options;
+	          // remove zoom, center and draggable options as these are managed by google-maps-react
+	          options = (0, _omit2.default)(nextProps.options, ['zoom', 'center', 'draggable']);
+	
+	          if (options.hasOwnProperty('minZoom')) {
+	            var minZoom = this._computeMinZoom(options.minZoomOverride, options.minZoom);
+	            options.minZoom = this._checkMinZoom(options.minZoom, minZoom);
+	          }
+	
+	          this.map_.setOptions(options);
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      // draggable does not affect inner components
+	      return !(0, _shallowEqual2.default)((0, _omit2.default)(this.props, ['draggable']), (0, _omit2.default)(nextProps, ['draggable'])) || !(0, _shallowEqual2.default)(this.state, nextState);
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps) {
+	      this.markersDispatcher_.emit('kON_CHANGE');
+	
+	      if (this.props.hoverDistance !== prevProps.hoverDistance) {
+	        this.markersDispatcher_.emit('kON_MOUSE_POSITION_CHANGE');
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.mounted_ = false;
+	      var that = this;
+	      var mapDom = _reactDom2.default.findDOMNode(this.refs.google_map_dom);
+	      window.removeEventListener('resize', this._onWindowResize);
+	      window.removeEventListener('keydown', this._onKeyDownCapture);
+	      mapDom.removeEventListener('mousedown', this._onMapMouseDownNative, true);
+	      window.removeEventListener('mouseup', this._onChildMouseUp, false);
+	      window.removeEventListener('touchmove', this._onTouchMove);
+	      _detectElementResize2.default.addResizeListener(mapDom, that._mapDomResizeCallback);
+	
+	      if (this.overlay_) {
+	        // this triggers overlay_.onRemove(), which will unmount the <GoogleMapMarkers/>
+	        this.overlay_.setMap(null);
+	      }
+	
+	      if (this.maps_ && this.map_) {
+	        this.maps_.event.clearInstanceListeners(this.map_);
+	      }
+	
+	      this.map_ = null;
+	      this.maps_ = null;
+	      this.markersDispatcher_.dispose();
+	
+	      this.resetSizeOnIdle_ = false;
+	
+	      delete this.map_;
+	      delete this.markersDispatcher_;
+	    }
+	    // calc minZoom if map size available
+	    // it's better to not set minZoom less than this calculation gives
+	    // otherwise there is no homeomorphism between screen coordinates and map
+	    // (one map coordinate can have different screen coordinates)
+	
+	  }, {
+	    key: '_checkMinZoom',
+	    value: function _checkMinZoom(zoom, minZoom) {
+	      if (process.env.NODE_ENV !== 'production') {
+	        if (zoom < minZoom) {
+	          console.warn('GoogleMap: ' + // eslint-disable-line
+	          'minZoom option is less than recommended ' + 'minZoom option for your map sizes.\n' + 'overrided to value ' + minZoom);
+	        }
+	      }
+	
+	      if (minZoom < zoom) {
+	        return zoom;
+	      }
+	      return minZoom;
+	    }
+	
+	    // this method works only if this.props.onChildMouseDown was called
+	
+	
+	    // this method works only if this.props.onChildMouseDown was called
+	
+	
+	    // K_IDLE_CLICK_TIMEOUT - looks like 300 is enough
+	
+	
+	    // gmap can't prevent map drag if mousedown event already occured
+	    // the only workaround I find is prevent mousedown native browser event
+	
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var mapMarkerPrerender = !this.state.overlayCreated ? _react2.default.createElement(_google_map_markers_prerender2.default, {
+	        experimental: this.props.experimental,
+	        onChildClick: this._onChildClick,
+	        onChildMouseDown: this._onChildMouseDown,
+	        onChildMouseEnter: this._onChildMouseEnter,
+	        onChildMouseLeave: this._onChildMouseLeave,
+	        geoService: this.geoService_,
+	        projectFromLeftTop: false,
+	        distanceToMouse: this.props.distanceToMouse,
+	        getHoverDistance: this._getHoverDistance,
+	        dispatcher: this.markersDispatcher_
+	      }) : null;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        {
+	          style: this.props.style,
+	          onMouseMove: this._onMapMouseMove,
+	          onMouseDownCapture: this._onMapMouseDownCapture,
+	          onClick: this._onMapClick
+	        },
+	        _react2.default.createElement(_google_map_map2.default, { ref: 'google_map_dom' }),
+	        mapMarkerPrerender
+	      );
+	    }
+	  }]);
+	
+	  return GoogleMap;
+	}(_react.Component);
+	
+	GoogleMap.propTypes = {
+	  apiKey: _react.PropTypes.string,
+	  bootstrapURLKeys: _react.PropTypes.any,
+	
+	  defaultCenter: _react2.default.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.shape({
+	    lat: _react.PropTypes.number,
+	    lng: _react.PropTypes.number
+	  })]),
+	  center: _react2.default.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.shape({
+	    lat: _react.PropTypes.number,
+	    lng: _react.PropTypes.number
+	  })]),
+	  defaultZoom: _react.PropTypes.number,
+	  zoom: _react.PropTypes.number,
+	  onBoundsChange: _react.PropTypes.func,
+	  onChange: _react.PropTypes.func,
+	  onClick: _react.PropTypes.func,
+	  onChildClick: _react.PropTypes.func,
+	  onChildMouseDown: _react.PropTypes.func,
+	  onChildMouseUp: _react.PropTypes.func,
+	  onChildMouseMove: _react.PropTypes.func,
+	  onChildMouseEnter: _react.PropTypes.func,
+	  onChildMouseLeave: _react.PropTypes.func,
+	  onZoomAnimationStart: _react.PropTypes.func,
+	  onZoomAnimationEnd: _react.PropTypes.func,
+	  onDrag: _react.PropTypes.func,
+	  options: _react.PropTypes.any,
+	  distanceToMouse: _react.PropTypes.func,
+	  hoverDistance: _react.PropTypes.number,
+	  debounced: _react.PropTypes.bool,
+	  margin: _react.PropTypes.array,
+	  googleMapLoader: _react.PropTypes.any,
+	  onGoogleApiLoaded: _react.PropTypes.func,
+	  yesIWantToUseGoogleMapApiInternals: _react.PropTypes.bool,
+	  draggable: _react.PropTypes.bool,
+	  style: _react.PropTypes.any,
+	  resetBoundsOnResize: _react.PropTypes.bool
+	};
+	GoogleMap.defaultProps = {
+	  distanceToMouse: function distanceToMouse(pt, mousePos /* , markerProps */) {
+	    return Math.sqrt((pt.x - mousePos.x) * (pt.x - mousePos.x) + (pt.y - mousePos.y) * (pt.y - mousePos.y));
+	  },
+	
+	  hoverDistance: 30,
+	  debounced: true,
+	  options: defaultOptions_,
+	  googleMapLoader: _google_map_loader2.default,
+	  yesIWantToUseGoogleMapApiInternals: false,
+	  style: {
+	    width: '100%',
+	    height: '100%',
+	    margin: 0,
+	    padding: 0,
+	    position: 'relative'
+	  }
+	};
+	GoogleMap.googleMapLoader = _google_map_loader2.default;
+	exports.default = GoogleMap;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 3)))
+
+/***/ },
+/* 282 */
+/*!*****************************************************!*\
+  !*** ./~/google-map-react/lib/marker_dispatcher.js ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _eventemitter = __webpack_require__(/*! eventemitter3 */ 283);
+	
+	var _eventemitter2 = _interopRequireDefault(_eventemitter);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var MarkerDispatcher = function (_EventEmitter) {
+	  _inherits(MarkerDispatcher, _EventEmitter);
+	
+	  function MarkerDispatcher(gmapInstance) {
+	    _classCallCheck(this, MarkerDispatcher);
+	
+	    var _this = _possibleConstructorReturn(this, (MarkerDispatcher.__proto__ || Object.getPrototypeOf(MarkerDispatcher)).call(this));
+	
+	    _this.gmapInstance = gmapInstance;
+	    return _this;
+	  }
+	
+	  _createClass(MarkerDispatcher, [{
+	    key: 'getChildren',
+	    value: function getChildren() {
+	      return this.gmapInstance.props.children;
+	    }
+	  }, {
+	    key: 'getMousePosition',
+	    value: function getMousePosition() {
+	      return this.gmapInstance.mouse_;
+	    }
+	  }, {
+	    key: 'getUpdateCounter',
+	    value: function getUpdateCounter() {
+	      return this.gmapInstance.updateCounter_;
+	    }
+	  }, {
+	    key: 'dispose',
+	    value: function dispose() {
+	      this.gmapInstance = null;
+	      this.removeAllListeners();
+	    }
+	  }]);
+	
+	  return MarkerDispatcher;
+	}(_eventemitter2.default);
+	
+	exports.default = MarkerDispatcher;
+
+/***/ },
+/* 283 */
+/*!**********************************!*\
+  !*** ./~/eventemitter3/index.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var has = Object.prototype.hasOwnProperty;
+	
+	//
+	// We store our EE objects in a plain object whose properties are event names.
+	// If `Object.create(null)` is not supported we prefix the event names with a
+	// `~` to make sure that the built-in object properties are not overridden or
+	// used as an attack vector.
+	// We also assume that `Object.create(null)` is available when the event name
+	// is an ES6 Symbol.
+	//
+	var prefix = typeof Object.create !== 'function' ? '~' : false;
+	
+	/**
+	 * Representation of a single EventEmitter function.
+	 *
+	 * @param {Function} fn Event handler to be called.
+	 * @param {Mixed} context Context for function execution.
+	 * @param {Boolean} [once=false] Only emit once
+	 * @api private
+	 */
+	function EE(fn, context, once) {
+	  this.fn = fn;
+	  this.context = context;
+	  this.once = once || false;
+	}
+	
+	/**
+	 * Minimal EventEmitter interface that is molded against the Node.js
+	 * EventEmitter interface.
+	 *
+	 * @constructor
+	 * @api public
+	 */
+	function EventEmitter() { /* Nothing to set */ }
+	
+	/**
+	 * Hold the assigned EventEmitters by name.
+	 *
+	 * @type {Object}
+	 * @private
+	 */
+	EventEmitter.prototype._events = undefined;
+	
+	/**
+	 * Return an array listing the events for which the emitter has registered
+	 * listeners.
+	 *
+	 * @returns {Array}
+	 * @api public
+	 */
+	EventEmitter.prototype.eventNames = function eventNames() {
+	  var events = this._events
+	    , names = []
+	    , name;
+	
+	  if (!events) return names;
+	
+	  for (name in events) {
+	    if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
+	  }
+	
+	  if (Object.getOwnPropertySymbols) {
+	    return names.concat(Object.getOwnPropertySymbols(events));
+	  }
+	
+	  return names;
+	};
+	
+	/**
+	 * Return a list of assigned event listeners.
+	 *
+	 * @param {String} event The events that should be listed.
+	 * @param {Boolean} exists We only need to know if there are listeners.
+	 * @returns {Array|Boolean}
+	 * @api public
+	 */
+	EventEmitter.prototype.listeners = function listeners(event, exists) {
+	  var evt = prefix ? prefix + event : event
+	    , available = this._events && this._events[evt];
+	
+	  if (exists) return !!available;
+	  if (!available) return [];
+	  if (available.fn) return [available.fn];
+	
+	  for (var i = 0, l = available.length, ee = new Array(l); i < l; i++) {
+	    ee[i] = available[i].fn;
+	  }
+	
+	  return ee;
+	};
+	
+	/**
+	 * Emit an event to all registered event listeners.
+	 *
+	 * @param {String} event The name of the event.
+	 * @returns {Boolean} Indication if we've emitted an event.
+	 * @api public
+	 */
+	EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+	  var evt = prefix ? prefix + event : event;
+	
+	  if (!this._events || !this._events[evt]) return false;
+	
+	  var listeners = this._events[evt]
+	    , len = arguments.length
+	    , args
+	    , i;
+	
+	  if ('function' === typeof listeners.fn) {
+	    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
+	
+	    switch (len) {
+	      case 1: return listeners.fn.call(listeners.context), true;
+	      case 2: return listeners.fn.call(listeners.context, a1), true;
+	      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
+	      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
+	      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
+	      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+	    }
+	
+	    for (i = 1, args = new Array(len -1); i < len; i++) {
+	      args[i - 1] = arguments[i];
+	    }
+	
+	    listeners.fn.apply(listeners.context, args);
+	  } else {
+	    var length = listeners.length
+	      , j;
+	
+	    for (i = 0; i < length; i++) {
+	      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+	
+	      switch (len) {
+	        case 1: listeners[i].fn.call(listeners[i].context); break;
+	        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
+	        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
+	        default:
+	          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
+	            args[j - 1] = arguments[j];
+	          }
+	
+	          listeners[i].fn.apply(listeners[i].context, args);
+	      }
+	    }
+	  }
+	
+	  return true;
+	};
+	
+	/**
+	 * Register a new EventListener for the given event.
+	 *
+	 * @param {String} event Name of the event.
+	 * @param {Function} fn Callback function.
+	 * @param {Mixed} [context=this] The context of the function.
+	 * @api public
+	 */
+	EventEmitter.prototype.on = function on(event, fn, context) {
+	  var listener = new EE(fn, context || this)
+	    , evt = prefix ? prefix + event : event;
+	
+	  if (!this._events) this._events = prefix ? {} : Object.create(null);
+	  if (!this._events[evt]) this._events[evt] = listener;
+	  else {
+	    if (!this._events[evt].fn) this._events[evt].push(listener);
+	    else this._events[evt] = [
+	      this._events[evt], listener
+	    ];
+	  }
+	
+	  return this;
+	};
+	
+	/**
+	 * Add an EventListener that's only called once.
+	 *
+	 * @param {String} event Name of the event.
+	 * @param {Function} fn Callback function.
+	 * @param {Mixed} [context=this] The context of the function.
+	 * @api public
+	 */
+	EventEmitter.prototype.once = function once(event, fn, context) {
+	  var listener = new EE(fn, context || this, true)
+	    , evt = prefix ? prefix + event : event;
+	
+	  if (!this._events) this._events = prefix ? {} : Object.create(null);
+	  if (!this._events[evt]) this._events[evt] = listener;
+	  else {
+	    if (!this._events[evt].fn) this._events[evt].push(listener);
+	    else this._events[evt] = [
+	      this._events[evt], listener
+	    ];
+	  }
+	
+	  return this;
+	};
+	
+	/**
+	 * Remove event listeners.
+	 *
+	 * @param {String} event The event we want to remove.
+	 * @param {Function} fn The listener that we need to find.
+	 * @param {Mixed} context Only remove listeners matching this context.
+	 * @param {Boolean} once Only remove once listeners.
+	 * @api public
+	 */
+	EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
+	  var evt = prefix ? prefix + event : event;
+	
+	  if (!this._events || !this._events[evt]) return this;
+	
+	  var listeners = this._events[evt]
+	    , events = [];
+	
+	  if (fn) {
+	    if (listeners.fn) {
+	      if (
+	           listeners.fn !== fn
+	        || (once && !listeners.once)
+	        || (context && listeners.context !== context)
+	      ) {
+	        events.push(listeners);
+	      }
+	    } else {
+	      for (var i = 0, length = listeners.length; i < length; i++) {
+	        if (
+	             listeners[i].fn !== fn
+	          || (once && !listeners[i].once)
+	          || (context && listeners[i].context !== context)
+	        ) {
+	          events.push(listeners[i]);
+	        }
+	      }
+	    }
+	  }
+	
+	  //
+	  // Reset the array, or remove it completely if we have no more listeners.
+	  //
+	  if (events.length) {
+	    this._events[evt] = events.length === 1 ? events[0] : events;
+	  } else {
+	    delete this._events[evt];
+	  }
+	
+	  return this;
+	};
+	
+	/**
+	 * Remove all listeners or only the listeners for the specified event.
+	 *
+	 * @param {String} event The event want to remove all listeners for.
+	 * @api public
+	 */
+	EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
+	  if (!this._events) return this;
+	
+	  if (event) delete this._events[prefix ? prefix + event : event];
+	  else this._events = prefix ? {} : Object.create(null);
+	
+	  return this;
+	};
+	
+	//
+	// Alias methods names because people roll like that.
+	//
+	EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
+	EventEmitter.prototype.addListener = EventEmitter.prototype.on;
+	
+	//
+	// This function doesn't apply anymore.
+	//
+	EventEmitter.prototype.setMaxListeners = function setMaxListeners() {
+	  return this;
+	};
+	
+	//
+	// Expose the prefix.
+	//
+	EventEmitter.prefixed = prefix;
+	
+	//
+	// Expose the module.
+	//
+	if (true) {
+	  module.exports = EventEmitter;
+	}
+
+
+/***/ },
+/* 284 */
+/*!**************************************************!*\
+  !*** ./~/google-map-react/lib/google_map_map.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var style = {
+	  width: '100%',
+	  height: '100%',
+	  left: 0,
+	  top: 0,
+	  margin: 0,
+	  padding: 0,
+	  position: 'absolute'
+	};
+	
+	var GoogleMapMap = function (_Component) {
+	  _inherits(GoogleMapMap, _Component);
+	
+	  function GoogleMapMap() {
+	    _classCallCheck(this, GoogleMapMap);
+	
+	    return _possibleConstructorReturn(this, (GoogleMapMap.__proto__ || Object.getPrototypeOf(GoogleMapMap)).apply(this, arguments));
+	  }
+	
+	  _createClass(GoogleMapMap, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate() {
+	      return false; // disable react on this div
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', { style: style });
+	    }
+	  }]);
+	
+	  return GoogleMapMap;
+	}(_react.Component);
+	
+	exports.default = GoogleMapMap;
+
+/***/ },
+/* 285 */
+/*!******************************************************!*\
+  !*** ./~/google-map-react/lib/google_map_markers.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ 124);
+	
+	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+	
+	var _omit = __webpack_require__(/*! ./utils/omit */ 286);
+	
+	var _omit2 = _interopRequireDefault(_omit);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var mainStyle = {
+	  width: '100%',
+	  height: '100%',
+	  left: 0,
+	  top: 0,
+	  margin: 0,
+	  padding: 0,
+	  position: 'absolute'
+	};
+	
+	var style = {
+	  width: 0,
+	  height: 0,
+	  left: 0,
+	  top: 0,
+	  backgroundColor: 'transparent',
+	  position: 'absolute'
+	};
+	
+	var GoogleMapMarkers = function (_Component) {
+	  _inherits(GoogleMapMarkers, _Component);
+	
+	  function GoogleMapMarkers(props) {
+	    _classCallCheck(this, GoogleMapMarkers);
+	
+	    var _this = _possibleConstructorReturn(this, (GoogleMapMarkers.__proto__ || Object.getPrototypeOf(GoogleMapMarkers)).call(this, props));
+	
+	    _this._getState = function () {
+	      return {
+	        children: _this.props.dispatcher.getChildren(),
+	        updateCounter: _this.props.dispatcher.getUpdateCounter()
+	      };
+	    };
+	
+	    _this._onChangeHandler = function () {
+	      if (!_this.dimesionsCache_) {
+	        return;
+	      }
+	
+	      var prevChildCount = (_this.state.children || []).length;
+	      var state = _this._getState();
+	
+	      _this.setState(state, function () {
+	        return (state.children || []).length !== prevChildCount && _this._onMouseChangeHandler();
+	      });
+	    };
+	
+	    _this._onChildClick = function () {
+	      if (_this.props.onChildClick) {
+	        if (_this.hoverChildProps_) {
+	          var hoverKey = _this.hoverKey_;
+	          var childProps = _this.hoverChildProps_;
+	          // click works only on hovered item
+	          _this.props.onChildClick(hoverKey, childProps);
+	        }
+	      }
+	    };
+	
+	    _this._onChildMouseDown = function () {
+	      if (_this.props.onChildMouseDown) {
+	        if (_this.hoverChildProps_) {
+	          var hoverKey = _this.hoverKey_;
+	          var childProps = _this.hoverChildProps_;
+	          // works only on hovered item
+	          _this.props.onChildMouseDown(hoverKey, childProps);
+	        }
+	      }
+	    };
+	
+	    _this._onChildMouseEnter = function (hoverKey, childProps) {
+	      if (!_this.dimesionsCache_) {
+	        return;
+	      }
+	
+	      if (_this.props.onChildMouseEnter) {
+	        _this.props.onChildMouseEnter(hoverKey, childProps);
+	      }
+	
+	      _this.hoverChildProps_ = childProps;
+	      _this.hoverKey_ = hoverKey;
+	      _this.setState({ hoverKey: hoverKey });
+	    };
+	
+	    _this._onChildMouseLeave = function () {
+	      if (!_this.dimesionsCache_) {
+	        return;
+	      }
+	
+	      var hoverKey = _this.hoverKey_;
+	      var childProps = _this.hoverChildProps_;
+	
+	      if (hoverKey !== undefined && hoverKey !== null) {
+	        if (_this.props.onChildMouseLeave) {
+	          _this.props.onChildMouseLeave(hoverKey, childProps);
+	        }
+	
+	        _this.hoverKey_ = null;
+	        _this.hoverChildProps_ = null;
+	        _this.setState({ hoverKey: null });
+	      }
+	    };
+	
+	    _this._onMouseAllow = function (value) {
+	      if (!value) {
+	        _this._onChildMouseLeave();
+	      }
+	
+	      _this.allowMouse_ = value;
+	    };
+	
+	    _this._onMouseChangeHandler = function () {
+	      if (_this.allowMouse_) {
+	        _this._onMouseChangeHandler_raf();
+	      }
+	    };
+	
+	    _this._onMouseChangeHandler_raf = function () {
+	      // eslint-disable-line
+	      if (!_this.dimesionsCache_) {
+	        return;
+	      }
+	
+	      var mp = _this.props.dispatcher.getMousePosition();
+	
+	      if (mp) {
+	        (function () {
+	          var distances = [];
+	          var hoverDistance = _this.props.getHoverDistance();
+	
+	          _react2.default.Children.forEach(_this.state.children, function (child, childIndex) {
+	            if (!child) return;
+	            // layers
+	            if (child.props.latLng === undefined && child.props.lat === undefined && child.props.lng === undefined) {
+	              return;
+	            }
+	
+	            var childKey = child.key !== undefined && child.key !== null ? child.key : childIndex;
+	            var dist = _this.props.distanceToMouse(_this.dimesionsCache_[childKey], mp, child.props);
+	            if (dist < hoverDistance) {
+	              distances.push({
+	                key: childKey,
+	                dist: dist,
+	                props: child.props
+	              });
+	            }
+	          });
+	
+	          if (distances.length) {
+	            distances.sort(function (a, b) {
+	              return a.dist - b.dist;
+	            });
+	            var hoverKey = distances[0].key;
+	            var childProps = distances[0].props;
+	
+	            if (_this.hoverKey_ !== hoverKey) {
+	              _this._onChildMouseLeave();
+	
+	              _this._onChildMouseEnter(hoverKey, childProps);
+	            }
+	          } else {
+	            _this._onChildMouseLeave();
+	          }
+	        })();
+	      } else {
+	        _this._onChildMouseLeave();
+	      }
+	    };
+	
+	    _this._getDimensions = function (key) {
+	      var childKey = key;
+	      return _this.dimesionsCache_[childKey];
+	    };
+	
+	    _this.props.dispatcher.on('kON_CHANGE', _this._onChangeHandler);
+	    _this.props.dispatcher.on('kON_MOUSE_POSITION_CHANGE', _this._onMouseChangeHandler);
+	    _this.props.dispatcher.on('kON_CLICK', _this._onChildClick);
+	    _this.props.dispatcher.on('kON_MDOWN', _this._onChildMouseDown);
+	
+	    _this.dimesionsCache_ = {};
+	    _this.hoverKey_ = null;
+	    _this.hoverChildProps_ = null;
+	    _this.allowMouse_ = true;
+	
+	    _this.state = _extends({}, _this._getState(), { hoverKey: null });
+	    return _this;
+	  }
+	
+	  _createClass(GoogleMapMarkers, [{
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      if (this.props.experimental === true) {
+	        return !(0, _shallowEqual2.default)(this.props, nextProps) || !(0, _shallowEqual2.default)((0, _omit2.default)(this.state, ['hoverKey']), (0, _omit2.default)(nextState, ['hoverKey']));
+	      }
+	
+	      return !(0, _shallowEqual2.default)(this.props, nextProps) || !(0, _shallowEqual2.default)(this.state, nextState);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.props.dispatcher.removeListener('kON_CHANGE', this._onChangeHandler);
+	      this.props.dispatcher.removeListener('kON_MOUSE_POSITION_CHANGE', this._onMouseChangeHandler);
+	      this.props.dispatcher.removeListener('kON_CLICK', this._onChildClick);
+	      this.props.dispatcher.removeListener('kON_MDOWN', this._onChildMouseDown);
+	
+	      this.dimesionsCache_ = null;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var mainElementStyle = this.props.style || mainStyle;
+	      this.dimesionsCache_ = {};
+	
+	      var markers = _react2.default.Children.map(this.state.children, function (child, childIndex) {
+	        if (!child) return undefined;
+	        if (child.props.latLng === undefined && child.props.lat === undefined && child.props.lng === undefined) {
+	          return _react2.default.cloneElement(child, {
+	            $geoService: _this2.props.geoService,
+	            $onMouseAllow: _this2._onMouseAllow,
+	            $prerender: _this2.props.prerender
+	          });
+	        }
+	
+	        var latLng = child.props.latLng !== undefined ? child.props.latLng : { lat: child.props.lat, lng: child.props.lng };
+	
+	        var pt = _this2.props.geoService.project(latLng, _this2.props.projectFromLeftTop);
+	
+	        var stylePtPos = {
+	          left: pt.x,
+	          top: pt.y
+	        };
+	
+	        var dx = 0;
+	        var dy = 0;
+	
+	        if (!_this2.props.projectFromLeftTop) {
+	          // center projection
+	          if (_this2.props.geoService.hasSize()) {
+	            dx = _this2.props.geoService.getWidth() / 2;
+	            dy = _this2.props.geoService.getHeight() / 2;
+	          }
+	        }
+	
+	        // to prevent rerender on child element i need to pass
+	        // const params $getDimensions and $dimensionKey instead of dimension object
+	        var childKey = child.key !== undefined && child.key !== null ? child.key : childIndex;
+	
+	        _this2.dimesionsCache_[childKey] = _extends({
+	          x: pt.x + dx,
+	          y: pt.y + dy
+	        }, latLng);
+	
+	        return _react2.default.createElement(
+	          'div',
+	          {
+	            key: childKey,
+	            style: _extends({}, style, stylePtPos),
+	            className: child.props.$markerHolderClassName
+	          },
+	          _react2.default.cloneElement(child, {
+	            $hover: childKey === _this2.state.hoverKey,
+	            $getDimensions: _this2._getDimensions,
+	            $dimensionKey: childKey,
+	            $geoService: _this2.props.geoService,
+	            $onMouseAllow: _this2._onMouseAllow,
+	            $prerender: _this2.props.prerender
+	          })
+	        );
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { style: mainElementStyle },
+	        markers
+	      );
+	    }
+	  }]);
+	
+	  return GoogleMapMarkers;
+	}(_react.Component);
+	
+	GoogleMapMarkers.propTypes = {
+	  geoService: _react.PropTypes.any,
+	  style: _react.PropTypes.any,
+	  distanceToMouse: _react.PropTypes.func,
+	  dispatcher: _react.PropTypes.any,
+	  onChildClick: _react.PropTypes.func,
+	  onChildMouseDown: _react.PropTypes.func,
+	  onChildMouseLeave: _react.PropTypes.func,
+	  onChildMouseEnter: _react.PropTypes.func,
+	  getHoverDistance: _react.PropTypes.func,
+	  projectFromLeftTop: _react.PropTypes.bool,
+	  prerender: _react.PropTypes.bool
+	};
+	GoogleMapMarkers.defaultProps = {
+	  projectFromLeftTop: false,
+	  prerender: false
+	};
+	exports.default = GoogleMapMarkers;
+
+/***/ },
+/* 286 */
+/*!**********************************************!*\
+  !*** ./~/google-map-react/lib/utils/omit.js ***!
+  \**********************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	// https://github.com/acdlite/recompose/blob/master/src/packages/recompose/utils/omit.js
+	var omit = function omit(obj, keys) {
+	  var rest = _objectWithoutProperties(obj, []);
+	
+	  for (var i = 0; i < keys.length; i++) {
+	    var key = keys[i];
+	    if (rest.hasOwnProperty(key)) {
+	      delete rest[key];
+	    }
+	  }
+	  return rest;
+	};
+	
+	exports.default = omit;
+
+/***/ },
+/* 287 */
+/*!****************************************************************!*\
+  !*** ./~/google-map-react/lib/google_map_markers_prerender.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { style: style },
+	    _react2.default.createElement(_google_map_markers2.default, _extends({}, props, { prerender: true }))
+	  );
+	};
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _google_map_markers = __webpack_require__(/*! ./google_map_markers.js */ 285);
+	
+	var _google_map_markers2 = _interopRequireDefault(_google_map_markers);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var style = {
+	  width: '50%',
+	  height: '50%',
+	  left: '50%',
+	  top: '50%',
+	  // backgroundColor: 'red',
+	  margin: 0,
+	  padding: 0,
+	  position: 'absolute'
+	};
+
+/***/ },
+/* 288 */
+/*!*******************************************************************!*\
+  !*** ./~/google-map-react/lib/utils/loaders/google_map_loader.js ***!
+  \*******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = googleMapLoader;
+	var $script_ = null;
+	
+	var loadPromise_ = void 0;
+	
+	var resolveCustomPromise_ = void 0;
+	var _customPromise = new Promise(function (resolve) {
+	  resolveCustomPromise_ = resolve;
+	});
+	
+	// TODO add libraries language and other map options
+	function googleMapLoader(bootstrapURLKeys) {
+	  if (!$script_) {
+	    $script_ = __webpack_require__(/*! scriptjs */ 289); // eslint-disable-line
+	  }
+	
+	  // call from outside google-map-react
+	  // will be as soon as loadPromise_ resolved
+	  if (!bootstrapURLKeys) {
+	    return _customPromise;
+	  }
+	
+	  if (loadPromise_) {
+	    return loadPromise_;
+	  }
+	
+	  loadPromise_ = new Promise(function (resolve, reject) {
+	    if (typeof window === 'undefined') {
+	      reject(new Error('google map cannot be loaded outside browser env'));
+	      return;
+	    }
+	
+	    if (window.google && window.google.maps) {
+	      resolve(window.google.maps);
+	      return;
+	    }
+	
+	    if (typeof window._$_google_map_initialize_$_ !== 'undefined') {
+	      reject(new Error('google map initialization error'));
+	    }
+	
+	    window._$_google_map_initialize_$_ = function () {
+	      delete window._$_google_map_initialize_$_;
+	      resolve(window.google.maps);
+	    };
+	
+	    if (process.env.NODE_ENV !== 'production') {
+	      if (Object.keys(bootstrapURLKeys).indexOf('callback') > -1) {
+	        console.error('"callback" key in bootstrapURLKeys is not allowed, ' + // eslint-disable-line
+	        'use onGoogleApiLoaded property instead');
+	        throw new Error('"callback" key in bootstrapURLKeys is not allowed, ' + 'use onGoogleApiLoaded property instead');
+	      }
+	    }
+	
+	    var queryString = Object.keys(bootstrapURLKeys).reduce(function (r, key) {
+	      return r + '&' + key + '=' + bootstrapURLKeys[key];
+	    }, '');
+	
+	    $script_('https://maps.googleapis.com/maps/api/js?callback=_$_google_map_initialize_$_' + queryString, function () {
+	      return typeof window.google === 'undefined' && reject(new Error('google map initialization error (not loaded)'));
+	    });
+	  });
+	
+	  resolveCustomPromise_(loadPromise_);
+	
+	  return loadPromise_;
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 3)))
+
+/***/ },
+/* 289 */
+/*!***********************************!*\
+  !*** ./~/scriptjs/dist/script.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  * $script.js JS loader & dependency manager
+	  * https://github.com/ded/script.js
+	  * (c) Dustin Diaz 2014 | License MIT
+	  */
+	
+	(function (name, definition) {
+	  if (typeof module != 'undefined' && module.exports) module.exports = definition()
+	  else if (true) !(__WEBPACK_AMD_DEFINE_FACTORY__ = (definition), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+	  else this[name] = definition()
+	})('$script', function () {
+	  var doc = document
+	    , head = doc.getElementsByTagName('head')[0]
+	    , s = 'string'
+	    , f = false
+	    , push = 'push'
+	    , readyState = 'readyState'
+	    , onreadystatechange = 'onreadystatechange'
+	    , list = {}
+	    , ids = {}
+	    , delay = {}
+	    , scripts = {}
+	    , scriptpath
+	    , urlArgs
+	
+	  function every(ar, fn) {
+	    for (var i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
+	    return 1
+	  }
+	  function each(ar, fn) {
+	    every(ar, function (el) {
+	      return !fn(el)
+	    })
+	  }
+	
+	  function $script(paths, idOrDone, optDone) {
+	    paths = paths[push] ? paths : [paths]
+	    var idOrDoneIsDone = idOrDone && idOrDone.call
+	      , done = idOrDoneIsDone ? idOrDone : optDone
+	      , id = idOrDoneIsDone ? paths.join('') : idOrDone
+	      , queue = paths.length
+	    function loopFn(item) {
+	      return item.call ? item() : list[item]
+	    }
+	    function callback() {
+	      if (!--queue) {
+	        list[id] = 1
+	        done && done()
+	        for (var dset in delay) {
+	          every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = [])
+	        }
+	      }
+	    }
+	    setTimeout(function () {
+	      each(paths, function loading(path, force) {
+	        if (path === null) return callback()
+	        
+	        if (!force && !/^https?:\/\//.test(path) && scriptpath) {
+	          path = (path.indexOf('.js') === -1) ? scriptpath + path + '.js' : scriptpath + path;
+	        }
+	        
+	        if (scripts[path]) {
+	          if (id) ids[id] = 1
+	          return (scripts[path] == 2) ? callback() : setTimeout(function () { loading(path, true) }, 0)
+	        }
+	
+	        scripts[path] = 1
+	        if (id) ids[id] = 1
+	        create(path, callback)
+	      })
+	    }, 0)
+	    return $script
+	  }
+	
+	  function create(path, fn) {
+	    var el = doc.createElement('script'), loaded
+	    el.onload = el.onerror = el[onreadystatechange] = function () {
+	      if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
+	      el.onload = el[onreadystatechange] = null
+	      loaded = 1
+	      scripts[path] = 2
+	      fn()
+	    }
+	    el.async = 1
+	    el.src = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
+	    head.insertBefore(el, head.lastChild)
+	  }
+	
+	  $script.get = create
+	
+	  $script.order = function (scripts, id, done) {
+	    (function callback(s) {
+	      s = scripts.shift()
+	      !scripts.length ? $script(s, id, done) : $script(s, callback)
+	    }())
+	  }
+	
+	  $script.path = function (p) {
+	    scriptpath = p
+	  }
+	  $script.urlArgs = function (str) {
+	    urlArgs = str;
+	  }
+	  $script.ready = function (deps, ready, req) {
+	    deps = deps[push] ? deps : [deps]
+	    var missing = [];
+	    !each(deps, function (dep) {
+	      list[dep] || missing[push](dep);
+	    }) && every(deps, function (dep) {return list[dep]}) ?
+	      ready() : !function (key) {
+	      delay[key] = delay[key] || []
+	      delay[key][push](ready)
+	      req && req(missing)
+	    }(deps.join('|'))
+	    return $script
+	  }
+	
+	  $script.done = function (idOrDone) {
+	    $script([null], idOrDone)
+	  }
+	
+	  return $script
+	});
+
+
+/***/ },
+/* 290 */
+/*!************************************************!*\
+  !*** ./~/google-map-react/lib/utils/detect.js ***!
+  \************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = detectBrowser;
+	// http://stackoverflow.com/questions/5899783/detect-safari-chrome-ie-firefox-opera-with-user-agent
+	var detectBrowserResult_ = null;
+	
+	function detectBrowser() {
+	  if (detectBrowserResult_) {
+	    return detectBrowserResult_;
+	  }
+	
+	  if (typeof navigator !== 'undefined') {
+	    var isExplorer = navigator.userAgent.indexOf('MSIE') > -1;
+	    var isFirefox = navigator.userAgent.indexOf('Firefox') > -1;
+	    var isOpera = navigator.userAgent.toLowerCase().indexOf('op') > -1;
+	
+	    var isChrome = navigator.userAgent.indexOf('Chrome') > -1;
+	    var isSafari = navigator.userAgent.indexOf('Safari') > -1;
+	
+	    if (isChrome && isSafari) {
+	      isSafari = false;
+	    }
+	
+	    if (isChrome && isOpera) {
+	      isChrome = false;
+	    }
+	
+	    detectBrowserResult_ = { isExplorer: isExplorer, isFirefox: isFirefox, isOpera: isOpera, isChrome: isChrome, isSafari: isSafari };
+	    return detectBrowserResult_;
+	  }
+	
+	  detectBrowserResult_ = {
+	    isChrome: true,
+	    isExplorer: false,
+	    isFirefox: false,
+	    isOpera: false,
+	    isSafari: false
+	  };
+	
+	  return detectBrowserResult_;
+	}
+
+/***/ },
+/* 291 */
+/*!*********************************************!*\
+  !*** ./~/google-map-react/lib/utils/geo.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _lat_lng = __webpack_require__(/*! ./lib_geo/lat_lng.js */ 292);
+	
+	var _lat_lng2 = _interopRequireDefault(_lat_lng);
+	
+	var _pointGeometry = __webpack_require__(/*! point-geometry */ 294);
+	
+	var _pointGeometry2 = _interopRequireDefault(_pointGeometry);
+	
+	var _transform = __webpack_require__(/*! ./lib_geo/transform.js */ 295);
+	
+	var _transform2 = _interopRequireDefault(_transform);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Geo = function () {
+	  function Geo(tileSize) {
+	    _classCallCheck(this, Geo);
+	
+	    // left_top view пользует гугл
+	    // super();
+	    this.hasSize_ = false;
+	    this.hasView_ = false;
+	    this.transform_ = new _transform2.default(tileSize || 512);
+	  }
+	
+	  _createClass(Geo, [{
+	    key: 'setView',
+	    value: function setView(center, zoom, bearing) {
+	      this.transform_.center = _lat_lng2.default.convert(center);
+	      this.transform_.zoom = +zoom;
+	      this.transform_.bearing = +bearing;
+	      this.hasView_ = true;
+	    }
+	  }, {
+	    key: 'setViewSize',
+	    value: function setViewSize(width, height) {
+	      this.transform_.width = width;
+	      this.transform_.height = height;
+	      this.hasSize_ = true;
+	    }
+	  }, {
+	    key: 'canProject',
+	    value: function canProject() {
+	      return this.hasSize_ && this.hasView_;
+	    }
+	  }, {
+	    key: 'hasSize',
+	    value: function hasSize() {
+	      return this.hasSize_;
+	    }
+	  }, {
+	    key: 'unproject',
+	    value: function unproject(ptXY, viewFromLeftTop) {
+	      var ptRes = void 0;
+	      if (viewFromLeftTop) {
+	        var ptxy = _extends({}, ptXY);
+	        ptxy.x -= this.transform_.width / 2;
+	        ptxy.y -= this.transform_.height / 2;
+	        ptRes = this.transform_.pointLocation(_pointGeometry2.default.convert(ptxy));
+	      } else {
+	        ptRes = this.transform_.pointLocation(_pointGeometry2.default.convert(ptXY));
+	      }
+	
+	      ptRes.lng -= 360 * Math.round(ptRes.lng / 360); // convert 2 google format
+	      return ptRes;
+	    }
+	  }, {
+	    key: 'project',
+	    value: function project(ptLatLng, viewFromLeftTop) {
+	      if (viewFromLeftTop) {
+	        var pt = this.transform_.locationPoint(_lat_lng2.default.convert(ptLatLng));
+	        pt.x -= this.transform_.worldSize * Math.round(pt.x / this.transform_.worldSize);
+	
+	        pt.x += this.transform_.width / 2;
+	        pt.y += this.transform_.height / 2;
+	
+	        return pt;
+	      }
+	
+	      return this.transform_.locationPoint(_lat_lng2.default.convert(ptLatLng));
+	    }
+	  }, {
+	    key: 'getWidth',
+	    value: function getWidth() {
+	      return this.transform_.width;
+	    }
+	  }, {
+	    key: 'getHeight',
+	    value: function getHeight() {
+	      return this.transform_.height;
+	    }
+	  }, {
+	    key: 'getZoom',
+	    value: function getZoom() {
+	      return this.transform_.zoom;
+	    }
+	  }, {
+	    key: 'getCenter',
+	    value: function getCenter() {
+	      var ptRes = this.transform_.pointLocation({ x: 0, y: 0 });
+	
+	      return ptRes;
+	    }
+	  }, {
+	    key: 'getBounds',
+	    value: function getBounds(margins, roundFactor) {
+	      var bndT = margins && margins[0] || 0;
+	      var bndR = margins && margins[1] || 0;
+	      var bndB = margins && margins[2] || 0;
+	      var bndL = margins && margins[3] || 0;
+	
+	      if (this.getWidth() - bndR - bndL > 0 && this.getHeight() - bndT - bndB > 0) {
+	        var topLeftCorner = this.unproject({
+	          x: bndL - this.getWidth() / 2,
+	          y: bndT - this.getHeight() / 2
+	        });
+	        var bottomRightCorner = this.unproject({
+	          x: this.getWidth() / 2 - bndR,
+	          y: this.getHeight() / 2 - bndB
+	        });
+	
+	        var res = [topLeftCorner.lat, topLeftCorner.lng, bottomRightCorner.lat, bottomRightCorner.lng];
+	
+	        if (roundFactor) {
+	          res = res.map(function (r) {
+	            return Math.round(r * roundFactor) / roundFactor;
+	          });
+	        }
+	        return res;
+	      }
+	
+	      return [0, 0, 0, 0];
+	    }
+	  }]);
+	
+	  return Geo;
+	}();
+	
+	exports.default = Geo;
+
+/***/ },
+/* 292 */
+/*!*********************************************************!*\
+  !*** ./~/google-map-react/lib/utils/lib_geo/lat_lng.js ***!
+  \*********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _wrap2 = __webpack_require__(/*! ./wrap.js */ 293);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var LatLng = function () {
+	  function LatLng(lat, lng) {
+	    _classCallCheck(this, LatLng);
+	    if (isNaN(lat) || isNaN(lng)) {
+	      throw new Error('Invalid LatLng object: (' + lat + ', ' + lng + ')');
+	    }
+	    this.lat = +lat;
+	    this.lng = +lng;
+	  }
+	
+	  _createClass(LatLng, [{
+	    key: 'wrap',
+	    value: function wrap() {
+	      return new LatLng(this.lat, (0, _wrap2.wrap)(this.lng, -180, 180));
+	    }
+	  }]);
+	
+	  return LatLng;
+	}();
+	
+	LatLng.convert = function (a) {
+	  if (a instanceof LatLng) {
+	    return a;
+	  }
+	
+	  if (Array.isArray(a)) {
+	    return new LatLng(a[0], a[1]);
+	  }
+	
+	  if ('lng' in a && 'lat' in a) {
+	    return new LatLng(a.lat, a.lng);
+	  }
+	
+	  return a;
+	};
+	
+	exports.default = LatLng;
+
+
+/***/ },
+/* 293 */
+/*!******************************************************!*\
+  !*** ./~/google-map-react/lib/utils/lib_geo/wrap.js ***!
+  \******************************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.wrap = wrap;
+	function wrap(n, min, max) {
+	  var d = max - min;
+	  return n === max ? n : ((n - min) % d + d) % d + min;
+	}
+
+/***/ },
+/* 294 */
+/*!***********************************!*\
+  !*** ./~/point-geometry/index.js ***!
+  \***********************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = Point;
+	
+	function Point(x, y) {
+	    this.x = x;
+	    this.y = y;
+	}
+	
+	Point.prototype = {
+	    clone: function() { return new Point(this.x, this.y); },
+	
+	    add:     function(p) { return this.clone()._add(p);     },
+	    sub:     function(p) { return this.clone()._sub(p);     },
+	    mult:    function(k) { return this.clone()._mult(k);    },
+	    div:     function(k) { return this.clone()._div(k);     },
+	    rotate:  function(a) { return this.clone()._rotate(a);  },
+	    matMult: function(m) { return this.clone()._matMult(m); },
+	    unit:    function() { return this.clone()._unit(); },
+	    perp:    function() { return this.clone()._perp(); },
+	    round:   function() { return this.clone()._round(); },
+	
+	    mag: function() {
+	        return Math.sqrt(this.x * this.x + this.y * this.y);
+	    },
+	
+	    equals: function(p) {
+	        return this.x === p.x &&
+	               this.y === p.y;
+	    },
+	
+	    dist: function(p) {
+	        return Math.sqrt(this.distSqr(p));
+	    },
+	
+	    distSqr: function(p) {
+	        var dx = p.x - this.x,
+	            dy = p.y - this.y;
+	        return dx * dx + dy * dy;
+	    },
+	
+	    angle: function() {
+	        return Math.atan2(this.y, this.x);
+	    },
+	
+	    angleTo: function(b) {
+	        return Math.atan2(this.y - b.y, this.x - b.x);
+	    },
+	
+	    angleWith: function(b) {
+	        return this.angleWithSep(b.x, b.y);
+	    },
+	
+	    // Find the angle of the two vectors, solving the formula for the cross product a x b = |a||b|sin(θ) for θ.
+	    angleWithSep: function(x, y) {
+	        return Math.atan2(
+	            this.x * y - this.y * x,
+	            this.x * x + this.y * y);
+	    },
+	
+	    _matMult: function(m) {
+	        var x = m[0] * this.x + m[1] * this.y,
+	            y = m[2] * this.x + m[3] * this.y;
+	        this.x = x;
+	        this.y = y;
+	        return this;
+	    },
+	
+	    _add: function(p) {
+	        this.x += p.x;
+	        this.y += p.y;
+	        return this;
+	    },
+	
+	    _sub: function(p) {
+	        this.x -= p.x;
+	        this.y -= p.y;
+	        return this;
+	    },
+	
+	    _mult: function(k) {
+	        this.x *= k;
+	        this.y *= k;
+	        return this;
+	    },
+	
+	    _div: function(k) {
+	        this.x /= k;
+	        this.y /= k;
+	        return this;
+	    },
+	
+	    _unit: function() {
+	        this._div(this.mag());
+	        return this;
+	    },
+	
+	    _perp: function() {
+	        var y = this.y;
+	        this.y = this.x;
+	        this.x = -y;
+	        return this;
+	    },
+	
+	    _rotate: function(angle) {
+	        var cos = Math.cos(angle),
+	            sin = Math.sin(angle),
+	            x = cos * this.x - sin * this.y,
+	            y = sin * this.x + cos * this.y;
+	        this.x = x;
+	        this.y = y;
+	        return this;
+	    },
+	
+	    _round: function() {
+	        this.x = Math.round(this.x);
+	        this.y = Math.round(this.y);
+	        return this;
+	    }
+	};
+	
+	// constructs Point from an array if necessary
+	Point.convert = function (a) {
+	    if (a instanceof Point) {
+	        return a;
+	    }
+	    if (Array.isArray(a)) {
+	        return new Point(a[0], a[1]);
+	    }
+	    return a;
+	};
+
+
+/***/ },
+/* 295 */
+/*!***********************************************************!*\
+  !*** ./~/google-map-react/lib/utils/lib_geo/transform.js ***!
+  \***********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _lat_lng = __webpack_require__(/*! ./lat_lng */ 292);
+	
+	var _lat_lng2 = _interopRequireDefault(_lat_lng);
+	
+	var _pointGeometry = __webpack_require__(/*! point-geometry */ 294);
+	
+	var _pointGeometry2 = _interopRequireDefault(_pointGeometry);
+	
+	var _wrap = __webpack_require__(/*! ./wrap.js */ 293);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// A single transform, generally used for a single tile to be scaled, rotated, and zoomed.
+	var Transform = function () {
+	  function Transform(tileSize, minZoom, maxZoom) {
+	    _classCallCheck(this, Transform);
+	
+	    this.tileSize = tileSize || 512; // constant
+	
+	    this._minZoom = minZoom || 0;
+	    this._maxZoom = maxZoom || 52;
+	
+	    this.latRange = [-85.05113, 85.05113];
+	
+	    this.width = 0;
+	    this.height = 0;
+	    this.zoom = 0;
+	    this.center = new _lat_lng2.default(0, 0);
+	    this.angle = 0;
+	  }
+	
+	  _createClass(Transform, [{
+	    key: 'zoomScale',
+	    value: function zoomScale(zoom) {
+	      return Math.pow(2, zoom);
+	    }
+	  }, {
+	    key: 'scaleZoom',
+	    value: function scaleZoom(scale) {
+	      return Math.log(scale) / Math.LN2;
+	    }
+	  }, {
+	    key: 'project',
+	    value: function project(latlng, worldSize) {
+	      return new _pointGeometry2.default(this.lngX(latlng.lng, worldSize), this.latY(latlng.lat, worldSize));
+	    }
+	  }, {
+	    key: 'unproject',
+	    value: function unproject(point, worldSize) {
+	      return new _lat_lng2.default(this.yLat(point.y, worldSize), this.xLng(point.x, worldSize));
+	    }
+	  }, {
+	    key: 'lngX',
+	
+	
+	    // lat/lon <-> absolute pixel coords convertion
+	    value: function lngX(lon, worldSize) {
+	      return (180 + lon) * (worldSize || this.worldSize) / 360;
+	    }
+	
+	    // latitude to absolute y coord
+	
+	  }, {
+	    key: 'latY',
+	    value: function latY(lat, worldSize) {
+	      var y = 180 / Math.PI * Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
+	      return (180 - y) * (worldSize || this.worldSize) / 360;
+	    }
+	  }, {
+	    key: 'xLng',
+	    value: function xLng(x, worldSize) {
+	      return x * 360 / (worldSize || this.worldSize) - 180;
+	    }
+	  }, {
+	    key: 'yLat',
+	    value: function yLat(y, worldSize) {
+	      var y2 = 180 - y * 360 / (worldSize || this.worldSize);
+	      return 360 / Math.PI * Math.atan(Math.exp(y2 * Math.PI / 180)) - 90;
+	    }
+	  }, {
+	    key: 'locationPoint',
+	    value: function locationPoint(latlng) {
+	      var p = this.project(latlng);
+	      return this.centerPoint._sub(this.point._sub(p)._rotate(this.angle));
+	    }
+	  }, {
+	    key: 'pointLocation',
+	    value: function pointLocation(p) {
+	      var p2 = this.centerPoint._sub(p)._rotate(-this.angle);
+	      return this.unproject(this.point.sub(p2));
+	    }
+	  }, {
+	    key: 'minZoom',
+	    get: function get() {
+	      return this._minZoom;
+	    },
+	    set: function set(zoom) {
+	      this._minZoom = zoom;
+	      this.zoom = Math.max(this.zoom, zoom);
+	    }
+	  }, {
+	    key: 'maxZoom',
+	    get: function get() {
+	      return this._maxZoom;
+	    },
+	    set: function set(zoom) {
+	      this._maxZoom = zoom;
+	      this.zoom = Math.min(this.zoom, zoom);
+	    }
+	  }, {
+	    key: 'worldSize',
+	    get: function get() {
+	      return this.tileSize * this.scale;
+	    }
+	  }, {
+	    key: 'centerPoint',
+	    get: function get() {
+	      return new _pointGeometry2.default(0, 0); // this.size._div(2);
+	    }
+	  }, {
+	    key: 'size',
+	    get: function get() {
+	      return new _pointGeometry2.default(this.width, this.height);
+	    }
+	  }, {
+	    key: 'bearing',
+	    get: function get() {
+	      return -this.angle / Math.PI * 180;
+	    },
+	    set: function set(bearing) {
+	      this.angle = -(0, _wrap.wrap)(bearing, -180, 180) * Math.PI / 180;
+	    }
+	  }, {
+	    key: 'zoom',
+	    get: function get() {
+	      return this._zoom;
+	    },
+	    set: function set(zoom) {
+	      var zoomV = Math.min(Math.max(zoom, this.minZoom), this.maxZoom);
+	      this._zoom = zoomV;
+	      this.scale = this.zoomScale(zoomV);
+	      this.tileZoom = Math.floor(zoomV);
+	      this.zoomFraction = zoomV - this.tileZoom;
+	    }
+	  }, {
+	    key: 'x',
+	    get: function get() {
+	      return this.lngX(this.center.lng);
+	    }
+	  }, {
+	    key: 'y',
+	    get: function get() {
+	      return this.latY(this.center.lat);
+	    }
+	  }, {
+	    key: 'point',
+	    get: function get() {
+	      return new _pointGeometry2.default(this.x, this.y);
+	    }
+	  }]);
+	
+	  return Transform;
+	}();
+	
+	exports.default = Transform;
+
+/***/ },
+/* 296 */
+/*!******************************************************!*\
+  !*** ./~/google-map-react/lib/utils/array_helper.js ***!
+  \******************************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = isArraysEqualEps;
+	function isArraysEqualEps(arrayA, arrayB, eps) {
+	  if (arrayA && arrayB) {
+	    for (var i = 0; i !== arrayA.length; ++i) {
+	      if (Math.abs(arrayA[i] - arrayB[i]) > eps) {
+	        return false;
+	      }
+	    }
+	    return true;
+	  }
+	  return false;
+	}
+
+/***/ },
+/* 297 */
+/*!*********************************************************!*\
+  !*** ./~/google-map-react/lib/utils/is_plain_object.js ***!
+  \*********************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	exports.default = isPlainObject;
+	// source taken from https://github.com/rackt/redux/blob/master/src/utils/isPlainObject.js
+	var fnToString = function fnToString(fn) {
+	  return Function.prototype.toString.call(fn);
+	};
+	
+	/**
+	 * @param {any} obj The object to inspect.
+	 * @returns {boolean} True if the argument appears to be a plain object.
+	 */
+	function isPlainObject(obj) {
+	  if (!obj || (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object') {
+	    return false;
+	  }
+	
+	  var proto = typeof obj.constructor === 'function' ? Object.getPrototypeOf(obj) : Object.prototype;
+	
+	  if (proto === null) {
+	    return true;
+	  }
+	
+	  var constructor = proto.constructor;
+	
+	  return typeof constructor === 'function' && constructor instanceof constructor && fnToString(constructor) === fnToString(Object);
+	}
+
+/***/ },
+/* 298 */
+/*!**********************************************!*\
+  !*** ./~/google-map-react/lib/utils/pick.js ***!
+  \**********************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = pick;
+	// source taken from https://github.com/rackt/redux/blob/master/src/utils/pick.js
+	
+	function pick(obj, fn) {
+	  return Object.keys(obj).reduce(function (result, key) {
+	    if (fn(obj[key])) {
+	      result[key] = obj[key]; // eslint-disable-line
+	    }
+	    return result;
+	  }, {});
+	}
+
+/***/ },
+/* 299 */
+/*!*********************************************!*\
+  !*** ./~/google-map-react/lib/utils/raf.js ***!
+  \*********************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = raf;
+	function raf(callback) {
+	  if (window.requestAnimationFrame) {
+	    return window.requestAnimationFrame(callback);
+	  }
+	
+	  var nativeRaf = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+	
+	  return nativeRaf ? nativeRaf(callback) : window.setTimeout(callback, 1e3 / 60);
+	}
+
+/***/ },
+/* 300 */
+/*!***************************************************!*\
+  !*** ./~/google-map-react/lib/utils/math/log2.js ***!
+  \***************************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var log2 = Math.log2 ? Math.log2 : function (x) {
+	  return Math.log(x) / Math.LN2;
+	};
+	
+	exports.default = log2;
+
+/***/ },
+/* 301 */
+/*!**************************************************!*\
+  !*** ./~/google-map-react/lib/utils/isNumber.js ***!
+  \**************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	exports.default = isNumber;
+	
+	function isObjectLike(value) {
+	  return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object';
+	}
+	
+	var objectToString = Object.prototype.toString;
+	
+	function isNumber(value) {
+	  var numberTag = '[object Number]';
+	  return typeof value === 'number' || isObjectLike(value) && objectToString.call(value) === numberTag;
+	}
+
+/***/ },
+/* 302 */
+/*!*************************************************************!*\
+  !*** ./~/google-map-react/lib/utils/detectElementResize.js ***!
+  \*************************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/* eslint-disable */
+	/**
+	* Detect Element Resize.
+	* Forked in order to guard against unsafe 'window' and 'document' references.
+	*
+	* https://github.com/sdecima/javascript-detect-element-resize
+	* Sebastian Decima
+	*
+	* version: 0.5.3
+	**/
+	
+	// Check `document` and `window` in case of server-side rendering
+	var _window;
+	if (typeof window !== 'undefined') {
+	  _window = window;
+	} else if (typeof self !== 'undefined') {
+	  _window = self;
+	} else {
+	  _window = undefined;
+	}
+	
+	var attachEvent = typeof document !== 'undefined' && document.attachEvent;
+	var stylesCreated = false;
+	
+	if (typeof window !== 'undefined' && !attachEvent) {
+	  var requestFrame = function () {
+	    var raf = _window.requestAnimationFrame || _window.mozRequestAnimationFrame || _window.webkitRequestAnimationFrame || function (fn) {
+	      return _window.setTimeout(fn, 20);
+	    };
+	    return function (fn) {
+	      return raf(fn);
+	    };
+	  }();
+	
+	  var cancelFrame = function () {
+	    var cancel = _window.cancelAnimationFrame || _window.mozCancelAnimationFrame || _window.webkitCancelAnimationFrame || _window.clearTimeout;
+	    return function (id) {
+	      return cancel(id);
+	    };
+	  }();
+	
+	  var resetTriggers = function resetTriggers(element) {
+	    var triggers = element.__resizeTriggers__,
+	        expand = triggers.firstElementChild,
+	        contract = triggers.lastElementChild,
+	        expandChild = expand.firstElementChild;
+	    contract.scrollLeft = contract.scrollWidth;
+	    contract.scrollTop = contract.scrollHeight;
+	    expandChild.style.width = expand.offsetWidth + 1 + 'px';
+	    expandChild.style.height = expand.offsetHeight + 1 + 'px';
+	    expand.scrollLeft = expand.scrollWidth;
+	    expand.scrollTop = expand.scrollHeight;
+	  };
+	
+	  var checkTriggers = function checkTriggers(element) {
+	    return element.offsetWidth != element.__resizeLast__.width || element.offsetHeight != element.__resizeLast__.height;
+	  };
+	
+	  var scrollListener = function scrollListener(e) {
+	    var element = this;
+	    resetTriggers(this);
+	    if (this.__resizeRAF__) cancelFrame(this.__resizeRAF__);
+	    this.__resizeRAF__ = requestFrame(function () {
+	      if (checkTriggers(element)) {
+	        element.__resizeLast__.width = element.offsetWidth;
+	        element.__resizeLast__.height = element.offsetHeight;
+	        element.__resizeListeners__.forEach(function (fn) {
+	          fn.call(element, e);
+	        });
+	      }
+	    });
+	  };
+	
+	  /* Detect CSS Animations support to detect element display/re-attach */
+	  var animation = false,
+	      animationstring = 'animation',
+	      keyframeprefix = '',
+	      animationstartevent = 'animationstart',
+	      domPrefixes = 'Webkit Moz O ms'.split(' '),
+	      startEvents = 'webkitAnimationStart animationstart oAnimationStart MSAnimationStart'.split(' '),
+	      pfx = '';
+	  {
+	    var elm = document.createElement('fakeelement');
+	    if (elm.style.animationName !== undefined) {
+	      animation = true;
+	    }
+	
+	    if (animation === false) {
+	      for (var i = 0; i < domPrefixes.length; i++) {
+	        if (elm.style[domPrefixes[i] + 'AnimationName'] !== undefined) {
+	          pfx = domPrefixes[i];
+	          animationstring = pfx + 'Animation';
+	          keyframeprefix = '-' + pfx.toLowerCase() + '-';
+	          animationstartevent = startEvents[i];
+	          animation = true;
+	          break;
+	        }
+	      }
+	    }
+	  }
+	
+	  var animationName = 'resizeanim';
+	  var animationKeyframes = '@' + keyframeprefix + 'keyframes ' + animationName + ' { from { opacity: 0; } to { opacity: 0; } } ';
+	  var animationStyle = keyframeprefix + 'animation: 1ms ' + animationName + '; ';
+	}
+	
+	var createStyles = function createStyles() {
+	  if (!stylesCreated) {
+	    //opacity:0 works around a chrome bug https://code.google.com/p/chromium/issues/detail?id=286360
+	    var css = (animationKeyframes ? animationKeyframes : '') + '.resize-triggers { ' + (animationStyle ? animationStyle : '') + 'visibility: hidden; opacity: 0; } ' + '.resize-triggers, .resize-triggers > div, .contract-trigger:before { content: \" \"; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; } .resize-triggers > div { background: #eee; overflow: auto; } .contract-trigger:before { width: 200%; height: 200%; }',
+	        head = document.head || document.getElementsByTagName('head')[0],
+	        style = document.createElement('style');
+	
+	    style.type = 'text/css';
+	    if (style.styleSheet) {
+	      style.styleSheet.cssText = css;
+	    } else {
+	      style.appendChild(document.createTextNode(css));
+	    }
+	
+	    head.appendChild(style);
+	    stylesCreated = true;
+	  }
+	};
+	
+	var addResizeListener = function addResizeListener(element, fn) {
+	  if (element.parentNode === undefined) {
+	    var tempParentDiv = document.createElement('div');
+	    element.parentNode = tempParentDiv;
+	  }
+	  element = element.parentNode;
+	  if (attachEvent) element.attachEvent('onresize', fn);else {
+	    if (!element.__resizeTriggers__) {
+	      if (getComputedStyle(element).position == 'static') element.style.position = 'relative';
+	      createStyles();
+	      element.__resizeLast__ = {};
+	      element.__resizeListeners__ = [];
+	      (element.__resizeTriggers__ = document.createElement('div')).className = 'resize-triggers';
+	      element.__resizeTriggers__.innerHTML = '<div class="expand-trigger"><div></div></div>' + '<div class="contract-trigger"></div>';
+	      element.appendChild(element.__resizeTriggers__);
+	      resetTriggers(element);
+	      element.addEventListener('scroll', scrollListener, true);
+	
+	      /* Listen for a css animation to detect element display/re-attach */
+	      animationstartevent && element.__resizeTriggers__.addEventListener(animationstartevent, function (e) {
+	        if (e.animationName == animationName) resetTriggers(element);
+	      });
+	    }
+	    element.__resizeListeners__.push(fn);
+	  }
+	};
+	
+	var removeResizeListener = function removeResizeListener(element, fn) {
+	  element = element.parentNode;
+	  if (attachEvent) element.detachEvent('onresize', fn);else {
+	    element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
+	    if (!element.__resizeListeners__.length) {
+	      element.removeEventListener('scroll', scrollListener);
+	      element.__resizeTriggers__ = !element.removeChild(element.__resizeTriggers__);
+	    }
+	  }
+	};
+	
+	module.exports = {
+	  addResizeListener: addResizeListener,
+	  removeResizeListener: removeResizeListener
+	};
+
+/***/ },
+/* 303 */
 /*!**********************************!*\
   !*** ./app/components/navbar.js ***!
   \**********************************/
@@ -32451,7 +35597,7 @@
 	exports.default = Navbar;
 
 /***/ },
-/* 280 */
+/* 304 */
 /*!**************************************!*\
   !*** ./app/components/login-form.js ***!
   \**************************************/
@@ -32475,7 +35621,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 281);
+	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 305);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32492,6 +35638,7 @@
 	
 	  handleLoginSubmit: function handleLoginSubmit(user) {
 	    console.log(user);
+	
 	    _superagent2.default.post("http://localhost:8080/auth/login").send(user).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in logging in this user");
@@ -32505,9 +35652,8 @@
 	
 	        console.log("successfully logged in user");
 	        this.props.login(res.body);
-	        console.log('sooooooo close');
 	        var userDashboard = '/users/' + this.props.userState.profile.id;
-	        location.href = userDashboard;
+	        _reactRouter.browserHistory.push(userDashboard);
 	      }
 	    }.bind(this));
 	  },
@@ -32639,7 +35785,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoginDisplay);
 
 /***/ },
-/* 281 */
+/* 305 */
 /*!*************************************!*\
   !*** ./app/actions/user-actions.js ***!
   \*************************************/
@@ -32670,7 +35816,7 @@
 	}
 
 /***/ },
-/* 282 */
+/* 306 */
 /*!*********************************************************!*\
   !*** ./app/components/courses/single-course-display.js ***!
   \*********************************************************/
@@ -32995,7 +36141,7 @@
 	exports.default = SingleCourseDisplay;
 
 /***/ },
-/* 283 */
+/* 307 */
 /*!********************************************!*\
   !*** ./app/components/primary-template.js ***!
   \********************************************/
@@ -33011,7 +36157,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _navbar = __webpack_require__(/*! ./navbar.js */ 279);
+	var _navbar = __webpack_require__(/*! ./navbar.js */ 303);
 	
 	var _navbar2 = _interopRequireDefault(_navbar);
 	
@@ -33050,7 +36196,7 @@
 	exports.default = SecondaryTemplate;
 
 /***/ },
-/* 284 */
+/* 308 */
 /*!**********************************************!*\
   !*** ./app/components/secondary-template.js ***!
   \**********************************************/
@@ -33066,7 +36212,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _navbarSecondary = __webpack_require__(/*! ./navbar-secondary.js */ 285);
+	var _navbarSecondary = __webpack_require__(/*! ./navbar-secondary.js */ 309);
 	
 	var _navbarSecondary2 = _interopRequireDefault(_navbarSecondary);
 	
@@ -33106,7 +36252,7 @@
 	exports.default = SecondaryTemplate;
 
 /***/ },
-/* 285 */
+/* 309 */
 /*!********************************************!*\
   !*** ./app/components/navbar-secondary.js ***!
   \********************************************/
@@ -33173,7 +36319,7 @@
 	exports.default = NavbarSecondary;
 
 /***/ },
-/* 286 */
+/* 310 */
 /*!***************************************!*\
   !*** ./app/components/signup-form.js ***!
   \***************************************/
@@ -33346,11 +36492,13 @@
 	      { style: errorMessageStyle },
 	      '*passwords do not match'
 	    ) : null;
+	
 	    var passwordMinimumCharsError = this.state.passwordMinimumCharsError ? _react2.default.createElement(
 	      'p',
 	      { style: errorMessageStyle },
 	      '*password should be at least 8 characters'
 	    ) : null;
+	
 	    var requiredFieldsErrorMessage = this.state.allFieldsRequiredError ? _react2.default.createElement(
 	      'p',
 	      { style: errorMessageStyle },
@@ -33426,7 +36574,7 @@
 	exports.default = SignupDisplay;
 
 /***/ },
-/* 287 */
+/* 311 */
 /*!******************************************************!*\
   !*** ./app/components/courses/add-course-display.js ***!
   \******************************************************/
@@ -33450,14 +36598,14 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 288);
+	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 312);
 	
 	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DatePicker = __webpack_require__(/*! react-datepicker */ 299);
-	var moment = __webpack_require__(/*! moment */ 300);
+	var DatePicker = __webpack_require__(/*! react-datepicker */ 323);
+	var moment = __webpack_require__(/*! moment */ 324);
 	moment().format();
 	
 	var AddCourseDisplay = _react2.default.createClass({
@@ -33635,7 +36783,7 @@
 	exports.default = AddCourseDisplay;
 
 /***/ },
-/* 288 */
+/* 312 */
 /*!*************************************************!*\
   !*** ./~/react-geosuggest/module/Geosuggest.js ***!
   \*************************************************/
@@ -33655,31 +36803,31 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 289);
+	var _classnames = __webpack_require__(/*! classnames */ 313);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _lodash = __webpack_require__(/*! lodash.debounce */ 290);
+	var _lodash = __webpack_require__(/*! lodash.debounce */ 314);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _defaults = __webpack_require__(/*! ./defaults */ 291);
+	var _defaults = __webpack_require__(/*! ./defaults */ 315);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _propTypes = __webpack_require__(/*! ./prop-types */ 292);
+	var _propTypes = __webpack_require__(/*! ./prop-types */ 316);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 293);
+	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 317);
 	
 	var _filterInputAttributes2 = _interopRequireDefault(_filterInputAttributes);
 	
-	var _input = __webpack_require__(/*! ./input */ 294);
+	var _input = __webpack_require__(/*! ./input */ 318);
 	
 	var _input2 = _interopRequireDefault(_input);
 	
-	var _suggestList = __webpack_require__(/*! ./suggest-list */ 297);
+	var _suggestList = __webpack_require__(/*! ./suggest-list */ 321);
 	
 	var _suggestList2 = _interopRequireDefault(_suggestList);
 	
@@ -34188,7 +37336,7 @@
 	exports.default = Geosuggest;
 
 /***/ },
-/* 289 */
+/* 313 */
 /*!*******************************!*\
   !*** ./~/classnames/index.js ***!
   \*******************************/
@@ -34245,7 +37393,7 @@
 
 
 /***/ },
-/* 290 */
+/* 314 */
 /*!************************************!*\
   !*** ./~/lodash.debounce/index.js ***!
   \************************************/
@@ -34632,7 +37780,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 291 */
+/* 315 */
 /*!***********************************************!*\
   !*** ./~/react-geosuggest/module/defaults.js ***!
   \***********************************************/
@@ -34681,7 +37829,7 @@
 	};
 
 /***/ },
-/* 292 */
+/* 316 */
 /*!*************************************************!*\
   !*** ./~/react-geosuggest/module/prop-types.js ***!
   \*************************************************/
@@ -34732,7 +37880,7 @@
 	};
 
 /***/ },
-/* 293 */
+/* 317 */
 /*!**************************************************************!*\
   !*** ./~/react-geosuggest/module/filter-input-attributes.js ***!
   \**************************************************************/
@@ -34768,7 +37916,7 @@
 	 */
 
 /***/ },
-/* 294 */
+/* 318 */
 /*!********************************************!*\
   !*** ./~/react-geosuggest/module/input.js ***!
   \********************************************/
@@ -34788,15 +37936,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 295);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 319);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 289);
+	var _classnames = __webpack_require__(/*! classnames */ 313);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 293);
+	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 317);
 	
 	var _filterInputAttributes2 = _interopRequireDefault(_filterInputAttributes);
 	
@@ -34959,16 +38107,16 @@
 	exports.default = Input;
 
 /***/ },
-/* 295 */
+/* 319 */
 /*!*************************************************!*\
   !*** ./~/react-addons-shallow-compare/index.js ***!
   \*************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! react/lib/shallowCompare */ 296);
+	module.exports = __webpack_require__(/*! react/lib/shallowCompare */ 320);
 
 /***/ },
-/* 296 */
+/* 320 */
 /*!***************************************!*\
   !*** ./~/react/lib/shallowCompare.js ***!
   \***************************************/
@@ -35001,7 +38149,7 @@
 	module.exports = shallowCompare;
 
 /***/ },
-/* 297 */
+/* 321 */
 /*!***************************************************!*\
   !*** ./~/react-geosuggest/module/suggest-list.js ***!
   \***************************************************/
@@ -35019,15 +38167,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 295);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 319);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 289);
+	var _classnames = __webpack_require__(/*! classnames */ 313);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _suggestItem = __webpack_require__(/*! ./suggest-item */ 298);
+	var _suggestItem = __webpack_require__(/*! ./suggest-item */ 322);
 	
 	var _suggestItem2 = _interopRequireDefault(_suggestItem);
 	
@@ -35141,7 +38289,7 @@
 	};
 
 /***/ },
-/* 298 */
+/* 322 */
 /*!***************************************************!*\
   !*** ./~/react-geosuggest/module/suggest-item.js ***!
   \***************************************************/
@@ -35159,11 +38307,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 295);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 319);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 289);
+	var _classnames = __webpack_require__(/*! classnames */ 313);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -35259,13 +38407,13 @@
 	};
 
 /***/ },
-/* 299 */
+/* 323 */
 /*!*********************************************************!*\
   !*** ./~/react-datepicker/dist/react-datepicker.min.js ***!
   \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	!function(e,t){ true?module.exports=t(__webpack_require__(/*! moment */ 300),__webpack_require__(/*! react */ 1),__webpack_require__(/*! react-onclickoutside */ 302),__webpack_require__(/*! react-dom */ 34)):"function"==typeof define&&define.amd?define(["moment","react","react-onclickoutside","react-dom"],t):"object"==typeof exports?exports.DatePicker=t(require("moment"),require("react"),require("react-onclickoutside"),require("react-dom")):e.DatePicker=t(e.moment,e.React,e.OnClickOutside,e.ReactDOM)}(this,function(e,t,n,o){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={exports:{},id:o,loaded:!1};return e[o].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(1),i=o(a),s=n(5),l=o(s),p=n(3),d=o(p),f=n(13),u=o(f),c=n(12),h=o(c),m=n(4),y="react-datepicker-ignore-onclickoutside",g=d["default"].createClass({displayName:"DatePicker",propTypes:{autoComplete:d["default"].PropTypes.string,className:d["default"].PropTypes.string,dateFormat:d["default"].PropTypes.oneOfType([d["default"].PropTypes.string,d["default"].PropTypes.array]),dateFormatCalendar:d["default"].PropTypes.string,disabled:d["default"].PropTypes.bool,endDate:d["default"].PropTypes.object,excludeDates:d["default"].PropTypes.array,filterDate:d["default"].PropTypes.func,fixedHeight:d["default"].PropTypes.bool,id:d["default"].PropTypes.string,includeDates:d["default"].PropTypes.array,inline:d["default"].PropTypes.bool,isClearable:d["default"].PropTypes.bool,locale:d["default"].PropTypes.string,maxDate:d["default"].PropTypes.object,minDate:d["default"].PropTypes.object,name:d["default"].PropTypes.string,onBlur:d["default"].PropTypes.func,onChange:d["default"].PropTypes.func.isRequired,onFocus:d["default"].PropTypes.func,openToDate:d["default"].PropTypes.object,placeholderText:d["default"].PropTypes.string,popoverAttachment:d["default"].PropTypes.string,popoverTargetAttachment:d["default"].PropTypes.string,popoverTargetOffset:d["default"].PropTypes.string,readOnly:d["default"].PropTypes.bool,renderCalendarTo:d["default"].PropTypes.any,required:d["default"].PropTypes.bool,selected:d["default"].PropTypes.object,showYearDropdown:d["default"].PropTypes.bool,startDate:d["default"].PropTypes.object,tabIndex:d["default"].PropTypes.number,tetherConstraints:d["default"].PropTypes.array,title:d["default"].PropTypes.string,todayButton:d["default"].PropTypes.string},getDefaultProps:function(){return{dateFormatCalendar:"MMMM YYYY",onChange:function(){},disabled:!1,onFocus:function(){},onBlur:function(){},popoverAttachment:"top left",popoverTargetAttachment:"bottom left",popoverTargetOffset:"10px 0",tetherConstraints:[{to:"window",attachment:"together"}]}},getInitialState:function(){return{open:!1}},setOpen:function(e){this.setState({open:e})},handleFocus:function(e){this.props.onFocus(e),this.setOpen(!0)},handleBlur:function(e){this.state.open?this.refs.input.focus():this.props.onBlur(e)},handleCalendarClickOutside:function(e){this.setOpen(!1)},handleSelect:function(e){this.setSelected(e),this.setOpen(!1)},setSelected:function(e){(0,m.isSameDay)(this.props.selected,e)||this.props.onChange(e)},onInputClick:function(){this.props.disabled||this.setOpen(!0)},onInputKeyDown:function(e){"Enter"===e.key||"Escape"===e.key?(e.preventDefault(),this.setOpen(!1)):"Tab"===e.key&&this.setOpen(!1)},onClearClick:function(e){e.preventDefault(),this.props.onChange(null)},renderCalendar:function(){return this.props.inline||this.state.open&&!this.props.disabled?d["default"].createElement(l["default"],{ref:"calendar",locale:this.props.locale,dateFormat:this.props.dateFormatCalendar,selected:this.props.selected,onSelect:this.handleSelect,openToDate:this.props.openToDate,minDate:this.props.minDate,maxDate:this.props.maxDate,startDate:this.props.startDate,endDate:this.props.endDate,excludeDates:this.props.excludeDates,filterDate:this.props.filterDate,onClickOutside:this.handleCalendarClickOutside,includeDates:this.props.includeDates,showYearDropdown:this.props.showYearDropdown,todayButton:this.props.todayButton,outsideClickIgnoreClass:y,fixedHeight:this.props.fixedHeight}):null},renderDateInput:function(){var e=(0,h["default"])(this.props.className,r({},y,this.state.open));return d["default"].createElement(i["default"],{ref:"input",id:this.props.id,name:this.props.name,date:this.props.selected,locale:this.props.locale,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,filterDate:this.props.filterDate,dateFormat:this.props.dateFormat,onFocus:this.handleFocus,onBlur:this.handleBlur,onClick:this.onInputClick,onKeyDown:this.onInputKeyDown,onChangeDate:this.setSelected,placeholder:this.props.placeholderText,disabled:this.props.disabled,autoComplete:this.props.autoComplete,className:e,title:this.props.title,readOnly:this.props.readOnly,required:this.props.required,tabIndex:this.props.tabIndex})},renderClearButton:function(){return this.props.isClearable&&null!=this.props.selected?d["default"].createElement("a",{className:"react-datepicker__close-icon",href:"#",onClick:this.onClearClick}):null},render:function(){var e=this.renderCalendar();return this.props.inline?e:d["default"].createElement(u["default"],{classPrefix:"react-datepicker__tether",attachment:this.props.popoverAttachment,targetAttachment:this.props.popoverTargetAttachment,targetOffset:this.props.popoverTargetOffset,renderElementTo:this.props.renderCalendarTo,constraints:this.props.tetherConstraints},d["default"].createElement("div",{className:"react-datepicker__input-container"},this.renderDateInput(),this.renderClearButton()),e)}});e.exports=g},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){var n={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(n[o]=e[o]);return n}var a=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},i=n(2),s=o(i),l=n(3),p=o(l),d=n(4),f=p["default"].createClass({displayName:"DateInput",propTypes:{date:p["default"].PropTypes.object,dateFormat:p["default"].PropTypes.oneOfType([p["default"].PropTypes.string,p["default"].PropTypes.array]),disabled:p["default"].PropTypes.bool,excludeDates:p["default"].PropTypes.array,filterDate:p["default"].PropTypes.func,includeDates:p["default"].PropTypes.array,locale:p["default"].PropTypes.string,maxDate:p["default"].PropTypes.object,minDate:p["default"].PropTypes.object,onBlur:p["default"].PropTypes.func,onChange:p["default"].PropTypes.func,onChangeDate:p["default"].PropTypes.func},getDefaultProps:function(){return{dateFormat:"L"}},getInitialState:function(){return{value:this.safeDateFormat(this.props)}},componentWillReceiveProps:function(e){(0,d.isSameDay)(e.date,this.props.date)&&e.locale===this.props.locale&&e.dateFormat===this.props.dateFormat||this.setState({value:this.safeDateFormat(e)})},handleChange:function(e){this.props.onChange&&this.props.onChange(e),e.isDefaultPrevented()||this.handleChangeDate(e.target.value)},handleChangeDate:function(e){if(this.props.onChangeDate){var t=(0,s["default"])(e,this.props.dateFormat,this.props.locale||s["default"].locale(),!0);t.isValid()&&!(0,d.isDayDisabled)(t,this.props)?this.props.onChangeDate(t):""===e&&this.props.onChangeDate(null)}this.setState({value:e})},safeDateFormat:function(e){return e.date&&e.date.clone().locale(e.locale||s["default"].locale()).format(Array.isArray(e.dateFormat)?e.dateFormat[0]:e.dateFormat)||""},handleBlur:function(e){this.setState({value:this.safeDateFormat(this.props)}),this.props.onBlur&&this.props.onBlur(e)},focus:function(){this.refs.input.focus()},render:function(){var e=this.props,t=(e.date,e.locale,e.minDate,e.maxDate,e.excludeDates,e.includeDates,e.filterDate,e.dateFormat,e.onChangeDate,r(e,["date","locale","minDate","maxDate","excludeDates","includeDates","filterDate","dateFormat","onChangeDate"]));return p["default"].createElement("input",a({ref:"input",type:"text"},t,{value:this.state.value,onBlur:this.handleBlur,onChange:this.handleChange}))}});e.exports=f},function(t,n){t.exports=e},function(e,n){e.exports=t},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){return e&&t?e.isSame(t,"day"):!e&&!t}function a(e){var t=arguments.length<=1||void 0===arguments[1]?{}:arguments[1],n=t.minDate,o=t.maxDate,a=t.excludeDates,i=t.includeDates,s=t.filterDate;return n&&e.isBefore(n,"day")||o&&e.isAfter(o,"day")||a&&a.some(function(t){return r(e,t)})||i&&!i.some(function(t){return r(e,t)})||s&&!s(e.clone())||!1}function i(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.minDate,r=n.includeDates,a=e.clone().subtract(1,t);return o&&a.isBefore(o,t)||r&&r.every(function(e){return a.isBefore(e,t)})||!1}function s(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.maxDate,r=n.includeDates,a=e.clone().add(1,t);return o&&a.isAfter(o,t)||r&&r.every(function(e){return a.isAfter(e,t)})||!1}function l(e){var t=e.minDate,n=e.includeDates;return n&&t?f["default"].min(n.filter(function(e){return t.isSameOrBefore(e,"day")})):n?f["default"].min(n):t}function p(e){var t=e.maxDate,n=e.includeDates;return n&&t?f["default"].max(n.filter(function(e){return t.isSameOrAfter(e,"day")})):n?f["default"].max(n):t}Object.defineProperty(t,"__esModule",{value:!0}),t.isSameDay=r,t.isDayDisabled=a,t.allDaysDisabledBefore=i,t.allDaysDisabledAfter=s,t.getEffectiveMinDate=l,t.getEffectiveMaxDate=p;var d=n(2),f=o(d)},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(6),s=o(i),l=n(9),p=o(l),d=n(3),f=o(d),u=n(4),c=f["default"].createClass({displayName:"Calendar",propTypes:{dateFormat:f["default"].PropTypes.string.isRequired,endDate:f["default"].PropTypes.object,excludeDates:f["default"].PropTypes.array,filterDate:f["default"].PropTypes.func,fixedHeight:f["default"].PropTypes.bool,includeDates:f["default"].PropTypes.array,locale:f["default"].PropTypes.string,maxDate:f["default"].PropTypes.object,minDate:f["default"].PropTypes.object,onClickOutside:f["default"].PropTypes.func.isRequired,onSelect:f["default"].PropTypes.func.isRequired,openToDate:f["default"].PropTypes.object,selected:f["default"].PropTypes.object,showYearDropdown:f["default"].PropTypes.bool,startDate:f["default"].PropTypes.object,todayButton:f["default"].PropTypes.string},mixins:[n(8)],getInitialState:function(){return{date:this.localizeMoment(this.getDateInView())}},componentWillReceiveProps:function(e){e.selected&&!(0,u.isSameDay)(e.selected,this.props.selected)&&this.setState({date:this.localizeMoment(e.selected)})},handleClickOutside:function(e){this.props.onClickOutside(e)},getDateInView:function(){var e=this.props,t=e.selected,n=e.openToDate,o=(0,u.getEffectiveMinDate)(this.props),r=(0,u.getEffectiveMaxDate)(this.props),i=(0,a["default"])();return t?t:o&&r&&n&&n.isBetween(o,r)?n:o&&n&&n.isAfter(o)?n:o&&o.isAfter(i)?o:r&&n&&n.isBefore(r)?n:r&&r.isBefore(i)?r:n?n:i},localizeMoment:function(e){return e.clone().locale(this.props.locale||a["default"].locale())},increaseMonth:function(){this.setState({date:this.state.date.clone().add(1,"month")})},decreaseMonth:function(){this.setState({date:this.state.date.clone().subtract(1,"month")})},handleDayClick:function(e){this.props.onSelect(e)},changeYear:function(e){this.setState({date:this.state.date.clone().set("year",e)})},header:function(){var e=this.state.date.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(t){var n=e.clone().add(t,"days");return f["default"].createElement("div",{key:t,className:"react-datepicker__day-name"},n.localeData().weekdaysMin(n))})},renderPreviousMonthButton:function(){if(!(0,u.allDaysDisabledBefore)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--previous",onClick:this.decreaseMonth})},renderNextMonthButton:function(){if(!(0,u.allDaysDisabledAfter)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--next",onClick:this.increaseMonth})},renderCurrentMonth:function(){var e=["react-datepicker__current-month"];return this.props.showYearDropdown&&e.push("react-datepicker__current-month--hasYearDropdown"),f["default"].createElement("div",{className:e.join(" ")},this.state.date.format(this.props.dateFormat))},renderYearDropdown:function(){if(this.props.showYearDropdown)return f["default"].createElement(s["default"],{onChange:this.changeYear,year:this.state.date.year()})},renderTodayButton:function(){var e=this;if(this.props.todayButton)return f["default"].createElement("div",{className:"react-datepicker__today-button",onClick:function(){return e.props.onSelect((0,a["default"])())}},this.props.todayButton)},render:function(){return f["default"].createElement("div",{className:"react-datepicker"},f["default"].createElement("div",{className:"react-datepicker__triangle"}),f["default"].createElement("div",{className:"react-datepicker__header"},this.renderPreviousMonthButton(),this.renderCurrentMonth(),this.renderYearDropdown(),this.renderNextMonthButton(),f["default"].createElement("div",null,this.header())),f["default"].createElement(p["default"],{day:this.state.date,onDayClick:this.handleDayClick,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,fixedHeight:this.props.fixedHeight,filterDate:this.props.filterDate,selected:this.props.selected,startDate:this.props.startDate,endDate:this.props.endDate}),this.renderTodayButton())}});e.exports=c},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(7),s=o(i),l=a["default"].createClass({displayName:"YearDropdown",propTypes:{onChange:a["default"].PropTypes.func.isRequired,year:a["default"].PropTypes.number.isRequired},getInitialState:function(){return{dropdownVisible:!1}},renderReadView:function(){return a["default"].createElement("div",{className:"react-datepicker__year-read-view",onClick:this.toggleDropdown},a["default"].createElement("span",{className:"react-datepicker__year-read-view--selected-year"},this.props.year),a["default"].createElement("span",{className:"react-datepicker__year-read-view--down-arrow"}))},renderDropdown:function(){return a["default"].createElement(s["default"],{ref:"options",year:this.props.year,onChange:this.onChange,onCancel:this.toggleDropdown})},onChange:function(e){this.toggleDropdown(),e!==this.props.year&&this.props.onChange(e)},toggleDropdown:function(){this.setState({dropdownVisible:!this.state.dropdownVisible})},render:function(){return a["default"].createElement("div",null,this.state.dropdownVisible?this.renderDropdown():this.renderReadView())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e){for(var t=[],n=0;n<5;n++)t.push(e-n);return t}var a=n(3),i=o(a),s=i["default"].createClass({displayName:"YearDropdownOptions",propTypes:{onCancel:i["default"].PropTypes.func.isRequired,onChange:i["default"].PropTypes.func.isRequired,year:i["default"].PropTypes.number.isRequired},mixins:[n(8)],getInitialState:function(){return{yearsList:r(this.props.year)}},renderOptions:function(){var e=this,t=this.props.year,n=this.state.yearsList.map(function(n){return i["default"].createElement("div",{className:"react-datepicker__year-option",key:n,onClick:e.onChange.bind(e,n)},t===n?i["default"].createElement("span",{className:"react-datepicker__year-option--selected"},"✓"):"",n)});return n.unshift(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"upcoming",key:"upcoming",onClick:this.incrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"}))),n.push(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"previous",key:"previous",onClick:this.decrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-previous"}))),n},onChange:function(e){this.props.onChange(e)},handleClickOutside:function(){this.props.onCancel()},shiftYears:function(e){var t=this.state.yearsList.map(function(t){return t+e});this.setState({yearsList:t})},incrementYears:function(){return this.shiftYears(1)},decrementYears:function(){return this.shiftYears(-1)},render:function(){return i["default"].createElement("div",{className:"react-datepicker__year-dropdown"},this.renderOptions())}});e.exports=s},function(e,t){e.exports=n},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(10),s=o(i),l=a["default"].createClass({displayName:"Month",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,fixedHeight:a["default"].PropTypes.bool,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},isWeekInMonth:function(e){var t=this.props.day,n=e.clone().add(6,"days");return e.isSame(t,"month")||n.isSame(t,"month")},renderWeeks:function(){var e=this,t=this.props.day.clone().startOf("month").startOf("week");return[0,1,2,3,4,5].map(function(e){return t.clone().add(e,"weeks")}).filter(function(t){return e.props.fixedHeight||e.isWeekInMonth(t)}).map(function(t,n){return a["default"].createElement(s["default"],{key:n,day:t,month:e.props.day.month(),onDayClick:e.handleDayClick,minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__month",role:"listbox"},this.renderWeeks())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(11),s=o(i),l=a["default"].createClass({displayName:"Week",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,month:a["default"].PropTypes.number,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},renderDays:function(){var e=this,t=this.props.day.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(n){var o=t.clone().add(n,"days");return a["default"].createElement(s["default"],{key:n,day:o,month:e.props.month,onClick:e.handleDayClick.bind(e,o),minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__week"},this.renderDays())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(3),s=o(i),l=n(12),p=o(l),d=n(4),f=s["default"].createClass({displayName:"Day",propTypes:{day:s["default"].PropTypes.object.isRequired,endDate:s["default"].PropTypes.object,excludeDates:s["default"].PropTypes.array,filterDate:s["default"].PropTypes.func,includeDates:s["default"].PropTypes.array,maxDate:s["default"].PropTypes.object,minDate:s["default"].PropTypes.object,month:s["default"].PropTypes.number,onClick:s["default"].PropTypes.func,selected:s["default"].PropTypes.object,startDate:s["default"].PropTypes.object},handleClick:function(e){!this.isDisabled()&&this.props.onClick&&this.props.onClick(e)},isSameDay:function(e){return(0,d.isSameDay)(this.props.day,e)},isDisabled:function(){return(0,d.isDayDisabled)(this.props.day,this.props)},isInRange:function(){var e=this.props,t=e.day,n=e.startDate,o=e.endDate;if(!n||!o)return!1;var r=n.clone().startOf("day").subtract(1,"seconds"),a=o.clone().startOf("day").add(1,"seconds");return t.clone().startOf("day").isBetween(r,a)},isWeekend:function(){var e=this.props.day.day();return 0===e||6===e},isOutsideMonth:function(){return void 0!==this.props.month&&this.props.month!==this.props.day.month()},getClassNames:function(){return(0,p["default"])("react-datepicker__day",{"react-datepicker__day--disabled":this.isDisabled(),"react-datepicker__day--selected":this.isSameDay(this.props.selected),"react-datepicker__day--in-range":this.isInRange(),"react-datepicker__day--today":this.isSameDay((0,a["default"])()),"react-datepicker__day--weekend":this.isWeekend(),"react-datepicker__day--outside-month":this.isOutsideMonth()})},render:function(){return s["default"].createElement("div",{className:this.getClassNames(),onClick:this.handleClick,"aria-label":"day-"+this.props.day.date(),role:"option"},this.props.day.date())}});e.exports=f},function(e,t,n){var o,r;/*!
+	!function(e,t){ true?module.exports=t(__webpack_require__(/*! moment */ 324),__webpack_require__(/*! react */ 1),__webpack_require__(/*! react-onclickoutside */ 326),__webpack_require__(/*! react-dom */ 34)):"function"==typeof define&&define.amd?define(["moment","react","react-onclickoutside","react-dom"],t):"object"==typeof exports?exports.DatePicker=t(require("moment"),require("react"),require("react-onclickoutside"),require("react-dom")):e.DatePicker=t(e.moment,e.React,e.OnClickOutside,e.ReactDOM)}(this,function(e,t,n,o){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={exports:{},id:o,loaded:!1};return e[o].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(1),i=o(a),s=n(5),l=o(s),p=n(3),d=o(p),f=n(13),u=o(f),c=n(12),h=o(c),m=n(4),y="react-datepicker-ignore-onclickoutside",g=d["default"].createClass({displayName:"DatePicker",propTypes:{autoComplete:d["default"].PropTypes.string,className:d["default"].PropTypes.string,dateFormat:d["default"].PropTypes.oneOfType([d["default"].PropTypes.string,d["default"].PropTypes.array]),dateFormatCalendar:d["default"].PropTypes.string,disabled:d["default"].PropTypes.bool,endDate:d["default"].PropTypes.object,excludeDates:d["default"].PropTypes.array,filterDate:d["default"].PropTypes.func,fixedHeight:d["default"].PropTypes.bool,id:d["default"].PropTypes.string,includeDates:d["default"].PropTypes.array,inline:d["default"].PropTypes.bool,isClearable:d["default"].PropTypes.bool,locale:d["default"].PropTypes.string,maxDate:d["default"].PropTypes.object,minDate:d["default"].PropTypes.object,name:d["default"].PropTypes.string,onBlur:d["default"].PropTypes.func,onChange:d["default"].PropTypes.func.isRequired,onFocus:d["default"].PropTypes.func,openToDate:d["default"].PropTypes.object,placeholderText:d["default"].PropTypes.string,popoverAttachment:d["default"].PropTypes.string,popoverTargetAttachment:d["default"].PropTypes.string,popoverTargetOffset:d["default"].PropTypes.string,readOnly:d["default"].PropTypes.bool,renderCalendarTo:d["default"].PropTypes.any,required:d["default"].PropTypes.bool,selected:d["default"].PropTypes.object,showYearDropdown:d["default"].PropTypes.bool,startDate:d["default"].PropTypes.object,tabIndex:d["default"].PropTypes.number,tetherConstraints:d["default"].PropTypes.array,title:d["default"].PropTypes.string,todayButton:d["default"].PropTypes.string},getDefaultProps:function(){return{dateFormatCalendar:"MMMM YYYY",onChange:function(){},disabled:!1,onFocus:function(){},onBlur:function(){},popoverAttachment:"top left",popoverTargetAttachment:"bottom left",popoverTargetOffset:"10px 0",tetherConstraints:[{to:"window",attachment:"together"}]}},getInitialState:function(){return{open:!1}},setOpen:function(e){this.setState({open:e})},handleFocus:function(e){this.props.onFocus(e),this.setOpen(!0)},handleBlur:function(e){this.state.open?this.refs.input.focus():this.props.onBlur(e)},handleCalendarClickOutside:function(e){this.setOpen(!1)},handleSelect:function(e){this.setSelected(e),this.setOpen(!1)},setSelected:function(e){(0,m.isSameDay)(this.props.selected,e)||this.props.onChange(e)},onInputClick:function(){this.props.disabled||this.setOpen(!0)},onInputKeyDown:function(e){"Enter"===e.key||"Escape"===e.key?(e.preventDefault(),this.setOpen(!1)):"Tab"===e.key&&this.setOpen(!1)},onClearClick:function(e){e.preventDefault(),this.props.onChange(null)},renderCalendar:function(){return this.props.inline||this.state.open&&!this.props.disabled?d["default"].createElement(l["default"],{ref:"calendar",locale:this.props.locale,dateFormat:this.props.dateFormatCalendar,selected:this.props.selected,onSelect:this.handleSelect,openToDate:this.props.openToDate,minDate:this.props.minDate,maxDate:this.props.maxDate,startDate:this.props.startDate,endDate:this.props.endDate,excludeDates:this.props.excludeDates,filterDate:this.props.filterDate,onClickOutside:this.handleCalendarClickOutside,includeDates:this.props.includeDates,showYearDropdown:this.props.showYearDropdown,todayButton:this.props.todayButton,outsideClickIgnoreClass:y,fixedHeight:this.props.fixedHeight}):null},renderDateInput:function(){var e=(0,h["default"])(this.props.className,r({},y,this.state.open));return d["default"].createElement(i["default"],{ref:"input",id:this.props.id,name:this.props.name,date:this.props.selected,locale:this.props.locale,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,filterDate:this.props.filterDate,dateFormat:this.props.dateFormat,onFocus:this.handleFocus,onBlur:this.handleBlur,onClick:this.onInputClick,onKeyDown:this.onInputKeyDown,onChangeDate:this.setSelected,placeholder:this.props.placeholderText,disabled:this.props.disabled,autoComplete:this.props.autoComplete,className:e,title:this.props.title,readOnly:this.props.readOnly,required:this.props.required,tabIndex:this.props.tabIndex})},renderClearButton:function(){return this.props.isClearable&&null!=this.props.selected?d["default"].createElement("a",{className:"react-datepicker__close-icon",href:"#",onClick:this.onClearClick}):null},render:function(){var e=this.renderCalendar();return this.props.inline?e:d["default"].createElement(u["default"],{classPrefix:"react-datepicker__tether",attachment:this.props.popoverAttachment,targetAttachment:this.props.popoverTargetAttachment,targetOffset:this.props.popoverTargetOffset,renderElementTo:this.props.renderCalendarTo,constraints:this.props.tetherConstraints},d["default"].createElement("div",{className:"react-datepicker__input-container"},this.renderDateInput(),this.renderClearButton()),e)}});e.exports=g},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){var n={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(n[o]=e[o]);return n}var a=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},i=n(2),s=o(i),l=n(3),p=o(l),d=n(4),f=p["default"].createClass({displayName:"DateInput",propTypes:{date:p["default"].PropTypes.object,dateFormat:p["default"].PropTypes.oneOfType([p["default"].PropTypes.string,p["default"].PropTypes.array]),disabled:p["default"].PropTypes.bool,excludeDates:p["default"].PropTypes.array,filterDate:p["default"].PropTypes.func,includeDates:p["default"].PropTypes.array,locale:p["default"].PropTypes.string,maxDate:p["default"].PropTypes.object,minDate:p["default"].PropTypes.object,onBlur:p["default"].PropTypes.func,onChange:p["default"].PropTypes.func,onChangeDate:p["default"].PropTypes.func},getDefaultProps:function(){return{dateFormat:"L"}},getInitialState:function(){return{value:this.safeDateFormat(this.props)}},componentWillReceiveProps:function(e){(0,d.isSameDay)(e.date,this.props.date)&&e.locale===this.props.locale&&e.dateFormat===this.props.dateFormat||this.setState({value:this.safeDateFormat(e)})},handleChange:function(e){this.props.onChange&&this.props.onChange(e),e.isDefaultPrevented()||this.handleChangeDate(e.target.value)},handleChangeDate:function(e){if(this.props.onChangeDate){var t=(0,s["default"])(e,this.props.dateFormat,this.props.locale||s["default"].locale(),!0);t.isValid()&&!(0,d.isDayDisabled)(t,this.props)?this.props.onChangeDate(t):""===e&&this.props.onChangeDate(null)}this.setState({value:e})},safeDateFormat:function(e){return e.date&&e.date.clone().locale(e.locale||s["default"].locale()).format(Array.isArray(e.dateFormat)?e.dateFormat[0]:e.dateFormat)||""},handleBlur:function(e){this.setState({value:this.safeDateFormat(this.props)}),this.props.onBlur&&this.props.onBlur(e)},focus:function(){this.refs.input.focus()},render:function(){var e=this.props,t=(e.date,e.locale,e.minDate,e.maxDate,e.excludeDates,e.includeDates,e.filterDate,e.dateFormat,e.onChangeDate,r(e,["date","locale","minDate","maxDate","excludeDates","includeDates","filterDate","dateFormat","onChangeDate"]));return p["default"].createElement("input",a({ref:"input",type:"text"},t,{value:this.state.value,onBlur:this.handleBlur,onChange:this.handleChange}))}});e.exports=f},function(t,n){t.exports=e},function(e,n){e.exports=t},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){return e&&t?e.isSame(t,"day"):!e&&!t}function a(e){var t=arguments.length<=1||void 0===arguments[1]?{}:arguments[1],n=t.minDate,o=t.maxDate,a=t.excludeDates,i=t.includeDates,s=t.filterDate;return n&&e.isBefore(n,"day")||o&&e.isAfter(o,"day")||a&&a.some(function(t){return r(e,t)})||i&&!i.some(function(t){return r(e,t)})||s&&!s(e.clone())||!1}function i(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.minDate,r=n.includeDates,a=e.clone().subtract(1,t);return o&&a.isBefore(o,t)||r&&r.every(function(e){return a.isBefore(e,t)})||!1}function s(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.maxDate,r=n.includeDates,a=e.clone().add(1,t);return o&&a.isAfter(o,t)||r&&r.every(function(e){return a.isAfter(e,t)})||!1}function l(e){var t=e.minDate,n=e.includeDates;return n&&t?f["default"].min(n.filter(function(e){return t.isSameOrBefore(e,"day")})):n?f["default"].min(n):t}function p(e){var t=e.maxDate,n=e.includeDates;return n&&t?f["default"].max(n.filter(function(e){return t.isSameOrAfter(e,"day")})):n?f["default"].max(n):t}Object.defineProperty(t,"__esModule",{value:!0}),t.isSameDay=r,t.isDayDisabled=a,t.allDaysDisabledBefore=i,t.allDaysDisabledAfter=s,t.getEffectiveMinDate=l,t.getEffectiveMaxDate=p;var d=n(2),f=o(d)},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(6),s=o(i),l=n(9),p=o(l),d=n(3),f=o(d),u=n(4),c=f["default"].createClass({displayName:"Calendar",propTypes:{dateFormat:f["default"].PropTypes.string.isRequired,endDate:f["default"].PropTypes.object,excludeDates:f["default"].PropTypes.array,filterDate:f["default"].PropTypes.func,fixedHeight:f["default"].PropTypes.bool,includeDates:f["default"].PropTypes.array,locale:f["default"].PropTypes.string,maxDate:f["default"].PropTypes.object,minDate:f["default"].PropTypes.object,onClickOutside:f["default"].PropTypes.func.isRequired,onSelect:f["default"].PropTypes.func.isRequired,openToDate:f["default"].PropTypes.object,selected:f["default"].PropTypes.object,showYearDropdown:f["default"].PropTypes.bool,startDate:f["default"].PropTypes.object,todayButton:f["default"].PropTypes.string},mixins:[n(8)],getInitialState:function(){return{date:this.localizeMoment(this.getDateInView())}},componentWillReceiveProps:function(e){e.selected&&!(0,u.isSameDay)(e.selected,this.props.selected)&&this.setState({date:this.localizeMoment(e.selected)})},handleClickOutside:function(e){this.props.onClickOutside(e)},getDateInView:function(){var e=this.props,t=e.selected,n=e.openToDate,o=(0,u.getEffectiveMinDate)(this.props),r=(0,u.getEffectiveMaxDate)(this.props),i=(0,a["default"])();return t?t:o&&r&&n&&n.isBetween(o,r)?n:o&&n&&n.isAfter(o)?n:o&&o.isAfter(i)?o:r&&n&&n.isBefore(r)?n:r&&r.isBefore(i)?r:n?n:i},localizeMoment:function(e){return e.clone().locale(this.props.locale||a["default"].locale())},increaseMonth:function(){this.setState({date:this.state.date.clone().add(1,"month")})},decreaseMonth:function(){this.setState({date:this.state.date.clone().subtract(1,"month")})},handleDayClick:function(e){this.props.onSelect(e)},changeYear:function(e){this.setState({date:this.state.date.clone().set("year",e)})},header:function(){var e=this.state.date.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(t){var n=e.clone().add(t,"days");return f["default"].createElement("div",{key:t,className:"react-datepicker__day-name"},n.localeData().weekdaysMin(n))})},renderPreviousMonthButton:function(){if(!(0,u.allDaysDisabledBefore)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--previous",onClick:this.decreaseMonth})},renderNextMonthButton:function(){if(!(0,u.allDaysDisabledAfter)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--next",onClick:this.increaseMonth})},renderCurrentMonth:function(){var e=["react-datepicker__current-month"];return this.props.showYearDropdown&&e.push("react-datepicker__current-month--hasYearDropdown"),f["default"].createElement("div",{className:e.join(" ")},this.state.date.format(this.props.dateFormat))},renderYearDropdown:function(){if(this.props.showYearDropdown)return f["default"].createElement(s["default"],{onChange:this.changeYear,year:this.state.date.year()})},renderTodayButton:function(){var e=this;if(this.props.todayButton)return f["default"].createElement("div",{className:"react-datepicker__today-button",onClick:function(){return e.props.onSelect((0,a["default"])())}},this.props.todayButton)},render:function(){return f["default"].createElement("div",{className:"react-datepicker"},f["default"].createElement("div",{className:"react-datepicker__triangle"}),f["default"].createElement("div",{className:"react-datepicker__header"},this.renderPreviousMonthButton(),this.renderCurrentMonth(),this.renderYearDropdown(),this.renderNextMonthButton(),f["default"].createElement("div",null,this.header())),f["default"].createElement(p["default"],{day:this.state.date,onDayClick:this.handleDayClick,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,fixedHeight:this.props.fixedHeight,filterDate:this.props.filterDate,selected:this.props.selected,startDate:this.props.startDate,endDate:this.props.endDate}),this.renderTodayButton())}});e.exports=c},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(7),s=o(i),l=a["default"].createClass({displayName:"YearDropdown",propTypes:{onChange:a["default"].PropTypes.func.isRequired,year:a["default"].PropTypes.number.isRequired},getInitialState:function(){return{dropdownVisible:!1}},renderReadView:function(){return a["default"].createElement("div",{className:"react-datepicker__year-read-view",onClick:this.toggleDropdown},a["default"].createElement("span",{className:"react-datepicker__year-read-view--selected-year"},this.props.year),a["default"].createElement("span",{className:"react-datepicker__year-read-view--down-arrow"}))},renderDropdown:function(){return a["default"].createElement(s["default"],{ref:"options",year:this.props.year,onChange:this.onChange,onCancel:this.toggleDropdown})},onChange:function(e){this.toggleDropdown(),e!==this.props.year&&this.props.onChange(e)},toggleDropdown:function(){this.setState({dropdownVisible:!this.state.dropdownVisible})},render:function(){return a["default"].createElement("div",null,this.state.dropdownVisible?this.renderDropdown():this.renderReadView())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e){for(var t=[],n=0;n<5;n++)t.push(e-n);return t}var a=n(3),i=o(a),s=i["default"].createClass({displayName:"YearDropdownOptions",propTypes:{onCancel:i["default"].PropTypes.func.isRequired,onChange:i["default"].PropTypes.func.isRequired,year:i["default"].PropTypes.number.isRequired},mixins:[n(8)],getInitialState:function(){return{yearsList:r(this.props.year)}},renderOptions:function(){var e=this,t=this.props.year,n=this.state.yearsList.map(function(n){return i["default"].createElement("div",{className:"react-datepicker__year-option",key:n,onClick:e.onChange.bind(e,n)},t===n?i["default"].createElement("span",{className:"react-datepicker__year-option--selected"},"✓"):"",n)});return n.unshift(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"upcoming",key:"upcoming",onClick:this.incrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"}))),n.push(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"previous",key:"previous",onClick:this.decrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-previous"}))),n},onChange:function(e){this.props.onChange(e)},handleClickOutside:function(){this.props.onCancel()},shiftYears:function(e){var t=this.state.yearsList.map(function(t){return t+e});this.setState({yearsList:t})},incrementYears:function(){return this.shiftYears(1)},decrementYears:function(){return this.shiftYears(-1)},render:function(){return i["default"].createElement("div",{className:"react-datepicker__year-dropdown"},this.renderOptions())}});e.exports=s},function(e,t){e.exports=n},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(10),s=o(i),l=a["default"].createClass({displayName:"Month",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,fixedHeight:a["default"].PropTypes.bool,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},isWeekInMonth:function(e){var t=this.props.day,n=e.clone().add(6,"days");return e.isSame(t,"month")||n.isSame(t,"month")},renderWeeks:function(){var e=this,t=this.props.day.clone().startOf("month").startOf("week");return[0,1,2,3,4,5].map(function(e){return t.clone().add(e,"weeks")}).filter(function(t){return e.props.fixedHeight||e.isWeekInMonth(t)}).map(function(t,n){return a["default"].createElement(s["default"],{key:n,day:t,month:e.props.day.month(),onDayClick:e.handleDayClick,minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__month",role:"listbox"},this.renderWeeks())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(11),s=o(i),l=a["default"].createClass({displayName:"Week",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,month:a["default"].PropTypes.number,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},renderDays:function(){var e=this,t=this.props.day.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(n){var o=t.clone().add(n,"days");return a["default"].createElement(s["default"],{key:n,day:o,month:e.props.month,onClick:e.handleDayClick.bind(e,o),minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__week"},this.renderDays())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(3),s=o(i),l=n(12),p=o(l),d=n(4),f=s["default"].createClass({displayName:"Day",propTypes:{day:s["default"].PropTypes.object.isRequired,endDate:s["default"].PropTypes.object,excludeDates:s["default"].PropTypes.array,filterDate:s["default"].PropTypes.func,includeDates:s["default"].PropTypes.array,maxDate:s["default"].PropTypes.object,minDate:s["default"].PropTypes.object,month:s["default"].PropTypes.number,onClick:s["default"].PropTypes.func,selected:s["default"].PropTypes.object,startDate:s["default"].PropTypes.object},handleClick:function(e){!this.isDisabled()&&this.props.onClick&&this.props.onClick(e)},isSameDay:function(e){return(0,d.isSameDay)(this.props.day,e)},isDisabled:function(){return(0,d.isDayDisabled)(this.props.day,this.props)},isInRange:function(){var e=this.props,t=e.day,n=e.startDate,o=e.endDate;if(!n||!o)return!1;var r=n.clone().startOf("day").subtract(1,"seconds"),a=o.clone().startOf("day").add(1,"seconds");return t.clone().startOf("day").isBetween(r,a)},isWeekend:function(){var e=this.props.day.day();return 0===e||6===e},isOutsideMonth:function(){return void 0!==this.props.month&&this.props.month!==this.props.day.month()},getClassNames:function(){return(0,p["default"])("react-datepicker__day",{"react-datepicker__day--disabled":this.isDisabled(),"react-datepicker__day--selected":this.isSameDay(this.props.selected),"react-datepicker__day--in-range":this.isInRange(),"react-datepicker__day--today":this.isSameDay((0,a["default"])()),"react-datepicker__day--weekend":this.isWeekend(),"react-datepicker__day--outside-month":this.isOutsideMonth()})},render:function(){return s["default"].createElement("div",{className:this.getClassNames(),onClick:this.handleClick,"aria-label":"day-"+this.props.day.date(),role:"option"},this.props.day.date())}});e.exports=f},function(e,t,n){var o,r;/*!
 		  Copyright (c) 2016 Jed Watson.
 		  Licensed under the MIT License (MIT), see
 		  http://jedwatson.github.io/classnames
@@ -35274,7 +38422,7 @@
 	!function(a,i){o=i,r="function"==typeof o?o.call(t,n,t,e):o,!(void 0!==r&&(e.exports=r))}(this,function(e,t,n){"use strict";function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e){var t=e.getBoundingClientRect(),n={};for(var o in t)n[o]=t[o];if(e.ownerDocument!==document){var a=e.ownerDocument.defaultView.frameElement;if(a){var i=r(a);n.top+=i.top,n.bottom+=i.top,n.left+=i.left,n.right+=i.left}}return n}function a(e){var t=getComputedStyle(e)||{},n=t.position,o=[];if("fixed"===n)return[e];for(var r=e;(r=r.parentNode)&&r&&1===r.nodeType;){var a=void 0;try{a=getComputedStyle(r)}catch(i){}if("undefined"==typeof a||null===a)return o.push(r),o;var s=a,l=s.overflow,p=s.overflowX,d=s.overflowY;/(auto|scroll)/.test(l+d+p)&&("absolute"!==n||["relative","absolute","fixed"].indexOf(a.position)>=0)&&o.push(r)}return o.push(e.ownerDocument.body),e.ownerDocument!==document&&o.push(e.ownerDocument.defaultView),o}function i(){_&&document.body.removeChild(_),_=null}function s(e){var t=void 0;e===document?(t=document,e=document.documentElement):t=e.ownerDocument;var n=t.documentElement,o=r(e),a=k();return o.top-=a.top,o.left-=a.left,"undefined"==typeof o.width&&(o.width=document.body.scrollWidth-o.left-o.right),"undefined"==typeof o.height&&(o.height=document.body.scrollHeight-o.top-o.bottom),o.top=o.top-n.clientTop,o.left=o.left-n.clientLeft,o.right=t.body.clientWidth-o.width-o.left,o.bottom=t.body.clientHeight-o.height-o.top,o}function l(e){return e.offsetParent||document.documentElement}function p(){var e=document.createElement("div");e.style.width="100%",e.style.height="200px";var t=document.createElement("div");d(t.style,{position:"absolute",top:0,left:0,pointerEvents:"none",visibility:"hidden",width:"200px",height:"150px",overflow:"hidden"}),t.appendChild(e),document.body.appendChild(t);var n=e.offsetWidth;t.style.overflow="scroll";var o=e.offsetWidth;n===o&&(o=t.clientWidth),document.body.removeChild(t);var r=n-o;return{width:r,height:r}}function d(){var e=arguments.length<=0||void 0===arguments[0]?{}:arguments[0],t=[];return Array.prototype.push.apply(t,arguments),t.slice(1).forEach(function(t){if(t)for(var n in t)({}).hasOwnProperty.call(t,n)&&(e[n]=t[n])}),e}function f(e,t){if("undefined"!=typeof e.classList)t.split(" ").forEach(function(t){t.trim()&&e.classList.remove(t)});else{var n=new RegExp("(^| )"+t.split(" ").join("|")+"( |$)","gi"),o=h(e).replace(n," ");m(e,o)}}function u(e,t){if("undefined"!=typeof e.classList)t.split(" ").forEach(function(t){t.trim()&&e.classList.add(t)});else{f(e,t);var n=h(e)+(" "+t);m(e,n)}}function c(e,t){if("undefined"!=typeof e.classList)return e.classList.contains(t);var n=h(e);return new RegExp("(^| )"+t+"( |$)","gi").test(n)}function h(e){return e.className instanceof e.ownerDocument.defaultView.SVGAnimatedString?e.className.baseVal:e.className}function m(e,t){e.setAttribute("class",t)}function y(e,t,n){n.forEach(function(n){t.indexOf(n)===-1&&c(e,n)&&f(e,n)}),t.forEach(function(t){c(e,t)||u(e,t)})}function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function g(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}function v(e,t){var n=arguments.length<=2||void 0===arguments[2]?1:arguments[2];return e+n>=t&&t>=e-n}function b(){return"undefined"!=typeof performance&&"undefined"!=typeof performance.now?performance.now():+new Date}function D(){for(var e={top:0,left:0},t=arguments.length,n=Array(t),o=0;o<t;o++)n[o]=arguments[o];return n.forEach(function(t){var n=t.top,o=t.left;"string"==typeof n&&(n=parseFloat(n,10)),"string"==typeof o&&(o=parseFloat(o,10)),e.top+=n,e.left+=o}),e}function T(e,t){return"string"==typeof e.left&&e.left.indexOf("%")!==-1&&(e.left=parseFloat(e.left,10)/100*t.width),"string"==typeof e.top&&e.top.indexOf("%")!==-1&&(e.top=parseFloat(e.top,10)/100*t.height),e}function C(e,t){return"scrollParent"===t?t=e.scrollParents[0]:"window"===t&&(t=[pageXOffset,pageYOffset,innerWidth+pageXOffset,innerHeight+pageYOffset]),t===document&&(t=t.documentElement),"undefined"!=typeof t.nodeType&&!function(){var e=t,n=s(t),o=n,r=getComputedStyle(t);if(t=[o.left,o.top,n.width+o.left,n.height+o.top],e.ownerDocument!==document){var a=e.ownerDocument.defaultView;t[0]+=a.pageXOffset,t[1]+=a.pageYOffset,t[2]+=a.pageXOffset,t[3]+=a.pageYOffset}K.forEach(function(e,n){e=e[0].toUpperCase()+e.substr(1),"Top"===e||"Left"===e?t[n]+=parseFloat(r["border"+e+"Width"]):t[n]-=parseFloat(r["border"+e+"Width"])})}(),t}var P=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}(),w=void 0;"undefined"==typeof w&&(w={modules:[]});var _=null,x=function(){var e=0;return function(){return++e}}(),O={},k=function(){var e=_;e||(e=document.createElement("div"),e.setAttribute("data-tether-id",x()),d(e.style,{top:0,left:0,position:"absolute"}),document.body.appendChild(e),_=e);var t=e.getAttribute("data-tether-id");return"undefined"==typeof O[t]&&(O[t]=r(e),j(function(){delete O[t]})),O[t]},E=[],j=function(e){E.push(e)},S=function(){for(var e=void 0;e=E.pop();)e()},N=function(){function e(){o(this,e)}return P(e,[{key:"on",value:function(e,t,n){var o=!(arguments.length<=3||void 0===arguments[3])&&arguments[3];"undefined"==typeof this.bindings&&(this.bindings={}),"undefined"==typeof this.bindings[e]&&(this.bindings[e]=[]),this.bindings[e].push({handler:t,ctx:n,once:o})}},{key:"once",value:function(e,t,n){this.on(e,t,n,!0)}},{key:"off",value:function(e,t){if("undefined"!=typeof this.bindings&&"undefined"!=typeof this.bindings[e])if("undefined"==typeof t)delete this.bindings[e];else for(var n=0;n<this.bindings[e].length;)this.bindings[e][n].handler===t?this.bindings[e].splice(n,1):++n}},{key:"trigger",value:function(e){if("undefined"!=typeof this.bindings&&this.bindings[e]){for(var t=0,n=arguments.length,o=Array(n>1?n-1:0),r=1;r<n;r++)o[r-1]=arguments[r];for(;t<this.bindings[e].length;){var a=this.bindings[e][t],i=a.handler,s=a.ctx,l=a.once,p=s;"undefined"==typeof p&&(p=this),i.apply(p,o),l?this.bindings[e].splice(t,1):++t}}}}]),e}();w.Utils={getActualBoundingClientRect:r,getScrollParents:a,getBounds:s,getOffsetParent:l,extend:d,addClass:u,removeClass:f,hasClass:c,updateClasses:y,defer:j,flush:S,uniqueId:x,Evented:N,getScrollBarSize:p,removeUtilElements:i};var M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),P=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}(),A=function(e,t,n){for(var o=!0;o;){var r=e,a=t,i=n;o=!1,null===r&&(r=Function.prototype);var s=Object.getOwnPropertyDescriptor(r,a);if(void 0!==s){if("value"in s)return s.value;var l=s.get;if(void 0===l)return;return l.call(i)}var p=Object.getPrototypeOf(r);if(null===p)return;e=p,t=a,n=i,o=!0,s=p=void 0}};if("undefined"==typeof w)throw new Error("You must include the utils.js file before tether.js");var B=w.Utils,a=B.getScrollParents,s=B.getBounds,l=B.getOffsetParent,d=B.extend,u=B.addClass,f=B.removeClass,y=B.updateClasses,j=B.defer,S=B.flush,p=B.getScrollBarSize,i=B.removeUtilElements,F=function(){if("undefined"==typeof document)return"";for(var e=document.createElement("div"),t=["transform","WebkitTransform","OTransform","MozTransform","msTransform"],n=0;n<t.length;++n){var o=t[n];if(void 0!==e.style[o])return o}}(),Y=[],W=function(){Y.forEach(function(e){e.position(!1)}),S()};!function(){var e=null,t=null,n=null,o=function r(){return"undefined"!=typeof t&&t>16?(t=Math.min(t-16,250),void(n=setTimeout(r,250))):void("undefined"!=typeof e&&b()-e<10||(null!=n&&(clearTimeout(n),n=null),e=b(),W(),t=b()-e))};"undefined"!=typeof window&&"undefined"!=typeof window.addEventListener&&["resize","scroll","touchmove"].forEach(function(e){window.addEventListener(e,o)})}();var q={center:"center",left:"right",right:"left"},I={middle:"middle",top:"bottom",bottom:"top"},R={top:0,left:0,middle:"50%",center:"50%",bottom:"100%",right:"100%"},z=function(e,t){var n=e.left,o=e.top;return"auto"===n&&(n=q[t.left]),"auto"===o&&(o=I[t.top]),{left:n,top:o}},H=function(e){var t=e.left,n=e.top;return"undefined"!=typeof R[e.left]&&(t=R[e.left]),"undefined"!=typeof R[e.top]&&(n=R[e.top]),{left:t,top:n}},L=function(e){var t=e.split(" "),n=M(t,2),o=n[0],r=n[1];return{top:o,left:r}},V=L,X=function(e){function t(e){var n=this;o(this,t),A(Object.getPrototypeOf(t.prototype),"constructor",this).call(this),this.position=this.position.bind(this),Y.push(this),this.history=[],this.setOptions(e,!1),w.modules.forEach(function(e){"undefined"!=typeof e.initialize&&e.initialize.call(n)}),this.position()}return g(t,e),P(t,[{key:"getClass",value:function(){var e=arguments.length<=0||void 0===arguments[0]?"":arguments[0],t=this.options.classes;return"undefined"!=typeof t&&t[e]?this.options.classes[e]:this.options.classPrefix?this.options.classPrefix+"-"+e:e}},{key:"setOptions",value:function(e){var t=this,n=arguments.length<=1||void 0===arguments[1]||arguments[1],o={offset:"0 0",targetOffset:"0 0",targetAttachment:"auto auto",classPrefix:"tether"};this.options=d(o,e);var r=this.options,i=r.element,s=r.target,l=r.targetModifier;if(this.element=i,this.target=s,this.targetModifier=l,"viewport"===this.target?(this.target=document.body,this.targetModifier="visible"):"scroll-handle"===this.target&&(this.target=document.body,this.targetModifier="scroll-handle"),["element","target"].forEach(function(e){if("undefined"==typeof t[e])throw new Error("Tether Error: Both element and target must be defined");"undefined"!=typeof t[e].jquery?t[e]=t[e][0]:"string"==typeof t[e]&&(t[e]=document.querySelector(t[e]))}),u(this.element,this.getClass("element")),this.options.addTargetClasses!==!1&&u(this.target,this.getClass("target")),!this.options.attachment)throw new Error("Tether Error: You must provide an attachment");this.targetAttachment=V(this.options.targetAttachment),this.attachment=V(this.options.attachment),this.offset=L(this.options.offset),this.targetOffset=L(this.options.targetOffset),"undefined"!=typeof this.scrollParents&&this.disable(),"scroll-handle"===this.targetModifier?this.scrollParents=[this.target]:this.scrollParents=a(this.target),this.options.enabled!==!1&&this.enable(n)}},{key:"getTargetBounds",value:function(){if("undefined"==typeof this.targetModifier)return s(this.target);if("visible"===this.targetModifier){if(this.target===document.body)return{top:pageYOffset,left:pageXOffset,height:innerHeight,width:innerWidth};var e=s(this.target),t={height:e.height,width:e.width,top:e.top,left:e.left};return t.height=Math.min(t.height,e.height-(pageYOffset-e.top)),t.height=Math.min(t.height,e.height-(e.top+e.height-(pageYOffset+innerHeight))),t.height=Math.min(innerHeight,t.height),t.height-=2,t.width=Math.min(t.width,e.width-(pageXOffset-e.left)),t.width=Math.min(t.width,e.width-(e.left+e.width-(pageXOffset+innerWidth))),t.width=Math.min(innerWidth,t.width),t.width-=2,t.top<pageYOffset&&(t.top=pageYOffset),t.left<pageXOffset&&(t.left=pageXOffset),t}if("scroll-handle"===this.targetModifier){var e=void 0,n=this.target;n===document.body?(n=document.documentElement,e={left:pageXOffset,top:pageYOffset,height:innerHeight,width:innerWidth}):e=s(n);var o=getComputedStyle(n),r=n.scrollWidth>n.clientWidth||[o.overflow,o.overflowX].indexOf("scroll")>=0||this.target!==document.body,a=0;r&&(a=15);var i=e.height-parseFloat(o.borderTopWidth)-parseFloat(o.borderBottomWidth)-a,t={width:15,height:.975*i*(i/n.scrollHeight),left:e.left+e.width-parseFloat(o.borderLeftWidth)-15},l=0;i<408&&this.target===document.body&&(l=-11e-5*Math.pow(i,2)-.00727*i+22.58),this.target!==document.body&&(t.height=Math.max(t.height,24));var p=this.target.scrollTop/(n.scrollHeight-i);return t.top=p*(i-t.height-l)+e.top+parseFloat(o.borderTopWidth),this.target===document.body&&(t.height=Math.max(t.height,24)),t}}},{key:"clearCache",value:function(){this._cache={}}},{key:"cache",value:function(e,t){return"undefined"==typeof this._cache&&(this._cache={}),"undefined"==typeof this._cache[e]&&(this._cache[e]=t.call(this)),this._cache[e]}},{key:"enable",value:function(){var e=this,t=arguments.length<=0||void 0===arguments[0]||arguments[0];this.options.addTargetClasses!==!1&&u(this.target,this.getClass("enabled")),u(this.element,this.getClass("enabled")),this.enabled=!0,this.scrollParents.forEach(function(t){t!==e.target.ownerDocument&&t.addEventListener("scroll",e.position)}),t&&this.position()}},{key:"disable",value:function(){var e=this;f(this.target,this.getClass("enabled")),f(this.element,this.getClass("enabled")),this.enabled=!1,"undefined"!=typeof this.scrollParents&&this.scrollParents.forEach(function(t){t.removeEventListener("scroll",e.position)})}},{key:"destroy",value:function(){var e=this;this.disable(),Y.forEach(function(t,n){t===e&&Y.splice(n,1)}),0===Y.length&&i()}},{key:"updateAttachClasses",value:function(e,t){var n=this;e=e||this.attachment,t=t||this.targetAttachment;var o=["left","top","bottom","right","middle","center"];"undefined"!=typeof this._addAttachClasses&&this._addAttachClasses.length&&this._addAttachClasses.splice(0,this._addAttachClasses.length),"undefined"==typeof this._addAttachClasses&&(this._addAttachClasses=[]);var r=this._addAttachClasses;e.top&&r.push(this.getClass("element-attached")+"-"+e.top),e.left&&r.push(this.getClass("element-attached")+"-"+e.left),t.top&&r.push(this.getClass("target-attached")+"-"+t.top),t.left&&r.push(this.getClass("target-attached")+"-"+t.left);var a=[];o.forEach(function(e){a.push(n.getClass("element-attached")+"-"+e),a.push(n.getClass("target-attached")+"-"+e)}),j(function(){"undefined"!=typeof n._addAttachClasses&&(y(n.element,n._addAttachClasses,a),n.options.addTargetClasses!==!1&&y(n.target,n._addAttachClasses,a),delete n._addAttachClasses)})}},{key:"position",value:function(){var e=this,t=arguments.length<=0||void 0===arguments[0]||arguments[0];if(this.enabled){this.clearCache();var n=z(this.targetAttachment,this.attachment);this.updateAttachClasses(this.attachment,n);var o=this.cache("element-bounds",function(){return s(e.element)}),r=o.width,a=o.height;if(0===r&&0===a&&"undefined"!=typeof this.lastSize){var i=this.lastSize;r=i.width,a=i.height}else this.lastSize={width:r,height:a};var d=this.cache("target-bounds",function(){return e.getTargetBounds()}),f=d,u=T(H(this.attachment),{width:r,height:a}),c=T(H(n),f),h=T(this.offset,{width:r,height:a}),m=T(this.targetOffset,f);u=D(u,h),c=D(c,m);for(var y=d.left+c.left-u.left,g=d.top+c.top-u.top,v=0;v<w.modules.length;++v){var b=w.modules[v],C=b.position.call(this,{left:y,top:g,targetAttachment:n,targetPos:d,elementPos:o,offset:u,targetOffset:c,manualOffset:h,manualTargetOffset:m,scrollbarSize:O,attachment:this.attachment});if(C===!1)return!1;"undefined"!=typeof C&&"object"==typeof C&&(g=C.top,y=C.left)}var P={page:{top:g,left:y},viewport:{top:g-pageYOffset,bottom:pageYOffset-g-a+innerHeight,left:y-pageXOffset,right:pageXOffset-y-r+innerWidth}},_=this.target.ownerDocument,x=_.defaultView,O=void 0;return _.body.scrollWidth>x.innerWidth&&(O=this.cache("scrollbar-size",p),P.viewport.bottom-=O.height),_.body.scrollHeight>x.innerHeight&&(O=this.cache("scrollbar-size",p),P.viewport.right-=O.width),["","static"].indexOf(_.body.style.position)!==-1&&["","static"].indexOf(_.body.parentElement.style.position)!==-1||(P.page.bottom=_.body.scrollHeight-g-a,P.page.right=_.body.scrollWidth-y-r),"undefined"!=typeof this.options.optimizations&&this.options.optimizations.moveElement!==!1&&"undefined"==typeof this.targetModifier&&!function(){var t=e.cache("target-offsetparent",function(){return l(e.target)}),n=e.cache("target-offsetparent-bounds",function(){return s(t)}),o=getComputedStyle(t),r=n,a={};if(["Top","Left","Bottom","Right"].forEach(function(e){a[e.toLowerCase()]=parseFloat(o["border"+e+"Width"])}),n.right=_.body.scrollWidth-n.left-r.width+a.right,n.bottom=_.body.scrollHeight-n.top-r.height+a.bottom,P.page.top>=n.top+a.top&&P.page.bottom>=n.bottom&&P.page.left>=n.left+a.left&&P.page.right>=n.right){var i=t.scrollTop,p=t.scrollLeft;P.offset={top:P.page.top-n.top+i-a.top,left:P.page.left-n.left+p-a.left}}}(),this.move(P),this.history.unshift(P),this.history.length>3&&this.history.pop(),t&&S(),!0}}},{key:"move",value:function(e){var t=this;if("undefined"!=typeof this.element.parentNode){var n={};for(var o in e){n[o]={};for(var r in e[o]){for(var a=!1,i=0;i<this.history.length;++i){var s=this.history[i];if("undefined"!=typeof s[o]&&!v(s[o][r],e[o][r])){a=!0;break}}a||(n[o][r]=!0)}}var p={top:"",left:"",right:"",bottom:""},f=function(e,n){var o="undefined"!=typeof t.options.optimizations,r=o?t.options.optimizations.gpu:null;if(r!==!1){var a=void 0,i=void 0;e.top?(p.top=0,a=n.top):(p.bottom=0,a=-n.bottom),e.left?(p.left=0,i=n.left):(p.right=0,i=-n.right),p[F]="translateX("+Math.round(i)+"px) translateY("+Math.round(a)+"px)","msTransform"!==F&&(p[F]+=" translateZ(0)")}else e.top?p.top=n.top+"px":p.bottom=n.bottom+"px",e.left?p.left=n.left+"px":p.right=n.right+"px"},u=!1;if((n.page.top||n.page.bottom)&&(n.page.left||n.page.right)?(p.position="absolute",f(n.page,e.page)):(n.viewport.top||n.viewport.bottom)&&(n.viewport.left||n.viewport.right)?(p.position="fixed",f(n.viewport,e.viewport)):"undefined"!=typeof n.offset&&n.offset.top&&n.offset.left?!function(){p.position="absolute";var o=t.cache("target-offsetparent",function(){return l(t.target)});l(t.element)!==o&&j(function(){t.element.parentNode.removeChild(t.element),o.appendChild(t.element)}),f(n.offset,e.offset),u=!0}():(p.position="absolute",f({top:!0,left:!0},e.page)),!u){for(var c=!0,h=this.element.parentNode;h&&1===h.nodeType&&"BODY"!==h.tagName;){if("static"!==getComputedStyle(h).position){c=!1;break}h=h.parentNode}c||(this.element.parentNode.removeChild(this.element),this.element.ownerDocument.body.appendChild(this.element))}var m={},y=!1;for(var r in p){var g=p[r],b=this.element.style[r];b!==g&&(y=!0,m[r]=g)}y&&j(function(){d(t.element.style,m),t.trigger("repositioned")})}}}]),t}(N);X.modules=[],w.position=W;var U=d(X,w),M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),B=w.Utils,s=B.getBounds,d=B.extend,y=B.updateClasses,j=B.defer,K=["left","top","right","bottom"];w.modules.push({position:function(e){var t=this,n=e.top,o=e.left,r=e.targetAttachment;if(!this.options.constraints)return!0;var a=this.cache("element-bounds",function(){return s(t.element)}),i=a.height,l=a.width;if(0===l&&0===i&&"undefined"!=typeof this.lastSize){var p=this.lastSize;l=p.width,i=p.height}var f=this.cache("target-bounds",function(){return t.getTargetBounds()}),u=f.height,c=f.width,h=[this.getClass("pinned"),this.getClass("out-of-bounds")];this.options.constraints.forEach(function(e){var t=e.outOfBoundsClass,n=e.pinnedClass;t&&h.push(t),n&&h.push(n)}),h.forEach(function(e){["left","top","right","bottom"].forEach(function(t){h.push(e+"-"+t)})});var m=[],g=d({},r),v=d({},this.attachment);return this.options.constraints.forEach(function(e){var a=e.to,s=e.attachment,p=e.pin;"undefined"==typeof s&&(s="");var d=void 0,f=void 0;if(s.indexOf(" ")>=0){var h=s.split(" "),y=M(h,2);f=y[0],d=y[1]}else d=f=s;var b=C(t,a);"target"!==f&&"both"!==f||(n<b[1]&&"top"===g.top&&(n+=u,g.top="bottom"),n+i>b[3]&&"bottom"===g.top&&(n-=u,g.top="top")),"together"===f&&("top"===g.top&&("bottom"===v.top&&n<b[1]?(n+=u,g.top="bottom",n+=i,v.top="top"):"top"===v.top&&n+i>b[3]&&n-(i-u)>=b[1]&&(n-=i-u,g.top="bottom",v.top="bottom")),"bottom"===g.top&&("top"===v.top&&n+i>b[3]?(n-=u,g.top="top",n-=i,v.top="bottom"):"bottom"===v.top&&n<b[1]&&n+(2*i-u)<=b[3]&&(n+=i-u,g.top="top",v.top="top")),"middle"===g.top&&(n+i>b[3]&&"top"===v.top?(n-=i,v.top="bottom"):n<b[1]&&"bottom"===v.top&&(n+=i,v.top="top"))),"target"!==d&&"both"!==d||(o<b[0]&&"left"===g.left&&(o+=c,g.left="right"),o+l>b[2]&&"right"===g.left&&(o-=c,g.left="left")),"together"===d&&(o<b[0]&&"left"===g.left?"right"===v.left?(o+=c,g.left="right",o+=l,v.left="left"):"left"===v.left&&(o+=c,g.left="right",o-=l,v.left="right"):o+l>b[2]&&"right"===g.left?"left"===v.left?(o-=c,g.left="left",o-=l,v.left="right"):"right"===v.left&&(o-=c,g.left="left",o+=l,v.left="left"):"center"===g.left&&(o+l>b[2]&&"left"===v.left?(o-=l,v.left="right"):o<b[0]&&"right"===v.left&&(o+=l,v.left="left"))),"element"!==f&&"both"!==f||(n<b[1]&&"bottom"===v.top&&(n+=i,v.top="top"),n+i>b[3]&&"top"===v.top&&(n-=i,v.top="bottom")),"element"!==d&&"both"!==d||(o<b[0]&&("right"===v.left?(o+=l,v.left="left"):"center"===v.left&&(o+=l/2,v.left="left")),o+l>b[2]&&("left"===v.left?(o-=l,v.left="right"):"center"===v.left&&(o-=l/2,v.left="right"))),"string"==typeof p?p=p.split(",").map(function(e){return e.trim()}):p===!0&&(p=["top","left","right","bottom"]),p=p||[];var D=[],T=[];n<b[1]&&(p.indexOf("top")>=0?(n=b[1],D.push("top")):T.push("top")),n+i>b[3]&&(p.indexOf("bottom")>=0?(n=b[3]-i,D.push("bottom")):T.push("bottom")),o<b[0]&&(p.indexOf("left")>=0?(o=b[0],D.push("left")):T.push("left")),o+l>b[2]&&(p.indexOf("right")>=0?(o=b[2]-l,D.push("right")):T.push("right")),D.length&&!function(){var e=void 0;e="undefined"!=typeof t.options.pinnedClass?t.options.pinnedClass:t.getClass("pinned"),m.push(e),D.forEach(function(t){m.push(e+"-"+t)})}(),T.length&&!function(){var e=void 0;e="undefined"!=typeof t.options.outOfBoundsClass?t.options.outOfBoundsClass:t.getClass("out-of-bounds"),m.push(e),T.forEach(function(t){m.push(e+"-"+t)})}(),(D.indexOf("left")>=0||D.indexOf("right")>=0)&&(v.left=g.left=!1),(D.indexOf("top")>=0||D.indexOf("bottom")>=0)&&(v.top=g.top=!1),g.top===r.top&&g.left===r.left&&v.top===t.attachment.top&&v.left===t.attachment.left||(t.updateAttachClasses(v,g),t.trigger("update",{attachment:v,targetAttachment:g}))}),j(function(){t.options.addTargetClasses!==!1&&y(t.target,m,h),y(t.element,m,h)}),{top:n,left:o}}});var B=w.Utils,s=B.getBounds,y=B.updateClasses,j=B.defer;w.modules.push({position:function(e){var t=this,n=e.top,o=e.left,r=this.cache("element-bounds",function(){return s(t.element)}),a=r.height,i=r.width,l=this.getTargetBounds(),p=n+a,d=o+i,f=[];n<=l.bottom&&p>=l.top&&["left","right"].forEach(function(e){var t=l[e];t!==o&&t!==d||f.push(e)}),o<=l.right&&d>=l.left&&["top","bottom"].forEach(function(e){var t=l[e];t!==n&&t!==p||f.push(e)});var u=[],c=[],h=["left","top","right","bottom"];return u.push(this.getClass("abutted")),h.forEach(function(e){u.push(t.getClass("abutted")+"-"+e)}),f.length&&c.push(this.getClass("abutted")),f.forEach(function(e){c.push(t.getClass("abutted")+"-"+e)}),j(function(){t.options.addTargetClasses!==!1&&y(t.target,c,u),y(t.element,c,u)}),!0}});var M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}();return w.modules.push({position:function(e){var t=e.top,n=e.left;if(this.options.shift){var o=this.options.shift;"function"==typeof this.options.shift&&(o=this.options.shift.call(this,{top:t,left:n}));var r=void 0,a=void 0;if("string"==typeof o){o=o.split(" "),o[1]=o[1]||o[0];var i=o,s=M(i,2);r=s[0],a=s[1],r=parseFloat(r,10),a=parseFloat(a,10)}else r=o.top,a=o.left;return t+=r,n+=a,{top:t,left:n}}}}),U})}])});
 
 /***/ },
-/* 300 */
+/* 324 */
 /*!****************************!*\
   !*** ./~/moment/moment.js ***!
   \****************************/
@@ -39514,10 +42662,10 @@
 	    return _moment;
 	
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 301)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 325)(module)))
 
 /***/ },
-/* 301 */
+/* 325 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -39536,7 +42684,7 @@
 
 
 /***/ },
-/* 302 */
+/* 326 */
 /*!*****************************************!*\
   !*** ./~/react-onclickoutside/index.js ***!
   \*****************************************/
@@ -39677,7 +42825,7 @@
 
 
 /***/ },
-/* 303 */
+/* 327 */
 /*!******************************************!*\
   !*** ./app/components/user-dashboard.js ***!
   \******************************************/
@@ -39699,7 +42847,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 304);
+	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 328);
 	
 	var _courseList2 = _interopRequireDefault(_courseList);
 	
@@ -39780,7 +42928,7 @@
 	exports.default = UserDashboard;
 
 /***/ },
-/* 304 */
+/* 328 */
 /*!***********************************************!*\
   !*** ./app/components/courses/course-list.js ***!
   \***********************************************/

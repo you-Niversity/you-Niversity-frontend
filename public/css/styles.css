@@ -186,7 +186,13 @@ input:focus, textarea:focus, select:focus {
 #class-display h3 {
 	color: black;
 	font-size: 2em;
-	margin: 50px 0;
+	margin: 50px 0 20px 0;
+	text-align: center;
+}
+#class-display h4 {
+	color: orange;
+	font-size: 1.5em;
+	margin: 20px 0 50px 0;
 	text-align: center;
 }
 #course-block {

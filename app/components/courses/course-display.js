@@ -4,6 +4,7 @@ import nocache from 'superagent-no-cache';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
 import Course from './course.js';
+import MapDisplay from './map-display.js';
 
 
 var CourseDisplay = React.createClass({
@@ -32,11 +33,24 @@ var CourseDisplay = React.createClass({
   render: function() {
     return (
       <div className="CourseDisplay">
+      <div className="row" id="class-display">
+        <h3>Upcoming Classes</h3>
+        <h4>List | Map </h4>
+      </div>
+
+        <MapDisplay
+          data={this.state.data}
+          filterText={this.props.filterText}
+          center={[Number(this.props.lat), Number(this.props.lng)]}
+          radius={this.props.radius}
+          zoom={8}
+        />
+
         <AllCourseList
           data={this.state.data}
           filterText={this.props.filterText}
-          lat={this.props.lat}
-          lng={this.props.lng}
+          lat={Number(this.props.lat)}
+          lng={Number(this.props.lng)}
           radius={this.props.radius}
         />
       </div>
@@ -51,34 +65,29 @@ var AllCourseList = React.createClass({
       var filterTextLowerCase = this.props.filterText.toLowerCase();
       var courseTitleLowerCase = course.title.toLowerCase();
 
-      console.log(this.props.radius);
       var radius = this.props.radius;
       var userLat = this.props.lat;
       var userLng = this.props.lng;
-      console.log(radius, userLat, userLng);
       var withinLatRadius = (course.lat < (userLat + radius) && course.lat > (userLat - radius));
       var withinLngRadius = (course.lng > (userLng - radius) && course.lng < (userLng + radius));
       var withinRadius = ((course.lng > (userLng - radius) && course.lng < (userLng + radius)) && (course.lat < (userLat + radius) && course.lat > (userLat - radius)));
-      console.log(course.city, withinRadius, withinLngRadius, withinLatRadius);
+
 
       if ((this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
-        console.log("if statement");
         return;
       }
 
       if(withinRadius === false) {
-        console.log('radius changed');
         return;
       }
 
-      console.log("*********************");
 
       return (
         <Course
           title={course.title}
           image_url={course.image_url}
           date={course.date}
-          key={course.id}
+          key={'course' + course.id}
           id={course.id}>
         </Course>
       )
@@ -87,8 +96,7 @@ var AllCourseList = React.createClass({
     return (
       <div className="row">
           <div className="col-sm-2"></div>
-          <div className="col-sm-8" id="class-display">
-            <div className="row"><h3>Upcoming Classes</h3></div>
+          <div className="col-sm-8">
             <div id="course-block" className="row">
               {courseNodes}
             </div>
