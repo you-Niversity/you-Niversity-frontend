@@ -3,6 +3,12 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 
 var NavbarLoggedIn = React.createClass({
 
+  handleLogoutSubmit: function(){
+    sessionStorage.clear();
+    browserHistory.push('/');
+  },
+
+
   render: function(){
 
     var first_name = sessionStorage.getItem('first_name');
@@ -38,7 +44,7 @@ var NavbarLoggedIn = React.createClass({
                 </li>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li><Link to={'/users/'+ id}>Profile</Link></li>
-                  <li><Link to={'/users/'+ id}>Logout</Link></li>
+                  <li onClick={this.handleLogoutSubmit}><Link to="#">Logout</Link></li>
                 </ul>
               <li><div style={userPic}></div></li>
             </ul>

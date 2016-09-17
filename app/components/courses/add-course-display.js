@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import nocache from 'superagent-no-cache';
+import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
 import Geosuggest from 'react-geosuggest';
 
@@ -20,9 +20,11 @@ var AddCourseDisplay = React.createClass({
 
   handleCourseSubmit: function(course){
     console.log(course);
+    var user_id = sessionStorage.user_id;
     request
       .post("http://localhost:8080/classes")
       .send(course)
+      .send({user_id: user_id})
       .send({date: moment(course.date._d).format("MMMM Do YYYY")})
       .send({lat: course.location[0]})
       .send({lng: course.location[1]})
@@ -34,6 +36,8 @@ var AddCourseDisplay = React.createClass({
           console.log("there was an error in creating this class");
         } else {
           console.log("successfully created class");
+          browserHistory.push('/users/' + user_id);
+
         }
       });
   },

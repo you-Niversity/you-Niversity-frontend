@@ -35776,6 +35776,11 @@
 	  displayName: 'NavbarLoggedIn',
 	
 	
+	  handleLogoutSubmit: function handleLogoutSubmit() {
+	    sessionStorage.clear();
+	    _reactRouter.browserHistory.push('/');
+	  },
+	
 	  render: function render() {
 	
 	    var first_name = sessionStorage.getItem('first_name');
@@ -35858,10 +35863,10 @@
 	              ),
 	              _react2.default.createElement(
 	                'li',
-	                null,
+	                { onClick: this.handleLogoutSubmit },
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
-	                  { to: '/users/' + id },
+	                  { to: '#' },
 	                  'Logout'
 	                )
 	              )
@@ -35931,8 +35936,6 @@
 	        this.setState({ loginErrorMessage: errorMessage, err: true });
 	        console.log(this.state.loginErrorMessage);
 	      } else {
-	        console.log("successfully logged in user");
-	        console.log(res.body.profile);
 	        this.props.login(res.body);
 	        console.log(this.props.userState);
 	
@@ -35940,9 +35943,7 @@
 	        sessionStorage.setItem('user_id', this.props.userState.profile.id);
 	        sessionStorage.setItem('image_url', res.body.profile.profile_pic);
 	
-	        var userDashboard = '/users/' + this.props.userState.profile.id;
-	
-	        _reactRouter.browserHistory.push(userDashboard);
+	        _reactRouter.browserHistory.push('/users/' + this.props.userState.profile.id);
 	      }
 	    }.bind(this));
 	  },
@@ -35996,6 +35997,7 @@
 	
 	  handleSubmit: function handleSubmit(event) {
 	    event.preventDefault();
+	
 	    var email = this.state.email.trim();
 	    var password = this.state.password.trim();
 	    {/*console.log(this.props.loginErrorMessage !== null);
@@ -36053,6 +36055,7 @@
 	        value: this.state.password,
 	        onChange: this.handlePasswordChange
 	      }),
+	      errMessage,
 	      _react2.default.createElement('input', { type: 'submit', value: 'Login', className: 'form-submit-button' })
 	    );
 	  }
@@ -36129,6 +36132,14 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
+	var _rosterList = __webpack_require__(/*! ./roster-list.js */ 334);
+	
+	var _rosterList2 = _interopRequireDefault(_rosterList);
+	
+	var _reviewList = __webpack_require__(/*! ./review-list.js */ 335);
+	
+	var _reviewList2 = _interopRequireDefault(_reviewList);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var SingleCourseDisplay = _react2.default.createClass({
@@ -36136,20 +36147,23 @@
 	
 	
 	  getInitialState: function getInitialState() {
+	
 	    return {
 	      courseData: [],
 	      roster: [],
-	      instructorReviews: []
+	      commentBoard: [],
+	      reviews: []
 	    };
 	  },
 	
-	  getCourseDataFromAPI: function getCourseDataFromAPI(id) {
+	  getCourseDataFromAPI: function getCourseDataFromAPI(id, callback) {
 	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing this course from the API");
 	      } else {
-	        console.log(res.body[0].user_id);
 	        this.setState({ courseData: res.body[0] });
+	        console.log(this.state.courseData);
+	        callback(this.state.courseData.user_id);
 	      }
 	    }.bind(this));
 	  },
@@ -36159,26 +36173,47 @@
 	      if (err) {
 	        console.log("There was an error grabbing this roster from the API");
 	      } else {
-	        console.log(res.body);
 	        this.setState({ roster: res.body });
 	      }
 	    }.bind(this));
 	  },
 	
-	  getInstructorReviewsFromAPI: function getInstructorReviewsFromAPI() {
-	    console.log('write api request');
+	  getCommentBoardFromAPI: function getCommentBoardFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/classes/" + id + "/comments").end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing course comments from the API");
+	      } else {
+	        console.log(res.body);
+	        this.setState({ commentBoard: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  getReviewsFromAPI: function getReviewsFromAPI(id) {
+	    console.log(id);
+	    _superagent2.default.get("http://localhost:8080/users/" + id + "/reviews").end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing the reviews from the API");
+	      } else {
+	        console.log(res.body);
+	        this.setState({ reviews: res.body });
+	      }
+	    }.bind(this));
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    console.log("****");
-	    console.log(this.props.params.id);
 	    var id = this.props.params.id;
-	    this.getCourseDataFromAPI(id);
+	    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
 	    this.getRosterFromAPI(id);
-	    this.getInstructorReviewsFromAPI();
+	    this.getCommentBoardFromAPI(id);
 	  },
 	
 	  render: function render() {
+	
+	    var reviews = this.state.reviews.length > 0 ? _react2.default.createElement(_reviewList2.default, {
+	      data: this.state.reviews
+	    }) : null;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -36207,9 +36242,10 @@
 	          })
 	        )
 	      ),
-	      _react2.default.createElement(RosterList, {
+	      _react2.default.createElement(_rosterList2.default, {
 	        data: this.state.roster
-	      })
+	      }),
+	      reviews
 	    );
 	  }
 	});
@@ -36218,7 +36254,6 @@
 	  displayName: 'CourseDateTimePlaceInstructorDisplay',
 	
 	  render: function render() {
-	    console.log(this.props.data.date);
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'left-course-display center' },
@@ -36347,80 +36382,6 @@
 	        )
 	      ),
 	      _react2.default.createElement('div', { className: 'instructor-profile-img', style: instructorImageStyle })
-	    );
-	  }
-	});
-	
-	var RosterList = _react2.default.createClass({
-	  displayName: 'RosterList',
-	
-	  render: function render() {
-	    console.log("*****");
-	    console.log(this.props.data[0]);
-	
-	    var rosterNodes = this.props.data.map(function (student) {
-	      return _react2.default.createElement(Student, {
-	        first_name: student.first_name,
-	        last_name: student.last_name,
-	        profile_pic: student.profile_pic,
-	        key: student.id });
-	    }.bind(this));
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { id: 'roster-div' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-12' },
-	          _react2.default.createElement(
-	            'h2',
-	            { className: 'center' },
-	            'Your Classmates'
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        _react2.default.createElement('div', { className: 'col-sm-2' }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-8 roster-list' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            rosterNodes
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var Student = _react2.default.createClass({
-	  displayName: 'Student',
-	
-	
-	  render: function render() {
-	
-	    var studentImageStyle = {
-	      backgroundImage: 'url(' + this.props.profile_pic + ')'
-	    };
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'col-sm-3' },
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'center' },
-	        this.props.first_name,
-	        ' ',
-	        this.props.last_name
-	      ),
-	      _react2.default.createElement('div', { className: 'student-profile-img center', style: studentImageStyle })
 	    );
 	  }
 	});
@@ -36953,9 +36914,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 309);
-	
-	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
 	var _superagent = __webpack_require__(/*! superagent */ 271);
 	
@@ -36983,11 +36942,13 @@
 	
 	  handleCourseSubmit: function handleCourseSubmit(course) {
 	    console.log(course);
-	    _superagent2.default.post("http://localhost:8080/classes").send(course).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
+	    var user_id = sessionStorage.user_id;
+	    _superagent2.default.post("http://localhost:8080/classes").send(course).send({ user_id: user_id }).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in creating this class");
 	      } else {
 	        console.log("successfully created class");
+	        _reactRouter.browserHistory.push('/users/' + user_id);
 	      }
 	    });
 	  },
@@ -43369,6 +43330,223 @@
 	});
 	
 	exports.default = CourseList;
+
+/***/ },
+/* 333 */,
+/* 334 */
+/*!***********************************************!*\
+  !*** ./app/components/courses/roster-list.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RosterList = _react2.default.createClass({
+	  displayName: 'RosterList',
+	
+	  render: function render() {
+	
+	    var rosterNodes = this.props.data.map(function (student) {
+	      return _react2.default.createElement(Student, {
+	        first_name: student.first_name,
+	        last_name: student.last_name,
+	        profile_pic: student.profile_pic,
+	        key: student.id });
+	    });
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { id: 'roster-review-comments-div' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'center' },
+	            'Your Classmates'
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement('div', { className: 'col-sm-2' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-8 roster-list' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            rosterNodes
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var Student = _react2.default.createClass({
+	  displayName: 'Student',
+	
+	
+	  render: function render() {
+	
+	    var studentImageStyle = {
+	      backgroundImage: 'url(' + this.props.profile_pic + ')'
+	    };
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'col-sm-3' },
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'center' },
+	        this.props.first_name,
+	        ' ',
+	        this.props.last_name
+	      ),
+	      _react2.default.createElement('div', { className: 'student-profile-img center', style: studentImageStyle })
+	    );
+	  }
+	});
+	
+	exports.default = RosterList;
+
+/***/ },
+/* 335 */
+/*!***********************************************!*\
+  !*** ./app/components/courses/review-list.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ReviewList = _react2.default.createClass({
+	  displayName: 'ReviewList',
+	
+	  render: function render() {
+	
+	    var reviewNodes = this.props.data.map(function (review) {
+	      return _react2.default.createElement(Review, {
+	        date: review.creation_date,
+	        name: review.first_name + ' ' + review.last_name,
+	        profile_pic: review.profile_pic,
+	        review: review.review,
+	        key: "review" + review.id
+	      });
+	    });
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { id: 'roster-review-comments-div' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'center' },
+	            'Instructor Reviews'
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement('div', { className: 'col-sm-2' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-8 roster-list' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            reviewNodes
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var Review = _react2.default.createClass({
+	  displayName: 'Review',
+	
+	
+	  render: function render() {
+	
+	    var reviewerImageStyle = {
+	      backgroundImage: 'url(' + this.props.profile_pic + ')',
+	      backgroundSize: 'cover',
+	      backgroundPosition: 'center',
+	      width: "60px",
+	      height: "60px"
+	    };
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement('div', { className: 'col-sm-3 reviewer-profile-img', style: reviewerImageStyle }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-9' },
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.name
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.review
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.date
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = ReviewList;
 
 /***/ }
 /******/ ]);

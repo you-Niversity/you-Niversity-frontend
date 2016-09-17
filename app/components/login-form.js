@@ -29,8 +29,6 @@ import { userLoginSuccess } from '../actions/user-actions';
           this.setState({loginErrorMessage: errorMessage, err: true});
           console.log(this.state.loginErrorMessage);
         } else {
-          console.log("successfully logged in user");
-          console.log(res.body.profile);
           this.props.login(res.body);
           console.log(this.props.userState);
 
@@ -38,9 +36,7 @@ import { userLoginSuccess } from '../actions/user-actions';
           sessionStorage.setItem('user_id', this.props.userState.profile.id);
           sessionStorage.setItem('image_url', res.body.profile.profile_pic);
 
-          var userDashboard = '/users/' + this.props.userState.profile.id;
-
-          browserHistory.push(userDashboard);
+          browserHistory.push('/users/' + this.props.userState.profile.id);
         }
       }.bind(this));
   },
@@ -79,10 +75,12 @@ var UserLoginForm = React.createClass({
 
   handleSubmit: function(event){
     event.preventDefault();
+
     var email = this.state.email.trim();
     var password = this.state.password.trim();
     {/*console.log(this.props.loginErrorMessage !== null);
     console.log(this.props.err);*/}
+
 
     if(!email || !password){
       console.log('some fields are missing');
@@ -131,6 +129,7 @@ var UserLoginForm = React.createClass({
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
+        {errMessage}
         <input type="submit" value="Login" className="form-submit-button"/>
       </form>
     )

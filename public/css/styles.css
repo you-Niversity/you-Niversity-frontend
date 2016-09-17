@@ -347,16 +347,18 @@ hr {
 	margin-bottom: 10px;
 }
 
-#roster-div {
+#roster-review-comments-div {
 	margin: 20px -15px;
 	border: 2px solid orange;
 }
 
-#roster-div h2 {
+#roster-review-comments-div h2 {
 	font-weight: 700;
 	font-size: 1.5em;
+	background-color: orange;
+	padding: 10px;
 }
-#roster-div p {
+#roster-review-comments-div p {
 	font-size: 1.3em;
 	margin-bottom: 10px;
 }
