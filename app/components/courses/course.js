@@ -15,7 +15,7 @@ var Course = React.createClass({
         <div className="single-course-text">
           <p>{this.props.date}</p>
           <hr/>
-          <h4 className="courseTitle">{this.props.title}</h4>
+          <h4 className="course-title">{this.props.title}</h4>
         </div>
       </div></Link>
     );

@@ -29,20 +29,23 @@ import { userLoginSuccess } from '../actions/user-actions';
           this.setState({loginErrorMessage: errorMessage, err: true});
           console.log(this.state.loginErrorMessage);
         } else {
-          console.log(res.body.profile.id);
-          var id = res.body.profile.id
-
           console.log("successfully logged in user");
-          this.props.login(res.body)
-          var userDashboard = '/users/' + this.props.userState.profile.id
+          console.log(res.body.profile);
+          this.props.login(res.body);
+          console.log(this.props.userState);
+
+          sessionStorage.setItem('first_name', this.props.userState.profile.first_name);
+          sessionStorage.setItem('user_id', this.props.userState.profile.id);
+          sessionStorage.setItem('image_url', res.body.profile.profile_pic);
+
+          var userDashboard = '/users/' + this.props.userState.profile.id;
+
           browserHistory.push(userDashboard);
         }
       }.bind(this));
   },
 
   render: function(){
-    console.log("Current userState:");
-    console.log(this.props.userState);
     return (
       <div className="row">
         <div className="col-sm-4"></div>

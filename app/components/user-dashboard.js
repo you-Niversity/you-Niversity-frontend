@@ -61,17 +61,26 @@ var UserDashboard = React.createClass({
   },
 
   render: function(){
+
+    var teachingDisplay = (this.state.classesTeaching.length > 0) ?
+    <CourseList
+      data={this.state.classesTeaching}
+      header="Classes You're Teaching"
+    /> :
+    null;
+
+    var takingDisplay = (this.state.classesTaking.length > 0) ?
+    <CourseList
+      data={this.state.classesTaking}
+      header="Classes You're Taking"
+    /> :
+    null;
+
     return (
       <div>
       <div className="CourseDisplay dashboard-display">
-        <CourseList
-          data={this.state.classesTeaching}
-          header="Classes You're Teaching"
-        />
-        <CourseList
-          data={this.state.classesTaking}
-          header="Classes You're Taking"
-        />
+        {teachingDisplay}
+        {takingDisplay}
       </div>
       </div>
     );

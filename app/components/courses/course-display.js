@@ -1,8 +1,12 @@
 'use strict';
 import React from 'react';
-import nocache from 'superagent-no-cache';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+
 import request from 'superagent';
+import MapIcon from '../icons/map-icon.js';
+import ListIcon from '../icons/list-icon.js';
+
+
 import Course from './course.js';
 import MapDisplay from './map-display.js';
 
@@ -11,8 +15,8 @@ var CourseDisplay = React.createClass({
   getInitialState: function() {
     return {
       data: [],
-      showMap: true,
-      showList: false
+      showMap: false,
+      showList: true
     };
   },
 
@@ -64,9 +68,15 @@ var CourseDisplay = React.createClass({
       <div className="row" id="class-display">
         <h3>Upcoming Classes</h3>
         <h4>
-          <span className="course-display-change" onClick={this.handleViewChange}>List</span>
-          <span className="black"> | </span>
-          <span className="course-display-change" onClick={this.handleViewChange}>Map</span>
+          <span className="course-display-change" onClick={this.handleViewChange}>
+            <ListIcon />
+             List
+          </span>
+          <span className="black">  | </span>
+          <span className="course-display-change" onClick={this.handleViewChange}>
+            <MapIcon />
+            Map
+          </span>
         </h4>
       </div>
 
@@ -126,5 +136,8 @@ var AllCourseList = React.createClass({
     );
   }
 });
+
+
+
 
 export default CourseDisplay;

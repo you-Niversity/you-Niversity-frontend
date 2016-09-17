@@ -3,6 +3,8 @@ import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import CourseDisplay from './courses/course-display.js';
 import Navbar from './navbar.js';
+import NavbarLoggedIn from './navbar-logged-in.js';
+
 
 var LandingPage = React.createClass({
 
@@ -81,13 +83,27 @@ var LandingPage = React.createClass({
   },
 
   render: function(){
+    var loggedInNav = (sessionStorage.first_name) ?
+      <NavbarLoggedIn />
+      : null;
+
+    var nav = (!sessionStorage.first_name) ?
+      <Navbar />
+      : null;
     return (
       <div className="container-fluid">
         <div id="landing-div">
           <div id="landing-div-row" className="row">
             <div className="col-sm-2"></div>
             <div id="center-content" className="col-sm-8">
-              <Navbar />
+
+
+
+            {loggedInNav}
+            {nav}
+
+
+
               <WelcomeText />
               <SearchBar
                 filterText={this.state.filterText}
