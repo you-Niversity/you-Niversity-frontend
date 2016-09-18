@@ -6,9 +6,8 @@ import request from 'superagent';
 import MapIcon from '../icons/map-icon.js';
 import ListIcon from '../icons/list-icon.js';
 
-
-import Course from './course.js';
 import MapDisplay from './map-display.js';
+import CourseListDisplay from './course-list-display.js';
 
 
 var CourseDisplay = React.createClass({
@@ -27,6 +26,7 @@ var CourseDisplay = React.createClass({
         if (err){
           console.log('There was an error grabbing the classes from the API.');
         } else {
+          console.log(res.body);
           this.setState({data: res.body});
         }
       }.bind(this))
@@ -38,7 +38,6 @@ var CourseDisplay = React.createClass({
 
   handleViewChange: function(){
     this.setState({showMap: !this.state.showMap, showList: !this.state.showList})
-    console.log(this.state.showMap, this.state.showList);
   },
 
   render: function() {
@@ -48,13 +47,15 @@ var CourseDisplay = React.createClass({
           data={this.state.data}
           filterText={this.props.filterText}
           center={[Number(this.props.lat), Number(this.props.lng)]}
+          lat={Number(this.props.lat)}
+          lng={Number(this.props.lng)}
           radius={this.props.radius}
-          zoom={8}
+          zoom={10}
         />
         : null;
 
     var listView = (this.state.showList) ?
-        <AllCourseList
+        <CourseListDisplay
           data={this.state.data}
           filterText={this.props.filterText}
           lat={Number(this.props.lat)}
@@ -88,54 +89,7 @@ var CourseDisplay = React.createClass({
   }
 });
 
-var AllCourseList = React.createClass({
-  render: function() {
 
-    var courseNodes = this.props.data.map(function(course) {
-      var filterTextLowerCase = this.props.filterText.toLowerCase();
-      var courseTitleLowerCase = course.title.toLowerCase();
-
-      var radius = this.props.radius;
-      var userLat = this.props.lat;
-      var userLng = this.props.lng;
-      var withinLatRadius = (course.lat < (userLat + radius) && course.lat > (userLat - radius));
-      var withinLngRadius = (course.lng > (userLng - radius) && course.lng < (userLng + radius));
-      var withinRadius = ((course.lng > (userLng - radius) && course.lng < (userLng + radius)) && (course.lat < (userLat + radius) && course.lat > (userLat - radius)));
-
-
-      if ((this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
-        return;
-      }
-
-      if(withinRadius === false) {
-        return;
-      }
-
-
-      return (
-        <Course
-          title={course.title}
-          image_url={course.image_url}
-          date={course.date}
-          key={'course' + course.id}
-          id={course.id}>
-        </Course>
-      )
-    }.bind(this));
-
-    return (
-      <div className="row">
-          <div className="col-sm-2"></div>
-          <div className="col-sm-8">
-            <div id="course-block" className="row">
-              {courseNodes}
-            </div>
-          </div>
-      </div>
-
-    );
-  }
-});
 
 
 

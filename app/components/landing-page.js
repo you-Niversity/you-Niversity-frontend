@@ -9,12 +9,12 @@ import NavbarLoggedIn from './navbar-logged-in.js';
 var LandingPage = React.createClass({
 
   getInitialState: function() {
-    console.log("Current userState:");
-    console.log(this.props.userState);
+
     return {
       lat: null,
       lng: null,
-      radius: 0.8335,
+      radius: 0.1667,
+      zoom: 10,
       city: 'getting',
       state: 'location',
       filterText: ''
@@ -29,11 +29,12 @@ var LandingPage = React.createClass({
   },
 
   handleRadiusInput: function(radius){
-    console.log(radius);
-    this.setState({
-      radius: radius
-    });
     console.log(this.state);
+    var data = JSON.parse(radius);
+    console.log(data);
+    this.setState({
+      radius: data.radius, zoom: data.zoom
+    });
   },
 
   getUserLocation: function(callback){
@@ -70,14 +71,12 @@ var LandingPage = React.createClass({
 
   componentDidMount: function(){
     if(sessionStorage.getItem('city')) {
-      console.log('session storage saved!');
       var city = sessionStorage.getItem('city');
       var state = sessionStorage.getItem('state');
       var lat = sessionStorage.getItem('lat');
       var lng = sessionStorage.getItem('lng');
       this.setState({city: city, state: state, lat: lat, lng: lng});
     } else {
-      console.log('no session storage yet');
       this.getUserLocation(this.geocodeLatLng);
     }
   },
@@ -96,14 +95,8 @@ var LandingPage = React.createClass({
           <div id="landing-div-row" className="row">
             <div className="col-sm-2"></div>
             <div id="center-content" className="col-sm-8">
-
-
-
-            {loggedInNav}
-            {nav}
-
-
-
+              {loggedInNav}
+              {nav}
               <WelcomeText />
               <SearchBar
                 filterText={this.state.filterText}
@@ -112,7 +105,6 @@ var LandingPage = React.createClass({
                 handleRadiusInput={this.handleRadiusInput}
                 city={this.state.city}
                 state={this.state.state}
-
               />
             </div>
           </div>
@@ -145,6 +137,12 @@ var WelcomeText = React.createClass({
 
 var SearchBar = React.createClass({
 
+  getInitialState: function(){
+    return {
+      radius: this.props.radius
+    };
+  },
+
   handleChange: function() {
     this.props.handleUserInput(
       this.refs.filterTextInput.value
@@ -155,6 +153,7 @@ var SearchBar = React.createClass({
     this.props.handleRadiusInput(
       this.refs.radiusInput.value
     )
+    this.setState({radius: this.refs.radiusInput.value});
   },
 
   render: function() {
@@ -175,12 +174,12 @@ var SearchBar = React.createClass({
             </div>
             <div className="col-sm-7">
               <h4>within
-                <select value={this.props.radius} ref="radiusInput" onChange={this.handleRadiusChange}>
-                  <option value="0.08335">5</option>
-                  <option value="0.1667">10</option>
-                  <option value="0.25005">15</option>
-                  <option value="0.41675">25</option>
-                  <option value="0.8335">50</option>
+                <select value={this.state.radius} ref="radiusInput" onChange={this.handleRadiusChange}>
+                  <option value='{"radius":0.08335, "zoom":8}'>5</option>
+                  <option value='{"radius":0.1667, "zoom":10}'>10</option>
+                  <option value='{"radius":0.25005, "zoom":12}'>15</option>
+                  <option value='{"radius":0.41675, "zoom":15}'>25</option>
+                  <option value='{"radius":0.8335, "zoom":17}'>50</option>
                 </select>
                 miles of {this.props.city}, {this.props.state}
               </h4>

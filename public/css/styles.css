@@ -41,7 +41,7 @@ ol, ul {
 	padding: 0;
 }
 #landing-div, #secondary-div {
-	height: 725px;
+	height: 710px;
 	/*background-image: url("pottery.jpeg");*/
 	/*background-image: url("https://hd.unsplash.com/photo-1460518451285-97b6aa326961");*/
 	/*background-image: url("../images/leaves.jpeg");*/
@@ -186,13 +186,13 @@ input:focus, textarea:focus, select:focus {
 #class-display h3 {
 	color: black;
 	font-size: 2em;
-	margin: 50px 0 20px 0;
+	margin: 25px 0 25px 0;
 	text-align: center;
 }
 #class-display h4 {
 	color: orange;
 	font-size: 1.5em;
-	margin: 20px 0 50px 0;
+	margin: 25px 0 25px 0;
 	text-align: center;
 }
 #course-block {
