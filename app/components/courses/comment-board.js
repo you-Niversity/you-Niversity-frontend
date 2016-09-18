@@ -5,8 +5,20 @@ import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 var moment = require('moment');
 moment().format();
+import AddCommentForm from './add-comment-form.js';
 
 var CommentBoard = React.createClass({
+
+  getInitialState: function(){
+    return {
+      displayForm: false
+    }
+  },
+
+  handleFormDisplay: function(){
+    this.setState({displayForm: !this.state.displayForm})
+  },
+
   render: function(){
 
     var commentNodes = this.props.data.map(function(comment){
@@ -22,6 +34,32 @@ var CommentBoard = React.createClass({
       )
     });
 
+    var addComment = {
+      textAlign: "right",
+      padding: "10px",
+      cursor: "pointer"
+    };
+    
+    var addCommentButton = (sessionStorage.first_name) ?
+      <div className="row">
+        <div className="col-sm-12">
+          <p
+            style={addComment}
+            id="add-comment"
+            onClick={this.handleFormDisplay}>
+            + add comment
+          </p>
+        </div>
+      </div> :
+      null;
+
+    var addCommentForm = (this.state.displayForm) ?
+      <AddCommentForm
+        handleCommentSubmit={this.props.handleCommentSubmit}
+        changeFormDisplay={this.handleFormDisplay}
+      /> :
+      null;
+
     return (
       <div id="roster-review-comments-div">
         <div className="row">
@@ -29,6 +67,10 @@ var CommentBoard = React.createClass({
             <h2 className="center">Comment Board</h2>
           </div>
         </div>
+
+        {addCommentButton}
+        {addCommentForm}
+
         <div className="row">
           <div className="col-sm-2"></div>
           <div className="col-sm-10 roster-list">

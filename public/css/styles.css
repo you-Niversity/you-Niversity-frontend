@@ -346,6 +346,12 @@ hr {
 	font-size: 1.3em;
 	margin-bottom: 10px;
 }
+#taught-by a {
+	color: black;
+}
+#taught-by a:hover {
+	text-decoration: none;
+}
 
 #roster-review-comments-div {
 	margin: 20px -15px;
@@ -392,13 +398,19 @@ hr {
 .course-display-change:hover {
 	background-color: #ebebeb;
 	border-radius: 3px;
-	cursor: pointer;
 }
 .dropdown-toggle {
 	color: white;
 	margin-top: 17px;
 	margin-right: 5px;
 	margin-left: 10px;
+}
+#add-comment:hover {
+	background-color: #ebebeb;
+	border-radius: 3px;
+}
+.pointer {
+	cursor: pointer;
 }
 /*footer*/
 footer {

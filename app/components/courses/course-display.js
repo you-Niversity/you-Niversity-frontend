@@ -68,12 +68,12 @@ var CourseDisplay = React.createClass({
       <div className="row" id="class-display">
         <h3>Upcoming Classes</h3>
         <h4>
-          <span className="course-display-change" onClick={this.handleViewChange}>
+          <span className="course-display-change pointer" onClick={this.handleViewChange}>
             <ListIcon />
              List
           </span>
           <span className="black">  | </span>
-          <span className="course-display-change" onClick={this.handleViewChange}>
+          <span className="course-display-change pointer" onClick={this.handleViewChange}>
             <MapIcon />
             Map
           </span>

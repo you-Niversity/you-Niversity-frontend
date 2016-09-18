@@ -16,7 +16,8 @@ var SingleCourseDisplay = React.createClass({
       courseData: [],
       roster: [],
       commentBoard: [],
-      reviews: []
+      reviews: [],
+      displayReviews: false
     };
   },
 
@@ -60,6 +61,24 @@ var SingleCourseDisplay = React.createClass({
       }.bind(this))
   },
 
+  handleCommentSubmit: function(comment){
+    var user_id = Number(sessionStorage.user_id);
+    console.log(this.props.params.id);
+    var id = this.props.params.id;
+    request
+      .post("http://localhost:8080/classes/" + id + "/comments")
+      .send(comment)
+      .send({class_id: id})
+      .send({commenter_id: user_id})
+      .end(function(err, res){
+        if(err || !res.ok) {
+          console.log("there was an error submitting this comment.");
+        } else {
+          this.getCommentBoardFromAPI(id);
+        }
+      }.bind(this))
+  },
+
   getReviewsFromAPI: function(id){
     console.log(id);
     request
@@ -74,6 +93,10 @@ var SingleCourseDisplay = React.createClass({
       }.bind(this))
   },
 
+  handleReviewDisplay: function(){
+    this.setState({displayReviews: !this.state.displayReviews})
+  },
+
   componentDidMount: function(){
     var id = this.props.params.id;
     this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
@@ -83,7 +106,7 @@ var SingleCourseDisplay = React.createClass({
 
   render: function(){
 
-    var reviews = (this.state.reviews.length > 0) ?
+    var reviews = (this.state.reviews.length > 0 && this.state.displayReviews) ?
       <ReviewList
         data={this.state.reviews}
       /> :
@@ -105,16 +128,20 @@ var SingleCourseDisplay = React.createClass({
             <div className="col-sm-2 no-padding">
               <RightDisplay
                 data={this.state.courseData}
+                handleReviewDisplay={this.handleReviewDisplay}
+                displayReviews={this.state.displayReviews}
               />
             </div>
           </div>
+
+          {reviews}
           <RosterList
             data={this.state.roster}
           />
           <CommentBoard
             data={this.state.commentBoard}
+            handleCommentSubmit={this.handleCommentSubmit}
           />
-          {reviews}
         </div>
     );
   }
@@ -150,6 +177,8 @@ var TitleDescriptionPrereqDisplay = React.createClass({
 
 var RightDisplay = React.createClass({
   render: function(){
+    var showReviews = (this.props.displayReviews) ? "Hide Reviews" : "Show Reviews";
+
     return (
       <div>
         <div className="btn-div">Sign Up</div>
@@ -157,6 +186,7 @@ var RightDisplay = React.createClass({
         <TaughtBy
           data={this.props.data}
         />
+        <p className="center pointer" onClick={this.props.handleReviewDisplay}>{showReviews}</p>
       </div>
     );
   }
@@ -172,14 +202,12 @@ var TaughtBy = React.createClass({
     return (
         <div className="center" id="taught-by">
           <p className="bold">Your Instructor</p>
-          <Link to={'/users/'+this.props.data.user_id}><p>{this.props.data.first_name} {this.props.data.last_name}</p></Link>
-          <div className="instructor-profile-img" style={instructorImageStyle}></div>
+          <Link to={'/users/'+this.props.data.user_id}><p>{this.props.data.first_name} {this.props.data.last_name}</p>
+          <div className="instructor-profile-img" style={instructorImageStyle}></div></Link>
         </div>
     );
   }
 });
-
-
 
 
 export default SingleCourseDisplay;
