@@ -351,14 +351,17 @@ hr {
 	margin: 20px -15px;
 	border: 2px solid orange;
 }
-
+.add-comment-review {
+	margin-left: 82%;
+	margin-top: 1%;
+}
 #roster-review-comments-div h2 {
 	font-weight: 700;
 	font-size: 1.5em;
 	background-color: orange;
 	padding: 10px;
 }
-#roster-review-comments-div p {
+#roster-review-comments-div h3 {
 	font-size: 1.3em;
 	margin-bottom: 10px;
 }

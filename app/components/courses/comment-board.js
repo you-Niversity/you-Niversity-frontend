@@ -6,19 +6,19 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 var moment = require('moment');
 moment().format();
 
-var ReviewList = React.createClass({
+var CommentBoard = React.createClass({
   render: function(){
 
-    var reviewNodes = this.props.data.map(function(review){
+    var commentNodes = this.props.data.map(function(comment){
       return (
-        <Review
-          date={moment(review.creation_date).format("MMMM Do YYYY")}
-          name={review.first_name + ' ' + review.last_name}
-          profile_pic={review.profile_pic}
-          review={review.review}
-          key={"review" + review.id}
+        <Comment
+          date={moment(comment.comment_date).format("MMMM Do YYYY")}
+          name={comment.first_name + ' ' + comment.last_name}
+          profile_pic={comment.profile_pic}
+          comment={comment.comment}
+          key={"review" + comment.id}
         >
-        </Review>
+        </Comment>
       )
     });
 
@@ -26,14 +26,14 @@ var ReviewList = React.createClass({
       <div id="roster-review-comments-div">
         <div className="row">
           <div className="col-sm-12">
-            <h2 className="center">Instructor Reviews</h2>
+            <h2 className="center">Comment Board</h2>
           </div>
         </div>
         <div className="row">
           <div className="col-sm-2"></div>
           <div className="col-sm-10 roster-list">
             <div className="row">
-              {reviewNodes}
+              {commentNodes}
             </div>
           </div>
         </div>
@@ -42,11 +42,11 @@ var ReviewList = React.createClass({
   }
 });
 
-var Review = React.createClass({
+var Comment = React.createClass({
 
   render: function(){
 
-    var reviewerImageStyle = {
+    var commenterImageStyle = {
       backgroundImage: 'url(' + this.props.profile_pic + ')',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -68,22 +68,18 @@ var Review = React.createClass({
       padding: "10px 0"
     }
 
-
     return (
       <div className="row">
-        <div className="col-sm-3" style={reviewerImageStyle}></div>
+        <div className="col-sm-3" style={commenterImageStyle}></div>
         <div className="col-sm-9">
           <p style={nameStyle}>{this.props.name}</p>
           <p>{this.props.date}</p>
-          <p style={commentStyle}>{this.props.review}</p>
+          <p style={commentStyle}>{this.props.comment}</p>
           <hr />
         </div>
-
       </div>
     )
   }
 });
 
-
-
-export default ReviewList;
+export default CommentBoard;

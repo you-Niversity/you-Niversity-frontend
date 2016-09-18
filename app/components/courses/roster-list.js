@@ -48,7 +48,7 @@ var Student = React.createClass({
 
     return (
       <div className="col-sm-3">
-        <p className="center">{this.props.first_name} {this.props.last_name}</p>
+        <h3 className="center">{this.props.first_name} {this.props.last_name}</h3>
         <div className="student-profile-img center" style={studentImageStyle}></div>
       </div>
     )

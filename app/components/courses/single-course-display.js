@@ -6,6 +6,7 @@ import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import RosterList from './roster-list.js';
 import ReviewList from './review-list.js';
+import CommentBoard from './comment-board.js';
 
 var SingleCourseDisplay = React.createClass({
 
@@ -52,6 +53,7 @@ var SingleCourseDisplay = React.createClass({
         if(err){
           console.log("There was an error grabbing course comments from the API");
         } else {
+          console.log("COMMENTS:");
           console.log(res.body);
           this.setState({commentBoard: res.body});
         }
@@ -108,6 +110,9 @@ var SingleCourseDisplay = React.createClass({
           </div>
           <RosterList
             data={this.state.roster}
+          />
+          <CommentBoard
+            data={this.state.commentBoard}
           />
           {reviews}
         </div>
