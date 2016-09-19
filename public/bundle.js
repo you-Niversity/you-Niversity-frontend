@@ -24447,7 +24447,7 @@
 	
 	var _loginForm2 = _interopRequireDefault(_loginForm);
 	
-	var _singleCourseDisplay = __webpack_require__(/*! ./components/courses/single-course-display */ 322);
+	var _singleCourseDisplay = __webpack_require__(/*! ./components/courses/single-course-display/single-course-display.js */ 340);
 	
 	var _singleCourseDisplay2 = _interopRequireDefault(_singleCourseDisplay);
 	
@@ -30357,6 +30357,12 @@
 	    }.bind(this));
 	  },
 	
+	  handleLocationInput: function handleLocationInput(suggest) {
+	    console.log("yippeeeee:");
+	    console.log(suggest);
+	    this.setState({ lat: suggest.location.lat, lng: suggest.location.lng, city: suggest.gmaps.address_components[0].long_name, state: suggest.gmaps.address_components[2].long_name });
+	  },
+	
 	  componentDidMount: function componentDidMount() {
 	    if (sessionStorage.getItem('city')) {
 	      var city = sessionStorage.getItem('city');
@@ -30395,6 +30401,8 @@
 	              radius: this.state.radius,
 	              handleRadiusInput: this.handleRadiusInput,
 	              handleLocationInput: this.handleLocationInput,
+	              lat: this.state.lat,
+	              lng: this.state.lng,
 	              city: this.state.city,
 	              state: this.state.state
 	            })
@@ -35927,7 +35935,9 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      radius: this.props.radius
+	      radius: this.props.radius,
+	      lat: this.props.lat,
+	      lng: this.props.lng
 	    };
 	  },
 	
@@ -35938,6 +35948,11 @@
 	  handleRadiusChange: function handleRadiusChange() {
 	    this.props.handleRadiusInput(this.refs.radiusInput.value);
 	    this.setState({ radius: this.refs.radiusInput.value });
+	  },
+	
+	  onSuggestSelect: function onSuggestSelect(suggest) {
+	    this.props.handleLocationInput(suggest);
+	    this.setState({ lat: suggest.location.lat, lng: suggest.location.lng });
 	  },
 	
 	  render: function render() {
@@ -37869,325 +37884,7 @@
 	}
 
 /***/ },
-/* 322 */
-/*!*********************************************************!*\
-  !*** ./app/components/courses/single-course-display.js ***!
-  \*********************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
-	
-	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 271);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _rosterList = __webpack_require__(/*! ./roster-list.js */ 325);
-	
-	var _rosterList2 = _interopRequireDefault(_rosterList);
-	
-	var _reviewList = __webpack_require__(/*! ./review-list.js */ 326);
-	
-	var _reviewList2 = _interopRequireDefault(_reviewList);
-	
-	var _commentBoard = __webpack_require__(/*! ./comment-board.js */ 329);
-	
-	var _commentBoard2 = _interopRequireDefault(_commentBoard);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SingleCourseDisplay = _react2.default.createClass({
-	  displayName: 'SingleCourseDisplay',
-	
-	
-	  getInitialState: function getInitialState() {
-	
-	    return {
-	      courseData: [],
-	      roster: [],
-	      commentBoard: [],
-	      reviews: [],
-	      displayReviews: false
-	    };
-	  },
-	
-	  getCourseDataFromAPI: function getCourseDataFromAPI(id, callback) {
-	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing this course from the API");
-	      } else {
-	        this.setState({ courseData: res.body[0] });
-	        console.log(this.state.courseData);
-	        callback(this.state.courseData.user_id);
-	      }
-	    }.bind(this));
-	  },
-	
-	  getRosterFromAPI: function getRosterFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/rosters/" + id).end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing this roster from the API");
-	      } else {
-	        this.setState({ roster: res.body });
-	      }
-	    }.bind(this));
-	  },
-	
-	  getCommentBoardFromAPI: function getCommentBoardFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/classes/" + id + "/comments").end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing course comments from the API");
-	      } else {
-	        console.log("COMMENTS:");
-	        console.log(res.body);
-	        this.setState({ commentBoard: res.body });
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleCommentSubmit: function handleCommentSubmit(comment) {
-	    var user_id = Number(sessionStorage.user_id);
-	    console.log(this.props.params.id);
-	    var id = this.props.params.id;
-	    _superagent2.default.post("http://localhost:8080/classes/" + id + "/comments").send(comment).send({ class_id: id }).send({ commenter_id: user_id }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error submitting this comment.");
-	      } else {
-	        this.getCommentBoardFromAPI(id);
-	      }
-	    }.bind(this));
-	  },
-	
-	  getReviewsFromAPI: function getReviewsFromAPI(id) {
-	    console.log(id);
-	    _superagent2.default.get("http://localhost:8080/users/" + id + "/reviews").end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing the reviews from the API");
-	      } else {
-	        console.log(res.body);
-	        this.setState({ reviews: res.body });
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleReviewDisplay: function handleReviewDisplay() {
-	    this.setState({ displayReviews: !this.state.displayReviews });
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    var id = this.props.params.id;
-	    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
-	    this.getRosterFromAPI(id);
-	    this.getCommentBoardFromAPI(id);
-	  },
-	
-	  render: function render() {
-	
-	    var reviews = this.state.reviews.length > 0 && this.state.displayReviews ? _react2.default.createElement(_reviewList2.default, {
-	      data: this.state.reviews
-	    }) : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row', id: 'single-course-display' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-3 no-padding' },
-	          _react2.default.createElement(CourseDateTimePlaceInstructorDisplay, {
-	            data: this.state.courseData
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-7' },
-	          _react2.default.createElement(TitleDescriptionPrereqDisplay, {
-	            data: this.state.courseData
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-2 no-padding' },
-	          _react2.default.createElement(RightDisplay, {
-	            data: this.state.courseData,
-	            handleReviewDisplay: this.handleReviewDisplay,
-	            displayReviews: this.state.displayReviews
-	          })
-	        )
-	      ),
-	      reviews,
-	      _react2.default.createElement(_rosterList2.default, {
-	        data: this.state.roster
-	      }),
-	      _react2.default.createElement(_commentBoard2.default, {
-	        data: this.state.commentBoard,
-	        handleCommentSubmit: this.handleCommentSubmit
-	      })
-	    );
-	  }
-	});
-	
-	var CourseDateTimePlaceInstructorDisplay = _react2.default.createClass({
-	  displayName: 'CourseDateTimePlaceInstructorDisplay',
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'left-course-display center' },
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'bold' },
-	        this.props.data.date
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        this.props.data.start_time,
-	        ' to ',
-	        this.props.data.end_time
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'bold' },
-	        this.props.data.address
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        this.props.data.city,
-	        ', ',
-	        this.props.data.state
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'btn-div' },
-	        '$',
-	        this.props.data.price
-	      )
-	    );
-	  }
-	});
-	
-	var TitleDescriptionPrereqDisplay = _react2.default.createClass({
-	  displayName: 'TitleDescriptionPrereqDisplay',
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        { id: 'title-container' },
-	        _react2.default.createElement(
-	          'h2',
-	          { id: 'course-title' },
-	          this.props.data.title
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        { id: 'course-description' },
-	        this.props.data.description
-	      ),
-	      _react2.default.createElement('hr', null),
-	      _react2.default.createElement(
-	        'p',
-	        { id: 'course-prereqs' },
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'bold' },
-	          'Prerequisites: '
-	        ),
-	        this.props.data.prerequisites
-	      ),
-	      _react2.default.createElement('hr', null)
-	    );
-	  }
-	});
-	
-	var RightDisplay = _react2.default.createClass({
-	  displayName: 'RightDisplay',
-	
-	  render: function render() {
-	    var showReviews = this.props.displayReviews ? "Hide Reviews" : "Show Reviews";
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'btn-div' },
-	        'Sign Up'
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'btn-div' },
-	        this.props.data.seats_remaining,
-	        ' seats left'
-	      ),
-	      _react2.default.createElement(TaughtBy, {
-	        data: this.props.data
-	      }),
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'center pointer', onClick: this.props.handleReviewDisplay },
-	        showReviews
-	      )
-	    );
-	  }
-	});
-	
-	var TaughtBy = _react2.default.createClass({
-	  displayName: 'TaughtBy',
-	
-	  render: function render() {
-	
-	    var instructorImageStyle = {
-	      backgroundImage: 'url(' + this.props.data.profile_pic + ')'
-	    };
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'center', id: 'taught-by' },
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'bold' },
-	        'Your Instructor'
-	      ),
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/users/' + this.props.data.user_id },
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          this.props.data.first_name,
-	          ' ',
-	          this.props.data.last_name
-	        ),
-	        _react2.default.createElement('div', { className: 'instructor-profile-img', style: instructorImageStyle })
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = SingleCourseDisplay;
-
-/***/ },
+/* 322 */,
 /* 323 */
 /*!****************************************!*\
   !*** ./~/superagent-no-cache/index.js ***!
@@ -38303,7 +38000,7 @@
 	          _react2.default.createElement(
 	            'h2',
 	            { className: 'center' },
-	            'Your Classmates'
+	            'Course Roster'
 	          )
 	        )
 	      ),
@@ -43993,6 +43690,512 @@
 	});
 	
 	exports.default = CourseList;
+
+/***/ },
+/* 340 */
+/*!*******************************************************************************!*\
+  !*** ./app/components/courses/single-course-display/single-course-display.js ***!
+  \*******************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _leftDisplay = __webpack_require__(/*! ./left-display.js */ 344);
+	
+	var _leftDisplay2 = _interopRequireDefault(_leftDisplay);
+	
+	var _middleDisplay = __webpack_require__(/*! ./middle-display.js */ 343);
+	
+	var _middleDisplay2 = _interopRequireDefault(_middleDisplay);
+	
+	var _rightDisplay = __webpack_require__(/*! ./right-display.js */ 341);
+	
+	var _rightDisplay2 = _interopRequireDefault(_rightDisplay);
+	
+	var _rosterList = __webpack_require__(/*! ../roster-list.js */ 325);
+	
+	var _rosterList2 = _interopRequireDefault(_rosterList);
+	
+	var _reviewList = __webpack_require__(/*! ../review-list.js */ 326);
+	
+	var _reviewList2 = _interopRequireDefault(_reviewList);
+	
+	var _commentBoard = __webpack_require__(/*! ../comment-board.js */ 329);
+	
+	var _commentBoard2 = _interopRequireDefault(_commentBoard);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SingleCourseDisplay = _react2.default.createClass({
+	  displayName: 'SingleCourseDisplay',
+	
+	
+	  getInitialState: function getInitialState() {
+	
+	    return {
+	      courseData: [],
+	      roster: [],
+	      commentBoard: [],
+	      reviews: [],
+	      displayReviews: false
+	    };
+	  },
+	
+	  getCourseDataFromAPI: function getCourseDataFromAPI(id, callback) {
+	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing this course from the API");
+	      } else {
+	        this.setState({ courseData: res.body[0] });
+	        console.log(this.state.courseData);
+	        if (callback) {
+	          callback(this.state.courseData.user_id);
+	        } else {
+	          alert("You're all signed up!");
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  getRosterFromAPI: function getRosterFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/rosters/" + id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing this roster from the API");
+	      } else {
+	        this.setState({ roster: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  getCommentBoardFromAPI: function getCommentBoardFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/classes/" + id + "/comments").end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing course comments from the API");
+	      } else {
+	        console.log("COMMENTS:");
+	        console.log(res.body);
+	        this.setState({ commentBoard: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleCommentSubmit: function handleCommentSubmit(comment) {
+	    var user_id = Number(sessionStorage.user_id);
+	    console.log(this.props.params.id);
+	    var id = this.props.params.id;
+	    _superagent2.default.post("http://localhost:8080/classes/" + id + "/comments").send(comment).send({ class_id: id }).send({ commenter_id: user_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        this.getCommentBoardFromAPI(id);
+	      }
+	    }.bind(this));
+	  },
+	
+	  getReviewsFromAPI: function getReviewsFromAPI(id) {
+	    console.log(id);
+	    _superagent2.default.get("http://localhost:8080/users/" + id + "/reviews").end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing the reviews from the API");
+	      } else {
+	        console.log(res.body);
+	        this.setState({ reviews: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleReviewDisplay: function handleReviewDisplay() {
+	    this.setState({ displayReviews: !this.state.displayReviews });
+	  },
+	
+	  handleUserSignup: function handleUserSignup() {
+	    console.log("user tried to sign up");
+	    var id = this.props.params.id;
+	    var seats_remaining = this.state.courseData.seats_remaining - 1;
+	
+	    _superagent2.default.put("http://localhost:8080/classes/" + id).send({ seats_remaining: seats_remaining }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error signing up for this course.");
+	      } else {
+	        console.log('Success! Now add a new roster field.');
+	        this.updateRoster();
+	      }
+	    }.bind(this));
+	  },
+	
+	  updateRoster: function updateRoster() {
+	    var id = this.props.params.id;
+	    var user_id = Number(sessionStorage.user_id);
+	    _superagent2.default.post("http://localhost:8080/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error adding a roster field.");
+	      } else {
+	        console.log('Success! The user is now on the roster for this course.');
+	        this.getRosterFromAPI(id);
+	        this.getCourseDataFromAPI(id);
+	      }
+	    }.bind(this));
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var id = this.props.params.id;
+	    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
+	    this.getRosterFromAPI(id);
+	    this.getCommentBoardFromAPI(id);
+	  },
+	
+	  render: function render() {
+	
+	    var reviews = this.state.reviews.length > 0 && this.state.displayReviews ? _react2.default.createElement(_reviewList2.default, {
+	      data: this.state.reviews
+	    }) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row', id: 'single-course-display' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-3 no-padding' },
+	          _react2.default.createElement(_leftDisplay2.default, {
+	            data: this.state.courseData
+	          })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-7' },
+	          _react2.default.createElement(_middleDisplay2.default, {
+	            data: this.state.courseData
+	          })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2 no-padding' },
+	          _react2.default.createElement(_rightDisplay2.default, {
+	            data: this.state.courseData,
+	            handleUserSignup: this.handleUserSignup,
+	            handleReviewDisplay: this.handleReviewDisplay,
+	            displayReviews: this.state.displayReviews
+	          })
+	        )
+	      ),
+	      reviews,
+	      _react2.default.createElement(_rosterList2.default, {
+	        data: this.state.roster
+	      }),
+	      _react2.default.createElement(_commentBoard2.default, {
+	        data: this.state.commentBoard,
+	        handleCommentSubmit: this.handleCommentSubmit
+	      })
+	    );
+	  }
+	});
+	
+	exports.default = SingleCourseDisplay;
+
+/***/ },
+/* 341 */
+/*!***********************************************************************!*\
+  !*** ./app/components/courses/single-course-display/right-display.js ***!
+  \***********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _taughtBy = __webpack_require__(/*! ./taught-by.js */ 342);
+	
+	var _taughtBy2 = _interopRequireDefault(_taughtBy);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RightDisplay = _react2.default.createClass({
+	  displayName: 'RightDisplay',
+	
+	  render: function render() {
+	
+	    var showReviews = this.props.displayReviews ? "Hide Reviews" : "Show Reviews";
+	
+	    var signupButton = sessionStorage.first_name ? _react2.default.createElement(
+	      'div',
+	      { onClick: this.props.handleUserSignup, className: 'btn-div' },
+	      'Sign Up'
+	    ) : _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/login' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'btn-div' },
+	        'Log In ',
+	        _react2.default.createElement('br', null),
+	        'to Sign Up'
+	      )
+	    );
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      signupButton,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'btn-div' },
+	        this.props.data.seats_remaining,
+	        ' seats left'
+	      ),
+	      _react2.default.createElement(_taughtBy2.default, {
+	        data: this.props.data
+	      }),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'center pointer', onClick: this.props.handleReviewDisplay },
+	        showReviews
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = RightDisplay;
+
+/***/ },
+/* 342 */
+/*!*******************************************************************!*\
+  !*** ./app/components/courses/single-course-display/taught-by.js ***!
+  \*******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var TaughtBy = _react2.default.createClass({
+	  displayName: 'TaughtBy',
+	
+	  render: function render() {
+	
+	    var instructorImageStyle = {
+	      backgroundImage: 'url(' + this.props.data.profile_pic + ')'
+	    };
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'center', id: 'taught-by' },
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'bold' },
+	        'Your Instructor'
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/users/' + this.props.data.user_id },
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.data.first_name,
+	          ' ',
+	          this.props.data.last_name
+	        ),
+	        _react2.default.createElement('div', { className: 'instructor-profile-img', style: instructorImageStyle })
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = TaughtBy;
+
+/***/ },
+/* 343 */
+/*!************************************************************************!*\
+  !*** ./app/components/courses/single-course-display/middle-display.js ***!
+  \************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var TitleDescriptionPrereqDisplay = _react2.default.createClass({
+	  displayName: 'TitleDescriptionPrereqDisplay',
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { id: 'title-container' },
+	        _react2.default.createElement(
+	          'h2',
+	          { id: 'course-title' },
+	          this.props.data.title
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { id: 'course-description' },
+	        this.props.data.description
+	      ),
+	      _react2.default.createElement('hr', null),
+	      _react2.default.createElement(
+	        'p',
+	        { id: 'course-prereqs' },
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'bold' },
+	          'Prerequisites: '
+	        ),
+	        this.props.data.prerequisites
+	      ),
+	      _react2.default.createElement('hr', null)
+	    );
+	  }
+	});
+	
+	exports.default = TitleDescriptionPrereqDisplay;
+
+/***/ },
+/* 344 */
+/*!**********************************************************************!*\
+  !*** ./app/components/courses/single-course-display/left-display.js ***!
+  \**********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CourseDateTimePlaceInstructorDisplay = _react2.default.createClass({
+	  displayName: 'CourseDateTimePlaceInstructorDisplay',
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'left-course-display center' },
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'bold' },
+	        this.props.data.date
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.data.start_time,
+	        ' to ',
+	        this.props.data.end_time
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'bold' },
+	        this.props.data.address
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.data.city,
+	        ', ',
+	        this.props.data.state
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'btn-div' },
+	        '$',
+	        this.props.data.price
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = CourseDateTimePlaceInstructorDisplay;
 
 /***/ }
 /******/ ]);

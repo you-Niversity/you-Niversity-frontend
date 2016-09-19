@@ -46,7 +46,6 @@ var LandingPage = React.createClass({
     }.bind(this));
   },
 
-
   geocodeLatLng: function() {
     var geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(this.state.lat, this.state.lng);
@@ -69,6 +68,12 @@ var LandingPage = React.createClass({
         window.alert('Geocoder failed due to: ' + status);
       }
     }.bind(this));
+  },
+
+  handleLocationInput: function(suggest){
+    console.log("yippeeeee:");
+    console.log(suggest);
+    this.setState({lat:suggest.location.lat, lng:suggest.location.lng, city:suggest.gmaps.address_components[0].long_name, state: suggest.gmaps.address_components[2].long_name});
   },
 
   componentDidMount: function(){
@@ -106,6 +111,8 @@ var LandingPage = React.createClass({
                 radius={this.state.radius}
                 handleRadiusInput={this.handleRadiusInput}
                 handleLocationInput={this.handleLocationInput}
+                lat={this.state.lat}
+                lng={this.state.lng}
                 city={this.state.city}
                 state={this.state.state}
               />

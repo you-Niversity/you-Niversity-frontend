@@ -4,9 +4,12 @@ import React from 'react';
 import nocache from 'superagent-no-cache';
 import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
-import RosterList from './roster-list.js';
-import ReviewList from './review-list.js';
-import CommentBoard from './comment-board.js';
+import CourseDateTimePlaceInstructorDisplay from './left-display.js';
+import TitleDescriptionPrereqDisplay from './middle-display.js';
+import RightDisplay from './right-display.js';
+import RosterList from '../roster-list.js';
+import ReviewList from '../review-list.js';
+import CommentBoard from '../comment-board.js';
 
 var SingleCourseDisplay = React.createClass({
 
@@ -30,7 +33,11 @@ var SingleCourseDisplay = React.createClass({
         } else {
           this.setState({courseData: res.body[0]});
           console.log(this.state.courseData);
-          callback(this.state.courseData.user_id);
+          if (callback) {
+            callback(this.state.courseData.user_id);
+          } else {
+            alert("You're all signed up!");
+          }
         }
       }.bind(this))
   },
@@ -97,6 +104,41 @@ var SingleCourseDisplay = React.createClass({
     this.setState({displayReviews: !this.state.displayReviews})
   },
 
+  handleUserSignup: function(){
+    console.log("user tried to sign up");
+    var id = this.props.params.id;
+    var seats_remaining = this.state.courseData.seats_remaining - 1;
+
+    request
+      .put("http://localhost:8080/classes/" + id)
+      .send({seats_remaining: seats_remaining})
+      .end(function(err, res){
+        if(err || !res.ok) {
+          console.log("there was an error signing up for this course.");
+        } else {
+          console.log('Success! Now add a new roster field.');
+          this.updateRoster();
+        }
+      }.bind(this))
+  },
+
+  updateRoster: function(){
+    var id = this.props.params.id;
+    var user_id = Number(sessionStorage.user_id);
+    request
+      .post("http://localhost:8080/rosters/" + id)
+      .send({user_id: user_id})
+      .end(function(err, res){
+        if(err || !res.ok) {
+          console.log("there was an error adding a roster field.");
+        } else {
+          console.log('Success! The user is now on the roster for this course.');
+          this.getRosterFromAPI(id);
+          this.getCourseDataFromAPI(id)
+        }
+      }.bind(this))
+  },
+
   componentDidMount: function(){
     var id = this.props.params.id;
     this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
@@ -128,6 +170,7 @@ var SingleCourseDisplay = React.createClass({
             <div className="col-sm-2 no-padding">
               <RightDisplay
                 data={this.state.courseData}
+                handleUserSignup={this.handleUserSignup}
                 handleReviewDisplay={this.handleReviewDisplay}
                 displayReviews={this.state.displayReviews}
               />
@@ -142,68 +185,6 @@ var SingleCourseDisplay = React.createClass({
             data={this.state.commentBoard}
             handleCommentSubmit={this.handleCommentSubmit}
           />
-        </div>
-    );
-  }
-});
-
-var CourseDateTimePlaceInstructorDisplay = React.createClass({
-  render: function(){
-    return (
-      <div className="left-course-display center">
-        <p className="bold">{this.props.data.date}</p>
-        <p>{this.props.data.start_time} to {this.props.data.end_time}</p>
-        <p className="bold">{this.props.data.address}</p>
-        <p>{this.props.data.city}, {this.props.data.state}</p>
-        <div className="btn-div">${this.props.data.price}</div>
-      </div>
-    );
-  }
-});
-
-var TitleDescriptionPrereqDisplay = React.createClass({
-  render: function(){
-    return (
-      <div>
-        <div id="title-container"><h2 id="course-title">{this.props.data.title}</h2></div>
-        <p id="course-description">{this.props.data.description}</p>
-        <hr />
-        <p id="course-prereqs"><span className="bold">Prerequisites: </span>{this.props.data.prerequisites}</p>
-        <hr />
-      </div>
-    );
-  }
-});
-
-var RightDisplay = React.createClass({
-  render: function(){
-    var showReviews = (this.props.displayReviews) ? "Hide Reviews" : "Show Reviews";
-
-    return (
-      <div>
-        <div className="btn-div">Sign Up</div>
-        <div className="btn-div">{this.props.data.seats_remaining} seats left</div>
-        <TaughtBy
-          data={this.props.data}
-        />
-        <p className="center pointer" onClick={this.props.handleReviewDisplay}>{showReviews}</p>
-      </div>
-    );
-  }
-});
-
-var TaughtBy = React.createClass({
-  render: function(){
-
-    var instructorImageStyle = {
-      backgroundImage: 'url(' + this.props.data.profile_pic + ')',
-    }
-
-    return (
-        <div className="center" id="taught-by">
-          <p className="bold">Your Instructor</p>
-          <Link to={'/users/'+this.props.data.user_id}><p>{this.props.data.first_name} {this.props.data.last_name}</p>
-          <div className="instructor-profile-img" style={instructorImageStyle}></div></Link>
         </div>
     );
   }

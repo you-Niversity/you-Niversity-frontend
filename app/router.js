@@ -9,7 +9,7 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 //import components here
 import LandingPage from './components/landing-page/landing-page';
 import LoginDisplay from './components/login-form';
-import SingleCourseDisplay from './components/courses/single-course-display';
+import SingleCourseDisplay from './components/courses/single-course-display/single-course-display.js';
 import PrimaryTemplate from './components/primary-template';
 import SecondaryTemplate from './components/secondary-template';
 import SignUpDisplay from './components/signup-form.js';

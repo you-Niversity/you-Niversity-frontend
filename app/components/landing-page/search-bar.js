@@ -7,7 +7,9 @@ var SearchBar = React.createClass({
 
   getInitialState: function(){
     return {
-      radius: this.props.radius
+      radius: this.props.radius,
+      lat: this.props.lat,
+      lng: this.props.lng
     };
   },
 
@@ -22,6 +24,11 @@ var SearchBar = React.createClass({
       this.refs.radiusInput.value
     )
     this.setState({radius: this.refs.radiusInput.value});
+  },
+
+  onSuggestSelect: function(suggest){
+    this.props.handleLocationInput(suggest);
+    this.setState({lat:suggest.location.lat, lng:suggest.location.lng});
   },
 
   render: function() {
@@ -63,7 +70,7 @@ var SearchBar = React.createClass({
                 value={this.state.location}
               />
             </div>
-            
+
           </div>
         </div>
       </div>

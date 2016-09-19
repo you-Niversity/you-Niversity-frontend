@@ -22,7 +22,7 @@ var RosterList = React.createClass({
       <div id="roster-review-comments-div">
         <div className="row">
           <div className="col-sm-12">
-            <h2 className="center">Your Classmates</h2>
+            <h2 className="center">Course Roster</h2>
           </div>
         </div>
         <div className="row">
