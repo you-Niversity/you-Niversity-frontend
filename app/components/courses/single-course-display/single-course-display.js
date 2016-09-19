@@ -117,7 +117,7 @@ var SingleCourseDisplay = React.createClass({
     var seats_remaining = this.state.courseData.seats_remaining - 1;
 
     request
-      .put("http://localhost:8080/classes/" + id)
+      .put("http://localhost:8080/classes/" + id + "/signup")
       .send({seats_remaining: seats_remaining})
       .end(function(err, res){
         if(err || !res.ok) {
