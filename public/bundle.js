@@ -24443,11 +24443,11 @@
 	
 	var _landingPage2 = _interopRequireDefault(_landingPage);
 	
-	var _loginForm = __webpack_require__(/*! ./components/login-form */ 320);
+	var _loginForm = __webpack_require__(/*! ./components/login-form */ 329);
 	
 	var _loginForm2 = _interopRequireDefault(_loginForm);
 	
-	var _singleCourseDisplay = __webpack_require__(/*! ./components/courses/single-course-display/single-course-display.js */ 322);
+	var _singleCourseDisplay = __webpack_require__(/*! ./components/courses/single-course-display/single-course-display.js */ 331);
 	
 	var _singleCourseDisplay2 = _interopRequireDefault(_singleCourseDisplay);
 	
@@ -30283,11 +30283,11 @@
 	
 	var _navbarLoggedIn2 = _interopRequireDefault(_navbarLoggedIn);
 	
-	var _welcomeText = __webpack_require__(/*! ./welcome-text.js */ 307);
+	var _welcomeText = __webpack_require__(/*! ./welcome-text.js */ 316);
 	
 	var _welcomeText2 = _interopRequireDefault(_welcomeText);
 	
-	var _searchBar = __webpack_require__(/*! ./search-bar.js */ 308);
+	var _searchBar = __webpack_require__(/*! ./search-bar.js */ 317);
 	
 	var _searchBar2 = _interopRequireDefault(_searchBar);
 	
@@ -35604,7 +35604,8 @@
 	
 	  render: function render() {
 	    var courseStyle = {
-	      backgroundImage: 'url(' + this.props.image_url + ')'
+	      backgroundImage: 'url(' + this.props.image_url + ')',
+	      color: 'white'
 	    };
 	
 	    return _react2.default.createElement(
@@ -35743,6 +35744,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var NavbarLoggedIn = _react2.default.createClass({
@@ -35751,7 +35756,7 @@
 	
 	  handleLogoutSubmit: function handleLogoutSubmit() {
 	    sessionStorage.clear();
-	    _reactRouter.browserHistory.push('/');
+	    this.props.showModal();
 	  },
 	
 	  render: function render() {
@@ -35831,7 +35836,7 @@
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: '/users/' + id },
-	                  'Profile'
+	                  'Dashboard'
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -35860,6 +35865,638 @@
 
 /***/ },
 /* 307 */
+/*!*********************************!*\
+  !*** ./~/boron/OutlineModal.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var modalFactory = __webpack_require__(/*! ./modalFactory */ 308);
+	var insertKeyframesRule = __webpack_require__(/*! domkit/insertKeyframesRule */ 313);
+	var appendVendorPrefix = __webpack_require__(/*! domkit/appendVendorPrefix */ 310);
+	
+	var animation = {
+	    show: {
+	        animationDuration: '0.8s',
+	        animationTimingFunction: 'cubic-bezier(0.6,0,0.4,1)'
+	    },
+	    hide: {
+	        animationDuration: '0.4s',
+	        animationTimingFunction: 'ease-out'
+	    },
+	    showContentAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0,
+	        },
+	        '40%':{
+	            opacity: 0
+	        },
+	        '100%': {
+	            opacity: 1,
+	        }
+	    }),
+	
+	    hideContentAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 1
+	        },
+	        '100%': {
+	            opacity: 0,
+	        }
+	    }),
+	
+	    showBackdropAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0
+	        },
+	        '100%': {
+	            opacity: 0.9
+	        },
+	    }),
+	
+	    hideBackdropAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0.9
+	        },
+	        '100%': {
+	            opacity: 0
+	        }
+	    })
+	};
+	
+	var showAnimation = animation.show;
+	var hideAnimation = animation.hide;
+	var showContentAnimation = animation.showContentAnimation;
+	var hideContentAnimation = animation.hideContentAnimation;
+	var showBackdropAnimation = animation.showBackdropAnimation;
+	var hideBackdropAnimation = animation.hideBackdropAnimation;
+	
+	module.exports = modalFactory({
+	    getRef: function(willHidden) {
+	        return 'content';
+	    },
+	    getSharp: function(willHidden) {
+	        var strokeDashLength = 1680;
+	
+	        var showSharpAnimation = insertKeyframesRule({
+	            '0%': {
+	                'stroke-dashoffset': strokeDashLength
+	            },
+	            '100%': {
+	                'stroke-dashoffset': 0
+	            },
+	        });
+	
+	
+	        var sharpStyle = {
+	            position: 'absolute',
+	            width: 'calc(100%)',
+	            height: 'calc(100%)',
+	            zIndex: '-1'
+	        };
+	
+	        var rectStyle = appendVendorPrefix({
+	            animationDuration: willHidden? '0.4s' :'0.8s',
+	            animationFillMode: 'forwards',
+	            animationName: willHidden? hideContentAnimation: showSharpAnimation,
+	            stroke: '#ffffff',
+	            strokeWidth: '2px',
+	            strokeDasharray: strokeDashLength
+	        });
+	
+	        return React.createElement("div", {style: sharpStyle}, 
+	            React.createElement("svg", {
+	                xmlns: "http://www.w3.org/2000/svg", 
+	                width: "100%", 
+	                height: "100%", 
+	                viewBox: "0 0 496 136", 
+	                preserveAspectRatio: "none"}, 
+	                React.createElement("rect", {style: rectStyle, 
+	                    x: "2", 
+	                    y: "2", 
+	                    fill: "none", 
+	                    width: "492", 
+	                    height: "132"})
+	            )
+	        )
+	    },
+	    getModalStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            zIndex: 1050,
+	            position: "fixed",
+	            width: "500px",
+	            transform: "translate3d(-50%, -50%, 0)",
+	            top: "50%",
+	            left: "50%"
+	        })
+	    },
+	    getBackdropStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            position: "fixed",
+	            top: 0,
+	            right: 0,
+	            bottom: 0,
+	            left: 0,
+	            zIndex: 1040,
+	            backgroundColor: "#373A47",
+	            animationFillMode: 'forwards',
+	            animationDuration: '0.4s',
+	            animationName: willHidden ? hideBackdropAnimation : showBackdropAnimation,
+	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
+	        });
+	    },
+	    getContentStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            margin: 0,
+	            backgroundColor: "white",
+	            animationDuration: (willHidden ? hideAnimation : showAnimation).animationDuration,
+	            animationFillMode: 'forwards',
+	            animationName: willHidden ? hideContentAnimation : showContentAnimation,
+	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
+	        })
+	    }
+	});
+
+
+/***/ },
+/* 308 */
+/*!*********************************!*\
+  !*** ./~/boron/modalFactory.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var transitionEvents = __webpack_require__(/*! domkit/transitionEvents */ 309);
+	var appendVendorPrefix = __webpack_require__(/*! domkit/appendVendorPrefix */ 310);
+	
+	module.exports = function(animation){
+	
+	    return React.createClass({
+	        propTypes: {
+	            className: React.PropTypes.string,
+	            // Close the modal when esc is pressed? Defaults to true.
+	            keyboard: React.PropTypes.bool,
+	            onShow: React.PropTypes.func,
+	            onHide: React.PropTypes.func,
+	            animation: React.PropTypes.object,
+	            backdrop: React.PropTypes.bool,
+	            closeOnClick: React.PropTypes.bool,
+	            modalStyle: React.PropTypes.object,
+	            backdropStyle: React.PropTypes.object,
+	            contentStyle: React.PropTypes.object,
+	        },
+	
+	        getDefaultProps: function() {
+	            return {
+	                className: "",
+	                onShow: function(){},
+	                onHide: function(){},
+	                animation: animation,
+	                keyboard: true,
+	                backdrop: true,
+	                closeOnClick: true,
+	                modalStyle: {},
+	                backdropStyle: {},
+	                contentStyle: {},
+	            };
+	        },
+	
+	        getInitialState: function(){
+	            return {
+	                willHidden: false,
+	                hidden: true
+	            }
+	        },
+	
+	        hasHidden: function(){
+	            return this.state.hidden;
+	        },
+	
+	        addTransitionListener: function(node, handle){
+	            if (node) {
+	              var endListener = function(e) {
+	                  if (e && e.target !== node) {
+	                      return;
+	                  }
+	                  transitionEvents.removeEndEventListener(node, endListener);
+	                  handle();
+	              };
+	              transitionEvents.addEndEventListener(node, endListener);
+	            }
+	        },
+	
+	        handleBackdropClick: function() {
+	            if (this.props.closeOnClick) {
+	                this.hide();
+	            }
+	        },
+	
+	        render: function() {
+	
+	            var hidden = this.hasHidden();
+	            if (hidden) return null;
+	
+	            var willHidden = this.state.willHidden;
+	            var animation = this.props.animation;
+	            var modalStyle = animation.getModalStyle(willHidden);
+	            var backdropStyle = animation.getBackdropStyle(willHidden);
+	            var contentStyle = animation.getContentStyle(willHidden);
+	            var ref = animation.getRef(willHidden);
+	            var sharp = animation.getSharp && animation.getSharp(willHidden);
+	
+	            // Apply custom style properties
+	            if (this.props.modalStyle) {
+	                var prefixedModalStyle = appendVendorPrefix(this.props.modalStyle);
+	                for (var style in prefixedModalStyle) {
+	                    modalStyle[style] = prefixedModalStyle[style];
+	                }
+	            }
+	
+	            if (this.props.backdropStyle) {
+	              var prefixedBackdropStyle = appendVendorPrefix(this.props.backdropStyle);
+	                for (var style in prefixedBackdropStyle) {
+	                    backdropStyle[style] = prefixedBackdropStyle[style];
+	                }
+	            }
+	
+	            if (this.props.contentStyle) {
+	              var prefixedContentStyle = appendVendorPrefix(this.props.contentStyle);
+	                for (var style in prefixedContentStyle) {
+	                    contentStyle[style] = prefixedContentStyle[style];
+	                }
+	            }
+	
+	            var backdrop = this.props.backdrop? React.createElement("div", {style: backdropStyle, onClick: this.props.closeOnClick? this.handleBackdropClick: null}): undefined;
+	
+	            if(willHidden) {
+	                var node = this.refs[ref];
+	                this.addTransitionListener(node, this.leave);
+	            }
+	
+	            return (React.createElement("span", null, 
+	                React.createElement("div", {ref: "modal", style: modalStyle, className: this.props.className}, 
+	                    sharp, 
+	                    React.createElement("div", {ref: "content", tabIndex: "-1", style: contentStyle}, 
+	                        this.props.children
+	                    )
+	                ), 
+	                backdrop
+	             ))
+	            ;
+	        },
+	
+	        leave: function(){
+	            this.setState({
+	                hidden: true
+	            });
+	            this.props.onHide();
+	        },
+	
+	        enter: function(){
+	            this.props.onShow();
+	        },
+	
+	        show: function(){
+	            if (!this.hasHidden()) return;
+	
+	            this.setState({
+	                willHidden: false,
+	                hidden: false
+	            });
+	
+	            setTimeout(function(){
+	              var ref = this.props.animation.getRef();
+	              var node = this.refs[ref];
+	              this.addTransitionListener(node, this.enter);
+	            }.bind(this), 0);
+	        },
+	
+	        hide: function(){
+	            if (this.hasHidden()) return;
+	
+	            this.setState({
+	                willHidden: true
+	            });
+	        },
+	
+	        toggle: function(){
+	            if (this.hasHidden())
+	                this.show();
+	            else
+	                this.hide();
+	        },
+	
+	        listenKeyboard: function(event) {
+	            if (this.props.keyboard &&
+	                    (event.key === "Escape" ||
+	                     event.keyCode === 27)) {
+	                this.hide();
+	            }
+	        },
+	
+	        componentDidMount: function(){
+	            window.addEventListener("keydown", this.listenKeyboard, true);
+	        },
+	
+	        componentWillUnmount: function() {
+	            window.removeEventListener("keydown", this.listenKeyboard, true);
+	        }
+	    });
+	}
+
+
+/***/ },
+/* 309 */
+/*!**************************************!*\
+  !*** ./~/domkit/transitionEvents.js ***!
+  \**************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/**
+	 * EVENT_NAME_MAP is used to determine which event fired when a
+	 * transition/animation ends, based on the style property used to
+	 * define that event.
+	 */
+	var EVENT_NAME_MAP = {
+	  transitionend: {
+	    'transition': 'transitionend',
+	    'WebkitTransition': 'webkitTransitionEnd',
+	    'MozTransition': 'mozTransitionEnd',
+	    'OTransition': 'oTransitionEnd',
+	    'msTransition': 'MSTransitionEnd'
+	  },
+	
+	  animationend: {
+	    'animation': 'animationend',
+	    'WebkitAnimation': 'webkitAnimationEnd',
+	    'MozAnimation': 'mozAnimationEnd',
+	    'OAnimation': 'oAnimationEnd',
+	    'msAnimation': 'MSAnimationEnd'
+	  }
+	};
+	
+	var endEvents = [];
+	
+	function detectEvents() {
+	  var testEl = document.createElement('div');
+	  var style = testEl.style;
+	
+	  // On some platforms, in particular some releases of Android 4.x,
+	  // the un-prefixed "animation" and "transition" properties are defined on the
+	  // style object but the events that fire will still be prefixed, so we need
+	  // to check if the un-prefixed events are useable, and if not remove them
+	  // from the map
+	  if (!('AnimationEvent' in window)) {
+	    delete EVENT_NAME_MAP.animationend.animation;
+	  }
+	
+	  if (!('TransitionEvent' in window)) {
+	    delete EVENT_NAME_MAP.transitionend.transition;
+	  }
+	
+	  for (var baseEventName in EVENT_NAME_MAP) {
+	    var baseEvents = EVENT_NAME_MAP[baseEventName];
+	    for (var styleName in baseEvents) {
+	      if (styleName in style) {
+	        endEvents.push(baseEvents[styleName]);
+	        break;
+	      }
+	    }
+	  }
+	}
+	
+	if (typeof window !== 'undefined') {
+	  detectEvents();
+	}
+	
+	
+	// We use the raw {add|remove}EventListener() call because EventListener
+	// does not know how to remove event listeners and we really should
+	// clean up. Also, these events are not triggered in older browsers
+	// so we should be A-OK here.
+	
+	function addEventListener(node, eventName, eventListener) {
+	  node.addEventListener(eventName, eventListener, false);
+	}
+	
+	function removeEventListener(node, eventName, eventListener) {
+	  node.removeEventListener(eventName, eventListener, false);
+	}
+	
+	module.exports = {
+	  addEndEventListener: function(node, eventListener) {
+	    if (endEvents.length === 0) {
+	      // If CSS transitions are not supported, trigger an "end animation"
+	      // event immediately.
+	      window.setTimeout(eventListener, 0);
+	      return;
+	    }
+	    endEvents.forEach(function(endEvent) {
+	      addEventListener(node, endEvent, eventListener);
+	    });
+	  },
+	
+	  removeEndEventListener: function(node, eventListener) {
+	    if (endEvents.length === 0) {
+	      return;
+	    }
+	    endEvents.forEach(function(endEvent) {
+	      removeEventListener(node, endEvent, eventListener);
+	    });
+	  }
+	};
+
+
+/***/ },
+/* 310 */
+/*!****************************************!*\
+  !*** ./~/domkit/appendVendorPrefix.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var getVendorPropertyName = __webpack_require__(/*! ./getVendorPropertyName */ 311);
+	
+	module.exports = function(target, sources) {
+	  var to = Object(target);
+	  var hasOwnProperty = Object.prototype.hasOwnProperty;
+	
+	  for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
+	    var nextSource = arguments[nextIndex];
+	    if (nextSource == null) {
+	      continue;
+	    }
+	
+	    var from = Object(nextSource);
+	
+	    for (var key in from) {
+	      if (hasOwnProperty.call(from, key)) {
+	        to[key] = from[key];
+	      }
+	    }
+	  }
+	
+	  var prefixed = {};
+	  for (var key in to) {
+	    prefixed[getVendorPropertyName(key)] = to[key]
+	  }
+	
+	  return prefixed
+	}
+
+
+/***/ },
+/* 311 */
+/*!*******************************************!*\
+  !*** ./~/domkit/getVendorPropertyName.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var builtinStyle = __webpack_require__(/*! ./builtinStyle */ 312);
+	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
+	var domVendorPrefix;
+	
+	// Helper function to get the proper vendor property name. (transition => WebkitTransition)
+	module.exports = function(prop, isSupportTest) {
+	
+	  var vendorProp;
+	  if (prop in builtinStyle) return prop;
+	
+	  var UpperProp = prop.charAt(0).toUpperCase() + prop.substr(1);
+	
+	  if (domVendorPrefix) {
+	
+	    vendorProp = domVendorPrefix + UpperProp;
+	    if (vendorProp in builtinStyle) {
+	      return vendorProp;
+	    }
+	  } else {
+	
+	    for (var i = 0; i < prefixes.length; ++i) {
+	      vendorProp = prefixes[i] + UpperProp;
+	      if (vendorProp in builtinStyle) {
+	        domVendorPrefix = prefixes[i];
+	        return vendorProp;
+	      }
+	    }
+	  }
+	
+	  // if support test, not fallback to origin prop name
+	  if (!isSupportTest) {
+	    return prop;
+	  }
+	
+	}
+
+
+/***/ },
+/* 312 */
+/*!**********************************!*\
+  !*** ./~/domkit/builtinStyle.js ***!
+  \**********************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = document.createElement('div').style;
+
+
+/***/ },
+/* 313 */
+/*!*****************************************!*\
+  !*** ./~/domkit/insertKeyframesRule.js ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var insertRule = __webpack_require__(/*! ./insertRule */ 314);
+	var vendorPrefix = __webpack_require__(/*! ./getVendorPrefix */ 315)();
+	var index = 0;
+	
+	module.exports = function(keyframes) {
+	  // random name
+	  var name = 'anim_' + (++index) + (+new Date);
+	  var css = "@" + vendorPrefix + "keyframes " + name + " {";
+	
+	  for (var key in keyframes) {
+	    css += key + " {";
+	
+	    for (var property in keyframes[key]) {
+	      var part = ":" + keyframes[key][property] + ";";
+	      // We do vendor prefix for every property
+	      css += vendorPrefix + property + part;
+	      css += property + part;
+	    }
+	
+	    css += "}";
+	  }
+	
+	  css += "}";
+	
+	  insertRule(css);
+	
+	  return name
+	}
+
+
+/***/ },
+/* 314 */
+/*!********************************!*\
+  !*** ./~/domkit/insertRule.js ***!
+  \********************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var extraSheet;
+	
+	module.exports = function(css) {
+	
+	  if (!extraSheet) {
+	    // First time, create an extra stylesheet for adding rules
+	    extraSheet = document.createElement('style');
+	    document.getElementsByTagName('head')[0].appendChild(extraSheet);
+	    // Keep reference to actual StyleSheet object (`styleSheet` for IE < 9)
+	    extraSheet = extraSheet.sheet || extraSheet.styleSheet;
+	  }
+	
+	  var index = (extraSheet.cssRules || extraSheet.rules).length;
+	  extraSheet.insertRule(css, index);
+	
+	  return extraSheet;
+	}
+
+
+/***/ },
+/* 315 */
+/*!*************************************!*\
+  !*** ./~/domkit/getVendorPrefix.js ***!
+  \*************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var cssVendorPrefix;
+	
+	module.exports = function() {
+	
+	  if (cssVendorPrefix) return cssVendorPrefix;
+	
+	  var styles = window.getComputedStyle(document.documentElement, '');
+	  var pre = (Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o']))[1];
+	
+	  return cssVendorPrefix = '-' + pre + '-';
+	}
+
+
+/***/ },
+/* 316 */
 /*!*****************************************************!*\
   !*** ./app/components/landing-page/welcome-text.js ***!
   \*****************************************************/
@@ -35907,7 +36544,7 @@
 	exports.default = WelcomeText;
 
 /***/ },
-/* 308 */
+/* 317 */
 /*!***************************************************!*\
   !*** ./app/components/landing-page/search-bar.js ***!
   \***************************************************/
@@ -35923,7 +36560,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 309);
+	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 318);
 	
 	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
 	
@@ -36040,7 +36677,7 @@
 	exports.default = SearchBar;
 
 /***/ },
-/* 309 */
+/* 318 */
 /*!*************************************************!*\
   !*** ./~/react-geosuggest/module/Geosuggest.js ***!
   \*************************************************/
@@ -36060,31 +36697,31 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 310);
+	var _classnames = __webpack_require__(/*! classnames */ 319);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _lodash = __webpack_require__(/*! lodash.debounce */ 311);
+	var _lodash = __webpack_require__(/*! lodash.debounce */ 320);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _defaults = __webpack_require__(/*! ./defaults */ 312);
+	var _defaults = __webpack_require__(/*! ./defaults */ 321);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _propTypes = __webpack_require__(/*! ./prop-types */ 313);
+	var _propTypes = __webpack_require__(/*! ./prop-types */ 322);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 314);
+	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 323);
 	
 	var _filterInputAttributes2 = _interopRequireDefault(_filterInputAttributes);
 	
-	var _input = __webpack_require__(/*! ./input */ 315);
+	var _input = __webpack_require__(/*! ./input */ 324);
 	
 	var _input2 = _interopRequireDefault(_input);
 	
-	var _suggestList = __webpack_require__(/*! ./suggest-list */ 318);
+	var _suggestList = __webpack_require__(/*! ./suggest-list */ 327);
 	
 	var _suggestList2 = _interopRequireDefault(_suggestList);
 	
@@ -36593,7 +37230,7 @@
 	exports.default = Geosuggest;
 
 /***/ },
-/* 310 */
+/* 319 */
 /*!*******************************!*\
   !*** ./~/classnames/index.js ***!
   \*******************************/
@@ -36650,7 +37287,7 @@
 
 
 /***/ },
-/* 311 */
+/* 320 */
 /*!************************************!*\
   !*** ./~/lodash.debounce/index.js ***!
   \************************************/
@@ -37037,7 +37674,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 312 */
+/* 321 */
 /*!***********************************************!*\
   !*** ./~/react-geosuggest/module/defaults.js ***!
   \***********************************************/
@@ -37086,7 +37723,7 @@
 	};
 
 /***/ },
-/* 313 */
+/* 322 */
 /*!*************************************************!*\
   !*** ./~/react-geosuggest/module/prop-types.js ***!
   \*************************************************/
@@ -37137,7 +37774,7 @@
 	};
 
 /***/ },
-/* 314 */
+/* 323 */
 /*!**************************************************************!*\
   !*** ./~/react-geosuggest/module/filter-input-attributes.js ***!
   \**************************************************************/
@@ -37173,7 +37810,7 @@
 	 */
 
 /***/ },
-/* 315 */
+/* 324 */
 /*!********************************************!*\
   !*** ./~/react-geosuggest/module/input.js ***!
   \********************************************/
@@ -37193,15 +37830,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 316);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 325);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 310);
+	var _classnames = __webpack_require__(/*! classnames */ 319);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 314);
+	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 323);
 	
 	var _filterInputAttributes2 = _interopRequireDefault(_filterInputAttributes);
 	
@@ -37364,16 +38001,16 @@
 	exports.default = Input;
 
 /***/ },
-/* 316 */
+/* 325 */
 /*!*************************************************!*\
   !*** ./~/react-addons-shallow-compare/index.js ***!
   \*************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! react/lib/shallowCompare */ 317);
+	module.exports = __webpack_require__(/*! react/lib/shallowCompare */ 326);
 
 /***/ },
-/* 317 */
+/* 326 */
 /*!***************************************!*\
   !*** ./~/react/lib/shallowCompare.js ***!
   \***************************************/
@@ -37406,7 +38043,7 @@
 	module.exports = shallowCompare;
 
 /***/ },
-/* 318 */
+/* 327 */
 /*!***************************************************!*\
   !*** ./~/react-geosuggest/module/suggest-list.js ***!
   \***************************************************/
@@ -37424,15 +38061,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 316);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 325);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 310);
+	var _classnames = __webpack_require__(/*! classnames */ 319);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _suggestItem = __webpack_require__(/*! ./suggest-item */ 319);
+	var _suggestItem = __webpack_require__(/*! ./suggest-item */ 328);
 	
 	var _suggestItem2 = _interopRequireDefault(_suggestItem);
 	
@@ -37546,7 +38183,7 @@
 	};
 
 /***/ },
-/* 319 */
+/* 328 */
 /*!***************************************************!*\
   !*** ./~/react-geosuggest/module/suggest-item.js ***!
   \***************************************************/
@@ -37564,11 +38201,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 316);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 325);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 310);
+	var _classnames = __webpack_require__(/*! classnames */ 319);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -37664,7 +38301,7 @@
 	};
 
 /***/ },
-/* 320 */
+/* 329 */
 /*!**************************************!*\
   !*** ./app/components/login-form.js ***!
   \**************************************/
@@ -37688,9 +38325,40 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 321);
+	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 330);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var modalStyles = {
+	  btn: {
+	    padding: '1em 2em',
+	    width: '25%',
+	    margin: '1em 0 2em 37.5%',
+	    outline: 'none',
+	    fontSize: 16,
+	    fontWeight: '600',
+	    background: 'orange',
+	    color: '#FFFFFF',
+	    border: 'none',
+	    borderRadius: '3px'
+	  },
+	  container: {
+	    padding: '2em',
+	    textAlign: 'center'
+	  },
+	  title: {
+	    margin: 0,
+	    paddingTop: '2em',
+	    fontSize: '1.5em',
+	    color: 'orange',
+	    textAlign: 'center',
+	    fontWeight: 400
+	  }
+	};
 	
 	var LoginDisplay = _react2.default.createClass({
 	  displayName: 'LoginDisplay',
@@ -37720,16 +38388,38 @@
 	        sessionStorage.setItem('first_name', this.props.userState.profile.first_name);
 	        sessionStorage.setItem('user_id', this.props.userState.profile.id);
 	        sessionStorage.setItem('image_url', res.body.profile.profile_pic);
-	
-	        _reactRouter.browserHistory.push('/users/' + this.props.userState.profile.id);
+	        this.showModal();
 	      }
 	    }.bind(this));
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	  },
+	
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    _reactRouter.browserHistory.push('/users/' + this.props.userState.profile.id);
 	  },
 	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modal', style: modalStyles.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: modalStyles.title },
+	          'Login successful!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: modalStyles.btn, onClick: this.hideModal },
+	          'Close'
+	        )
+	      ),
 	      _react2.default.createElement('div', { className: 'col-sm-4' }),
 	      _react2.default.createElement(
 	        'div',
@@ -37853,7 +38543,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoginDisplay);
 
 /***/ },
-/* 321 */
+/* 330 */
 /*!*************************************!*\
   !*** ./app/actions/user-actions.js ***!
   \*************************************/
@@ -37884,7 +38574,7 @@
 	}
 
 /***/ },
-/* 322 */
+/* 331 */
 /*!*******************************************************************************!*\
   !*** ./app/components/courses/single-course-display/single-course-display.js ***!
   \*******************************************************************************/
@@ -37900,7 +38590,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 332);
 	
 	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
 	
@@ -37910,61 +38600,35 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _leftDisplay = __webpack_require__(/*! ./left-display.js */ 325);
+	var _leftDisplay = __webpack_require__(/*! ./left-display.js */ 334);
 	
 	var _leftDisplay2 = _interopRequireDefault(_leftDisplay);
 	
-	var _middleDisplay = __webpack_require__(/*! ./middle-display.js */ 326);
+	var _middleDisplay = __webpack_require__(/*! ./middle-display.js */ 335);
 	
 	var _middleDisplay2 = _interopRequireDefault(_middleDisplay);
 	
-	var _rightDisplay = __webpack_require__(/*! ./right-display.js */ 327);
+	var _rightDisplay = __webpack_require__(/*! ./right-display.js */ 336);
 	
 	var _rightDisplay2 = _interopRequireDefault(_rightDisplay);
 	
-	var _rosterList = __webpack_require__(/*! ../roster-list.js */ 329);
+	var _rosterList = __webpack_require__(/*! ../roster-list.js */ 338);
 	
 	var _rosterList2 = _interopRequireDefault(_rosterList);
 	
-	var _reviewList = __webpack_require__(/*! ../review-list.js */ 330);
+	var _reviewList = __webpack_require__(/*! ../review-list.js */ 339);
 	
 	var _reviewList2 = _interopRequireDefault(_reviewList);
 	
-	var _commentBoard = __webpack_require__(/*! ../comment-board.js */ 333);
+	var _commentBoard = __webpack_require__(/*! ../comment-board.js */ 342);
 	
 	var _commentBoard2 = _interopRequireDefault(_commentBoard);
 	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 353);
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
 	
 	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var modalStyles = {
-	  btn: {
-	    padding: '1em 2em',
-	    width: '25%',
-	    margin: '1em 0 2em 37.5%',
-	    outline: 'none',
-	    fontSize: 16,
-	    fontWeight: '600',
-	    background: 'orange',
-	    color: '#FFFFFF',
-	    border: 'none'
-	  },
-	  container: {
-	    padding: '2em',
-	    textAlign: 'center'
-	  },
-	  title: {
-	    margin: 0,
-	    paddingTop: '2em',
-	    fontSize: '1.5em',
-	    color: 'orange',
-	    textAlign: 'center',
-	    fontWeight: 400
-	  }
-	};
 	
 	var SingleCourseDisplay = _react2.default.createClass({
 	  displayName: 'SingleCourseDisplay',
@@ -37977,7 +38641,8 @@
 	      roster: [],
 	      commentBoard: [],
 	      reviews: [],
-	      displayReviews: false
+	      displayReviews: false,
+	      isUserEnrolledInCourse: false
 	    };
 	  },
 	
@@ -37987,7 +38652,6 @@
 	        console.log("There was an error grabbing this course from the API");
 	      } else {
 	        this.setState({ courseData: res.body[0] });
-	        console.log(this.state.courseData);
 	        if (callback) {
 	          callback(this.state.courseData.user_id);
 	        } else {
@@ -38002,7 +38666,17 @@
 	      if (err) {
 	        console.log("There was an error grabbing this roster from the API");
 	      } else {
-	        this.setState({ roster: res.body });
+	        var roster = res.body;
+	        if (sessionStorage.user_id) {
+	          for (var i = 0; i < roster.length; i++) {
+	            if (sessionStorage.user_id == roster[i].id) {
+	              console.log("this user is in this class!");
+	              this.setState({ roster: roster, isUserEnrolledInCourse: true });
+	            }
+	          }
+	        } else {
+	          this.setState({ roster: roster });
+	        }
 	      }
 	    }.bind(this));
 	  },
@@ -38013,7 +38687,6 @@
 	        console.log("There was an error grabbing course comments from the API");
 	      } else {
 	        console.log("COMMENTS:");
-	        console.log(res.body);
 	        this.setState({ commentBoard: res.body });
 	      }
 	    }.bind(this));
@@ -38021,7 +38694,6 @@
 	
 	  handleCommentSubmit: function handleCommentSubmit(comment) {
 	    var user_id = Number(sessionStorage.user_id);
-	    console.log(this.props.params.id);
 	    var id = this.props.params.id;
 	    _superagent2.default.post("http://localhost:8080/classes/" + id + "/comments").send(comment).send({ class_id: id }).send({ commenter_id: user_id }).end(function (err, res) {
 	      if (err || !res.ok) {
@@ -38033,12 +38705,10 @@
 	  },
 	
 	  getReviewsFromAPI: function getReviewsFromAPI(id) {
-	    console.log(id);
 	    _superagent2.default.get("http://localhost:8080/users/" + id + "/reviews").end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing the reviews from the API");
 	      } else {
-	        console.log(res.body);
 	        this.setState({ reviews: res.body });
 	      }
 	    }.bind(this));
@@ -38049,7 +38719,6 @@
 	  },
 	
 	  handleUserSignup: function handleUserSignup() {
-	    console.log("user tried to sign up");
 	    var id = this.props.params.id;
 	    var seats_remaining = this.state.courseData.seats_remaining - 1;
 	
@@ -38125,7 +38794,8 @@
 	            data: this.state.courseData,
 	            handleUserSignup: this.handleUserSignup,
 	            handleReviewDisplay: this.handleReviewDisplay,
-	            displayReviews: this.state.displayReviews
+	            displayReviews: this.state.displayReviews,
+	            isUserEnrolledInCourse: this.state.isUserEnrolledInCourse
 	          })
 	        )
 	      ),
@@ -38155,10 +38825,37 @@
 	  }
 	});
 	
+	var modalStyles = {
+	  btn: {
+	    padding: '1em 2em',
+	    width: '25%',
+	    margin: '1em 0 2em 37.5%',
+	    outline: 'none',
+	    fontSize: 16,
+	    fontWeight: '600',
+	    background: 'orange',
+	    color: '#FFFFFF',
+	    border: 'none',
+	    borderRadius: '3px'
+	  },
+	  container: {
+	    padding: '2em',
+	    textAlign: 'center'
+	  },
+	  title: {
+	    margin: 0,
+	    paddingTop: '2em',
+	    fontSize: '1.5em',
+	    color: 'orange',
+	    textAlign: 'center',
+	    fontWeight: 400
+	  }
+	};
+	
 	exports.default = SingleCourseDisplay;
 
 /***/ },
-/* 323 */
+/* 332 */
 /*!****************************************!*\
   !*** ./~/superagent-no-cache/index.js ***!
   \****************************************/
@@ -38168,7 +38865,7 @@
 	try {
 	  ie = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"ie\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))
 	} catch (e) {
-	  ie = __webpack_require__(/*! component-ie */ 324)
+	  ie = __webpack_require__(/*! component-ie */ 333)
 	}
 	
 	function with_query_strings (request) {
@@ -38189,7 +38886,7 @@
 
 
 /***/ },
-/* 324 */
+/* 333 */
 /*!*********************************!*\
   !*** ./~/component-ie/index.js ***!
   \*********************************/
@@ -38224,7 +38921,7 @@
 
 
 /***/ },
-/* 325 */
+/* 334 */
 /*!**********************************************************************!*\
   !*** ./app/components/courses/single-course-display/left-display.js ***!
   \**********************************************************************/
@@ -38240,7 +38937,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 332);
 	
 	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
 	
@@ -38296,7 +38993,7 @@
 	exports.default = CourseDateTimePlaceInstructorDisplay;
 
 /***/ },
-/* 326 */
+/* 335 */
 /*!************************************************************************!*\
   !*** ./app/components/courses/single-course-display/middle-display.js ***!
   \************************************************************************/
@@ -38312,7 +39009,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 332);
 	
 	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
 	
@@ -38364,7 +39061,7 @@
 	exports.default = TitleDescriptionPrereqDisplay;
 
 /***/ },
-/* 327 */
+/* 336 */
 /*!***********************************************************************!*\
   !*** ./app/components/courses/single-course-display/right-display.js ***!
   \***********************************************************************/
@@ -38380,7 +39077,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 332);
 	
 	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
 	
@@ -38390,7 +39087,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _taughtBy = __webpack_require__(/*! ./taught-by.js */ 328);
+	var _taughtBy = __webpack_require__(/*! ./taught-by.js */ 337);
 	
 	var _taughtBy2 = _interopRequireDefault(_taughtBy);
 	
@@ -38403,11 +39100,13 @@
 	
 	    var showReviews = this.props.displayReviews ? "Hide Reviews" : "Show Reviews";
 	
-	    var signupButton = sessionStorage.first_name ? _react2.default.createElement(
+	    var signupButton = sessionStorage.first_name && !this.props.isUserEnrolledInCourse ? _react2.default.createElement(
 	      'div',
 	      { onClick: this.props.handleUserSignup, className: 'btn-div' },
 	      'Sign Up'
-	    ) : _react2.default.createElement(
+	    ) : null;
+	
+	    var loginButton = !sessionStorage.first_name ? _react2.default.createElement(
 	      _reactRouter.Link,
 	      { to: '/login' },
 	      _react2.default.createElement(
@@ -38417,12 +39116,20 @@
 	        _react2.default.createElement('br', null),
 	        'to Sign Up'
 	      )
-	    );
+	    ) : null;
+	
+	    var enrolledInCourse = this.props.isUserEnrolledInCourse ? _react2.default.createElement(
+	      'div',
+	      { className: 'btn-div' },
+	      'Enrolled!'
+	    ) : null;
 	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
 	      signupButton,
+	      loginButton,
+	      enrolledInCourse,
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'btn-div' },
@@ -38444,7 +39151,7 @@
 	exports.default = RightDisplay;
 
 /***/ },
-/* 328 */
+/* 337 */
 /*!*******************************************************************!*\
   !*** ./app/components/courses/single-course-display/taught-by.js ***!
   \*******************************************************************/
@@ -38460,7 +39167,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 332);
 	
 	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
 	
@@ -38508,7 +39215,7 @@
 	exports.default = TaughtBy;
 
 /***/ },
-/* 329 */
+/* 338 */
 /*!***********************************************!*\
   !*** ./app/components/courses/roster-list.js ***!
   \***********************************************/
@@ -38607,7 +39314,7 @@
 	exports.default = RosterList;
 
 /***/ },
-/* 330 */
+/* 339 */
 /*!***********************************************!*\
   !*** ./app/components/courses/review-list.js ***!
   \***********************************************/
@@ -38631,7 +39338,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var moment = __webpack_require__(/*! moment */ 331);
+	var moment = __webpack_require__(/*! moment */ 340);
 	moment().format();
 	
 	var ReviewList = _react2.default.createClass({
@@ -38742,7 +39449,7 @@
 	exports.default = ReviewList;
 
 /***/ },
-/* 331 */
+/* 340 */
 /*!****************************!*\
   !*** ./~/moment/moment.js ***!
   \****************************/
@@ -42982,10 +43689,10 @@
 	    return _moment;
 	
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 332)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 341)(module)))
 
 /***/ },
-/* 332 */
+/* 341 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -43004,7 +43711,7 @@
 
 
 /***/ },
-/* 333 */
+/* 342 */
 /*!*************************************************!*\
   !*** ./app/components/courses/comment-board.js ***!
   \*************************************************/
@@ -43026,13 +43733,13 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _addCommentForm = __webpack_require__(/*! ./add-comment-form.js */ 334);
+	var _addCommentForm = __webpack_require__(/*! ./add-comment-form.js */ 343);
 	
 	var _addCommentForm2 = _interopRequireDefault(_addCommentForm);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var moment = __webpack_require__(/*! moment */ 331);
+	var moment = __webpack_require__(/*! moment */ 340);
 	moment().format();
 	
 	
@@ -43185,7 +43892,7 @@
 	exports.default = CommentBoard;
 
 /***/ },
-/* 334 */
+/* 343 */
 /*!****************************************************!*\
   !*** ./app/components/courses/add-comment-form.js ***!
   \****************************************************/
@@ -43209,7 +43916,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var moment = __webpack_require__(/*! moment */ 331);
+	var moment = __webpack_require__(/*! moment */ 340);
 	moment().format();
 	
 	var AddCommentForm = _react2.default.createClass({
@@ -43258,484 +43965,6 @@
 	exports.default = AddCommentForm;
 
 /***/ },
-/* 335 */,
-/* 336 */
-/*!*********************************!*\
-  !*** ./~/boron/modalFactory.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var transitionEvents = __webpack_require__(/*! domkit/transitionEvents */ 337);
-	var appendVendorPrefix = __webpack_require__(/*! domkit/appendVendorPrefix */ 338);
-	
-	module.exports = function(animation){
-	
-	    return React.createClass({
-	        propTypes: {
-	            className: React.PropTypes.string,
-	            // Close the modal when esc is pressed? Defaults to true.
-	            keyboard: React.PropTypes.bool,
-	            onShow: React.PropTypes.func,
-	            onHide: React.PropTypes.func,
-	            animation: React.PropTypes.object,
-	            backdrop: React.PropTypes.bool,
-	            closeOnClick: React.PropTypes.bool,
-	            modalStyle: React.PropTypes.object,
-	            backdropStyle: React.PropTypes.object,
-	            contentStyle: React.PropTypes.object,
-	        },
-	
-	        getDefaultProps: function() {
-	            return {
-	                className: "",
-	                onShow: function(){},
-	                onHide: function(){},
-	                animation: animation,
-	                keyboard: true,
-	                backdrop: true,
-	                closeOnClick: true,
-	                modalStyle: {},
-	                backdropStyle: {},
-	                contentStyle: {},
-	            };
-	        },
-	
-	        getInitialState: function(){
-	            return {
-	                willHidden: false,
-	                hidden: true
-	            }
-	        },
-	
-	        hasHidden: function(){
-	            return this.state.hidden;
-	        },
-	
-	        addTransitionListener: function(node, handle){
-	            if (node) {
-	              var endListener = function(e) {
-	                  if (e && e.target !== node) {
-	                      return;
-	                  }
-	                  transitionEvents.removeEndEventListener(node, endListener);
-	                  handle();
-	              };
-	              transitionEvents.addEndEventListener(node, endListener);
-	            }
-	        },
-	
-	        handleBackdropClick: function() {
-	            if (this.props.closeOnClick) {
-	                this.hide();
-	            }
-	        },
-	
-	        render: function() {
-	
-	            var hidden = this.hasHidden();
-	            if (hidden) return null;
-	
-	            var willHidden = this.state.willHidden;
-	            var animation = this.props.animation;
-	            var modalStyle = animation.getModalStyle(willHidden);
-	            var backdropStyle = animation.getBackdropStyle(willHidden);
-	            var contentStyle = animation.getContentStyle(willHidden);
-	            var ref = animation.getRef(willHidden);
-	            var sharp = animation.getSharp && animation.getSharp(willHidden);
-	
-	            // Apply custom style properties
-	            if (this.props.modalStyle) {
-	                var prefixedModalStyle = appendVendorPrefix(this.props.modalStyle);
-	                for (var style in prefixedModalStyle) {
-	                    modalStyle[style] = prefixedModalStyle[style];
-	                }
-	            }
-	
-	            if (this.props.backdropStyle) {
-	              var prefixedBackdropStyle = appendVendorPrefix(this.props.backdropStyle);
-	                for (var style in prefixedBackdropStyle) {
-	                    backdropStyle[style] = prefixedBackdropStyle[style];
-	                }
-	            }
-	
-	            if (this.props.contentStyle) {
-	              var prefixedContentStyle = appendVendorPrefix(this.props.contentStyle);
-	                for (var style in prefixedContentStyle) {
-	                    contentStyle[style] = prefixedContentStyle[style];
-	                }
-	            }
-	
-	            var backdrop = this.props.backdrop? React.createElement("div", {style: backdropStyle, onClick: this.props.closeOnClick? this.handleBackdropClick: null}): undefined;
-	
-	            if(willHidden) {
-	                var node = this.refs[ref];
-	                this.addTransitionListener(node, this.leave);
-	            }
-	
-	            return (React.createElement("span", null, 
-	                React.createElement("div", {ref: "modal", style: modalStyle, className: this.props.className}, 
-	                    sharp, 
-	                    React.createElement("div", {ref: "content", tabIndex: "-1", style: contentStyle}, 
-	                        this.props.children
-	                    )
-	                ), 
-	                backdrop
-	             ))
-	            ;
-	        },
-	
-	        leave: function(){
-	            this.setState({
-	                hidden: true
-	            });
-	            this.props.onHide();
-	        },
-	
-	        enter: function(){
-	            this.props.onShow();
-	        },
-	
-	        show: function(){
-	            if (!this.hasHidden()) return;
-	
-	            this.setState({
-	                willHidden: false,
-	                hidden: false
-	            });
-	
-	            setTimeout(function(){
-	              var ref = this.props.animation.getRef();
-	              var node = this.refs[ref];
-	              this.addTransitionListener(node, this.enter);
-	            }.bind(this), 0);
-	        },
-	
-	        hide: function(){
-	            if (this.hasHidden()) return;
-	
-	            this.setState({
-	                willHidden: true
-	            });
-	        },
-	
-	        toggle: function(){
-	            if (this.hasHidden())
-	                this.show();
-	            else
-	                this.hide();
-	        },
-	
-	        listenKeyboard: function(event) {
-	            if (this.props.keyboard &&
-	                    (event.key === "Escape" ||
-	                     event.keyCode === 27)) {
-	                this.hide();
-	            }
-	        },
-	
-	        componentDidMount: function(){
-	            window.addEventListener("keydown", this.listenKeyboard, true);
-	        },
-	
-	        componentWillUnmount: function() {
-	            window.removeEventListener("keydown", this.listenKeyboard, true);
-	        }
-	    });
-	}
-
-
-/***/ },
-/* 337 */
-/*!**************************************!*\
-  !*** ./~/domkit/transitionEvents.js ***!
-  \**************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	/**
-	 * EVENT_NAME_MAP is used to determine which event fired when a
-	 * transition/animation ends, based on the style property used to
-	 * define that event.
-	 */
-	var EVENT_NAME_MAP = {
-	  transitionend: {
-	    'transition': 'transitionend',
-	    'WebkitTransition': 'webkitTransitionEnd',
-	    'MozTransition': 'mozTransitionEnd',
-	    'OTransition': 'oTransitionEnd',
-	    'msTransition': 'MSTransitionEnd'
-	  },
-	
-	  animationend: {
-	    'animation': 'animationend',
-	    'WebkitAnimation': 'webkitAnimationEnd',
-	    'MozAnimation': 'mozAnimationEnd',
-	    'OAnimation': 'oAnimationEnd',
-	    'msAnimation': 'MSAnimationEnd'
-	  }
-	};
-	
-	var endEvents = [];
-	
-	function detectEvents() {
-	  var testEl = document.createElement('div');
-	  var style = testEl.style;
-	
-	  // On some platforms, in particular some releases of Android 4.x,
-	  // the un-prefixed "animation" and "transition" properties are defined on the
-	  // style object but the events that fire will still be prefixed, so we need
-	  // to check if the un-prefixed events are useable, and if not remove them
-	  // from the map
-	  if (!('AnimationEvent' in window)) {
-	    delete EVENT_NAME_MAP.animationend.animation;
-	  }
-	
-	  if (!('TransitionEvent' in window)) {
-	    delete EVENT_NAME_MAP.transitionend.transition;
-	  }
-	
-	  for (var baseEventName in EVENT_NAME_MAP) {
-	    var baseEvents = EVENT_NAME_MAP[baseEventName];
-	    for (var styleName in baseEvents) {
-	      if (styleName in style) {
-	        endEvents.push(baseEvents[styleName]);
-	        break;
-	      }
-	    }
-	  }
-	}
-	
-	if (typeof window !== 'undefined') {
-	  detectEvents();
-	}
-	
-	
-	// We use the raw {add|remove}EventListener() call because EventListener
-	// does not know how to remove event listeners and we really should
-	// clean up. Also, these events are not triggered in older browsers
-	// so we should be A-OK here.
-	
-	function addEventListener(node, eventName, eventListener) {
-	  node.addEventListener(eventName, eventListener, false);
-	}
-	
-	function removeEventListener(node, eventName, eventListener) {
-	  node.removeEventListener(eventName, eventListener, false);
-	}
-	
-	module.exports = {
-	  addEndEventListener: function(node, eventListener) {
-	    if (endEvents.length === 0) {
-	      // If CSS transitions are not supported, trigger an "end animation"
-	      // event immediately.
-	      window.setTimeout(eventListener, 0);
-	      return;
-	    }
-	    endEvents.forEach(function(endEvent) {
-	      addEventListener(node, endEvent, eventListener);
-	    });
-	  },
-	
-	  removeEndEventListener: function(node, eventListener) {
-	    if (endEvents.length === 0) {
-	      return;
-	    }
-	    endEvents.forEach(function(endEvent) {
-	      removeEventListener(node, endEvent, eventListener);
-	    });
-	  }
-	};
-
-
-/***/ },
-/* 338 */
-/*!****************************************!*\
-  !*** ./~/domkit/appendVendorPrefix.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var getVendorPropertyName = __webpack_require__(/*! ./getVendorPropertyName */ 339);
-	
-	module.exports = function(target, sources) {
-	  var to = Object(target);
-	  var hasOwnProperty = Object.prototype.hasOwnProperty;
-	
-	  for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
-	    var nextSource = arguments[nextIndex];
-	    if (nextSource == null) {
-	      continue;
-	    }
-	
-	    var from = Object(nextSource);
-	
-	    for (var key in from) {
-	      if (hasOwnProperty.call(from, key)) {
-	        to[key] = from[key];
-	      }
-	    }
-	  }
-	
-	  var prefixed = {};
-	  for (var key in to) {
-	    prefixed[getVendorPropertyName(key)] = to[key]
-	  }
-	
-	  return prefixed
-	}
-
-
-/***/ },
-/* 339 */
-/*!*******************************************!*\
-  !*** ./~/domkit/getVendorPropertyName.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var builtinStyle = __webpack_require__(/*! ./builtinStyle */ 340);
-	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
-	var domVendorPrefix;
-	
-	// Helper function to get the proper vendor property name. (transition => WebkitTransition)
-	module.exports = function(prop, isSupportTest) {
-	
-	  var vendorProp;
-	  if (prop in builtinStyle) return prop;
-	
-	  var UpperProp = prop.charAt(0).toUpperCase() + prop.substr(1);
-	
-	  if (domVendorPrefix) {
-	
-	    vendorProp = domVendorPrefix + UpperProp;
-	    if (vendorProp in builtinStyle) {
-	      return vendorProp;
-	    }
-	  } else {
-	
-	    for (var i = 0; i < prefixes.length; ++i) {
-	      vendorProp = prefixes[i] + UpperProp;
-	      if (vendorProp in builtinStyle) {
-	        domVendorPrefix = prefixes[i];
-	        return vendorProp;
-	      }
-	    }
-	  }
-	
-	  // if support test, not fallback to origin prop name
-	  if (!isSupportTest) {
-	    return prop;
-	  }
-	
-	}
-
-
-/***/ },
-/* 340 */
-/*!**********************************!*\
-  !*** ./~/domkit/builtinStyle.js ***!
-  \**********************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = document.createElement('div').style;
-
-
-/***/ },
-/* 341 */
-/*!*****************************************!*\
-  !*** ./~/domkit/insertKeyframesRule.js ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var insertRule = __webpack_require__(/*! ./insertRule */ 342);
-	var vendorPrefix = __webpack_require__(/*! ./getVendorPrefix */ 343)();
-	var index = 0;
-	
-	module.exports = function(keyframes) {
-	  // random name
-	  var name = 'anim_' + (++index) + (+new Date);
-	  var css = "@" + vendorPrefix + "keyframes " + name + " {";
-	
-	  for (var key in keyframes) {
-	    css += key + " {";
-	
-	    for (var property in keyframes[key]) {
-	      var part = ":" + keyframes[key][property] + ";";
-	      // We do vendor prefix for every property
-	      css += vendorPrefix + property + part;
-	      css += property + part;
-	    }
-	
-	    css += "}";
-	  }
-	
-	  css += "}";
-	
-	  insertRule(css);
-	
-	  return name
-	}
-
-
-/***/ },
-/* 342 */
-/*!********************************!*\
-  !*** ./~/domkit/insertRule.js ***!
-  \********************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var extraSheet;
-	
-	module.exports = function(css) {
-	
-	  if (!extraSheet) {
-	    // First time, create an extra stylesheet for adding rules
-	    extraSheet = document.createElement('style');
-	    document.getElementsByTagName('head')[0].appendChild(extraSheet);
-	    // Keep reference to actual StyleSheet object (`styleSheet` for IE < 9)
-	    extraSheet = extraSheet.sheet || extraSheet.styleSheet;
-	  }
-	
-	  var index = (extraSheet.cssRules || extraSheet.rules).length;
-	  extraSheet.insertRule(css, index);
-	
-	  return extraSheet;
-	}
-
-
-/***/ },
-/* 343 */
-/*!*************************************!*\
-  !*** ./~/domkit/getVendorPrefix.js ***!
-  \*************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var cssVendorPrefix;
-	
-	module.exports = function() {
-	
-	  if (cssVendorPrefix) return cssVendorPrefix;
-	
-	  var styles = window.getComputedStyle(document.documentElement, '');
-	  var pre = (Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o']))[1];
-	
-	  return cssVendorPrefix = '-' + pre + '-';
-	}
-
-
-/***/ },
 /* 344 */
 /*!********************************************!*\
   !*** ./app/components/primary-template.js ***!
@@ -43760,19 +43989,61 @@
 	
 	var _navbarLoggedIn2 = _interopRequireDefault(_navbarLoggedIn);
 	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var SecondaryTemplate = _react2.default.createClass({
-	  displayName: 'SecondaryTemplate',
+	var modalStyles = {
+	  btn: {
+	    padding: '1em 2em',
+	    width: '25%',
+	    margin: '1em 0 2em 37.5%',
+	    outline: 'none',
+	    fontSize: 16,
+	    fontWeight: '600',
+	    background: 'orange',
+	    color: '#FFFFFF',
+	    border: 'none',
+	    borderRadius: '3px'
+	  },
+	  container: {
+	    padding: '2em',
+	    textAlign: 'center'
+	  },
+	  title: {
+	    margin: 0,
+	    paddingTop: '2em',
+	    fontSize: '1.5em',
+	    color: 'orange',
+	    textAlign: 'center',
+	    fontWeight: 400
+	  }
+	};
 	
+	var PrimaryTemplate = _react2.default.createClass({
+	  displayName: 'PrimaryTemplate',
+	
+	
+	  showModal: function showModal() {
+	    console.log('entering show modal function');
+	    console.log(this.refs.modal);
+	    this.refs.modal.show();
+	  },
+	
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    browserHistory.push('/');
+	  },
 	
 	  render: function render() {
 	    console.log("Current sessionStorage:");
 	    console.log(sessionStorage);
 	
-	    var loggedInNav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, null) : null;
-	
-	    var nav = !sessionStorage.first_name ? _react2.default.createElement(_navbar2.default, null) : null;
+	    var nav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, {
+	      showModal: this.showModal
+	    }) : _react2.default.createElement(_navbar2.default, null);
 	
 	    return _react2.default.createElement(
 	      'div',
@@ -43787,18 +44058,30 @@
 	          _react2.default.createElement(
 	            'div',
 	            { id: 'center-content', className: 'col-sm-8' },
-	            loggedInNav,
 	            nav,
-	            this.props.children
+	            this.props.children,
+	            _react2.default.createElement(
+	              _OutlineModal2.default,
+	              { ref: 'modal', style: modalStyles.container },
+	              _react2.default.createElement(
+	                'h2',
+	                { style: modalStyles.title },
+	                'Thanks for stopping by...see you soon!'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { style: modalStyles.btn, onClick: this.hideModal },
+	                'Close'
+	              )
+	            )
 	          )
 	        )
 	      )
 	    );
 	  }
-	
 	});
 	
-	exports.default = SecondaryTemplate;
+	exports.default = PrimaryTemplate;
 
 /***/ },
 /* 345 */
@@ -43820,6 +44103,8 @@
 	var _navbarSecondary = __webpack_require__(/*! ./navbar-secondary.js */ 346);
 	
 	var _navbarSecondary2 = _interopRequireDefault(_navbarSecondary);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44201,14 +44486,14 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 309);
+	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 318);
 	
 	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var DatePicker = __webpack_require__(/*! react-datepicker */ 349);
-	var moment = __webpack_require__(/*! moment */ 331);
+	var moment = __webpack_require__(/*! moment */ 340);
 	moment().format();
 	
 	var AddCourseDisplay = _react2.default.createClass({
@@ -44394,7 +44679,7 @@
   \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	!function(e,t){ true?module.exports=t(__webpack_require__(/*! moment */ 331),__webpack_require__(/*! react */ 1),__webpack_require__(/*! react-onclickoutside */ 350),__webpack_require__(/*! react-dom */ 34)):"function"==typeof define&&define.amd?define(["moment","react","react-onclickoutside","react-dom"],t):"object"==typeof exports?exports.DatePicker=t(require("moment"),require("react"),require("react-onclickoutside"),require("react-dom")):e.DatePicker=t(e.moment,e.React,e.OnClickOutside,e.ReactDOM)}(this,function(e,t,n,o){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={exports:{},id:o,loaded:!1};return e[o].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(1),i=o(a),s=n(5),l=o(s),p=n(3),d=o(p),f=n(13),u=o(f),c=n(12),h=o(c),m=n(4),y="react-datepicker-ignore-onclickoutside",g=d["default"].createClass({displayName:"DatePicker",propTypes:{autoComplete:d["default"].PropTypes.string,className:d["default"].PropTypes.string,dateFormat:d["default"].PropTypes.oneOfType([d["default"].PropTypes.string,d["default"].PropTypes.array]),dateFormatCalendar:d["default"].PropTypes.string,disabled:d["default"].PropTypes.bool,endDate:d["default"].PropTypes.object,excludeDates:d["default"].PropTypes.array,filterDate:d["default"].PropTypes.func,fixedHeight:d["default"].PropTypes.bool,id:d["default"].PropTypes.string,includeDates:d["default"].PropTypes.array,inline:d["default"].PropTypes.bool,isClearable:d["default"].PropTypes.bool,locale:d["default"].PropTypes.string,maxDate:d["default"].PropTypes.object,minDate:d["default"].PropTypes.object,name:d["default"].PropTypes.string,onBlur:d["default"].PropTypes.func,onChange:d["default"].PropTypes.func.isRequired,onFocus:d["default"].PropTypes.func,openToDate:d["default"].PropTypes.object,placeholderText:d["default"].PropTypes.string,popoverAttachment:d["default"].PropTypes.string,popoverTargetAttachment:d["default"].PropTypes.string,popoverTargetOffset:d["default"].PropTypes.string,readOnly:d["default"].PropTypes.bool,renderCalendarTo:d["default"].PropTypes.any,required:d["default"].PropTypes.bool,selected:d["default"].PropTypes.object,showYearDropdown:d["default"].PropTypes.bool,startDate:d["default"].PropTypes.object,tabIndex:d["default"].PropTypes.number,tetherConstraints:d["default"].PropTypes.array,title:d["default"].PropTypes.string,todayButton:d["default"].PropTypes.string},getDefaultProps:function(){return{dateFormatCalendar:"MMMM YYYY",onChange:function(){},disabled:!1,onFocus:function(){},onBlur:function(){},popoverAttachment:"top left",popoverTargetAttachment:"bottom left",popoverTargetOffset:"10px 0",tetherConstraints:[{to:"window",attachment:"together"}]}},getInitialState:function(){return{open:!1}},setOpen:function(e){this.setState({open:e})},handleFocus:function(e){this.props.onFocus(e),this.setOpen(!0)},handleBlur:function(e){this.state.open?this.refs.input.focus():this.props.onBlur(e)},handleCalendarClickOutside:function(e){this.setOpen(!1)},handleSelect:function(e){this.setSelected(e),this.setOpen(!1)},setSelected:function(e){(0,m.isSameDay)(this.props.selected,e)||this.props.onChange(e)},onInputClick:function(){this.props.disabled||this.setOpen(!0)},onInputKeyDown:function(e){"Enter"===e.key||"Escape"===e.key?(e.preventDefault(),this.setOpen(!1)):"Tab"===e.key&&this.setOpen(!1)},onClearClick:function(e){e.preventDefault(),this.props.onChange(null)},renderCalendar:function(){return this.props.inline||this.state.open&&!this.props.disabled?d["default"].createElement(l["default"],{ref:"calendar",locale:this.props.locale,dateFormat:this.props.dateFormatCalendar,selected:this.props.selected,onSelect:this.handleSelect,openToDate:this.props.openToDate,minDate:this.props.minDate,maxDate:this.props.maxDate,startDate:this.props.startDate,endDate:this.props.endDate,excludeDates:this.props.excludeDates,filterDate:this.props.filterDate,onClickOutside:this.handleCalendarClickOutside,includeDates:this.props.includeDates,showYearDropdown:this.props.showYearDropdown,todayButton:this.props.todayButton,outsideClickIgnoreClass:y,fixedHeight:this.props.fixedHeight}):null},renderDateInput:function(){var e=(0,h["default"])(this.props.className,r({},y,this.state.open));return d["default"].createElement(i["default"],{ref:"input",id:this.props.id,name:this.props.name,date:this.props.selected,locale:this.props.locale,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,filterDate:this.props.filterDate,dateFormat:this.props.dateFormat,onFocus:this.handleFocus,onBlur:this.handleBlur,onClick:this.onInputClick,onKeyDown:this.onInputKeyDown,onChangeDate:this.setSelected,placeholder:this.props.placeholderText,disabled:this.props.disabled,autoComplete:this.props.autoComplete,className:e,title:this.props.title,readOnly:this.props.readOnly,required:this.props.required,tabIndex:this.props.tabIndex})},renderClearButton:function(){return this.props.isClearable&&null!=this.props.selected?d["default"].createElement("a",{className:"react-datepicker__close-icon",href:"#",onClick:this.onClearClick}):null},render:function(){var e=this.renderCalendar();return this.props.inline?e:d["default"].createElement(u["default"],{classPrefix:"react-datepicker__tether",attachment:this.props.popoverAttachment,targetAttachment:this.props.popoverTargetAttachment,targetOffset:this.props.popoverTargetOffset,renderElementTo:this.props.renderCalendarTo,constraints:this.props.tetherConstraints},d["default"].createElement("div",{className:"react-datepicker__input-container"},this.renderDateInput(),this.renderClearButton()),e)}});e.exports=g},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){var n={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(n[o]=e[o]);return n}var a=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},i=n(2),s=o(i),l=n(3),p=o(l),d=n(4),f=p["default"].createClass({displayName:"DateInput",propTypes:{date:p["default"].PropTypes.object,dateFormat:p["default"].PropTypes.oneOfType([p["default"].PropTypes.string,p["default"].PropTypes.array]),disabled:p["default"].PropTypes.bool,excludeDates:p["default"].PropTypes.array,filterDate:p["default"].PropTypes.func,includeDates:p["default"].PropTypes.array,locale:p["default"].PropTypes.string,maxDate:p["default"].PropTypes.object,minDate:p["default"].PropTypes.object,onBlur:p["default"].PropTypes.func,onChange:p["default"].PropTypes.func,onChangeDate:p["default"].PropTypes.func},getDefaultProps:function(){return{dateFormat:"L"}},getInitialState:function(){return{value:this.safeDateFormat(this.props)}},componentWillReceiveProps:function(e){(0,d.isSameDay)(e.date,this.props.date)&&e.locale===this.props.locale&&e.dateFormat===this.props.dateFormat||this.setState({value:this.safeDateFormat(e)})},handleChange:function(e){this.props.onChange&&this.props.onChange(e),e.isDefaultPrevented()||this.handleChangeDate(e.target.value)},handleChangeDate:function(e){if(this.props.onChangeDate){var t=(0,s["default"])(e,this.props.dateFormat,this.props.locale||s["default"].locale(),!0);t.isValid()&&!(0,d.isDayDisabled)(t,this.props)?this.props.onChangeDate(t):""===e&&this.props.onChangeDate(null)}this.setState({value:e})},safeDateFormat:function(e){return e.date&&e.date.clone().locale(e.locale||s["default"].locale()).format(Array.isArray(e.dateFormat)?e.dateFormat[0]:e.dateFormat)||""},handleBlur:function(e){this.setState({value:this.safeDateFormat(this.props)}),this.props.onBlur&&this.props.onBlur(e)},focus:function(){this.refs.input.focus()},render:function(){var e=this.props,t=(e.date,e.locale,e.minDate,e.maxDate,e.excludeDates,e.includeDates,e.filterDate,e.dateFormat,e.onChangeDate,r(e,["date","locale","minDate","maxDate","excludeDates","includeDates","filterDate","dateFormat","onChangeDate"]));return p["default"].createElement("input",a({ref:"input",type:"text"},t,{value:this.state.value,onBlur:this.handleBlur,onChange:this.handleChange}))}});e.exports=f},function(t,n){t.exports=e},function(e,n){e.exports=t},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){return e&&t?e.isSame(t,"day"):!e&&!t}function a(e){var t=arguments.length<=1||void 0===arguments[1]?{}:arguments[1],n=t.minDate,o=t.maxDate,a=t.excludeDates,i=t.includeDates,s=t.filterDate;return n&&e.isBefore(n,"day")||o&&e.isAfter(o,"day")||a&&a.some(function(t){return r(e,t)})||i&&!i.some(function(t){return r(e,t)})||s&&!s(e.clone())||!1}function i(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.minDate,r=n.includeDates,a=e.clone().subtract(1,t);return o&&a.isBefore(o,t)||r&&r.every(function(e){return a.isBefore(e,t)})||!1}function s(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.maxDate,r=n.includeDates,a=e.clone().add(1,t);return o&&a.isAfter(o,t)||r&&r.every(function(e){return a.isAfter(e,t)})||!1}function l(e){var t=e.minDate,n=e.includeDates;return n&&t?f["default"].min(n.filter(function(e){return t.isSameOrBefore(e,"day")})):n?f["default"].min(n):t}function p(e){var t=e.maxDate,n=e.includeDates;return n&&t?f["default"].max(n.filter(function(e){return t.isSameOrAfter(e,"day")})):n?f["default"].max(n):t}Object.defineProperty(t,"__esModule",{value:!0}),t.isSameDay=r,t.isDayDisabled=a,t.allDaysDisabledBefore=i,t.allDaysDisabledAfter=s,t.getEffectiveMinDate=l,t.getEffectiveMaxDate=p;var d=n(2),f=o(d)},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(6),s=o(i),l=n(9),p=o(l),d=n(3),f=o(d),u=n(4),c=f["default"].createClass({displayName:"Calendar",propTypes:{dateFormat:f["default"].PropTypes.string.isRequired,endDate:f["default"].PropTypes.object,excludeDates:f["default"].PropTypes.array,filterDate:f["default"].PropTypes.func,fixedHeight:f["default"].PropTypes.bool,includeDates:f["default"].PropTypes.array,locale:f["default"].PropTypes.string,maxDate:f["default"].PropTypes.object,minDate:f["default"].PropTypes.object,onClickOutside:f["default"].PropTypes.func.isRequired,onSelect:f["default"].PropTypes.func.isRequired,openToDate:f["default"].PropTypes.object,selected:f["default"].PropTypes.object,showYearDropdown:f["default"].PropTypes.bool,startDate:f["default"].PropTypes.object,todayButton:f["default"].PropTypes.string},mixins:[n(8)],getInitialState:function(){return{date:this.localizeMoment(this.getDateInView())}},componentWillReceiveProps:function(e){e.selected&&!(0,u.isSameDay)(e.selected,this.props.selected)&&this.setState({date:this.localizeMoment(e.selected)})},handleClickOutside:function(e){this.props.onClickOutside(e)},getDateInView:function(){var e=this.props,t=e.selected,n=e.openToDate,o=(0,u.getEffectiveMinDate)(this.props),r=(0,u.getEffectiveMaxDate)(this.props),i=(0,a["default"])();return t?t:o&&r&&n&&n.isBetween(o,r)?n:o&&n&&n.isAfter(o)?n:o&&o.isAfter(i)?o:r&&n&&n.isBefore(r)?n:r&&r.isBefore(i)?r:n?n:i},localizeMoment:function(e){return e.clone().locale(this.props.locale||a["default"].locale())},increaseMonth:function(){this.setState({date:this.state.date.clone().add(1,"month")})},decreaseMonth:function(){this.setState({date:this.state.date.clone().subtract(1,"month")})},handleDayClick:function(e){this.props.onSelect(e)},changeYear:function(e){this.setState({date:this.state.date.clone().set("year",e)})},header:function(){var e=this.state.date.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(t){var n=e.clone().add(t,"days");return f["default"].createElement("div",{key:t,className:"react-datepicker__day-name"},n.localeData().weekdaysMin(n))})},renderPreviousMonthButton:function(){if(!(0,u.allDaysDisabledBefore)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--previous",onClick:this.decreaseMonth})},renderNextMonthButton:function(){if(!(0,u.allDaysDisabledAfter)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--next",onClick:this.increaseMonth})},renderCurrentMonth:function(){var e=["react-datepicker__current-month"];return this.props.showYearDropdown&&e.push("react-datepicker__current-month--hasYearDropdown"),f["default"].createElement("div",{className:e.join(" ")},this.state.date.format(this.props.dateFormat))},renderYearDropdown:function(){if(this.props.showYearDropdown)return f["default"].createElement(s["default"],{onChange:this.changeYear,year:this.state.date.year()})},renderTodayButton:function(){var e=this;if(this.props.todayButton)return f["default"].createElement("div",{className:"react-datepicker__today-button",onClick:function(){return e.props.onSelect((0,a["default"])())}},this.props.todayButton)},render:function(){return f["default"].createElement("div",{className:"react-datepicker"},f["default"].createElement("div",{className:"react-datepicker__triangle"}),f["default"].createElement("div",{className:"react-datepicker__header"},this.renderPreviousMonthButton(),this.renderCurrentMonth(),this.renderYearDropdown(),this.renderNextMonthButton(),f["default"].createElement("div",null,this.header())),f["default"].createElement(p["default"],{day:this.state.date,onDayClick:this.handleDayClick,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,fixedHeight:this.props.fixedHeight,filterDate:this.props.filterDate,selected:this.props.selected,startDate:this.props.startDate,endDate:this.props.endDate}),this.renderTodayButton())}});e.exports=c},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(7),s=o(i),l=a["default"].createClass({displayName:"YearDropdown",propTypes:{onChange:a["default"].PropTypes.func.isRequired,year:a["default"].PropTypes.number.isRequired},getInitialState:function(){return{dropdownVisible:!1}},renderReadView:function(){return a["default"].createElement("div",{className:"react-datepicker__year-read-view",onClick:this.toggleDropdown},a["default"].createElement("span",{className:"react-datepicker__year-read-view--selected-year"},this.props.year),a["default"].createElement("span",{className:"react-datepicker__year-read-view--down-arrow"}))},renderDropdown:function(){return a["default"].createElement(s["default"],{ref:"options",year:this.props.year,onChange:this.onChange,onCancel:this.toggleDropdown})},onChange:function(e){this.toggleDropdown(),e!==this.props.year&&this.props.onChange(e)},toggleDropdown:function(){this.setState({dropdownVisible:!this.state.dropdownVisible})},render:function(){return a["default"].createElement("div",null,this.state.dropdownVisible?this.renderDropdown():this.renderReadView())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e){for(var t=[],n=0;n<5;n++)t.push(e-n);return t}var a=n(3),i=o(a),s=i["default"].createClass({displayName:"YearDropdownOptions",propTypes:{onCancel:i["default"].PropTypes.func.isRequired,onChange:i["default"].PropTypes.func.isRequired,year:i["default"].PropTypes.number.isRequired},mixins:[n(8)],getInitialState:function(){return{yearsList:r(this.props.year)}},renderOptions:function(){var e=this,t=this.props.year,n=this.state.yearsList.map(function(n){return i["default"].createElement("div",{className:"react-datepicker__year-option",key:n,onClick:e.onChange.bind(e,n)},t===n?i["default"].createElement("span",{className:"react-datepicker__year-option--selected"},"✓"):"",n)});return n.unshift(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"upcoming",key:"upcoming",onClick:this.incrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"}))),n.push(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"previous",key:"previous",onClick:this.decrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-previous"}))),n},onChange:function(e){this.props.onChange(e)},handleClickOutside:function(){this.props.onCancel()},shiftYears:function(e){var t=this.state.yearsList.map(function(t){return t+e});this.setState({yearsList:t})},incrementYears:function(){return this.shiftYears(1)},decrementYears:function(){return this.shiftYears(-1)},render:function(){return i["default"].createElement("div",{className:"react-datepicker__year-dropdown"},this.renderOptions())}});e.exports=s},function(e,t){e.exports=n},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(10),s=o(i),l=a["default"].createClass({displayName:"Month",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,fixedHeight:a["default"].PropTypes.bool,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},isWeekInMonth:function(e){var t=this.props.day,n=e.clone().add(6,"days");return e.isSame(t,"month")||n.isSame(t,"month")},renderWeeks:function(){var e=this,t=this.props.day.clone().startOf("month").startOf("week");return[0,1,2,3,4,5].map(function(e){return t.clone().add(e,"weeks")}).filter(function(t){return e.props.fixedHeight||e.isWeekInMonth(t)}).map(function(t,n){return a["default"].createElement(s["default"],{key:n,day:t,month:e.props.day.month(),onDayClick:e.handleDayClick,minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__month",role:"listbox"},this.renderWeeks())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(11),s=o(i),l=a["default"].createClass({displayName:"Week",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,month:a["default"].PropTypes.number,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},renderDays:function(){var e=this,t=this.props.day.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(n){var o=t.clone().add(n,"days");return a["default"].createElement(s["default"],{key:n,day:o,month:e.props.month,onClick:e.handleDayClick.bind(e,o),minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__week"},this.renderDays())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(3),s=o(i),l=n(12),p=o(l),d=n(4),f=s["default"].createClass({displayName:"Day",propTypes:{day:s["default"].PropTypes.object.isRequired,endDate:s["default"].PropTypes.object,excludeDates:s["default"].PropTypes.array,filterDate:s["default"].PropTypes.func,includeDates:s["default"].PropTypes.array,maxDate:s["default"].PropTypes.object,minDate:s["default"].PropTypes.object,month:s["default"].PropTypes.number,onClick:s["default"].PropTypes.func,selected:s["default"].PropTypes.object,startDate:s["default"].PropTypes.object},handleClick:function(e){!this.isDisabled()&&this.props.onClick&&this.props.onClick(e)},isSameDay:function(e){return(0,d.isSameDay)(this.props.day,e)},isDisabled:function(){return(0,d.isDayDisabled)(this.props.day,this.props)},isInRange:function(){var e=this.props,t=e.day,n=e.startDate,o=e.endDate;if(!n||!o)return!1;var r=n.clone().startOf("day").subtract(1,"seconds"),a=o.clone().startOf("day").add(1,"seconds");return t.clone().startOf("day").isBetween(r,a)},isWeekend:function(){var e=this.props.day.day();return 0===e||6===e},isOutsideMonth:function(){return void 0!==this.props.month&&this.props.month!==this.props.day.month()},getClassNames:function(){return(0,p["default"])("react-datepicker__day",{"react-datepicker__day--disabled":this.isDisabled(),"react-datepicker__day--selected":this.isSameDay(this.props.selected),"react-datepicker__day--in-range":this.isInRange(),"react-datepicker__day--today":this.isSameDay((0,a["default"])()),"react-datepicker__day--weekend":this.isWeekend(),"react-datepicker__day--outside-month":this.isOutsideMonth()})},render:function(){return s["default"].createElement("div",{className:this.getClassNames(),onClick:this.handleClick,"aria-label":"day-"+this.props.day.date(),role:"option"},this.props.day.date())}});e.exports=f},function(e,t,n){var o,r;/*!
+	!function(e,t){ true?module.exports=t(__webpack_require__(/*! moment */ 340),__webpack_require__(/*! react */ 1),__webpack_require__(/*! react-onclickoutside */ 350),__webpack_require__(/*! react-dom */ 34)):"function"==typeof define&&define.amd?define(["moment","react","react-onclickoutside","react-dom"],t):"object"==typeof exports?exports.DatePicker=t(require("moment"),require("react"),require("react-onclickoutside"),require("react-dom")):e.DatePicker=t(e.moment,e.React,e.OnClickOutside,e.ReactDOM)}(this,function(e,t,n,o){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={exports:{},id:o,loaded:!1};return e[o].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(1),i=o(a),s=n(5),l=o(s),p=n(3),d=o(p),f=n(13),u=o(f),c=n(12),h=o(c),m=n(4),y="react-datepicker-ignore-onclickoutside",g=d["default"].createClass({displayName:"DatePicker",propTypes:{autoComplete:d["default"].PropTypes.string,className:d["default"].PropTypes.string,dateFormat:d["default"].PropTypes.oneOfType([d["default"].PropTypes.string,d["default"].PropTypes.array]),dateFormatCalendar:d["default"].PropTypes.string,disabled:d["default"].PropTypes.bool,endDate:d["default"].PropTypes.object,excludeDates:d["default"].PropTypes.array,filterDate:d["default"].PropTypes.func,fixedHeight:d["default"].PropTypes.bool,id:d["default"].PropTypes.string,includeDates:d["default"].PropTypes.array,inline:d["default"].PropTypes.bool,isClearable:d["default"].PropTypes.bool,locale:d["default"].PropTypes.string,maxDate:d["default"].PropTypes.object,minDate:d["default"].PropTypes.object,name:d["default"].PropTypes.string,onBlur:d["default"].PropTypes.func,onChange:d["default"].PropTypes.func.isRequired,onFocus:d["default"].PropTypes.func,openToDate:d["default"].PropTypes.object,placeholderText:d["default"].PropTypes.string,popoverAttachment:d["default"].PropTypes.string,popoverTargetAttachment:d["default"].PropTypes.string,popoverTargetOffset:d["default"].PropTypes.string,readOnly:d["default"].PropTypes.bool,renderCalendarTo:d["default"].PropTypes.any,required:d["default"].PropTypes.bool,selected:d["default"].PropTypes.object,showYearDropdown:d["default"].PropTypes.bool,startDate:d["default"].PropTypes.object,tabIndex:d["default"].PropTypes.number,tetherConstraints:d["default"].PropTypes.array,title:d["default"].PropTypes.string,todayButton:d["default"].PropTypes.string},getDefaultProps:function(){return{dateFormatCalendar:"MMMM YYYY",onChange:function(){},disabled:!1,onFocus:function(){},onBlur:function(){},popoverAttachment:"top left",popoverTargetAttachment:"bottom left",popoverTargetOffset:"10px 0",tetherConstraints:[{to:"window",attachment:"together"}]}},getInitialState:function(){return{open:!1}},setOpen:function(e){this.setState({open:e})},handleFocus:function(e){this.props.onFocus(e),this.setOpen(!0)},handleBlur:function(e){this.state.open?this.refs.input.focus():this.props.onBlur(e)},handleCalendarClickOutside:function(e){this.setOpen(!1)},handleSelect:function(e){this.setSelected(e),this.setOpen(!1)},setSelected:function(e){(0,m.isSameDay)(this.props.selected,e)||this.props.onChange(e)},onInputClick:function(){this.props.disabled||this.setOpen(!0)},onInputKeyDown:function(e){"Enter"===e.key||"Escape"===e.key?(e.preventDefault(),this.setOpen(!1)):"Tab"===e.key&&this.setOpen(!1)},onClearClick:function(e){e.preventDefault(),this.props.onChange(null)},renderCalendar:function(){return this.props.inline||this.state.open&&!this.props.disabled?d["default"].createElement(l["default"],{ref:"calendar",locale:this.props.locale,dateFormat:this.props.dateFormatCalendar,selected:this.props.selected,onSelect:this.handleSelect,openToDate:this.props.openToDate,minDate:this.props.minDate,maxDate:this.props.maxDate,startDate:this.props.startDate,endDate:this.props.endDate,excludeDates:this.props.excludeDates,filterDate:this.props.filterDate,onClickOutside:this.handleCalendarClickOutside,includeDates:this.props.includeDates,showYearDropdown:this.props.showYearDropdown,todayButton:this.props.todayButton,outsideClickIgnoreClass:y,fixedHeight:this.props.fixedHeight}):null},renderDateInput:function(){var e=(0,h["default"])(this.props.className,r({},y,this.state.open));return d["default"].createElement(i["default"],{ref:"input",id:this.props.id,name:this.props.name,date:this.props.selected,locale:this.props.locale,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,filterDate:this.props.filterDate,dateFormat:this.props.dateFormat,onFocus:this.handleFocus,onBlur:this.handleBlur,onClick:this.onInputClick,onKeyDown:this.onInputKeyDown,onChangeDate:this.setSelected,placeholder:this.props.placeholderText,disabled:this.props.disabled,autoComplete:this.props.autoComplete,className:e,title:this.props.title,readOnly:this.props.readOnly,required:this.props.required,tabIndex:this.props.tabIndex})},renderClearButton:function(){return this.props.isClearable&&null!=this.props.selected?d["default"].createElement("a",{className:"react-datepicker__close-icon",href:"#",onClick:this.onClearClick}):null},render:function(){var e=this.renderCalendar();return this.props.inline?e:d["default"].createElement(u["default"],{classPrefix:"react-datepicker__tether",attachment:this.props.popoverAttachment,targetAttachment:this.props.popoverTargetAttachment,targetOffset:this.props.popoverTargetOffset,renderElementTo:this.props.renderCalendarTo,constraints:this.props.tetherConstraints},d["default"].createElement("div",{className:"react-datepicker__input-container"},this.renderDateInput(),this.renderClearButton()),e)}});e.exports=g},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){var n={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(n[o]=e[o]);return n}var a=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},i=n(2),s=o(i),l=n(3),p=o(l),d=n(4),f=p["default"].createClass({displayName:"DateInput",propTypes:{date:p["default"].PropTypes.object,dateFormat:p["default"].PropTypes.oneOfType([p["default"].PropTypes.string,p["default"].PropTypes.array]),disabled:p["default"].PropTypes.bool,excludeDates:p["default"].PropTypes.array,filterDate:p["default"].PropTypes.func,includeDates:p["default"].PropTypes.array,locale:p["default"].PropTypes.string,maxDate:p["default"].PropTypes.object,minDate:p["default"].PropTypes.object,onBlur:p["default"].PropTypes.func,onChange:p["default"].PropTypes.func,onChangeDate:p["default"].PropTypes.func},getDefaultProps:function(){return{dateFormat:"L"}},getInitialState:function(){return{value:this.safeDateFormat(this.props)}},componentWillReceiveProps:function(e){(0,d.isSameDay)(e.date,this.props.date)&&e.locale===this.props.locale&&e.dateFormat===this.props.dateFormat||this.setState({value:this.safeDateFormat(e)})},handleChange:function(e){this.props.onChange&&this.props.onChange(e),e.isDefaultPrevented()||this.handleChangeDate(e.target.value)},handleChangeDate:function(e){if(this.props.onChangeDate){var t=(0,s["default"])(e,this.props.dateFormat,this.props.locale||s["default"].locale(),!0);t.isValid()&&!(0,d.isDayDisabled)(t,this.props)?this.props.onChangeDate(t):""===e&&this.props.onChangeDate(null)}this.setState({value:e})},safeDateFormat:function(e){return e.date&&e.date.clone().locale(e.locale||s["default"].locale()).format(Array.isArray(e.dateFormat)?e.dateFormat[0]:e.dateFormat)||""},handleBlur:function(e){this.setState({value:this.safeDateFormat(this.props)}),this.props.onBlur&&this.props.onBlur(e)},focus:function(){this.refs.input.focus()},render:function(){var e=this.props,t=(e.date,e.locale,e.minDate,e.maxDate,e.excludeDates,e.includeDates,e.filterDate,e.dateFormat,e.onChangeDate,r(e,["date","locale","minDate","maxDate","excludeDates","includeDates","filterDate","dateFormat","onChangeDate"]));return p["default"].createElement("input",a({ref:"input",type:"text"},t,{value:this.state.value,onBlur:this.handleBlur,onChange:this.handleChange}))}});e.exports=f},function(t,n){t.exports=e},function(e,n){e.exports=t},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){return e&&t?e.isSame(t,"day"):!e&&!t}function a(e){var t=arguments.length<=1||void 0===arguments[1]?{}:arguments[1],n=t.minDate,o=t.maxDate,a=t.excludeDates,i=t.includeDates,s=t.filterDate;return n&&e.isBefore(n,"day")||o&&e.isAfter(o,"day")||a&&a.some(function(t){return r(e,t)})||i&&!i.some(function(t){return r(e,t)})||s&&!s(e.clone())||!1}function i(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.minDate,r=n.includeDates,a=e.clone().subtract(1,t);return o&&a.isBefore(o,t)||r&&r.every(function(e){return a.isBefore(e,t)})||!1}function s(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.maxDate,r=n.includeDates,a=e.clone().add(1,t);return o&&a.isAfter(o,t)||r&&r.every(function(e){return a.isAfter(e,t)})||!1}function l(e){var t=e.minDate,n=e.includeDates;return n&&t?f["default"].min(n.filter(function(e){return t.isSameOrBefore(e,"day")})):n?f["default"].min(n):t}function p(e){var t=e.maxDate,n=e.includeDates;return n&&t?f["default"].max(n.filter(function(e){return t.isSameOrAfter(e,"day")})):n?f["default"].max(n):t}Object.defineProperty(t,"__esModule",{value:!0}),t.isSameDay=r,t.isDayDisabled=a,t.allDaysDisabledBefore=i,t.allDaysDisabledAfter=s,t.getEffectiveMinDate=l,t.getEffectiveMaxDate=p;var d=n(2),f=o(d)},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(6),s=o(i),l=n(9),p=o(l),d=n(3),f=o(d),u=n(4),c=f["default"].createClass({displayName:"Calendar",propTypes:{dateFormat:f["default"].PropTypes.string.isRequired,endDate:f["default"].PropTypes.object,excludeDates:f["default"].PropTypes.array,filterDate:f["default"].PropTypes.func,fixedHeight:f["default"].PropTypes.bool,includeDates:f["default"].PropTypes.array,locale:f["default"].PropTypes.string,maxDate:f["default"].PropTypes.object,minDate:f["default"].PropTypes.object,onClickOutside:f["default"].PropTypes.func.isRequired,onSelect:f["default"].PropTypes.func.isRequired,openToDate:f["default"].PropTypes.object,selected:f["default"].PropTypes.object,showYearDropdown:f["default"].PropTypes.bool,startDate:f["default"].PropTypes.object,todayButton:f["default"].PropTypes.string},mixins:[n(8)],getInitialState:function(){return{date:this.localizeMoment(this.getDateInView())}},componentWillReceiveProps:function(e){e.selected&&!(0,u.isSameDay)(e.selected,this.props.selected)&&this.setState({date:this.localizeMoment(e.selected)})},handleClickOutside:function(e){this.props.onClickOutside(e)},getDateInView:function(){var e=this.props,t=e.selected,n=e.openToDate,o=(0,u.getEffectiveMinDate)(this.props),r=(0,u.getEffectiveMaxDate)(this.props),i=(0,a["default"])();return t?t:o&&r&&n&&n.isBetween(o,r)?n:o&&n&&n.isAfter(o)?n:o&&o.isAfter(i)?o:r&&n&&n.isBefore(r)?n:r&&r.isBefore(i)?r:n?n:i},localizeMoment:function(e){return e.clone().locale(this.props.locale||a["default"].locale())},increaseMonth:function(){this.setState({date:this.state.date.clone().add(1,"month")})},decreaseMonth:function(){this.setState({date:this.state.date.clone().subtract(1,"month")})},handleDayClick:function(e){this.props.onSelect(e)},changeYear:function(e){this.setState({date:this.state.date.clone().set("year",e)})},header:function(){var e=this.state.date.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(t){var n=e.clone().add(t,"days");return f["default"].createElement("div",{key:t,className:"react-datepicker__day-name"},n.localeData().weekdaysMin(n))})},renderPreviousMonthButton:function(){if(!(0,u.allDaysDisabledBefore)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--previous",onClick:this.decreaseMonth})},renderNextMonthButton:function(){if(!(0,u.allDaysDisabledAfter)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--next",onClick:this.increaseMonth})},renderCurrentMonth:function(){var e=["react-datepicker__current-month"];return this.props.showYearDropdown&&e.push("react-datepicker__current-month--hasYearDropdown"),f["default"].createElement("div",{className:e.join(" ")},this.state.date.format(this.props.dateFormat))},renderYearDropdown:function(){if(this.props.showYearDropdown)return f["default"].createElement(s["default"],{onChange:this.changeYear,year:this.state.date.year()})},renderTodayButton:function(){var e=this;if(this.props.todayButton)return f["default"].createElement("div",{className:"react-datepicker__today-button",onClick:function(){return e.props.onSelect((0,a["default"])())}},this.props.todayButton)},render:function(){return f["default"].createElement("div",{className:"react-datepicker"},f["default"].createElement("div",{className:"react-datepicker__triangle"}),f["default"].createElement("div",{className:"react-datepicker__header"},this.renderPreviousMonthButton(),this.renderCurrentMonth(),this.renderYearDropdown(),this.renderNextMonthButton(),f["default"].createElement("div",null,this.header())),f["default"].createElement(p["default"],{day:this.state.date,onDayClick:this.handleDayClick,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,fixedHeight:this.props.fixedHeight,filterDate:this.props.filterDate,selected:this.props.selected,startDate:this.props.startDate,endDate:this.props.endDate}),this.renderTodayButton())}});e.exports=c},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(7),s=o(i),l=a["default"].createClass({displayName:"YearDropdown",propTypes:{onChange:a["default"].PropTypes.func.isRequired,year:a["default"].PropTypes.number.isRequired},getInitialState:function(){return{dropdownVisible:!1}},renderReadView:function(){return a["default"].createElement("div",{className:"react-datepicker__year-read-view",onClick:this.toggleDropdown},a["default"].createElement("span",{className:"react-datepicker__year-read-view--selected-year"},this.props.year),a["default"].createElement("span",{className:"react-datepicker__year-read-view--down-arrow"}))},renderDropdown:function(){return a["default"].createElement(s["default"],{ref:"options",year:this.props.year,onChange:this.onChange,onCancel:this.toggleDropdown})},onChange:function(e){this.toggleDropdown(),e!==this.props.year&&this.props.onChange(e)},toggleDropdown:function(){this.setState({dropdownVisible:!this.state.dropdownVisible})},render:function(){return a["default"].createElement("div",null,this.state.dropdownVisible?this.renderDropdown():this.renderReadView())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e){for(var t=[],n=0;n<5;n++)t.push(e-n);return t}var a=n(3),i=o(a),s=i["default"].createClass({displayName:"YearDropdownOptions",propTypes:{onCancel:i["default"].PropTypes.func.isRequired,onChange:i["default"].PropTypes.func.isRequired,year:i["default"].PropTypes.number.isRequired},mixins:[n(8)],getInitialState:function(){return{yearsList:r(this.props.year)}},renderOptions:function(){var e=this,t=this.props.year,n=this.state.yearsList.map(function(n){return i["default"].createElement("div",{className:"react-datepicker__year-option",key:n,onClick:e.onChange.bind(e,n)},t===n?i["default"].createElement("span",{className:"react-datepicker__year-option--selected"},"✓"):"",n)});return n.unshift(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"upcoming",key:"upcoming",onClick:this.incrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"}))),n.push(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"previous",key:"previous",onClick:this.decrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-previous"}))),n},onChange:function(e){this.props.onChange(e)},handleClickOutside:function(){this.props.onCancel()},shiftYears:function(e){var t=this.state.yearsList.map(function(t){return t+e});this.setState({yearsList:t})},incrementYears:function(){return this.shiftYears(1)},decrementYears:function(){return this.shiftYears(-1)},render:function(){return i["default"].createElement("div",{className:"react-datepicker__year-dropdown"},this.renderOptions())}});e.exports=s},function(e,t){e.exports=n},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(10),s=o(i),l=a["default"].createClass({displayName:"Month",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,fixedHeight:a["default"].PropTypes.bool,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},isWeekInMonth:function(e){var t=this.props.day,n=e.clone().add(6,"days");return e.isSame(t,"month")||n.isSame(t,"month")},renderWeeks:function(){var e=this,t=this.props.day.clone().startOf("month").startOf("week");return[0,1,2,3,4,5].map(function(e){return t.clone().add(e,"weeks")}).filter(function(t){return e.props.fixedHeight||e.isWeekInMonth(t)}).map(function(t,n){return a["default"].createElement(s["default"],{key:n,day:t,month:e.props.day.month(),onDayClick:e.handleDayClick,minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__month",role:"listbox"},this.renderWeeks())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(11),s=o(i),l=a["default"].createClass({displayName:"Week",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,month:a["default"].PropTypes.number,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},renderDays:function(){var e=this,t=this.props.day.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(n){var o=t.clone().add(n,"days");return a["default"].createElement(s["default"],{key:n,day:o,month:e.props.month,onClick:e.handleDayClick.bind(e,o),minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__week"},this.renderDays())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(3),s=o(i),l=n(12),p=o(l),d=n(4),f=s["default"].createClass({displayName:"Day",propTypes:{day:s["default"].PropTypes.object.isRequired,endDate:s["default"].PropTypes.object,excludeDates:s["default"].PropTypes.array,filterDate:s["default"].PropTypes.func,includeDates:s["default"].PropTypes.array,maxDate:s["default"].PropTypes.object,minDate:s["default"].PropTypes.object,month:s["default"].PropTypes.number,onClick:s["default"].PropTypes.func,selected:s["default"].PropTypes.object,startDate:s["default"].PropTypes.object},handleClick:function(e){!this.isDisabled()&&this.props.onClick&&this.props.onClick(e)},isSameDay:function(e){return(0,d.isSameDay)(this.props.day,e)},isDisabled:function(){return(0,d.isDayDisabled)(this.props.day,this.props)},isInRange:function(){var e=this.props,t=e.day,n=e.startDate,o=e.endDate;if(!n||!o)return!1;var r=n.clone().startOf("day").subtract(1,"seconds"),a=o.clone().startOf("day").add(1,"seconds");return t.clone().startOf("day").isBetween(r,a)},isWeekend:function(){var e=this.props.day.day();return 0===e||6===e},isOutsideMonth:function(){return void 0!==this.props.month&&this.props.month!==this.props.day.month()},getClassNames:function(){return(0,p["default"])("react-datepicker__day",{"react-datepicker__day--disabled":this.isDisabled(),"react-datepicker__day--selected":this.isSameDay(this.props.selected),"react-datepicker__day--in-range":this.isInRange(),"react-datepicker__day--today":this.isSameDay((0,a["default"])()),"react-datepicker__day--weekend":this.isWeekend(),"react-datepicker__day--outside-month":this.isOutsideMonth()})},render:function(){return s["default"].createElement("div",{className:this.getClassNames(),onClick:this.handleClick,"aria-label":"day-"+this.props.day.date(),role:"option"},this.props.day.date())}});e.exports=f},function(e,t,n){var o,r;/*!
 		  Copyright (c) 2016 Jed Watson.
 		  Licensed under the MIT License (MIT), see
 		  http://jedwatson.github.io/classnames
@@ -44668,7 +44953,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 323);
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 332);
 	
 	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
 	
@@ -44725,161 +45010,6 @@
 	});
 	
 	exports.default = CourseList;
-
-/***/ },
-/* 353 */
-/*!*********************************!*\
-  !*** ./~/boron/OutlineModal.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var modalFactory = __webpack_require__(/*! ./modalFactory */ 336);
-	var insertKeyframesRule = __webpack_require__(/*! domkit/insertKeyframesRule */ 341);
-	var appendVendorPrefix = __webpack_require__(/*! domkit/appendVendorPrefix */ 338);
-	
-	var animation = {
-	    show: {
-	        animationDuration: '0.8s',
-	        animationTimingFunction: 'cubic-bezier(0.6,0,0.4,1)'
-	    },
-	    hide: {
-	        animationDuration: '0.4s',
-	        animationTimingFunction: 'ease-out'
-	    },
-	    showContentAnimation: insertKeyframesRule({
-	        '0%': {
-	            opacity: 0,
-	        },
-	        '40%':{
-	            opacity: 0
-	        },
-	        '100%': {
-	            opacity: 1,
-	        }
-	    }),
-	
-	    hideContentAnimation: insertKeyframesRule({
-	        '0%': {
-	            opacity: 1
-	        },
-	        '100%': {
-	            opacity: 0,
-	        }
-	    }),
-	
-	    showBackdropAnimation: insertKeyframesRule({
-	        '0%': {
-	            opacity: 0
-	        },
-	        '100%': {
-	            opacity: 0.9
-	        },
-	    }),
-	
-	    hideBackdropAnimation: insertKeyframesRule({
-	        '0%': {
-	            opacity: 0.9
-	        },
-	        '100%': {
-	            opacity: 0
-	        }
-	    })
-	};
-	
-	var showAnimation = animation.show;
-	var hideAnimation = animation.hide;
-	var showContentAnimation = animation.showContentAnimation;
-	var hideContentAnimation = animation.hideContentAnimation;
-	var showBackdropAnimation = animation.showBackdropAnimation;
-	var hideBackdropAnimation = animation.hideBackdropAnimation;
-	
-	module.exports = modalFactory({
-	    getRef: function(willHidden) {
-	        return 'content';
-	    },
-	    getSharp: function(willHidden) {
-	        var strokeDashLength = 1680;
-	
-	        var showSharpAnimation = insertKeyframesRule({
-	            '0%': {
-	                'stroke-dashoffset': strokeDashLength
-	            },
-	            '100%': {
-	                'stroke-dashoffset': 0
-	            },
-	        });
-	
-	
-	        var sharpStyle = {
-	            position: 'absolute',
-	            width: 'calc(100%)',
-	            height: 'calc(100%)',
-	            zIndex: '-1'
-	        };
-	
-	        var rectStyle = appendVendorPrefix({
-	            animationDuration: willHidden? '0.4s' :'0.8s',
-	            animationFillMode: 'forwards',
-	            animationName: willHidden? hideContentAnimation: showSharpAnimation,
-	            stroke: '#ffffff',
-	            strokeWidth: '2px',
-	            strokeDasharray: strokeDashLength
-	        });
-	
-	        return React.createElement("div", {style: sharpStyle}, 
-	            React.createElement("svg", {
-	                xmlns: "http://www.w3.org/2000/svg", 
-	                width: "100%", 
-	                height: "100%", 
-	                viewBox: "0 0 496 136", 
-	                preserveAspectRatio: "none"}, 
-	                React.createElement("rect", {style: rectStyle, 
-	                    x: "2", 
-	                    y: "2", 
-	                    fill: "none", 
-	                    width: "492", 
-	                    height: "132"})
-	            )
-	        )
-	    },
-	    getModalStyle: function(willHidden) {
-	        return appendVendorPrefix({
-	            zIndex: 1050,
-	            position: "fixed",
-	            width: "500px",
-	            transform: "translate3d(-50%, -50%, 0)",
-	            top: "50%",
-	            left: "50%"
-	        })
-	    },
-	    getBackdropStyle: function(willHidden) {
-	        return appendVendorPrefix({
-	            position: "fixed",
-	            top: 0,
-	            right: 0,
-	            bottom: 0,
-	            left: 0,
-	            zIndex: 1040,
-	            backgroundColor: "#373A47",
-	            animationFillMode: 'forwards',
-	            animationDuration: '0.4s',
-	            animationName: willHidden ? hideBackdropAnimation : showBackdropAnimation,
-	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
-	        });
-	    },
-	    getContentStyle: function(willHidden) {
-	        return appendVendorPrefix({
-	            margin: 0,
-	            backgroundColor: "white",
-	            animationDuration: (willHidden ? hideAnimation : showAnimation).animationDuration,
-	            animationFillMode: 'forwards',
-	            animationName: willHidden ? hideContentAnimation : showContentAnimation,
-	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
-	        })
-	    }
-	});
-
 
 /***/ }
 /******/ ]);

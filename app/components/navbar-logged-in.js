@@ -1,13 +1,14 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import Modal from 'boron/OutlineModal';
+
 
 var NavbarLoggedIn = React.createClass({
 
   handleLogoutSubmit: function(){
     sessionStorage.clear();
-    browserHistory.push('/');
+    this.props.showModal();
   },
-
 
   render: function(){
 
@@ -26,6 +27,7 @@ var NavbarLoggedIn = React.createClass({
     }
 
     return (
+
       <nav className="row">
         <nav className="navbar">
           <div className="container-fluid">
@@ -43,7 +45,7 @@ var NavbarLoggedIn = React.createClass({
                   <span className="caret"></span>
                 </li>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li><Link to={'/users/'+ id}>Profile</Link></li>
+                  <li><Link to={'/users/'+ id}>Dashboard</Link></li>
                   <li onClick={this.handleLogoutSubmit}><Link to="#">Logout</Link></li>
                 </ul>
               <li><div style={userPic}></div></li>

@@ -190,7 +190,6 @@ input:focus, textarea:focus, select:focus {
 	text-align: center;
 }
 #class-display h4 {
-	color: orange;
 	font-size: 1.5em;
 	margin: 25px 0 25px 0;
 	text-align: center;
@@ -415,22 +414,22 @@ hr {
   border-width: 0;
 }
 ::-webkit-input-placeholder {
-   color: black;
+   color: gray;
 	 font-weight: 400;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: black;
+   color: gray;
 	 font-weight: 400;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   color: black;
+   color: gray;
 	 font-weight: 400;
 }
 
 :-ms-input-placeholder {
-   color: black;
+   color: gray;
 	 font-weight: 400;
 }
 .course-display-change {
@@ -453,6 +452,7 @@ hr {
 .pointer {
 	cursor: pointer;
 }
+
 /*footer*/
 footer {
 	width: 100%;

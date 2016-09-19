@@ -2,6 +2,7 @@
 
 import React from 'react';
 import NavbarSecondary from './navbar-secondary.js';
+import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 
 var SecondaryTemplate = React.createClass({
 
@@ -25,6 +26,5 @@ var SecondaryTemplate = React.createClass({
   }
 
 });
-
 
 export default SecondaryTemplate;

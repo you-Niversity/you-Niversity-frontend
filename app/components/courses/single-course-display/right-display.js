@@ -13,17 +13,24 @@ var RightDisplay = React.createClass({
       "Hide Reviews" :
       "Show Reviews";
 
-    var signupButton = (sessionStorage.first_name) ?
+    var signupButton = (sessionStorage.first_name && !this.props.isUserEnrolledInCourse) ?
+      <div onClick={this.props.handleUserSignup} className="btn-div">Sign Up</div>
+      : null;
 
-      <div onClick={this.props.handleUserSignup} className="btn-div">Sign Up</div> :
+    var loginButton = (!sessionStorage.first_name) ?
+      <Link to="/login"><div className="btn-div">Log In <br/>to Sign Up</div></Link>
+      : null;
 
-      <Link to="/login"><div className="btn-div">Log In <br/>to Sign Up</div></Link>;
-
+    var enrolledInCourse = (this.props.isUserEnrolledInCourse) ?
+      <div className="btn-div">Enrolled!</div>
+      : null;
 
     return (
       <div>
 
         {signupButton}
+        {loginButton}
+        {enrolledInCourse}
 
         <div className="btn-div">{this.props.data.seats_remaining} seats left</div>
         <TaughtBy

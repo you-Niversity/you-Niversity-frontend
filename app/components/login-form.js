@@ -5,6 +5,34 @@ import request from 'superagent';
 import { connect } from 'react-redux';
 import store from '../store';
 import { userLoginSuccess } from '../actions/user-actions';
+import Modal from 'boron/OutlineModal';
+
+var modalStyles = {
+  btn: {
+    padding: '1em 2em',
+    width: '25%',
+    margin: '1em 0 2em 37.5%',
+    outline: 'none',
+    fontSize: 16,
+    fontWeight: '600',
+    background: 'orange',
+    color: '#FFFFFF',
+    border: 'none',
+    borderRadius: '3px'
+  },
+  container: {
+    padding: '2em',
+    textAlign: 'center'
+  },
+  title: {
+    margin: 0,
+    paddingTop: '2em',
+    fontSize: '1.5em',
+    color: 'orange',
+    textAlign: 'center',
+    fontWeight: 400
+  }
+};
 
  var LoginDisplay = React.createClass({
 
@@ -35,15 +63,29 @@ import { userLoginSuccess } from '../actions/user-actions';
           sessionStorage.setItem('first_name', this.props.userState.profile.first_name);
           sessionStorage.setItem('user_id', this.props.userState.profile.id);
           sessionStorage.setItem('image_url', res.body.profile.profile_pic);
-
-          browserHistory.push('/users/' + this.props.userState.profile.id);
+          this.showModal();
         }
       }.bind(this));
+  },
+
+  showModal: function(){
+      this.refs.modal.show();
+  },
+
+  hideModal: function(){
+      this.refs.modal.hide();
+      browserHistory.push('/users/' + this.props.userState.profile.id);
   },
 
   render: function(){
     return (
       <div className="row">
+
+        <Modal ref="modal" style={modalStyles.container}>
+            <h2 style={modalStyles.title}>Login successful!</h2>
+            <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
+        </Modal>
+
         <div className="col-sm-4"></div>
         <div className="col-sm-4 form-display">
           <div className="login-display">

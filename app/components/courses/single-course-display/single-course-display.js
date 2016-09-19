@@ -12,31 +12,6 @@ import ReviewList from '../review-list.js';
 import CommentBoard from '../comment-board.js';
 import Modal from 'boron/OutlineModal';
 
-var modalStyles = {
-  btn: {
-    padding: '1em 2em',
-    width: '25%',
-    margin: '1em 0 2em 37.5%',
-    outline: 'none',
-    fontSize: 16,
-    fontWeight: '600',
-    background: 'orange',
-    color: '#FFFFFF',
-    border: 'none'
-  },
-  container: {
-    padding: '2em',
-    textAlign: 'center'
-  },
-  title: {
-    margin: 0,
-    paddingTop: '2em',
-    fontSize: '1.5em',
-    color: 'orange',
-    textAlign: 'center',
-    fontWeight: 400
-  }
-};
 
 var SingleCourseDisplay = React.createClass({
 
@@ -47,7 +22,8 @@ var SingleCourseDisplay = React.createClass({
       roster: [],
       commentBoard: [],
       reviews: [],
-      displayReviews: false
+      displayReviews: false,
+      isUserEnrolledInCourse: false
     };
   },
 
@@ -59,7 +35,6 @@ var SingleCourseDisplay = React.createClass({
           console.log("There was an error grabbing this course from the API");
         } else {
           this.setState({courseData: res.body[0]});
-          console.log(this.state.courseData);
           if (callback) {
             callback(this.state.courseData.user_id);
           } else {
@@ -76,7 +51,17 @@ var SingleCourseDisplay = React.createClass({
         if(err){
           console.log("There was an error grabbing this roster from the API");
         } else {
-          this.setState({roster: res.body});
+          var roster = res.body;
+          if(sessionStorage.user_id) {
+            for (var i = 0; i < roster.length; i++){
+              if (sessionStorage.user_id == roster[i].id) {
+                console.log("this user is in this class!");
+                this.setState({roster: roster, isUserEnrolledInCourse: true})
+              }
+            }
+          } else {
+            this.setState({roster: roster});
+          }
         }
       }.bind(this))
   },
@@ -89,7 +74,6 @@ var SingleCourseDisplay = React.createClass({
           console.log("There was an error grabbing course comments from the API");
         } else {
           console.log("COMMENTS:");
-          console.log(res.body);
           this.setState({commentBoard: res.body});
         }
       }.bind(this))
@@ -97,7 +81,6 @@ var SingleCourseDisplay = React.createClass({
 
   handleCommentSubmit: function(comment){
     var user_id = Number(sessionStorage.user_id);
-    console.log(this.props.params.id);
     var id = this.props.params.id;
     request
       .post("http://localhost:8080/classes/" + id + "/comments")
@@ -114,14 +97,12 @@ var SingleCourseDisplay = React.createClass({
   },
 
   getReviewsFromAPI: function(id){
-    console.log(id);
     request
       .get("http://localhost:8080/users/" + id + "/reviews")
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing the reviews from the API");
         } else {
-          console.log(res.body);
           this.setState({reviews: res.body});
         }
       }.bind(this))
@@ -132,7 +113,6 @@ var SingleCourseDisplay = React.createClass({
   },
 
   handleUserSignup: function(){
-    console.log("user tried to sign up");
     var id = this.props.params.id;
     var seats_remaining = this.state.courseData.seats_remaining - 1;
 
@@ -208,6 +188,7 @@ var SingleCourseDisplay = React.createClass({
                 handleUserSignup={this.handleUserSignup}
                 handleReviewDisplay={this.handleReviewDisplay}
                 displayReviews={this.state.displayReviews}
+                isUserEnrolledInCourse={this.state.isUserEnrolledInCourse}
               />
             </div>
           </div>
@@ -232,5 +213,31 @@ var SingleCourseDisplay = React.createClass({
   }
 });
 
+var modalStyles = {
+  btn: {
+    padding: '1em 2em',
+    width: '25%',
+    margin: '1em 0 2em 37.5%',
+    outline: 'none',
+    fontSize: 16,
+    fontWeight: '600',
+    background: 'orange',
+    color: '#FFFFFF',
+    border: 'none',
+    borderRadius: '3px'
+  },
+  container: {
+    padding: '2em',
+    textAlign: 'center'
+  },
+  title: {
+    margin: 0,
+    paddingTop: '2em',
+    fontSize: '1.5em',
+    color: 'orange',
+    textAlign: 'center',
+    fontWeight: 400
+  }
+};
 
 export default SingleCourseDisplay;

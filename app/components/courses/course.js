@@ -8,6 +8,7 @@ var Course = React.createClass({
   render: function() {
     var courseStyle = {
       backgroundImage: 'url(' + this.props.image_url + ')',
+      color: 'white'
     }
 
     return (
