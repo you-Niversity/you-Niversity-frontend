@@ -1,7 +1,7 @@
 'use strict';
 import React, {PropTypes, Component} from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
-import Course from './course.js';
+import Course from '../courses/course.js';
 
 var CourseListDisplay = React.createClass({
   render: function() {

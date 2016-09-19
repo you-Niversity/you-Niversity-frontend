@@ -124,7 +124,7 @@ ol, ul {
 	margin-top: 125px;
 }
 #landing-div-row #landing-search-div {
-	margin-top: 125px;
+	margin-top: 115px;
 }
 #dashboard-search-div {
 	margin-top: 25px;
@@ -160,7 +160,7 @@ input, textarea {
 	border-radius: 3px;
 }
 select {
-	width: 15%;
+	width: 25%;
 	height: 40px;
 	border-radius: 3px;
 	margin:0 10px;
@@ -387,10 +387,51 @@ hr {
 .create-course-form {
 	margin-top: 20px;
 }
+
+.geosuggest__suggests {
+  position: absolute;
+  top: 100%;
+  left: 4%;
+  right: 0;
+  max-height: 25em;
+  padding: 0 5px;
+  margin-top: -1px;
+	font-weight: 400;
+  background: white;
+  border: 2px solid orange;
+	border-radius: 3px;
+  border-top-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  z-index: 5;
+  -webkit-transition: max-height 0.2s, border 0.2s;
+          transition: max-height 0.2s, border 0.2s;
+}
+
 .geosuggest__suggests--hidden {
   max-height: 0;
   overflow: hidden;
   border-width: 0;
+}
+::-webkit-input-placeholder {
+   color: black;
+	 font-weight: 400;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: black;
+	 font-weight: 400;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: black;
+	 font-weight: 400;
+}
+
+:-ms-input-placeholder {
+   color: black;
+	 font-weight: 400;
 }
 .course-display-change {
 	padding: 10px;

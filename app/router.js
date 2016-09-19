@@ -7,9 +7,8 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 
 
 //import components here
-import LandingPage from './components/landing-page';
+import LandingPage from './components/landing-page/landing-page';
 import LoginDisplay from './components/login-form';
-import CourseDisplay from './components/courses/course-display';
 import SingleCourseDisplay from './components/courses/single-course-display';
 import PrimaryTemplate from './components/primary-template';
 import SecondaryTemplate from './components/secondary-template';

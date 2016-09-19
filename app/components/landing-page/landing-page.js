@@ -1,9 +1,11 @@
 'use strict';
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
-import CourseDisplay from './courses/course-display.js';
-import Navbar from './navbar.js';
-import NavbarLoggedIn from './navbar-logged-in.js';
+import CourseDisplay from './course-display.js';
+import Navbar from '../navbar.js';
+import NavbarLoggedIn from '../navbar-logged-in.js';
+import WelcomeText from './welcome-text.js';
+import SearchBar from './search-bar.js';
 
 
 var LandingPage = React.createClass({
@@ -103,6 +105,7 @@ var LandingPage = React.createClass({
                 handleUserInput={this.handleUserInput}
                 radius={this.state.radius}
                 handleRadiusInput={this.handleRadiusInput}
+                handleLocationInput={this.handleLocationInput}
                 city={this.state.city}
                 state={this.state.state}
               />
@@ -120,75 +123,5 @@ var LandingPage = React.createClass({
   }
 });
 
-var WelcomeText = React.createClass({
-
-  render: function(){
-    return (
-      <div id="landing-message" className="row">
-        <div className="col-sm-1"></div>
-        <div className="col-sm-10">
-          <h3>whether we teach or be taught</h3>
-          <h2>We never stop teaching and learning from each other</h2>
-        </div>
-      </div>
-    );
-  }
-});
-
-var SearchBar = React.createClass({
-
-  getInitialState: function(){
-    return {
-      radius: this.props.radius
-    };
-  },
-
-  handleChange: function() {
-    this.props.handleUserInput(
-      this.refs.filterTextInput.value
-    )
-  },
-
-  handleRadiusChange: function() {
-    this.props.handleRadiusInput(
-      this.refs.radiusInput.value
-    )
-    this.setState({radius: this.refs.radiusInput.value});
-  },
-
-  render: function() {
-    return (
-      <div id="landing-search-div" className="row">
-        <div className="col-sm-1"></div>
-        <div className="col-sm-10">
-          <div id="search-bar" className="row" data-arbitrary="stuff">
-            <div className="col-sm-5">
-              <form>
-                <input
-                  type="text"
-                  placeholder=" Search courses"
-                  value={this.props.filterText}
-                  ref="filterTextInput"
-                  onChange={this.handleChange} />
-              </form>
-            </div>
-            <div className="col-sm-7">
-              <h4>within
-                <select value={this.state.radius} ref="radiusInput" onChange={this.handleRadiusChange}>
-                  <option value='{"radius":0.08335, "zoom":7}'>5</option>
-                  <option value='{"radius":0.1667, "zoom":10}'>10</option>
-                  <option value='{"radius":0.25005, "zoom":12}'>15</option>
-                  <option value='{"radius":0.41675, "zoom":15}'>25</option>
-                  <option value='{"radius":0.8335, "zoom":17}'>50</option>
-                </select>
-                miles of {this.props.city}, {this.props.state}
-              </h4>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-});
 
 export default LandingPage;
