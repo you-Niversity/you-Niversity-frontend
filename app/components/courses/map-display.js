@@ -16,6 +16,8 @@ var MapDisplay = React.createClass({
       marginBottom: '50px'
     }
 
+    var count = 0;
+
     var mapMarkers = this.props.data.map(function(marker, index){
       var filterTextLowerCase = this.props.filterText.toLowerCase();
       var markerTitleLowerCase = marker.title.toLowerCase();
@@ -34,13 +36,14 @@ var MapDisplay = React.createClass({
       if(withinRadius === false) {
         return;
       }
+      count++;
 
       return (
         <Marker
           lat={marker.lat}
           lng={marker.lng}
           key={"marker:" + marker.id}
-          id={index + 1}>
+          id={count}>
           text={index + 1}
         </Marker>
       )

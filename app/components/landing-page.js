@@ -13,8 +13,8 @@ var LandingPage = React.createClass({
     return {
       lat: null,
       lng: null,
-      radius: 0.1667,
-      zoom: 10,
+      radius: 0.08335,
+      zoom: 7,
       city: 'getting',
       state: 'location',
       filterText: ''
@@ -175,7 +175,7 @@ var SearchBar = React.createClass({
             <div className="col-sm-7">
               <h4>within
                 <select value={this.state.radius} ref="radiusInput" onChange={this.handleRadiusChange}>
-                  <option value='{"radius":0.08335, "zoom":8}'>5</option>
+                  <option value='{"radius":0.08335, "zoom":7}'>5</option>
                   <option value='{"radius":0.1667, "zoom":10}'>10</option>
                   <option value='{"radius":0.25005, "zoom":12}'>15</option>
                   <option value='{"radius":0.41675, "zoom":15}'>25</option>
