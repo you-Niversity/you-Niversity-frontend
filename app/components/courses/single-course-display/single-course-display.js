@@ -10,6 +10,33 @@ import RightDisplay from './right-display.js';
 import RosterList from '../roster-list.js';
 import ReviewList from '../review-list.js';
 import CommentBoard from '../comment-board.js';
+import Modal from 'boron/OutlineModal';
+
+var modalStyles = {
+  btn: {
+    padding: '1em 2em',
+    width: '25%',
+    margin: '1em 0 2em 37.5%',
+    outline: 'none',
+    fontSize: 16,
+    fontWeight: '600',
+    background: 'orange',
+    color: '#FFFFFF',
+    border: 'none'
+  },
+  container: {
+    padding: '2em',
+    textAlign: 'center'
+  },
+  title: {
+    margin: 0,
+    paddingTop: '2em',
+    fontSize: '1.5em',
+    color: 'orange',
+    textAlign: 'center',
+    fontWeight: 400
+  }
+};
 
 var SingleCourseDisplay = React.createClass({
 
@@ -36,7 +63,7 @@ var SingleCourseDisplay = React.createClass({
           if (callback) {
             callback(this.state.courseData.user_id);
           } else {
-            alert("You're all signed up!");
+            this.showModal();
           }
         }
       }.bind(this))
@@ -139,6 +166,14 @@ var SingleCourseDisplay = React.createClass({
       }.bind(this))
   },
 
+  showModal: function(){
+      this.refs.modal.show();
+  },
+
+  hideModal: function(){
+      this.refs.modal.hide();
+  },
+
   componentDidMount: function(){
     var id = this.props.params.id;
     this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
@@ -177,10 +212,17 @@ var SingleCourseDisplay = React.createClass({
             </div>
           </div>
 
+          <Modal ref="modal" style={modalStyles.container}>
+              <h2 style={modalStyles.title}>You are all signed up!</h2>
+              <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
+          </Modal>
+
           {reviews}
+
           <RosterList
             data={this.state.roster}
           />
+
           <CommentBoard
             data={this.state.commentBoard}
             handleCommentSubmit={this.handleCommentSubmit}
