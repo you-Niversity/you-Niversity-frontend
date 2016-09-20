@@ -158,6 +158,7 @@ input, textarea {
 	height: 40px;
 	margin-top: 20px;
 	border-radius: 3px;
+	font-weight: 400;
 }
 select {
 	width: 25%;
@@ -165,7 +166,7 @@ select {
 	border-radius: 3px;
 	margin:0 10px;
 	color: black;
-	font-weight: 300;
+	font-weight: 400;
 }
 textarea {
 	height: 130px;
@@ -456,11 +457,20 @@ hr {
 /*footer*/
 footer {
 	width: 100%;
-	height:75px;
+	height:120px;
 	color: white;
 	text-align: center;
 	background-color: black;
 }
-#footer-text {
+footer p {
 	padding-top: 20px;
+	font-size: 1.2em;
+	font-weight: 400;
+}
+footer img {
+	width: 40px;
+	margin: 20px 0 10px 0;
+}
+.orange {
+	color: orange;
 }

@@ -6,6 +6,7 @@ import Navbar from '../navbar.js';
 import NavbarLoggedIn from '../navbar-logged-in.js';
 import WelcomeText from './welcome-text.js';
 import SearchBar from './search-bar.js';
+import Footer from '../footer.js';
 
 
 var LandingPage = React.createClass({
@@ -125,6 +126,9 @@ var LandingPage = React.createClass({
           lng={this.state.lng}
           radius={this.state.radius}
         />
+
+
+        <Footer />
       </div>
     );
   }

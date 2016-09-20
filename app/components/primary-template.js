@@ -4,6 +4,8 @@ import React from 'react';
 import Navbar from './navbar.js';
 import NavbarLoggedIn from './navbar-logged-in.js';
 import LogoutModal from 'boron/OutlineModal';
+import Footer from './footer.js';
+
 
 var modalStyles = {
   btn: {
@@ -57,24 +59,32 @@ var PrimaryTemplate = React.createClass({
       : <Navbar />;
 
     return (
-      <div className="container-fluid">
-        <div id="secondary-div">
-          <div id="secondary-div-row" className="row">
-            <div className="col-sm-2"></div>
-            <div id="center-content" className="col-sm-8">
+      <div>
+        <div className="container-fluid">
+          <div id="secondary-div">
+            <div id="secondary-div-row" className="row">
+              <div className="col-sm-2"></div>
+              <div id="center-content" className="col-sm-8">
 
-              {nav}
-              {this.props.children}
+                {nav}
+                {this.props.children}
 
-              <LogoutModal ref="modal" style={modalStyles.container}>
-                  <h2 style={modalStyles.title}>Thanks for stopping by...see you soon!</h2>
-                  <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
-              </LogoutModal>
+                <LogoutModal ref="modal" style={modalStyles.container}>
+                    <h2 style={modalStyles.title}>Thanks for stopping by...see you soon!</h2>
+                    <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
+                </LogoutModal>
 
+              </div>
             </div>
           </div>
+
+        </div>
+        <div>
+          <Footer />
         </div>
       </div>
+
+
     );
   }
 });
