@@ -14,6 +14,7 @@ import PrimaryTemplate from './components/primary-template';
 import SecondaryTemplate from './components/secondary-template';
 import SignUpDisplay from './components/signup-form.js';
 import AddCourseDisplay from './components/courses/add-course-display.js';
+import UpdateCourseDisplay from './components/courses/update-course-display.js';
 import UserDashboard from './components/user-dashboard.js';
 
 var AppRouter = React.createClass({
@@ -37,6 +38,11 @@ var AppRouter = React.createClass({
         <Route path="/addcourse">
           <Route component={PrimaryTemplate}>
             <IndexRoute component={AddCourseDisplay} />
+          </Route>
+        </Route>
+        <Route path="/update/:id">
+          <Route component={PrimaryTemplate}>
+            <IndexRoute component={UpdateCourseDisplay} />
           </Route>
         </Route>
         <Route path="/users/:id">

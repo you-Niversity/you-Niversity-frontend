@@ -34,6 +34,10 @@ var SingleCourseDisplay = React.createClass({
         if(err){
           console.log("There was an error grabbing this course from the API");
         } else {
+          console.log("**********");
+          console.log(res.body[0]);
+          console.log("**********");
+
           this.setState({courseData: res.body[0]});
           if (callback) {
             callback(this.state.courseData.user_id);
@@ -52,11 +56,14 @@ var SingleCourseDisplay = React.createClass({
           console.log("There was an error grabbing this roster from the API");
         } else {
           var roster = res.body;
+          console.log(roster);
           if(sessionStorage.user_id) {
             for (var i = 0; i < roster.length; i++){
               if (sessionStorage.user_id == roster[i].id) {
                 console.log("this user is in this class!");
                 this.setState({roster: roster, isUserEnrolledInCourse: true})
+              } else {
+                this.setState({roster: roster});
               }
             }
           } else {

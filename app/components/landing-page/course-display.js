@@ -26,7 +26,6 @@ var CourseDisplay = React.createClass({
         if (err){
           console.log('There was an error grabbing the classes from the API.');
         } else {
-          console.log(res.body);
           this.setState({data: res.body});
         }
       }.bind(this))

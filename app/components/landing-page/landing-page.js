@@ -16,8 +16,8 @@ var LandingPage = React.createClass({
     return {
       lat: null,
       lng: null,
-      radius: 0.08335,
-      zoom: 7,
+      radius: 0.25005,
+      zoom: 12,
       city: 'getting',
       state: 'location',
       filterText: ''

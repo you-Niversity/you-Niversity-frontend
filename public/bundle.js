@@ -24467,16 +24467,17 @@
 	
 	var _addCourseDisplay2 = _interopRequireDefault(_addCourseDisplay);
 	
+	var _updateCourseDisplay = __webpack_require__(/*! ./components/courses/update-course-display.js */ 354);
+	
+	var _updateCourseDisplay2 = _interopRequireDefault(_updateCourseDisplay);
+	
 	var _userDashboard = __webpack_require__(/*! ./components/user-dashboard.js */ 352);
 	
 	var _userDashboard2 = _interopRequireDefault(_userDashboard);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//import layouts here
-	
-	
-	//import components here
+	//below is an example of ES6 destructuring
 	var AppRouter = _react2.default.createClass({
 	  displayName: 'AppRouter',
 	
@@ -24519,6 +24520,15 @@
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
+	        { path: '/update/:id' },
+	        _react2.default.createElement(
+	          _reactRouter.Route,
+	          { component: _primaryTemplate2.default },
+	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _updateCourseDisplay2.default })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Route,
 	        { path: '/users/:id' },
 	        _react2.default.createElement(
 	          _reactRouter.Route,
@@ -24529,7 +24539,11 @@
 	    );
 	  }
 	});
-	//below is an example of ES6 destructuring
+	
+	//import layouts here
+	
+	
+	//import components here
 	exports.default = AppRouter;
 
 /***/ },
@@ -30306,8 +30320,8 @@
 	    return {
 	      lat: null,
 	      lng: null,
-	      radius: 0.08335,
-	      zoom: 7,
+	      radius: 0.25005,
+	      zoom: 12,
 	      city: 'getting',
 	      state: 'location',
 	      filterText: ''
@@ -30483,7 +30497,6 @@
 	      if (err) {
 	        console.log('There was an error grabbing the classes from the API.');
 	      } else {
-	        console.log(res.body);
 	        this.setState({ data: res.body });
 	      }
 	    }.bind(this));
@@ -35755,13 +35768,50 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var modalStyles = {
+	  btn: {
+	    padding: '1em 2em',
+	    width: '25%',
+	    margin: '1em 0 2em 37.5%',
+	    outline: 'none',
+	    fontSize: 16,
+	    fontWeight: '600',
+	    background: 'orange',
+	    color: '#FFFFFF',
+	    border: 'none',
+	    borderRadius: '3px'
+	  },
+	  container: {
+	    padding: '2em',
+	    textAlign: 'center'
+	  },
+	  title: {
+	    margin: 0,
+	    paddingTop: '2em',
+	    fontSize: '1.5em',
+	    color: 'orange',
+	    textAlign: 'center',
+	    fontWeight: 400
+	  }
+	};
+	
 	var NavbarLoggedIn = _react2.default.createClass({
 	  displayName: 'NavbarLoggedIn',
 	
 	
-	  handleLogoutSubmit: function handleLogoutSubmit() {
+	  handleLogoutSubmit: function handleLogoutSubmit(e) {
+	    e.preventDefault();
 	    sessionStorage.clear();
-	    this.props.showModal();
+	    this.showModal();
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	  },
+	
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    _reactRouter.browserHistory.push('/');
 	  },
 	
 	  render: function render() {
@@ -35783,6 +35833,20 @@
 	    return _react2.default.createElement(
 	      'nav',
 	      { className: 'row' },
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modal', style: modalStyles.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: modalStyles.title },
+	          'Thanks for stopping by...see you soon!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: modalStyles.btn, onClick: this.hideModal },
+	          'Close'
+	        )
+	      ),
 	      _react2.default.createElement(
 	        'nav',
 	        { className: 'navbar' },
@@ -35846,10 +35910,10 @@
 	              ),
 	              _react2.default.createElement(
 	                'li',
-	                { onClick: this.handleLogoutSubmit },
+	                null,
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
-	                  { to: '#' },
+	                  { to: '#', onClick: this.handleLogoutSubmit },
 	                  'Logout'
 	                )
 	              )
@@ -38437,8 +38501,6 @@
 	  },
 	
 	  handleLoginSubmit: function handleLoginSubmit(user) {
-	    console.log(user);
-	
 	    _superagent2.default.post("http://localhost:8080/auth/login").send(user).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in logging in this user");
@@ -38447,12 +38509,14 @@
 	        this.setState({ loginErrorMessage: errorMessage, err: true });
 	        console.log(this.state.loginErrorMessage);
 	      } else {
+	
 	        this.props.login(res.body);
-	        console.log(this.props.userState);
 	
 	        sessionStorage.setItem('first_name', this.props.userState.profile.first_name);
 	        sessionStorage.setItem('user_id', this.props.userState.profile.id);
 	        sessionStorage.setItem('image_url', res.body.profile.profile_pic);
+	        console.log(this.props.userState);
+	
 	        this.showModal();
 	      }
 	    }.bind(this));
@@ -38716,6 +38780,10 @@
 	      if (err) {
 	        console.log("There was an error grabbing this course from the API");
 	      } else {
+	        console.log("**********");
+	        console.log(res.body[0]);
+	        console.log("**********");
+	
 	        this.setState({ courseData: res.body[0] });
 	        if (callback) {
 	          callback(this.state.courseData.user_id);
@@ -38732,11 +38800,14 @@
 	        console.log("There was an error grabbing this roster from the API");
 	      } else {
 	        var roster = res.body;
+	        console.log(roster);
 	        if (sessionStorage.user_id) {
 	          for (var i = 0; i < roster.length; i++) {
 	            if (sessionStorage.user_id == roster[i].id) {
 	              console.log("this user is in this class!");
 	              this.setState({ roster: roster, isUserEnrolledInCourse: true });
+	            } else {
+	              this.setState({ roster: roster });
 	            }
 	          }
 	        } else {
@@ -39165,7 +39236,17 @@
 	
 	    var showReviews = this.props.displayReviews ? "Hide Reviews" : "Show Reviews";
 	
-	    var signupButton = sessionStorage.first_name && !this.props.isUserEnrolledInCourse ? _react2.default.createElement(
+	    var updateCourseButton = Number(sessionStorage.user_id) == this.props.data.user_id ? _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/update/' + this.props.data.id },
+	      _react2.default.createElement(
+	        'div',
+	        { onClick: this.props.handleCourseUpdate, className: 'btn-div' },
+	        'Update or Delete Course'
+	      )
+	    ) : null;
+	
+	    var signupButton = sessionStorage.first_name && !this.props.isUserEnrolledInCourse && !(Number(sessionStorage.user_id) == this.props.data.user_id) ? _react2.default.createElement(
 	      'div',
 	      { onClick: this.props.handleUserSignup, className: 'btn-div' },
 	      'Sign Up'
@@ -39177,7 +39258,7 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'btn-div' },
-	        'Log In ',
+	        'Log In',
 	        _react2.default.createElement('br', null),
 	        'to Sign Up'
 	      )
@@ -39192,6 +39273,7 @@
 	    return _react2.default.createElement(
 	      'div',
 	      null,
+	      updateCourseButton,
 	      signupButton,
 	      loginButton,
 	      enrolledInCourse,
@@ -44928,10 +45010,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -44945,6 +45023,8 @@
 	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 353);
 	
 	var _courseList2 = _interopRequireDefault(_courseList);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44966,7 +45046,7 @@
 	        console.log("error getting user data");
 	      } else {
 	        this.setState({ userData: res.body[0] });
-	        console.log(this.state.userData);
+	        console.log(this.props.userState);
 	      }
 	    }.bind(this));
 	  },
@@ -44977,7 +45057,6 @@
 	        console.log("error getting user data");
 	      } else {
 	        this.setState({ classesTeaching: res.body });
-	        console.log(this.state.classesTeaching);
 	      }
 	    }.bind(this));
 	  },
@@ -44988,7 +45067,6 @@
 	        console.log("error getting user data");
 	      } else {
 	        this.setState({ classesTaking: res.body });
-	        console.log(this.state.classesTaking);
 	      }
 	    }.bind(this));
 	  },
@@ -45025,7 +45103,11 @@
 	  }
 	});
 	
-	exports.default = UserDashboard;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(UserDashboard);
 
 /***/ },
 /* 353 */
@@ -45101,6 +45183,294 @@
 	});
 	
 	exports.default = CourseList;
+
+/***/ },
+/* 354 */
+/*!*********************************************************!*\
+  !*** ./app/components/courses/update-course-display.js ***!
+  \*********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 318);
+	
+	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var modalStyles = {
+	  btn: {
+	    padding: '1em 2em',
+	    width: '25%',
+	    margin: '1em 0 2em 37.5%',
+	    outline: 'none',
+	    fontSize: 16,
+	    fontWeight: '600',
+	    background: 'orange',
+	    color: '#FFFFFF',
+	    border: 'none',
+	    borderRadius: '3px'
+	  },
+	  container: {
+	    padding: '2em',
+	    textAlign: 'center'
+	  },
+	  title: {
+	    margin: 0,
+	    paddingTop: '2em',
+	    fontSize: '1.5em',
+	    color: 'orange',
+	    textAlign: 'center',
+	    fontWeight: 400
+	  }
+	};
+	
+	var DatePicker = __webpack_require__(/*! react-datepicker */ 350);
+	var moment = __webpack_require__(/*! moment */ 341);
+	moment().format();
+	
+	var UpdateCourseDisplay = _react2.default.createClass({
+	  displayName: 'UpdateCourseDisplay',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      courseData: []
+	    };
+	  },
+	
+	  getCourseDataFromAPI: function getCourseDataFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing this course from the API");
+	      } else {
+	        console.log(res.body[0]);
+	        this.setState({ courseData: res.body[0] });
+	      }
+	    }.bind(this));
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var id = this.props.params.id;
+	    console.log(id);
+	    this.getCourseDataFromAPI(id);
+	  },
+	
+	  handleCourseUpdate: function handleCourseUpdate(course) {
+	    console.log(course);
+	    var user_id = sessionStorage.user_id;
+	    _superagent2.default.put("http://localhost:8080/classes/:id").send(course).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error in updating this class");
+	      } else {
+	        console.log("successfully updated the class");
+	        _reactRouter.browserHistory.push('/users/' + user_id);
+	      }
+	    });
+	  },
+	
+	  handleCourseDelete: function handleCourseDelete() {
+	    var id = this.state.courseData.id;
+	    _superagent2.default.del('http://localhost:8080/classes/' + id).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error in updating this class");
+	      } else {
+	        console.log("successfully deleted the class");
+	        this.showModal();
+	        {/*browserHistory.push('/users/' + sessionStorage.user_id);*/}
+	      }
+	    }.bind(this));
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	  },
+	
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    _reactRouter.browserHistory.push('/users/' + sessionStorage.user_id);
+	  },
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row create-course' },
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modal', style: modalStyles.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: modalStyles.title },
+	          'Class successfully deleted!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: modalStyles.btn, onClick: this.hideModal },
+	          'Close'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        'Update this Course'
+	      ),
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-10 create-course-form form-display' },
+	        _react2.default.createElement(UpdateCourseForm, {
+	          onCourseSubmit: this.handleCourseUpdate,
+	          course: this.state.courseData
+	        }),
+	        _react2.default.createElement('input', { type: 'submit', onClick: this.handleCourseDelete, value: 'Delete this Course', className: 'form-submit-button' })
+	      )
+	    );
+	  }
+	});
+	
+	var UpdateCourseForm = _react2.default.createClass({
+	  displayName: 'UpdateCourseForm',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return { title: this.props.course.title, description: this.props.course.description, prerequisites: this.props.course.prerequisites, price: this.props.course.price, seats: this.props.course.seats, image_url: this.props.course.image_url, date: moment(), location: this.props.course.location, start_time: this.props.course.start_time, end_time: this.props.course.end_time };
+	  },
+	
+	  handleTitleChange: function handleTitleChange(event) {
+	    this.setState({ title: event.target.value });
+	  },
+	  handleDescriptionChange: function handleDescriptionChange(event) {
+	    this.setState({ description: event.target.value });
+	  },
+	  handlePrereqChange: function handlePrereqChange(event) {
+	    this.setState({ prerequisites: event.target.value });
+	  },
+	  handlePriceChange: function handlePriceChange(event) {
+	    this.setState({ price: event.target.value });
+	  },
+	  handleSeatsChange: function handleSeatsChange(event) {
+	    this.setState({ seats: event.target.value });
+	  },
+	  handleImageUrlChange: function handleImageUrlChange(event) {
+	    this.setState({ image_url: event.target.value });
+	  },
+	  handleDateChange: function handleDateChange(date) {
+	    this.setState({ date: date });
+	  },
+	  onSuggestSelect: function onSuggestSelect(suggest) {
+	    var data = suggest.gmaps.address_components;
+	    this.setState({ location: [suggest.location.lat, suggest.location.lng, data[0].long_name, data[1].long_name, data[2].long_name, data[5].long_name] });
+	  },
+	  handleStartTimeChange: function handleStartTimeChange(event) {
+	    this.setState({ start_time: event.target.value });
+	  },
+	  handleEndTimeChange: function handleEndTimeChange(event) {
+	    this.setState({ end_time: event.target.value });
+	  },
+	  handleSubmit: function handleSubmit(event) {
+	    event.preventDefault();
+	    var title = this.state.title.trim();
+	    var description = this.state.description.trim();
+	    var prerequisites = this.state.prerequisites.trim();
+	    var price = this.state.price.trim();
+	    var seats = this.state.seats.trim();
+	    var image_url = this.state.image_url.trim();
+	    var date = this.state.date;
+	    var location = this.state.location;
+	    var start_time = this.state.start_time;
+	    var end_time = this.state.end_time;
+	    if (!title) {
+	      return;
+	    }
+	    this.props.onCourseSubmit({ title: title, description: description, prerequisites: prerequisites, price: price, total_seats: seats, image_url: image_url, date: date, location: location, start_time: start_time, end_time: end_time });
+	    this.setState({ title: '', description: '', prerequisites: '', price: '', seats: '', image_url: '', date: moment(), location: '', start_time: '', end_time: '' });
+	  },
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'form',
+	      { className: 'addCourseForm', onSubmit: this.handleSubmit },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: this.props.course.title,
+	          onChange: this.handleTitleChange
+	        }),
+	        _react2.default.createElement('textarea', {
+	          placeholder: this.props.course.description,
+	          rows: '10',
+	          onChange: this.handleDescriptionChange }),
+	        _react2.default.createElement('textarea', {
+	          placeholder: this.props.course.prerequisites,
+	          rows: '10',
+	          onChange: this.handlePrereqChange }),
+	        _react2.default.createElement('input', {
+	          type: 'number',
+	          placeholder: this.props.course.price,
+	          onChange: this.handlePriceChange
+	        })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: this.props.course.total_seats,
+	          onChange: this.handleSeatsChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: this.props.course.image_url,
+	          onChange: this.handleImageUrlChange
+	        }),
+	        _react2.default.createElement(DatePicker, {
+	          placeholder: this.props.course.date,
+	          selected: this.state.date,
+	          onChange: this.handleDateChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: this.props.course.start_time,
+	          onChange: this.handleStartTimeChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: this.props.course.end_time,
+	          onChange: this.handleEndTimeChange
+	        }),
+	        _react2.default.createElement(_reactGeosuggest2.default, {
+	          placeholder: this.props.course.location,
+	          country: 'us',
+	          onSuggestSelect: this.onSuggestSelect
+	        }),
+	        _react2.default.createElement('input', { type: 'submit', value: 'Update Your Course!', className: 'form-submit-button' })
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = UpdateCourseDisplay;
 
 /***/ }
 /******/ ]);

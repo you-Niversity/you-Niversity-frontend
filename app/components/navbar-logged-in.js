@@ -2,12 +2,49 @@ import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import Modal from 'boron/OutlineModal';
 
+var modalStyles = {
+  btn: {
+    padding: '1em 2em',
+    width: '25%',
+    margin: '1em 0 2em 37.5%',
+    outline: 'none',
+    fontSize: 16,
+    fontWeight: '600',
+    background: 'orange',
+    color: '#FFFFFF',
+    border: 'none',
+    borderRadius: '3px'
+  },
+  container: {
+    padding: '2em',
+    textAlign: 'center'
+  },
+  title: {
+    margin: 0,
+    paddingTop: '2em',
+    fontSize: '1.5em',
+    color: 'orange',
+    textAlign: 'center',
+    fontWeight: 400
+  }
+};
+
 
 var NavbarLoggedIn = React.createClass({
 
-  handleLogoutSubmit: function(){
+  handleLogoutSubmit: function(e){
+    e.preventDefault();
     sessionStorage.clear();
-    this.props.showModal();
+    this.showModal();
+  },
+
+  showModal: function(){
+    this.refs.modal.show();
+  },
+
+  hideModal: function(){
+    this.refs.modal.hide();
+    browserHistory.push('/');
   },
 
   render: function(){
@@ -29,6 +66,12 @@ var NavbarLoggedIn = React.createClass({
     return (
 
       <nav className="row">
+
+        <Modal ref="modal" style={modalStyles.container}>
+            <h2 style={modalStyles.title}>Thanks for stopping by...see you soon!</h2>
+            <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
+        </Modal>
+
         <nav className="navbar">
           <div className="container-fluid">
             <div className="navbar-header">
@@ -46,10 +89,13 @@ var NavbarLoggedIn = React.createClass({
                 </li>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li><Link to={'/users/'+ id}>Dashboard</Link></li>
-                  <li onClick={this.handleLogoutSubmit}><Link to="#">Logout</Link></li>
+                  <li><Link to="#" onClick={this.handleLogoutSubmit}>Logout</Link></li>
                 </ul>
               <li><div style={userPic}></div></li>
             </ul>
+
+
+
           </div>
         </nav>
       </nav>

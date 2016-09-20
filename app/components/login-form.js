@@ -44,8 +44,6 @@ var modalStyles = {
   },
 
   handleLoginSubmit: function(user){
-    console.log(user);
-
     request
       .post("http://localhost:8080/auth/login")
       .send(user)
@@ -57,12 +55,14 @@ var modalStyles = {
           this.setState({loginErrorMessage: errorMessage, err: true});
           console.log(this.state.loginErrorMessage);
         } else {
+
           this.props.login(res.body);
-          console.log(this.props.userState);
 
           sessionStorage.setItem('first_name', this.props.userState.profile.first_name);
           sessionStorage.setItem('user_id', this.props.userState.profile.id);
           sessionStorage.setItem('image_url', res.body.profile.profile_pic);
+          console.log(this.props.userState);
+
           this.showModal();
         }
       }.bind(this));

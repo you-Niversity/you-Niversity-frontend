@@ -3,6 +3,7 @@ import React from 'react';
 import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import CourseList from './courses/course-list.js';
+import { connect } from 'react-redux';
 
 var UserDashboard = React.createClass({
 
@@ -22,7 +23,7 @@ var UserDashboard = React.createClass({
           console.log("error getting user data");
         } else {
           this.setState({userData: res.body[0]})
-          console.log(this.state.userData);
+          console.log(this.props.userState);
         }
       }.bind(this))
   },
@@ -35,7 +36,6 @@ var UserDashboard = React.createClass({
           console.log("error getting user data");
         } else {
           this.setState({classesTeaching: res.body})
-          console.log(this.state.classesTeaching);
         }
       }.bind(this))
   },
@@ -48,7 +48,6 @@ var UserDashboard = React.createClass({
           console.log("error getting user data");
         } else {
           this.setState({classesTaking: res.body})
-          console.log(this.state.classesTaking);
         }
       }.bind(this))
   },
@@ -87,5 +86,9 @@ var UserDashboard = React.createClass({
   }
 });
 
+const mapStateToProps = function(store) {
+  return store;
+}
 
-export default UserDashboard;
+
+module.exports = connect(mapStateToProps)(UserDashboard);
