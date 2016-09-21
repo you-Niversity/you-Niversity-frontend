@@ -32409,9 +32409,23 @@
 	      );
 	    }.bind(this));
 	
+	    var numberOfResults = this.props.data.length;
+	    for (var i = 0; i < mapMarkers.length; i++) {
+	      if (mapMarkers[i] == undefined) {
+	        numberOfResults -= 1;
+	      }
+	    };
+	
+	    var noClasses = numberOfResults === 0 ? _react2.default.createElement(
+	      'h3',
+	      { className: 'center no-classes-message' },
+	      'There are no classes that match this search.'
+	    ) : null;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { style: mapStyle, id: 'map' },
+	      noClasses,
 	      _react2.default.createElement(
 	        _googleMapReact2.default,
 	        {
@@ -35575,18 +35589,14 @@
 	
 	    var numberOfResults = this.props.data.length;
 	    for (var i = 0; i < courseNodes.length; i++) {
-	      if (courseNodes[i] !== undefined) {
-	        console.log("this course is being displayed");
-	      } else {
-	        console.log("course not being displayed");
+	      if (courseNodes[i] == undefined) {
 	        numberOfResults -= 1;
 	      }
 	    };
-	    console.log(numberOfResults);
 	
 	    var noClasses = numberOfResults === 0 ? _react2.default.createElement(
 	      'h3',
-	      { className: 'center' },
+	      { className: 'center no-classes-message' },
 	      'There are no classes that match this search.'
 	    ) : null;
 	
@@ -35904,7 +35914,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'li',
-	              { className: 'dropdown-toggle', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
+	              { className: 'dropdown-toggle pointer', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
 	              'welcome, ',
 	              first_name,
 	              _react2.default.createElement('span', { className: 'caret' })
@@ -36684,6 +36694,7 @@
 	  onSuggestSelect: function onSuggestSelect(suggest) {
 	    this.props.handleLocationInput(suggest);
 	    this.setState({ lat: suggest.location.lat, lng: suggest.location.lng });
+	    console.log(this.state);
 	  },
 	
 	  render: function render() {
@@ -38553,7 +38564,7 @@
 	
 	  hideModal: function hideModal() {
 	    this.refs.modal.hide();
-	    _reactRouter.browserHistory.push('/users/' + this.props.userState.profile.id);
+	    _reactRouter.browserHistory.goBack();
 	  },
 	
 	  render: function render() {
@@ -38803,16 +38814,23 @@
 	      if (err) {
 	        console.log("There was an error grabbing this course from the API");
 	      } else {
-	        console.log("**********");
-	        console.log(res.body[0]);
-	        console.log("**********");
-	
 	        this.setState({ courseData: res.body[0] });
 	        if (callback) {
 	          callback(this.state.courseData.user_id);
 	        } else {
 	          this.showModal();
 	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  refreshCourseDataAfterUnenrolling: function refreshCourseDataAfterUnenrolling(id) {
+	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing this course from the API");
+	      } else {
+	        this.setState({ courseData: res.body[0] });
+	        getRosterFromAPI(id);
 	      }
 	    }.bind(this));
 	  },
@@ -38891,6 +38909,36 @@
 	    }.bind(this));
 	  },
 	
+	  handleUserUnenrollSeatsRemaining: function handleUserUnenrollSeatsRemaining() {
+	    console.log("handling user unenrollment");
+	    var id = this.props.params.id;
+	    var seats_remaining = this.state.courseData.seats_remaining + 1;
+	    _superagent2.default.put("http://localhost:8080/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error signing up for this course.");
+	      } else {
+	        console.log('Success! Now add a new roster field.');
+	        this.refreshCourseDataAfterUnenrolling(id);
+	        this.updateRosterUnenroll();
+	      }
+	    }.bind(this));
+	  },
+	
+	  updateRosterUnenroll: function updateRosterUnenroll() {
+	    var id = this.props.params.id;
+	    var user_id = Number(sessionStorage.user_id);
+	    _superagent2.default.del("http://localhost:8080/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error in deleting this user.");
+	      } else {
+	        console.log('Success! The user is no longer on the roster for this course.');
+	        this.getRosterFromAPI(id);
+	        this.hideUnenrollModal();
+	        this.showModalConfirmUnenroll();
+	      }
+	    }.bind(this));
+	  },
+	
 	  updateRoster: function updateRoster() {
 	    var id = this.props.params.id;
 	    var user_id = Number(sessionStorage.user_id);
@@ -38908,9 +38956,23 @@
 	  showModal: function showModal() {
 	    this.refs.modal.show();
 	  },
-	
 	  hideModal: function hideModal() {
 	    this.refs.modal.hide();
+	  },
+	
+	  showUnenrollModal: function showUnenrollModal() {
+	    this.refs.modalUnenroll.show();
+	  },
+	  hideUnenrollModal: function hideUnenrollModal() {
+	    this.refs.modalUnenroll.hide();
+	  },
+	
+	  showModalConfirmUnenroll: function showModalConfirmUnenroll() {
+	    this.refs.modalConfirmUnenroll.show();
+	  },
+	  hideModalConfirmUnenroll: function hideModalConfirmUnenroll() {
+	    this.refs.modalConfirmUnenroll.hide();
+	    _reactRouter.browserHistory.push('/');
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -38954,12 +39016,22 @@
 	          _react2.default.createElement(_rightDisplay2.default, {
 	            data: this.state.courseData,
 	            handleUserSignup: this.handleUserSignup,
+	            showUnenrollModal: this.showUnenrollModal,
+	            reviews: this.state.reviews,
 	            handleReviewDisplay: this.handleReviewDisplay,
 	            displayReviews: this.state.displayReviews,
 	            isUserEnrolledInCourse: this.state.isUserEnrolledInCourse
 	          })
 	        )
 	      ),
+	      reviews,
+	      _react2.default.createElement(_rosterList2.default, {
+	        data: this.state.roster
+	      }),
+	      _react2.default.createElement(_commentBoard2.default, {
+	        data: this.state.commentBoard,
+	        handleCommentSubmit: this.handleCommentSubmit
+	      }),
 	      _react2.default.createElement(
 	        _OutlineModal2.default,
 	        { ref: 'modal', style: modalStyles.container },
@@ -38974,14 +39046,39 @@
 	          'Close'
 	        )
 	      ),
-	      reviews,
-	      _react2.default.createElement(_rosterList2.default, {
-	        data: this.state.roster
-	      }),
-	      _react2.default.createElement(_commentBoard2.default, {
-	        data: this.state.commentBoard,
-	        handleCommentSubmit: this.handleCommentSubmit
-	      })
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modalUnenroll', style: modalStyles.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: modalStyles.title },
+	          'Are you sure you want to leave this class?'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: modalStyles.btn, onClick: this.handleUserUnenrollSeatsRemaining },
+	          'Yes'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: modalStyles.btn, onClick: this.hideUnenrollModal },
+	          'Cancel'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modalConfirmUnenroll', style: modalStyles.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: modalStyles.title },
+	          'You are no longer enrolled in this course.'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: modalStyles.btn, onClick: this.hideModalConfirmUnenroll },
+	          'Close'
+	        )
+	      )
 	    );
 	  }
 	});
@@ -39260,11 +39357,22 @@
 	
 	  render: function render() {
 	
+	    var classFull = this.props.data.seats_remaining == 0 ? _react2.default.createElement(
+	      'div',
+	      { className: 'btn-div' },
+	      'No Seats Remaining'
+	    ) : _react2.default.createElement(
+	      'div',
+	      { className: 'btn-div' },
+	      this.props.data.seats_remaining,
+	      ' seats left'
+	    );
+	
 	    var showReviews = this.props.displayReviews ? "Hide Reviews" : "Show Reviews";
 	
 	    var updateCourseButton = Number(sessionStorage.user_id) == this.props.data.user_id ? _react2.default.createElement(
 	      _reactRouter.Link,
-	      { to: '/update/' + this.props.data.id },
+	      { className: 'link-plain', to: '/update/' + this.props.data.id },
 	      _react2.default.createElement(
 	        'div',
 	        { onClick: this.props.handleCourseUpdate, className: 'btn-div' },
@@ -39272,15 +39380,15 @@
 	      )
 	    ) : null;
 	
-	    var signupButton = sessionStorage.first_name && !this.props.isUserEnrolledInCourse && !(Number(sessionStorage.user_id) == this.props.data.user_id) ? _react2.default.createElement(
+	    var signupButton = sessionStorage.first_name && !this.props.isUserEnrolledInCourse && !(Number(sessionStorage.user_id) == this.props.data.user_id) && !this.props.data.seats_remaining == 0 ? _react2.default.createElement(
 	      'div',
-	      { onClick: this.props.handleUserSignup, className: 'btn-div' },
+	      { onClick: this.props.handleUserSignup, className: 'btn-div pointer' },
 	      'Sign Up'
 	    ) : null;
 	
-	    var loginButton = !sessionStorage.first_name ? _react2.default.createElement(
+	    var loginButton = !sessionStorage.first_name && !this.props.data.seats_remaining == 0 ? _react2.default.createElement(
 	      _reactRouter.Link,
-	      { to: '/login' },
+	      { className: 'link-plain', to: '/login' },
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'btn-div' },
@@ -39296,6 +39404,12 @@
 	      'Enrolled!'
 	    ) : null;
 	
+	    var leaveClass = this.props.isUserEnrolledInCourse ? _react2.default.createElement(
+	      'div',
+	      { onClick: this.props.showUnenrollModal, className: 'btn-div btn-danger' },
+	      'Leave Class'
+	    ) : null;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -39303,12 +39417,7 @@
 	      signupButton,
 	      loginButton,
 	      enrolledInCourse,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'btn-div' },
-	        this.props.data.seats_remaining,
-	        ' seats left'
-	      ),
+	      classFull,
 	      _react2.default.createElement(_taughtBy2.default, {
 	        data: this.props.data
 	      }),
@@ -39316,7 +39425,8 @@
 	        'p',
 	        { className: 'center pointer', onClick: this.props.handleReviewDisplay },
 	        showReviews
-	      )
+	      ),
+	      leaveClass
 	    );
 	  }
 	});
@@ -39363,13 +39473,16 @@
 	    var instructorImageStyle = {
 	      backgroundImage: 'url(' + this.props.data.profile_pic + ')'
 	    };
+	    var lineHeight = {
+	      lineHeight: 1
+	    };
 	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'center', id: 'taught-by' },
 	      _react2.default.createElement(
 	        'p',
-	        { className: 'bold' },
+	        { style: lineHeight, className: 'bold' },
 	        'Your Instructor'
 	      ),
 	      _react2.default.createElement(
@@ -39377,7 +39490,7 @@
 	        { to: '/users/' + this.props.data.user_id },
 	        _react2.default.createElement(
 	          'p',
-	          null,
+	          { style: lineHeight },
 	          this.props.data.first_name,
 	          ' ',
 	          this.props.data.last_name
@@ -39420,6 +39533,17 @@
 	
 	  render: function render() {
 	
+	    var noStudents = this.props.data.length === 0 ? _react2.default.createElement(
+	      'p',
+	      { className: 'center no-data-message' },
+	      'There are no students enrolled. ',
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { className: 'link-plain link-orange', to: '/login' },
+	        'Be the first!'
+	      )
+	    ) : null;
+	
 	    var rosterNodes = this.props.data.map(function (student) {
 	      return _react2.default.createElement(Student, {
 	        first_name: student.first_name,
@@ -39447,6 +39571,7 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
+	        noStudents,
 	        _react2.default.createElement('div', { className: 'col-sm-2' }),
 	        _react2.default.createElement(
 	          'div',
@@ -43933,6 +44058,26 @@
 	
 	  render: function render() {
 	
+	    console.log(this.props.data.length == 0);
+	
+	    var noCommentsNotLogged = this.props.data.length == 0 && !sessionStorage.first_name ? _react2.default.createElement(
+	      'p',
+	      { className: 'center no-data-message' },
+	      'No comments. ',
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { className: 'link-plain link-orange', to: '/login' },
+	        'Log in and sign up'
+	      ),
+	      ' to start commenting!'
+	    ) : null;
+	
+	    var noCommentsLogged = this.props.data.length == 0 && sessionStorage.first_name ? _react2.default.createElement(
+	      'p',
+	      { className: 'center no-data-message' },
+	      'Be the first to add a comment!'
+	    ) : null;
+	
 	    var commentNodes = this.props.data.map(function (comment) {
 	      return _react2.default.createElement(Comment, {
 	        date: moment(comment.comment_date).format("MMMM Do YYYY"),
@@ -43992,6 +44137,8 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
+	        noCommentsNotLogged,
+	        noCommentsLogged,
 	        _react2.default.createElement('div', { className: 'col-sm-2' }),
 	        _react2.default.createElement(
 	          'div',

@@ -39,7 +39,7 @@ var modalStyles = {
   getInitialState: function(){
     return({
       loginErrorMessage: null,
-      err: false
+      err: false,
     })
   },
 
@@ -74,7 +74,7 @@ var modalStyles = {
 
   hideModal: function(){
       this.refs.modal.hide();
-      browserHistory.push('/users/' + this.props.userState.profile.id);
+      browserHistory.goBack();
   },
 
   render: function(){

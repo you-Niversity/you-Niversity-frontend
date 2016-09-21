@@ -352,7 +352,13 @@ hr {
 #taught-by a:hover {
 	text-decoration: none;
 }
-
+.link-plain {
+	color: black;
+}
+.link-plain:hover {
+	text-decoration: none;
+	color: black;
+}
 #roster-review-comments-div {
 	margin: 20px -15px;
 	border: 2px solid orange;
@@ -435,6 +441,7 @@ hr {
 }
 .course-display-change {
 	padding: 10px;
+	color: orange;
 }
 .course-display-change:hover {
 	background-color: #ebebeb;
@@ -453,7 +460,22 @@ hr {
 .pointer {
 	cursor: pointer;
 }
-
+.no-classes-message {
+	font-size: 1.5em;
+	font-weight: 700;
+	color: orange;
+	padding: 20px;
+}
+.no-data-message {
+	font-size: 1.3em;
+	font-weight: 400;
+	color: black;
+	padding: 20px;
+}
+.link-orange {
+	color: orange;
+	font-weight: 400;
+}
 /*footer*/
 footer {
 	width: 100%;

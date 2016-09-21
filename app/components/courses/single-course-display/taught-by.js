@@ -11,12 +11,17 @@ var TaughtBy = React.createClass({
     var instructorImageStyle = {
       backgroundImage: 'url(' + this.props.data.profile_pic + ')',
     }
+    var lineHeight = {
+      lineHeight: 1
+    }
 
     return (
         <div className="center" id="taught-by">
-          <p className="bold">Your Instructor</p>
-          <Link to={'/users/'+this.props.data.user_id}><p>{this.props.data.first_name} {this.props.data.last_name}</p>
-          <div className="instructor-profile-img" style={instructorImageStyle}></div></Link>
+          <p style={lineHeight} className="bold">Your Instructor</p>
+          <Link to={'/users/'+this.props.data.user_id}>
+            <p style={lineHeight}>{this.props.data.first_name} {this.props.data.last_name}</p>
+            <div className="instructor-profile-img" style={instructorImageStyle}></div>
+          </Link>
         </div>
     );
   }

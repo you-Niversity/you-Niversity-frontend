@@ -22,6 +22,16 @@ var CommentBoard = React.createClass({
 
   render: function(){
 
+    console.log(this.props.data.length == 0);
+
+    var noCommentsNotLogged = (this.props.data.length == 0 && !sessionStorage.first_name) ?
+      <p className="center no-data-message">No comments. <Link className="link-plain link-orange" to="/login">Log in and sign up</Link> to start commenting!</p>
+      : null;
+
+    var noCommentsLogged = (this.props.data.length == 0 && sessionStorage.first_name) ?
+      <p className="center no-data-message">Be the first to add a comment!</p>
+      : null;
+
     var commentNodes = this.props.data.map(function(comment){
       return (
         <Comment
@@ -73,6 +83,9 @@ var CommentBoard = React.createClass({
         {addCommentForm}
 
         <div className="row">
+          {noCommentsNotLogged}
+          {noCommentsLogged}
+
           <div className="col-sm-2"></div>
           <div className="col-sm-10 roster-list">
             <div className="row">

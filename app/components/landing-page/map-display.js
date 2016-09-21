@@ -49,8 +49,20 @@ var MapDisplay = React.createClass({
       )
     }.bind(this));
 
+    var numberOfResults = this.props.data.length;
+    for (var i = 0; i < mapMarkers.length; i++){
+      if (mapMarkers[i] == undefined){
+          numberOfResults -= 1;
+      }
+    };
+
+    var noClasses = (numberOfResults === 0) ?
+      <h3 className="center no-classes-message">There are no classes that match this search.</h3>
+      : null;
+
     return (
       <div style={mapStyle} id="map">
+        {noClasses}
         <GoogleMap
           bootstrapURLKeys={{
             key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',

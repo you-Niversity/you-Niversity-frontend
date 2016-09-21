@@ -84,7 +84,7 @@ var NavbarLoggedIn = React.createClass({
             <ul className="nav navbar-nav navbar-right">
               <li><Link to="/addcourse">+ add course</Link></li>
 
-                <li className="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <li className="dropdown-toggle pointer" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   welcome, {first_name}
                   <span className="caret"></span>
                 </li>

@@ -29,6 +29,7 @@ var SearchBar = React.createClass({
   onSuggestSelect: function(suggest){
     this.props.handleLocationInput(suggest);
     this.setState({lat:suggest.location.lat, lng:suggest.location.lng});
+    console.log(this.state);
   },
 
   render: function() {

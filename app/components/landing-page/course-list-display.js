@@ -38,17 +38,13 @@ var CourseListDisplay = React.createClass({
 
     var numberOfResults = this.props.data.length;
     for (var i = 0; i < courseNodes.length; i++){
-      if (courseNodes[i] !== undefined){
-        console.log("this course is being displayed");
-      } else {
-        console.log("course not being displayed");
+      if (courseNodes[i] == undefined){
         numberOfResults -= 1;
       }
     };
-    console.log(numberOfResults);
 
     var noClasses = (numberOfResults === 0) ?
-      <h3 className="center">There are no classes that match this search.</h3>
+      <h3 className="center no-classes-message">There are no classes that match this search.</h3>
       : null;
 
     return (
