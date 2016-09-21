@@ -83,6 +83,7 @@ var AddCourseForm = React.createClass({
   },
   handleDateChange: function(date) {
     this.setState({date: date});
+    console.log(moment(date._d.toString()).unix());
   },
   onSuggestSelect: function(suggest) {
     var data = suggest.gmaps.address_components;

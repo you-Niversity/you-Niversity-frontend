@@ -44930,6 +44930,7 @@
 	  },
 	  handleDateChange: function handleDateChange(date) {
 	    this.setState({ date: date });
+	    console.log(moment(date._d.toString()).unix());
 	  },
 	  onSuggestSelect: function onSuggestSelect(suggest) {
 	    var data = suggest.gmaps.address_components;
