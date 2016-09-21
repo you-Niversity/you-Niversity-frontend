@@ -24,7 +24,7 @@ var CourseDisplay = React.createClass({
       .get("http://localhost:8080/classes")
       .end(function(err, res){
         if (err){
-          console.log('There was an error grabbing the classes from the API.');
+          browserHistory.push('/error');
         } else {
           this.setState({data: res.body});
         }

@@ -37,7 +37,7 @@ var SearchBar = React.createClass({
     var location = this.props.city + ', ' + this.props.state;
 
     return (
-      <div id="landing-search-div" className="row">
+      <div id="landing-search-div" className="row animated fadeIn">
         <div className="col-sm-12">
           <div id="search-bar" className="row" data-arbitrary="stuff">
             <div className="col-sm-3">

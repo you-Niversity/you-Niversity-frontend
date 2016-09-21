@@ -37,6 +37,7 @@ var AddCourseDisplay = React.createClass({
       .end(function(err, res){
         if (err || !res.ok) {
           console.log("there was an error in creating this class");
+          browserHistory.push('/error');
         } else {
           console.log("successfully created class");
           browserHistory.push('/users/' + user_id);

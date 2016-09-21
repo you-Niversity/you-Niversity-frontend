@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import nocache from 'superagent-no-cache';
 import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import CourseDateTimePlaceInstructorDisplay from './left-display.js';
@@ -12,6 +11,7 @@ import ReviewList from '../review-list.js';
 import CommentBoard from '../comment-board.js';
 import { connect } from 'react-redux';
 import Modal from 'boron/OutlineModal';
+import modalStyles from '../../styles/modal-styles.js';
 
 
 var SingleCourseDisplay = React.createClass({
@@ -33,7 +33,7 @@ var SingleCourseDisplay = React.createClass({
       .get("http://localhost:8080/classes/" + id)
       .end(function(err, res){
         if(err){
-          console.log("There was an error grabbing this course from the API");
+          browserHistory.push('/error');
         } else {
           this.setState({courseData: res.body[0]});
           if (callback) {
@@ -66,11 +66,9 @@ var SingleCourseDisplay = React.createClass({
           console.log("There was an error grabbing this roster from the API");
         } else {
           var roster = res.body;
-          console.log(roster);
           if(sessionStorage.user_id) {
             for (var i = 0; i < roster.length; i++){
               if (sessionStorage.user_id == roster[i].id) {
-                console.log("this user is in this class!");
                 this.setState({roster: roster, isUserEnrolledInCourse: true})
               } else {
                 this.setState({roster: roster});
@@ -90,7 +88,6 @@ var SingleCourseDisplay = React.createClass({
         if(err){
           console.log("There was an error grabbing course comments from the API");
         } else {
-          console.log("COMMENTS:");
           this.setState({commentBoard: res.body});
         }
       }.bind(this))
@@ -140,14 +137,12 @@ var SingleCourseDisplay = React.createClass({
         if(err || !res.ok) {
           console.log("there was an error signing up for this course.");
         } else {
-          console.log('Success! Now add a new roster field.');
           this.updateRoster();
         }
       }.bind(this))
   },
 
   handleUserUnenrollSeatsRemaining: function(){
-    console.log("handling user unenrollment");
     var id = this.props.params.id;
     var seats_remaining = this.state.courseData.seats_remaining + 1;
     request
@@ -157,7 +152,6 @@ var SingleCourseDisplay = React.createClass({
         if(err || !res.ok) {
           console.log("there was an error signing up for this course.");
         } else {
-          console.log('Success! Now add a new roster field.');
           this.refreshCourseDataAfterUnenrolling(id);
           this.updateRosterUnenroll();
         }
@@ -174,7 +168,6 @@ var SingleCourseDisplay = React.createClass({
         if(err || !res.ok) {
           console.log("there was an error in deleting this user.");
         } else {
-          console.log('Success! The user is no longer on the roster for this course.');
           this.getRosterFromAPI(id);
           this.hideUnenrollModal();
           this.showModalConfirmUnenroll()
@@ -192,7 +185,6 @@ var SingleCourseDisplay = React.createClass({
         if(err || !res.ok) {
           console.log("there was an error adding a roster field.");
         } else {
-          console.log('Success! The user is now on the roster for this course.');
           this.getRosterFromAPI(id);
           this.getCourseDataFromAPI(id)
         }
@@ -222,8 +214,6 @@ var SingleCourseDisplay = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log("userState object:");
-    console.log(this.props.userState);
     var id = this.props.params.id;
     this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
     this.getRosterFromAPI(id);
@@ -295,33 +285,6 @@ var SingleCourseDisplay = React.createClass({
     );
   }
 });
-
-var modalStyles = {
-  btn: {
-    padding: '1em 2em',
-    width: '25%',
-    margin: '1em 0 2em 37.5%',
-    outline: 'none',
-    fontSize: 16,
-    fontWeight: '600',
-    background: 'orange',
-    color: '#FFFFFF',
-    border: 'none',
-    borderRadius: '3px'
-  },
-  container: {
-    padding: '2em',
-    textAlign: 'center'
-  },
-  title: {
-    margin: 0,
-    paddingTop: '2em',
-    fontSize: '1.5em',
-    color: 'orange',
-    textAlign: 'center',
-    fontWeight: 400
-  }
-};
 
 const mapStateToProps = function(store) {
   return store;

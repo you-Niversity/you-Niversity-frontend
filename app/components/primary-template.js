@@ -6,6 +6,8 @@ import NavbarLoggedIn from './navbar-logged-in.js';
 import LogoutModal from 'boron/OutlineModal';
 import Footer from './footer.js';
 import { connect } from 'react-redux';
+import store from '../store';
+import { userLoginSuccess } from '../actions/user-actions';
 
 
 var modalStyles = {
@@ -38,9 +40,13 @@ var modalStyles = {
 
 var PrimaryTemplate = React.createClass({
 
+  componentDidMount: function(){
+    if((!this.props.userState.profile) && (sessionStorage.user_id)) {
+      this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
+    }
+  },
+
   showModal: function(){
-    console.log('entering show modal function');
-    console.log(this.refs.modal);
     this.refs.modal.show();
   },
 
@@ -50,9 +56,6 @@ var PrimaryTemplate = React.createClass({
   },
 
   render: function(){
-    console.log("Current sessionStorage:");
-    console.log(sessionStorage);
-
     var nav = (sessionStorage.first_name) ?
       <NavbarLoggedIn
         showModal={this.showModal}
@@ -91,5 +94,12 @@ var PrimaryTemplate = React.createClass({
 const mapStateToProps = function(store) {
   return store;
 }
+const mapDispatchToProps = function(dispatch){
+  return {
+    login: function(user){
+      dispatch(userLoginSuccess(user));
+    }
+  }
+}
 
-module.exports = connect(mapStateToProps)(PrimaryTemplate);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(PrimaryTemplate);

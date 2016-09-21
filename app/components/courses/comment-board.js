@@ -22,8 +22,6 @@ var CommentBoard = React.createClass({
 
   render: function(){
 
-    console.log(this.props.data.length == 0);
-
     var noCommentsNotLogged = (this.props.data.length == 0 && !sessionStorage.first_name) ?
       <p className="center no-data-message">No comments. <Link className="link-plain link-orange" to="/login">Log in and sign up</Link> to start commenting!</p>
       : null;

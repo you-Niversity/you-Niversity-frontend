@@ -5,34 +5,8 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
 import Geosuggest from 'react-geosuggest';
 import Modal from 'boron/OutlineModal';
+import modalStyles from '../styles/modal-styles.js';
 import { connect } from 'react-redux';
-
-var modalStyles = {
-  btn: {
-    padding: '1em 2em',
-    width: '25%',
-    margin: '1em 0 2em 37.5%',
-    outline: 'none',
-    fontSize: 16,
-    fontWeight: '600',
-    background: 'orange',
-    color: '#FFFFFF',
-    border: 'none',
-    borderRadius: '3px'
-  },
-  container: {
-    padding: '2em',
-    textAlign: 'center'
-  },
-  title: {
-    margin: 0,
-    paddingTop: '2em',
-    fontSize: '1.5em',
-    color: 'orange',
-    textAlign: 'center',
-    fontWeight: 400
-  }
-};
 
 var DatePicker = require('react-datepicker');
 var moment = require('moment');
@@ -52,6 +26,7 @@ var UpdateCourseDisplay = React.createClass({
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing this course from the API");
+          browserHistory.push('/error');
         } else {
           console.log(res.body[0]);
           this.setState({courseData: res.body[0]});
@@ -80,6 +55,7 @@ var UpdateCourseDisplay = React.createClass({
       .end(function(err, res){
         if (err || !res.ok) {
           console.log("there was an error in updating this class");
+          browserHistory.push('/error');
         } else {
           console.log("successfully updated the class");
           browserHistory.push('/users/' + user_id);
@@ -95,6 +71,7 @@ var UpdateCourseDisplay = React.createClass({
       .end(function(err, res){
         if (err || !res.ok) {
           console.log("there was an error in updating this class");
+          browserHistory.push('/error');
         } else {
           console.log("successfully deleted the class");
           this.showModal()

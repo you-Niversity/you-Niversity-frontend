@@ -21,6 +21,7 @@ var UserDashboard = React.createClass({
       .end(function(err, res){
         if(err){
           console.log("error getting user data");
+          browserHistory.push('/error');
         } else {
           this.setState({userData: res.body[0]})
           console.log(this.props.userState);
@@ -34,6 +35,7 @@ var UserDashboard = React.createClass({
       .end(function(err, res){
         if(err){
           console.log("error getting user data");
+          browserHistory.push('/error');
         } else {
           this.setState({classesTeaching: res.body})
         }
@@ -46,6 +48,7 @@ var UserDashboard = React.createClass({
       .end(function(err, res){
         if(err){
           console.log("error getting user data");
+          browserHistory.push('/error');
         } else {
           this.setState({classesTaking: res.body})
         }

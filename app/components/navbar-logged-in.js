@@ -1,35 +1,10 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import Modal from 'boron/OutlineModal';
+import modalStyles from './styles/modal-styles.js';
 import { connect } from 'react-redux';
-
-var modalStyles = {
-  btn: {
-    padding: '1em 2em',
-    width: '25%',
-    margin: '1em 0 2em 37.5%',
-    outline: 'none',
-    fontSize: 16,
-    fontWeight: '600',
-    background: 'orange',
-    color: '#FFFFFF',
-    border: 'none',
-    borderRadius: '3px'
-  },
-  container: {
-    padding: '2em',
-    textAlign: 'center'
-  },
-  title: {
-    margin: 0,
-    paddingTop: '2em',
-    fontSize: '1.5em',
-    color: 'orange',
-    textAlign: 'center',
-    fontWeight: 400
-  }
-};
-
+import store from '../store';
+import { userLogoutSuccess } from '../actions/user-actions';
 
 var NavbarLoggedIn = React.createClass({
 
@@ -45,6 +20,7 @@ var NavbarLoggedIn = React.createClass({
 
   hideModal: function(){
     this.refs.modal.hide();
+    this.props.logout();
     browserHistory.push('/');
   },
 
@@ -110,8 +86,8 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = function(dispatch){
   return {
-    login: function(user){
-      dispatch(userLoginSuccess(user));
+    logout: function(user){
+      dispatch(userLogoutSuccess());
     }
   }
 }

@@ -1,5 +1,6 @@
 'use strict';
 import {USER_LOGIN_SUCCESS} from './action-types';
+import {USER_LOGOUT_SUCCESS} from './action-types';
 
 export function userLoginSuccess(user) {
   return {
@@ -11,6 +12,6 @@ export function userLoginSuccess(user) {
 
 export function userLogoutSuccess() {
   return {
-    type: types.USER_LOGOUT_SUCCESS
+    type: USER_LOGOUT_SUCCESS
   };
 }
