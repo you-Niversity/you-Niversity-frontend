@@ -20,13 +20,15 @@ var AddCourseDisplay = React.createClass({
   },
 
   handleCourseSubmit: function(course){
-    console.log(course);
+    console.log(   moment(course.date._d.toString()).unix()   );
+    var unix_timestamp = moment(course.date._d.toString()).unix();
     var user_id = sessionStorage.user_id;
     request
       .post("http://localhost:8080/classes")
       .send(course)
       .send({user_id: user_id})
       .send({date: moment(course.date._d).format("MMMM Do YYYY")})
+      .send({unix_timestamp: unix_timestamp})
       .send({lat: course.location[0]})
       .send({lng: course.location[1]})
       .send({address: course.location[2] + ' ' + course.location[3]})

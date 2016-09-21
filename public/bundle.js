@@ -44871,9 +44871,10 @@
 	  },
 	
 	  handleCourseSubmit: function handleCourseSubmit(course) {
-	    console.log(course);
+	    console.log(moment(course.date._d.toString()).unix());
+	    var unix_timestamp = moment(course.date._d.toString()).unix();
 	    var user_id = sessionStorage.user_id;
-	    _superagent2.default.post("http://localhost:8080/classes").send(course).send({ user_id: user_id }).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
+	    _superagent2.default.post("http://localhost:8080/classes").send(course).send({ user_id: user_id }).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ unix_timestamp: unix_timestamp }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in creating this class");
 	      } else {
