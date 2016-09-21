@@ -24467,11 +24467,11 @@
 	
 	var _addCourseDisplay2 = _interopRequireDefault(_addCourseDisplay);
 	
-	var _updateCourseDisplay = __webpack_require__(/*! ./components/courses/update-course-display.js */ 354);
+	var _updateCourseDisplay = __webpack_require__(/*! ./components/courses/update-course-display.js */ 352);
 	
 	var _updateCourseDisplay2 = _interopRequireDefault(_updateCourseDisplay);
 	
-	var _userDashboard = __webpack_require__(/*! ./components/user-dashboard.js */ 352);
+	var _userDashboard = __webpack_require__(/*! ./components/user-dashboard.js */ 353);
 	
 	var _userDashboard2 = _interopRequireDefault(_userDashboard);
 	
@@ -30275,10 +30275,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -30309,6 +30305,8 @@
 	
 	var _footer2 = _interopRequireDefault(_footer);
 	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var LandingPage = _react2.default.createClass({
@@ -30329,16 +30327,13 @@
 	  },
 	
 	  handleUserInput: function handleUserInput(filterText) {
-	    console.log(filterText);
 	    this.setState({
 	      filterText: filterText
 	    });
 	  },
 	
 	  handleRadiusInput: function handleRadiusInput(radius) {
-	    console.log(this.state);
 	    var data = JSON.parse(radius);
-	    console.log(data);
 	    this.setState({
 	      radius: data.radius, zoom: data.zoom
 	    });
@@ -30376,12 +30371,12 @@
 	  },
 	
 	  handleLocationInput: function handleLocationInput(suggest) {
-	    console.log("yippeeeee:");
-	    console.log(suggest);
 	    this.setState({ lat: suggest.location.lat, lng: suggest.location.lng, city: suggest.gmaps.address_components[0].long_name, state: suggest.gmaps.address_components[2].long_name });
 	  },
 	
 	  componentDidMount: function componentDidMount() {
+	    console.log("the userState:");
+	    console.log(this.props.userState);
 	    if (sessionStorage.getItem('city')) {
 	      var city = sessionStorage.getItem('city');
 	      var state = sessionStorage.getItem('state');
@@ -30438,7 +30433,10 @@
 	  }
 	});
 	
-	exports.default = LandingPage;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(LandingPage);
 
 /***/ },
 /* 270 */
@@ -30522,7 +30520,7 @@
 	      zoom: 10
 	    }) : null;
 	
-	    var listView = this.state.showList ? _react2.default.createElement(_courseListDisplay2.default, {
+	    var listView = this.state.showList && this.state.data.length > 0 ? _react2.default.createElement(_courseListDisplay2.default, {
 	      data: this.state.data,
 	      filterText: this.props.filterText,
 	      lat: Number(this.props.lat),
@@ -35548,7 +35546,6 @@
 	  displayName: 'CourseListDisplay',
 	
 	  render: function render() {
-	
 	    var courseNodes = this.props.data.map(function (course) {
 	      var filterTextLowerCase = this.props.filterText.toLowerCase();
 	      var courseTitleLowerCase = course.title.toLowerCase();
@@ -35576,6 +35573,23 @@
 	        id: course.id });
 	    }.bind(this));
 	
+	    var numberOfResults = this.props.data.length;
+	    for (var i = 0; i < courseNodes.length; i++) {
+	      if (courseNodes[i] !== undefined) {
+	        console.log("this course is being displayed");
+	      } else {
+	        console.log("course not being displayed");
+	        numberOfResults -= 1;
+	      }
+	    };
+	    console.log(numberOfResults);
+	
+	    var noClasses = numberOfResults === 0 ? _react2.default.createElement(
+	      'h3',
+	      { className: 'center' },
+	      'There are no classes that match this search.'
+	    ) : null;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
@@ -35586,6 +35600,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'course-block', className: 'row' },
+	          noClasses,
 	          courseNodes
 	        )
 	      )
@@ -35752,10 +35767,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -35765,6 +35776,8 @@
 	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
 	
 	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -35837,7 +35850,7 @@
 	        _OutlineModal2.default,
 	        { ref: 'modal', style: modalStyles.container },
 	        _react2.default.createElement(
-	          'h2',
+	          'h3',
 	          { style: modalStyles.title },
 	          'Thanks for stopping by...see you soon!'
 	        ),
@@ -35930,7 +35943,19 @@
 	  }
 	});
 	
-	exports.default = NavbarLoggedIn;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    login: function login(user) {
+	      dispatch(userLoginSuccess(user));
+	    }
+	  };
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NavbarLoggedIn);
 
 /***/ },
 /* 307 */
@@ -38711,10 +38736,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -38752,6 +38773,8 @@
 	var _commentBoard = __webpack_require__(/*! ../comment-board.js */ 343);
 	
 	var _commentBoard2 = _interopRequireDefault(_commentBoard);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
 	
@@ -38891,6 +38914,8 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
+	    console.log("userState object:");
+	    console.log(this.props.userState);
 	    var id = this.props.params.id;
 	    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
 	    this.getRosterFromAPI(id);
@@ -38988,7 +39013,10 @@
 	  }
 	};
 	
-	exports.default = SingleCourseDisplay;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(SingleCourseDisplay);
 
 /***/ },
 /* 333 */
@@ -39205,10 +39233,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -39226,6 +39250,8 @@
 	var _taughtBy = __webpack_require__(/*! ./taught-by.js */ 338);
 	
 	var _taughtBy2 = _interopRequireDefault(_taughtBy);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -39295,7 +39321,10 @@
 	  }
 	});
 	
-	exports.default = RightDisplay;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(RightDisplay);
 
 /***/ },
 /* 338 */
@@ -43866,10 +43895,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -43883,6 +43908,8 @@
 	var _addCommentForm = __webpack_require__(/*! ./add-comment-form.js */ 344);
 	
 	var _addCommentForm2 = _interopRequireDefault(_addCommentForm);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44036,7 +44063,10 @@
 	  }
 	});
 	
-	exports.default = CommentBoard;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(CommentBoard);
 
 /***/ },
 /* 344 */
@@ -44120,10 +44150,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -44143,6 +44169,8 @@
 	var _footer = __webpack_require__(/*! ./footer.js */ 329);
 	
 	var _footer2 = _interopRequireDefault(_footer);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44241,7 +44269,11 @@
 	  }
 	});
 	
-	exports.default = PrimaryTemplate;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(PrimaryTemplate);
 
 /***/ },
 /* 346 */
@@ -44251,10 +44283,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
@@ -44270,6 +44298,8 @@
 	
 	var _footer2 = _interopRequireDefault(_footer);
 	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var SecondaryTemplate = _react2.default.createClass({
@@ -44277,8 +44307,6 @@
 	
 	
 	  render: function render() {
-	    console.log("Current userState:");
-	    console.log(this.props.userState);
 	
 	    return _react2.default.createElement(
 	      'div',
@@ -44312,7 +44340,10 @@
 	
 	});
 	
-	exports.default = SecondaryTemplate;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(SecondaryTemplate);
 
 /***/ },
 /* 347 */
@@ -44390,10 +44421,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -44403,6 +44430,14 @@
 	var _superagent = __webpack_require__(/*! superagent */ 271);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	var _store = __webpack_require__(/*! ../store */ 196);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 331);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44634,7 +44669,18 @@
 	  }
 	});
 	
-	exports.default = SignupDisplay;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    login: function login(user) {
+	      dispatch((0, _userActions.userLoginSuccess)(user));
+	    }
+	  };
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SignupDisplay);
 
 /***/ },
 /* 349 */
@@ -44644,10 +44690,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
@@ -44662,6 +44704,8 @@
 	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 318);
 	
 	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44843,7 +44887,10 @@
 	  }
 	});
 	
-	exports.default = AddCourseDisplay;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(AddCourseDisplay);
 
 /***/ },
 /* 350 */
@@ -45003,199 +45050,12 @@
 
 /***/ },
 /* 352 */
-/*!******************************************!*\
-  !*** ./app/components/user-dashboard.js ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 271);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 353);
-	
-	var _courseList2 = _interopRequireDefault(_courseList);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var UserDashboard = _react2.default.createClass({
-	  displayName: 'UserDashboard',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      userData: [],
-	      classesTeaching: [],
-	      classesTaking: []
-	    };
-	  },
-	
-	  getUserDataFromAPI: function getUserDataFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/users/" + id).end(function (err, res) {
-	      if (err) {
-	        console.log("error getting user data");
-	      } else {
-	        this.setState({ userData: res.body[0] });
-	        console.log(this.props.userState);
-	      }
-	    }.bind(this));
-	  },
-	
-	  getClassesTeachingFromAPI: function getClassesTeachingFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/users/" + id + "/teaching").end(function (err, res) {
-	      if (err) {
-	        console.log("error getting user data");
-	      } else {
-	        this.setState({ classesTeaching: res.body });
-	      }
-	    }.bind(this));
-	  },
-	
-	  getClassesTakingFromAPI: function getClassesTakingFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/users/" + id + "/taking").end(function (err, res) {
-	      if (err) {
-	        console.log("error getting user data");
-	      } else {
-	        this.setState({ classesTaking: res.body });
-	      }
-	    }.bind(this));
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    var id = this.props.params.id;
-	    this.getUserDataFromAPI(id);
-	    this.getClassesTeachingFromAPI(id);
-	    this.getClassesTakingFromAPI(id);
-	  },
-	
-	  render: function render() {
-	
-	    var teachingDisplay = this.state.classesTeaching.length > 0 ? _react2.default.createElement(_courseList2.default, {
-	      data: this.state.classesTeaching,
-	      header: 'Classes You\'re Teaching'
-	    }) : null;
-	
-	    var takingDisplay = this.state.classesTaking.length > 0 ? _react2.default.createElement(_courseList2.default, {
-	      data: this.state.classesTaking,
-	      header: 'Classes You\'re Taking'
-	    }) : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'CourseDisplay dashboard-display' },
-	        teachingDisplay,
-	        takingDisplay
-	      )
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	
-	module.exports = (0, _reactRedux.connect)(mapStateToProps)(UserDashboard);
-
-/***/ },
-/* 353 */
-/*!***********************************************!*\
-  !*** ./app/components/courses/course-list.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 333);
-	
-	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 271);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _course = __webpack_require__(/*! ./course.js */ 304);
-	
-	var _course2 = _interopRequireDefault(_course);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CourseList = _react2.default.createClass({
-	  displayName: 'CourseList',
-	
-	  render: function render() {
-	
-	    var courseNodes = this.props.data.map(function (course) {
-	      return _react2.default.createElement(_course2.default, {
-	        title: course.title,
-	        image_url: course.image_url,
-	        date: course.date,
-	        key: course.class_id,
-	        id: course.class_id });
-	    }.bind(this));
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement('div', { className: 'col-sm-1' }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-10', id: 'class-display' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            this.props.header
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'course-block', className: 'row' },
-	          courseNodes
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = CourseList;
-
-/***/ },
-/* 354 */
 /*!*********************************************************!*\
   !*** ./app/components/courses/update-course-display.js ***!
   \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
@@ -45214,6 +45074,8 @@
 	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
 	
 	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -45470,7 +45332,193 @@
 	  }
 	});
 	
-	exports.default = UpdateCourseDisplay;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(UpdateCourseDisplay);
+
+/***/ },
+/* 353 */
+/*!******************************************!*\
+  !*** ./app/components/user-dashboard.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 354);
+	
+	var _courseList2 = _interopRequireDefault(_courseList);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var UserDashboard = _react2.default.createClass({
+	  displayName: 'UserDashboard',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      userData: [],
+	      classesTeaching: [],
+	      classesTaking: []
+	    };
+	  },
+	
+	  getUserDataFromAPI: function getUserDataFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/users/" + id).end(function (err, res) {
+	      if (err) {
+	        console.log("error getting user data");
+	      } else {
+	        this.setState({ userData: res.body[0] });
+	        console.log(this.props.userState);
+	      }
+	    }.bind(this));
+	  },
+	
+	  getClassesTeachingFromAPI: function getClassesTeachingFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/users/" + id + "/teaching").end(function (err, res) {
+	      if (err) {
+	        console.log("error getting user data");
+	      } else {
+	        this.setState({ classesTeaching: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  getClassesTakingFromAPI: function getClassesTakingFromAPI(id) {
+	    _superagent2.default.get("http://localhost:8080/users/" + id + "/taking").end(function (err, res) {
+	      if (err) {
+	        console.log("error getting user data");
+	      } else {
+	        this.setState({ classesTaking: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var id = this.props.params.id;
+	    this.getUserDataFromAPI(id);
+	    this.getClassesTeachingFromAPI(id);
+	    this.getClassesTakingFromAPI(id);
+	  },
+	
+	  render: function render() {
+	
+	    var teachingDisplay = this.state.classesTeaching.length > 0 ? _react2.default.createElement(_courseList2.default, {
+	      data: this.state.classesTeaching,
+	      header: 'Classes You\'re Teaching'
+	    }) : null;
+	
+	    var takingDisplay = this.state.classesTaking.length > 0 ? _react2.default.createElement(_courseList2.default, {
+	      data: this.state.classesTaking,
+	      header: 'Classes You\'re Taking'
+	    }) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'CourseDisplay dashboard-display' },
+	        teachingDisplay,
+	        takingDisplay
+	      )
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(UserDashboard);
+
+/***/ },
+/* 354 */
+/*!***********************************************!*\
+  !*** ./app/components/courses/course-list.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 333);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _course = __webpack_require__(/*! ./course.js */ 304);
+	
+	var _course2 = _interopRequireDefault(_course);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CourseList = _react2.default.createClass({
+	  displayName: 'CourseList',
+	
+	  render: function render() {
+	
+	    var courseNodes = this.props.data.map(function (course) {
+	      return _react2.default.createElement(_course2.default, {
+	        title: course.title,
+	        image_url: course.image_url,
+	        date: course.date,
+	        key: course.class_id,
+	        id: course.class_id });
+	    }.bind(this));
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-10', id: 'class-display' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            this.props.header
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'course-block', className: 'row' },
+	          courseNodes
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = CourseList;
 
 /***/ }
 /******/ ]);

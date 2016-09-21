@@ -5,6 +5,7 @@ import nocache from 'superagent-no-cache';
 import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import TaughtBy from './taught-by.js';
+import { connect } from 'react-redux';
 
 var RightDisplay = React.createClass({
   render: function(){
@@ -47,4 +48,7 @@ var RightDisplay = React.createClass({
   }
 });
 
-export default RightDisplay;
+const mapStateToProps = function(store) {
+  return store;
+}
+module.exports = connect(mapStateToProps)(RightDisplay);

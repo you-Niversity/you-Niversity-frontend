@@ -7,7 +7,7 @@ import NavbarLoggedIn from '../navbar-logged-in.js';
 import WelcomeText from './welcome-text.js';
 import SearchBar from './search-bar.js';
 import Footer from '../footer.js';
-
+import { connect } from 'react-redux';
 
 var LandingPage = React.createClass({
 
@@ -25,16 +25,13 @@ var LandingPage = React.createClass({
   },
 
   handleUserInput: function(filterText){
-    console.log(filterText);
     this.setState({
       filterText: filterText
     });
   },
 
   handleRadiusInput: function(radius){
-    console.log(this.state);
     var data = JSON.parse(radius);
-    console.log(data);
     this.setState({
       radius: data.radius, zoom: data.zoom
     });
@@ -72,12 +69,12 @@ var LandingPage = React.createClass({
   },
 
   handleLocationInput: function(suggest){
-    console.log("yippeeeee:");
-    console.log(suggest);
     this.setState({lat:suggest.location.lat, lng:suggest.location.lng, city:suggest.gmaps.address_components[0].long_name, state: suggest.gmaps.address_components[2].long_name});
   },
 
   componentDidMount: function(){
+    console.log("the userState:");
+    console.log(this.props.userState);
     if(sessionStorage.getItem('city')) {
       var city = sessionStorage.getItem('city');
       var state = sessionStorage.getItem('state');
@@ -126,13 +123,13 @@ var LandingPage = React.createClass({
           lng={this.state.lng}
           radius={this.state.radius}
         />
-
-
         <Footer />
       </div>
     );
   }
 });
 
-
-export default LandingPage;
+const mapStateToProps = function(store) {
+  return store;
+}
+module.exports = connect(mapStateToProps)(LandingPage);

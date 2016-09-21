@@ -5,6 +5,7 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
 import Geosuggest from 'react-geosuggest';
 import Modal from 'boron/OutlineModal';
+import { connect } from 'react-redux';
 
 var modalStyles = {
   btn: {
@@ -257,4 +258,7 @@ var UpdateCourseForm = React.createClass({
   }
 });
 
-export default UpdateCourseDisplay;
+const mapStateToProps = function(store) {
+  return store;
+}
+module.exports = connect(mapStateToProps)(UpdateCourseDisplay);

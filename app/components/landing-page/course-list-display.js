@@ -5,7 +5,6 @@ import Course from '../courses/course.js';
 
 var CourseListDisplay = React.createClass({
   render: function() {
-
     var courseNodes = this.props.data.map(function(course) {
       var filterTextLowerCase = this.props.filterText.toLowerCase();
       var courseTitleLowerCase = course.title.toLowerCase();
@@ -26,7 +25,6 @@ var CourseListDisplay = React.createClass({
         return;
       }
 
-
       return (
         <Course
           title={course.title}
@@ -38,11 +36,27 @@ var CourseListDisplay = React.createClass({
       )
     }.bind(this));
 
+    var numberOfResults = this.props.data.length;
+    for (var i = 0; i < courseNodes.length; i++){
+      if (courseNodes[i] !== undefined){
+        console.log("this course is being displayed");
+      } else {
+        console.log("course not being displayed");
+        numberOfResults -= 1;
+      }
+    };
+    console.log(numberOfResults);
+
+    var noClasses = (numberOfResults === 0) ?
+      <h3 className="center">There are no classes that match this search.</h3>
+      : null;
+
     return (
       <div className="row">
           <div className="col-sm-2"></div>
           <div className="col-sm-8">
             <div id="course-block" className="row">
+              {noClasses}
               {courseNodes}
             </div>
           </div>

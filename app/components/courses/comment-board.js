@@ -6,6 +6,7 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 var moment = require('moment');
 moment().format();
 import AddCommentForm from './add-comment-form.js';
+import { connect } from 'react-redux';
 
 var CommentBoard = React.createClass({
 
@@ -39,7 +40,7 @@ var CommentBoard = React.createClass({
       padding: "10px",
       cursor: "pointer"
     };
-    
+
     var addCommentButton = (sessionStorage.first_name) ?
       <div className="row">
         <div className="col-sm-12">
@@ -124,4 +125,7 @@ var Comment = React.createClass({
   }
 });
 
-export default CommentBoard;
+const mapStateToProps = function(store) {
+  return store;
+}
+module.exports = connect(mapStateToProps)(CommentBoard);

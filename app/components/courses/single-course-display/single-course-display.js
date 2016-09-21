@@ -10,6 +10,7 @@ import RightDisplay from './right-display.js';
 import RosterList from '../roster-list.js';
 import ReviewList from '../review-list.js';
 import CommentBoard from '../comment-board.js';
+import { connect } from 'react-redux';
 import Modal from 'boron/OutlineModal';
 
 
@@ -162,6 +163,8 @@ var SingleCourseDisplay = React.createClass({
   },
 
   componentDidMount: function(){
+    console.log("userState object:");
+    console.log(this.props.userState);
     var id = this.props.params.id;
     this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
     this.getRosterFromAPI(id);
@@ -247,4 +250,7 @@ var modalStyles = {
   }
 };
 
-export default SingleCourseDisplay;
+const mapStateToProps = function(store) {
+  return store;
+}
+module.exports = connect(mapStateToProps)(SingleCourseDisplay);

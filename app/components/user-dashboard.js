@@ -90,5 +90,4 @@ const mapStateToProps = function(store) {
   return store;
 }
 
-
 module.exports = connect(mapStateToProps)(UserDashboard);

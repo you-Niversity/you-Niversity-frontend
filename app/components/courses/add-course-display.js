@@ -4,6 +4,7 @@ import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
 import Geosuggest from 'react-geosuggest';
+import { connect } from 'react-redux';
 
 var DatePicker = require('react-datepicker');
 var moment = require('moment');
@@ -191,4 +192,7 @@ var AddCourseForm = React.createClass({
   }
 });
 
-export default AddCourseDisplay;
+const mapStateToProps = function(store) {
+  return store;
+}
+module.exports = connect(mapStateToProps)(AddCourseDisplay);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 
-
 var NavbarSecondary = React.createClass({
 
   render: function(){

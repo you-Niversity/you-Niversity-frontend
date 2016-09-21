@@ -53,7 +53,7 @@ var CourseDisplay = React.createClass({
         />
         : null;
 
-    var listView = (this.state.showList) ?
+    var listView = (this.state.showList && this.state.data.length > 0) ?
         <CourseListDisplay
           data={this.state.data}
           filterText={this.props.filterText}
@@ -79,10 +79,8 @@ var CourseDisplay = React.createClass({
           </span>
         </h4>
       </div>
-
         {mapView}
         {listView}
-
       </div>
     );
   }

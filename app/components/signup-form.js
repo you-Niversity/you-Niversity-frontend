@@ -3,6 +3,9 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
+import { connect } from 'react-redux';
+import store from '../store';
+import { userLoginSuccess } from '../actions/user-actions';
 
 var SignupDisplay = React.createClass({
 
@@ -203,4 +206,16 @@ var AddUserForm = React.createClass({
   }
 });
 
-export default SignupDisplay;
+
+const mapStateToProps = function(store) {
+  return store;
+}
+const mapDispatchToProps = function(dispatch){
+  return {
+    login: function(user){
+      dispatch(userLoginSuccess(user));
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(SignupDisplay);

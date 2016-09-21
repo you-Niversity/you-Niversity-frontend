@@ -4,13 +4,12 @@ import React from 'react';
 import NavbarSecondary from './navbar-secondary.js';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import Footer from './footer.js';
+import { connect } from 'react-redux';
 
 
 var SecondaryTemplate = React.createClass({
 
   render: function(){
-    console.log("Current userState:");
-    console.log(this.props.userState);
 
     return (
       <div>
@@ -34,4 +33,8 @@ var SecondaryTemplate = React.createClass({
 
 });
 
-export default SecondaryTemplate;
+
+const mapStateToProps = function(store) {
+  return store;
+}
+module.exports = connect(mapStateToProps)(SecondaryTemplate);

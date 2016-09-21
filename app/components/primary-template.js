@@ -5,6 +5,7 @@ import Navbar from './navbar.js';
 import NavbarLoggedIn from './navbar-logged-in.js';
 import LogoutModal from 'boron/OutlineModal';
 import Footer from './footer.js';
+import { connect } from 'react-redux';
 
 
 var modalStyles = {
@@ -83,11 +84,12 @@ var PrimaryTemplate = React.createClass({
           <Footer />
         </div>
       </div>
-
-
     );
   }
 });
 
+const mapStateToProps = function(store) {
+  return store;
+}
 
-export default PrimaryTemplate;
+module.exports = connect(mapStateToProps)(PrimaryTemplate);

@@ -179,7 +179,6 @@ var UserLoginForm = React.createClass({
 });
 
 
-
 const mapStateToProps = function(store) {
   return store;
 }

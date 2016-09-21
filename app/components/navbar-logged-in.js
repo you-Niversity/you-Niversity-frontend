@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import Modal from 'boron/OutlineModal';
+import { connect } from 'react-redux';
 
 var modalStyles = {
   btn: {
@@ -68,7 +69,7 @@ var NavbarLoggedIn = React.createClass({
       <nav className="row">
 
         <Modal ref="modal" style={modalStyles.container}>
-            <h2 style={modalStyles.title}>Thanks for stopping by...see you soon!</h2>
+            <h3 style={modalStyles.title}>Thanks for stopping by...see you soon!</h3>
             <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
         </Modal>
 
@@ -103,4 +104,16 @@ var NavbarLoggedIn = React.createClass({
   }
 });
 
-export default NavbarLoggedIn;
+const mapStateToProps = function(store) {
+  return store;
+}
+
+const mapDispatchToProps = function(dispatch){
+  return {
+    login: function(user){
+      dispatch(userLoginSuccess(user));
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(NavbarLoggedIn);
