@@ -9,11 +9,13 @@ import { userLoginSuccess } from '../actions/user-actions';
 import Modal from 'boron/OutlineModal';
 import modalStyles from './styles/modal-styles.js';
 
+var DATABASE_URL = "https://you-niversity.herokuapp.com";
+
 var SignupDisplay = React.createClass({
 
   handleUserSubmit: function(user){
     request
-      .post("http://localhost:8080/auth/signup")
+      .post(DATABASE_URL + "/auth/signup")
       .send(user)
       .end(function(err, res){
         if (err || !res.ok) {

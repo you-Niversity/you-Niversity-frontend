@@ -9,6 +9,7 @@ import ListIcon from '../icons/list-icon.js';
 import MapDisplay from './map-display.js';
 import CourseListDisplay from './course-list-display.js';
 
+var DATABASE_URL = "https://you-niversity.herokuapp.com";
 
 var CourseDisplay = React.createClass({
   getInitialState: function() {
@@ -20,8 +21,9 @@ var CourseDisplay = React.createClass({
   },
 
   getCoursesFromAPI: function() {
+    console.log(DATABASE_URL);
     request
-      .get("http://localhost:8080/classes")
+      .get(DATABASE_URL + "/classes")
       .end(function(err, res){
         if (err){
           browserHistory.push('/error');

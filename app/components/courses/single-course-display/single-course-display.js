@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../../styles/modal-styles.js';
 
+var DATABASE_URL = "https://you-niversity.herokuapp.com";
 
 var SingleCourseDisplay = React.createClass({
 
@@ -30,7 +31,7 @@ var SingleCourseDisplay = React.createClass({
 
   getCourseDataFromAPI: function(id, callback){
     request
-      .get("http://localhost:8080/classes/" + id)
+      .get(DATABASE_URL + "/classes/" + id)
       .end(function(err, res){
         if(err){
           browserHistory.push('/error');
@@ -47,7 +48,7 @@ var SingleCourseDisplay = React.createClass({
 
   refreshCourseDataAfterUnenrolling: function(id){
     request
-      .get("http://localhost:8080/classes/" + id)
+      .get(DATABASE_URL + "/classes/" + id)
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing this course from the API");
@@ -60,7 +61,7 @@ var SingleCourseDisplay = React.createClass({
 
   getRosterFromAPI: function(id){
     request
-      .get("http://localhost:8080/rosters/" + id)
+      .get(DATABASE_URL + "/rosters/" + id)
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing this roster from the API");
@@ -83,7 +84,7 @@ var SingleCourseDisplay = React.createClass({
 
   getCommentBoardFromAPI: function(id){
     request
-      .get("http://localhost:8080/classes/" + id + "/comments")
+      .get(DATABASE_URL + "/classes/" + id + "/comments")
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing course comments from the API");
@@ -97,7 +98,7 @@ var SingleCourseDisplay = React.createClass({
     var user_id = Number(sessionStorage.user_id);
     var id = this.props.params.id;
     request
-      .post("http://localhost:8080/classes/" + id + "/comments")
+      .post(DATABASE_URL + "/classes/" + id + "/comments")
       .send(comment)
       .send({class_id: id})
       .send({commenter_id: user_id})
@@ -112,7 +113,7 @@ var SingleCourseDisplay = React.createClass({
 
   getReviewsFromAPI: function(id){
     request
-      .get("http://localhost:8080/users/" + id + "/reviews")
+      .get(DATABASE_URL + "/users/" + id + "/reviews")
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing the reviews from the API");
@@ -131,7 +132,7 @@ var SingleCourseDisplay = React.createClass({
     var seats_remaining = this.state.courseData.seats_remaining - 1;
 
     request
-      .put("http://localhost:8080/classes/" + id + "/signup")
+      .put(DATABASE_URL + "/classes/" + id + "/signup")
       .send({seats_remaining: seats_remaining})
       .end(function(err, res){
         if(err || !res.ok) {
@@ -146,7 +147,7 @@ var SingleCourseDisplay = React.createClass({
     var id = this.props.params.id;
     var seats_remaining = this.state.courseData.seats_remaining + 1;
     request
-      .put("http://localhost:8080/classes/" + id + "/signup")
+      .put(DATABASE_URL + "/classes/" + id + "/signup")
       .send({seats_remaining: seats_remaining})
       .end(function(err, res){
         if(err || !res.ok) {
@@ -162,7 +163,7 @@ var SingleCourseDisplay = React.createClass({
     var id = this.props.params.id;
     var user_id = Number(sessionStorage.user_id);
     request
-      .del("http://localhost:8080/rosters/" + id)
+      .del(DATABASE_URL + "/rosters/" + id)
       .send({user_id: user_id})
       .end(function(err, res){
         if(err || !res.ok) {
@@ -179,7 +180,7 @@ var SingleCourseDisplay = React.createClass({
     var id = this.props.params.id;
     var user_id = Number(sessionStorage.user_id);
     request
-      .post("http://localhost:8080/rosters/" + id)
+      .post(DATABASE_URL + "/rosters/" + id)
       .send({user_id: user_id})
       .end(function(err, res){
         if(err || !res.ok) {

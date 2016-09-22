@@ -10,6 +10,8 @@ var DatePicker = require('react-datepicker');
 var moment = require('moment');
 moment().format();
 
+var DATABASE_URL = "https://you-niversity.herokuapp.com";
+
 
 var AddCourseDisplay = React.createClass({
 
@@ -24,7 +26,7 @@ var AddCourseDisplay = React.createClass({
     var unix_timestamp = moment(course.date._d.toString()).unix();
     var user_id = sessionStorage.user_id;
     request
-      .post("http://localhost:8080/classes")
+      .post(DATABASE_URL + "/classes")
       .send(course)
       .send({user_id: user_id})
       .send({date: moment(course.date._d).format("MMMM Do YYYY")})

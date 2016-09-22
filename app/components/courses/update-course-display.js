@@ -12,6 +12,8 @@ var DatePicker = require('react-datepicker');
 var moment = require('moment');
 moment().format();
 
+var DATABASE_URL = "https://you-niversity.herokuapp.com";
+
 var UpdateCourseDisplay = React.createClass({
 
   getInitialState: function(){
@@ -22,7 +24,7 @@ var UpdateCourseDisplay = React.createClass({
 
   getCourseDataFromAPI: function(id){
     request
-      .get("http://localhost:8080/classes/" + id)
+      .get(DATABASE_URL + "/classes/" + id)
       .end(function(err, res){
         if(err){
           console.log("There was an error grabbing this course from the API");
@@ -44,7 +46,7 @@ var UpdateCourseDisplay = React.createClass({
     console.log(course);
     var user_id = sessionStorage.user_id;
     request
-      .put("http://localhost:8080/classes/:id")
+      .put(DATABASE_URL + "/classes/:id")
       .send(course)
       .send({date: moment(course.date._d).format("MMMM Do YYYY")})
       .send({lat: course.location[0]})
@@ -67,7 +69,7 @@ var UpdateCourseDisplay = React.createClass({
   handleCourseDelete: function(){
     var id = this.state.courseData.id;
     request
-      .del('http://localhost:8080/classes/' + id)
+      .del(DATABASE_URL + '/classes/' + id)
       .end(function(err, res){
         if (err || !res.ok) {
           console.log("there was an error in updating this class");
@@ -89,7 +91,6 @@ var UpdateCourseDisplay = React.createClass({
       this.refs.modal.hide();
       browserHistory.push('/users/' + sessionStorage.user_id);
   },
-
 
   render: function(){
     return (

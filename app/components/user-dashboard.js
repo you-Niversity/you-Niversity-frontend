@@ -5,6 +5,8 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import CourseList from './courses/course-list.js';
 import { connect } from 'react-redux';
 
+var DATABASE_URL = "https://you-niversity.herokuapp.com";
+
 var UserDashboard = React.createClass({
 
   getInitialState: function(){
@@ -17,7 +19,7 @@ var UserDashboard = React.createClass({
 
   getUserDataFromAPI: function(id){
     request
-      .get("http://localhost:8080/users/" + id)
+      .get(DATABASE_URL + "/users/" + id)
       .end(function(err, res){
         if(err){
           console.log("error getting user data");
@@ -31,7 +33,7 @@ var UserDashboard = React.createClass({
 
   getClassesTeachingFromAPI: function(id){
     request
-      .get("http://localhost:8080/users/" + id + "/teaching")
+      .get(DATABASE_URL + "/users/" + id + "/teaching")
       .end(function(err, res){
         if(err){
           console.log("error getting user data");
@@ -44,7 +46,7 @@ var UserDashboard = React.createClass({
 
   getClassesTakingFromAPI: function(id){
     request
-      .get("http://localhost:8080/users/" + id + "/taking")
+      .get(DATABASE_URL + "/users/" + id + "/taking")
       .end(function(err, res){
         if(err){
           console.log("error getting user data");

@@ -8,6 +8,8 @@ import { userLoginSuccess } from '../actions/user-actions';
 import Modal from 'boron/OutlineModal';
 import modalStyles from './styles/modal-styles.js';
 
+var DATABASE_URL = "https://you-niversity.herokuapp.com";
+
  var LoginDisplay = React.createClass({
 
   getInitialState: function(){
@@ -19,7 +21,7 @@ import modalStyles from './styles/modal-styles.js';
 
   handleLoginSubmit: function(user){
     request
-      .post("http://localhost:8080/auth/login")
+      .post(DATABASE_URL + "/auth/login")
       .send(user)
       .end(function(err, res){
         if (err || !res.ok) {

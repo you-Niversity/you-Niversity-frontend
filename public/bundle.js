@@ -30522,6 +30522,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var DATABASE_URL = "https://you-niversity.herokuapp.com";
+	
 	var CourseDisplay = _react2.default.createClass({
 	  displayName: 'CourseDisplay',
 	
@@ -30534,7 +30536,8 @@
 	  },
 	
 	  getCoursesFromAPI: function getCoursesFromAPI() {
-	    _superagent2.default.get("http://localhost:8080/classes").end(function (err, res) {
+	    console.log(DATABASE_URL);
+	    _superagent2.default.get(DATABASE_URL + "/classes").end(function (err, res) {
 	      if (err) {
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
@@ -38874,6 +38877,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var DATABASE_URL = "https://you-niversity.herokuapp.com";
+	
 	var LoginDisplay = _react2.default.createClass({
 	  displayName: 'LoginDisplay',
 	
@@ -38886,7 +38891,7 @@
 	  },
 	
 	  handleLoginSubmit: function handleLoginSubmit(user) {
-	    _superagent2.default.post("http://localhost:8080/auth/login").send(user).end(function (err, res) {
+	    _superagent2.default.post(DATABASE_URL + "/auth/login").send(user).end(function (err, res) {
 	      if (err || !res.ok) {
 	
 	        var errorMessage = JSON.parse(res.text).message;
@@ -39106,6 +39111,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var DATABASE_URL = "https://you-niversity.herokuapp.com";
+	
 	var SingleCourseDisplay = _react2.default.createClass({
 	  displayName: 'SingleCourseDisplay',
 	
@@ -39123,7 +39130,7 @@
 	  },
 	
 	  getCourseDataFromAPI: function getCourseDataFromAPI(id, callback) {
-	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/classes/" + id).end(function (err, res) {
 	      if (err) {
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
@@ -39138,7 +39145,7 @@
 	  },
 	
 	  refreshCourseDataAfterUnenrolling: function refreshCourseDataAfterUnenrolling(id) {
-	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/classes/" + id).end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing this course from the API");
 	      } else {
@@ -39149,7 +39156,7 @@
 	  },
 	
 	  getRosterFromAPI: function getRosterFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/rosters/" + id).end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/rosters/" + id).end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing this roster from the API");
 	      } else {
@@ -39170,7 +39177,7 @@
 	  },
 	
 	  getCommentBoardFromAPI: function getCommentBoardFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/classes/" + id + "/comments").end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/classes/" + id + "/comments").end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing course comments from the API");
 	      } else {
@@ -39182,7 +39189,7 @@
 	  handleCommentSubmit: function handleCommentSubmit(comment) {
 	    var user_id = Number(sessionStorage.user_id);
 	    var id = this.props.params.id;
-	    _superagent2.default.post("http://localhost:8080/classes/" + id + "/comments").send(comment).send({ class_id: id }).send({ commenter_id: user_id }).end(function (err, res) {
+	    _superagent2.default.post(DATABASE_URL + "/classes/" + id + "/comments").send(comment).send({ class_id: id }).send({ commenter_id: user_id }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error submitting this comment.");
 	      } else {
@@ -39192,7 +39199,7 @@
 	  },
 	
 	  getReviewsFromAPI: function getReviewsFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/users/" + id + "/reviews").end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/users/" + id + "/reviews").end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing the reviews from the API");
 	      } else {
@@ -39209,7 +39216,7 @@
 	    var id = this.props.params.id;
 	    var seats_remaining = this.state.courseData.seats_remaining - 1;
 	
-	    _superagent2.default.put("http://localhost:8080/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
+	    _superagent2.default.put(DATABASE_URL + "/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error signing up for this course.");
 	      } else {
@@ -39221,7 +39228,7 @@
 	  handleUserUnenrollSeatsRemaining: function handleUserUnenrollSeatsRemaining() {
 	    var id = this.props.params.id;
 	    var seats_remaining = this.state.courseData.seats_remaining + 1;
-	    _superagent2.default.put("http://localhost:8080/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
+	    _superagent2.default.put(DATABASE_URL + "/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error signing up for this course.");
 	      } else {
@@ -39234,7 +39241,7 @@
 	  updateRosterUnenroll: function updateRosterUnenroll() {
 	    var id = this.props.params.id;
 	    var user_id = Number(sessionStorage.user_id);
-	    _superagent2.default.del("http://localhost:8080/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
+	    _superagent2.default.del(DATABASE_URL + "/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in deleting this user.");
 	      } else {
@@ -39248,7 +39255,7 @@
 	  updateRoster: function updateRoster() {
 	    var id = this.props.params.id;
 	    var user_id = Number(sessionStorage.user_id);
-	    _superagent2.default.post("http://localhost:8080/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
+	    _superagent2.default.post(DATABASE_URL + "/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error adding a roster field.");
 	      } else {
@@ -44904,12 +44911,14 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var DATABASE_URL = "https://you-niversity.herokuapp.com";
+	
 	var SignupDisplay = _react2.default.createClass({
 	  displayName: 'SignupDisplay',
 	
 	
 	  handleUserSubmit: function handleUserSubmit(user) {
-	    _superagent2.default.post("http://localhost:8080/auth/signup").send(user).end(function (err, res) {
+	    _superagent2.default.post(DATABASE_URL + "/auth/signup").send(user).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in creating this user");
 	      } else {
@@ -45201,6 +45210,8 @@
 	var moment = __webpack_require__(/*! moment */ 343);
 	moment().format();
 	
+	var DATABASE_URL = "https://you-niversity.herokuapp.com";
+	
 	var AddCourseDisplay = _react2.default.createClass({
 	  displayName: 'AddCourseDisplay',
 	
@@ -45215,7 +45226,7 @@
 	    console.log(moment(course.date._d.toString()).unix());
 	    var unix_timestamp = moment(course.date._d.toString()).unix();
 	    var user_id = sessionStorage.user_id;
-	    _superagent2.default.post("http://localhost:8080/classes").send(course).send({ user_id: user_id }).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ unix_timestamp: unix_timestamp }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
+	    _superagent2.default.post(DATABASE_URL + "/classes").send(course).send({ user_id: user_id }).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ unix_timestamp: unix_timestamp }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in creating this class");
 	        _reactRouter.browserHistory.push('/error');
@@ -45578,6 +45589,8 @@
 	var moment = __webpack_require__(/*! moment */ 343);
 	moment().format();
 	
+	var DATABASE_URL = "https://you-niversity.herokuapp.com";
+	
 	var UpdateCourseDisplay = _react2.default.createClass({
 	  displayName: 'UpdateCourseDisplay',
 	
@@ -45589,7 +45602,7 @@
 	  },
 	
 	  getCourseDataFromAPI: function getCourseDataFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/classes/" + id).end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/classes/" + id).end(function (err, res) {
 	      if (err) {
 	        console.log("There was an error grabbing this course from the API");
 	        _reactRouter.browserHistory.push('/error');
@@ -45609,7 +45622,7 @@
 	  handleCourseUpdate: function handleCourseUpdate(course) {
 	    console.log(course);
 	    var user_id = sessionStorage.user_id;
-	    _superagent2.default.put("http://localhost:8080/classes/:id").send(course).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
+	    _superagent2.default.put(DATABASE_URL + "/classes/:id").send(course).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in updating this class");
 	        _reactRouter.browserHistory.push('/error');
@@ -45622,7 +45635,7 @@
 	
 	  handleCourseDelete: function handleCourseDelete() {
 	    var id = this.state.courseData.id;
-	    _superagent2.default.del('http://localhost:8080/classes/' + id).end(function (err, res) {
+	    _superagent2.default.del(DATABASE_URL + '/classes/' + id).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in updating this class");
 	        _reactRouter.browserHistory.push('/error');
@@ -45835,6 +45848,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var DATABASE_URL = "https://you-niversity.herokuapp.com";
+	
 	var UserDashboard = _react2.default.createClass({
 	  displayName: 'UserDashboard',
 	
@@ -45848,7 +45863,7 @@
 	  },
 	
 	  getUserDataFromAPI: function getUserDataFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/users/" + id).end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/users/" + id).end(function (err, res) {
 	      if (err) {
 	        console.log("error getting user data");
 	        _reactRouter.browserHistory.push('/error');
@@ -45860,7 +45875,7 @@
 	  },
 	
 	  getClassesTeachingFromAPI: function getClassesTeachingFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/users/" + id + "/teaching").end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/users/" + id + "/teaching").end(function (err, res) {
 	      if (err) {
 	        console.log("error getting user data");
 	        _reactRouter.browserHistory.push('/error');
@@ -45871,7 +45886,7 @@
 	  },
 	
 	  getClassesTakingFromAPI: function getClassesTakingFromAPI(id) {
-	    _superagent2.default.get("http://localhost:8080/users/" + id + "/taking").end(function (err, res) {
+	    _superagent2.default.get(DATABASE_URL + "/users/" + id + "/taking").end(function (err, res) {
 	      if (err) {
 	        console.log("error getting user data");
 	        _reactRouter.browserHistory.push('/error');
