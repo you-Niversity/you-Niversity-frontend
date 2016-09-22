@@ -43,7 +43,6 @@ var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
   showModal: function(){
       this.refs.modal.show();
   },
-
   hideModal: function(){
       this.refs.modal.hide();
       browserHistory.goBack();

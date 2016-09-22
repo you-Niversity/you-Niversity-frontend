@@ -278,6 +278,23 @@ hr {
 .bold {
 	font-weight: 700;
 }
+.right {
+	text-align: right;
+}
+.map-list-item {
+	padding: 10px;
+}
+.map-list-item:hover {
+	background-color: #ebebeb;
+}
+.map-item-title {
+	font-size: 1.2em;
+}
+.map-item-date {
+	font-size: 1.1em;
+	font-weight: 400;
+	color: orange;
+}
 .left-course-display {
 	padding: 10px;
 	font-size: 1.5em;

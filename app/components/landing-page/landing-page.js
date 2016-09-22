@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import { userLoginSuccess } from '../../actions/user-actions';
 import Loading from 'react-loading';
+import Modal from 'boron/OutlineModal';
+import modalStyles from '../styles/modal-styles.js';
 
 var LandingPage = React.createClass({
 
@@ -19,8 +21,8 @@ var LandingPage = React.createClass({
     return {
       lat: null,
       lng: null,
-      radius: 0.25005,
-      zoom: 12,
+      radius: 0.08335,
+      zoom: 3,
       city: 'getting',
       state: 'location',
       filterText: ''
@@ -28,6 +30,7 @@ var LandingPage = React.createClass({
   },
 
   componentDidMount: function(){
+    console.log(sessionStorage);
     this.getUserLocation(this.geocodeLatLng);
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
@@ -58,7 +61,7 @@ var LandingPage = React.createClass({
       navigator.geolocation.getCurrentPosition(function(position) {
         this.setState({lat: Number(position.coords.latitude), lng: Number(position.coords.longitude)});
         callback();
-      }.bind(this));
+      }.bind(this), this.showModal, {timeout: 5000});
     };
   },
 
@@ -79,11 +82,21 @@ var LandingPage = React.createClass({
           sessionStorage.setItem('lng', this.state.lng);
         } else {
           console.log('No results found.');
+          this.showModal();
         }
       } else {
         console.log('the geocoder failed...', status);
+        this.showModal();
       }
     }.bind(this));
+  },
+
+  showModal: function(){
+      this.refs.modal.show();
+      this.setState({lat:40.588476, lng:-105.074212});
+  },
+  hideModal: function(){
+      this.refs.modal.hide();
   },
 
   handleLocationInput: function(suggest){
@@ -121,6 +134,10 @@ var LandingPage = React.createClass({
     return (
       <div className="container-fluid">
         <div id="landing-div">
+          <Modal ref="modal" style={modalStyles.container}>
+              <h2 style={modalStyles.title}>We tried to find your location, <br /> but something went wrong. <br /> Type a location in the search bar below to narrow your results.</h2>
+              <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
+          </Modal>
           <div id="landing-div-row" className="row">
             <div className="col-sm-2"></div>
             <div id="center-content" className="col-sm-8">

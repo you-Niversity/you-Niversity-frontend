@@ -10,7 +10,10 @@ var NavbarLoggedIn = React.createClass({
 
   handleLogoutSubmit: function(e){
     e.preventDefault();
-    sessionStorage.clear();
+    sessionStorage.removeItem('first_name');
+    sessionStorage.removeItem('image_url');
+    sessionStorage.removeItem('user_id');
+
     this.showModal();
   },
 
@@ -45,7 +48,7 @@ var NavbarLoggedIn = React.createClass({
       <nav className="row">
 
         <Modal ref="modal" style={modalStyles.container}>
-            <h3 style={modalStyles.title}>Thanks for stopping by...see you soon!</h3>
+            <p style={modalStyles.title}>Thanks for stopping by...see you soon!</p>
             <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
         </Modal>
 

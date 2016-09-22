@@ -19,7 +19,7 @@ var modalStyles = {
   },
   title: {
     margin: 0,
-    paddingTop: '2em',
+    padding: '2em 1em 0 1em',
     fontSize: '1.5em',
     color: 'orange',
     textAlign: 'center',

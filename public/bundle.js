@@ -30329,6 +30329,14 @@
 	
 	var _reactLoading2 = _interopRequireDefault(_reactLoading);
 	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var LandingPage = _react2.default.createClass({
@@ -30340,8 +30348,8 @@
 	    return {
 	      lat: null,
 	      lng: null,
-	      radius: 0.25005,
-	      zoom: 12,
+	      radius: 0.08335,
+	      zoom: 3,
 	      city: 'getting',
 	      state: 'location',
 	      filterText: ''
@@ -30349,6 +30357,7 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
+	    console.log(sessionStorage);
 	    this.getUserLocation(this.geocodeLatLng);
 	    if (!this.props.userState.profile && sessionStorage.user_id) {
 	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
@@ -30379,7 +30388,7 @@
 	      navigator.geolocation.getCurrentPosition(function (position) {
 	        this.setState({ lat: Number(position.coords.latitude), lng: Number(position.coords.longitude) });
 	        callback();
-	      }.bind(this));
+	      }.bind(this), this.showModal, { timeout: 5000 });
 	    };
 	  },
 	
@@ -30400,11 +30409,21 @@
 	          sessionStorage.setItem('lng', this.state.lng);
 	        } else {
 	          console.log('No results found.');
+	          this.showModal();
 	        }
 	      } else {
 	        console.log('the geocoder failed...', status);
+	        this.showModal();
 	      }
 	    }.bind(this));
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	    this.setState({ lat: 40.588476, lng: -105.074212 });
+	  },
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
 	  },
 	
 	  handleLocationInput: function handleLocationInput(suggest) {
@@ -30443,6 +30462,24 @@
 	      _react2.default.createElement(
 	        'div',
 	        { id: 'landing-div' },
+	        _react2.default.createElement(
+	          _OutlineModal2.default,
+	          { ref: 'modal', style: _modalStyles2.default.container },
+	          _react2.default.createElement(
+	            'h2',
+	            { style: _modalStyles2.default.title },
+	            'We tried to find your location, ',
+	            _react2.default.createElement('br', null),
+	            ' but something went wrong. ',
+	            _react2.default.createElement('br', null),
+	            ' Type a location in the search bar below to narrow your results.'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { style: _modalStyles2.default.btn, onClick: this.hideModal },
+	            'Close'
+	          )
+	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'landing-div-row', className: 'row' },
@@ -32415,13 +32452,23 @@
 	  render: function render() {
 	
 	    var mapStyle = {
-	      width: '76%',
+	      width: '100%',
 	      height: '400px',
-	      marginLeft: '12%',
-	      marginBottom: '50px'
+	      marginBottom: '50px',
+	      border: '2px solid orange'
+	    };
+	    var listStyle = {
+	      width: "100%",
+	      height: '400px',
+	      border: '2px solid orange',
+	      padding: 0
+	    };
+	    var margins = {
+	      margin: '0 -15px 50px -15px'
 	    };
 	
-	    var count = 0;
+	    var markerCount = 0;
+	    var listCount = 0;
 	
 	    var mapMarkers = this.props.data.map(function (marker, index) {
 	      var filterTextLowerCase = this.props.filterText.toLowerCase();
@@ -32441,7 +32488,7 @@
 	      if (withinRadius === false) {
 	        return;
 	      }
-	      count++;
+	      markerCount++;
 	
 	      return _react2.default.createElement(
 	        Marker,
@@ -32449,7 +32496,40 @@
 	          lat: marker.lat,
 	          lng: marker.lng,
 	          key: "marker:" + marker.id,
-	          id: count },
+	          id: markerCount },
+	        'text=',
+	        index + 1
+	      );
+	    }.bind(this));
+	
+	    var ListItems = this.props.data.map(function (item, index) {
+	      var filterTextLowerCase = this.props.filterText.toLowerCase();
+	      var itemTitleLowerCase = item.title.toLowerCase();
+	
+	      var radius = this.props.radius;
+	      var userLat = this.props.lat;
+	      var userLng = this.props.lng;
+	      var withinLatRadius = item.lat < userLat + radius && item.lat > userLat - radius;
+	      var withinLngRadius = item.lng > userLng - radius && item.lng < userLng + radius;
+	      var withinRadius = item.lng > userLng - radius && item.lng < userLng + radius && item.lat < userLat + radius && item.lat > userLat - radius;
+	
+	      if (this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
+	        return;
+	      }
+	
+	      if (withinRadius === false) {
+	        return;
+	      }
+	      listCount++;
+	
+	      return _react2.default.createElement(
+	        Item,
+	        {
+	          title: item.title,
+	          date: item.date,
+	          start_time: item.start_time,
+	          key: "list-item:" + item.id,
+	          id: listCount },
 	        'text=',
 	        index + 1
 	      );
@@ -32470,22 +32550,89 @@
 	
 	    return _react2.default.createElement(
 	      'div',
-	      { style: mapStyle, id: 'map' },
+	      { className: 'row' },
 	      noClasses,
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
 	      _react2.default.createElement(
-	        _googleMapReact2.default,
-	        {
-	          bootstrapURLKeys: {
-	            key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
-	            language: 'en'
-	          },
-	          defaultCenter: this.props.center,
-	          defaultZoom: this.props.zoom },
-	        mapMarkers
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement(
+	          'div',
+	          { style: mapStyle, id: 'map' },
+	          _react2.default.createElement(
+	            _googleMapReact2.default,
+	            {
+	              bootstrapURLKeys: {
+	                key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
+	                language: 'en'
+	              },
+	              defaultCenter: this.props.center,
+	              defaultZoom: this.props.zoom },
+	            mapMarkers
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-4', style: margins },
+	        _react2.default.createElement(
+	          'div',
+	          { style: listStyle },
+	          noClasses,
+	          ListItems
+	        )
 	      )
 	    );
 	  }
 	
+	});
+	
+	var Item = _react2.default.createClass({
+	  displayName: 'Item',
+	
+	  render: function render() {
+	
+	    var markerStyle = {
+	      color: 'black',
+	      fontSize: '2em',
+	      fontWeight: '700',
+	      textAlign: 'right'
+	    };
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'map-list-item' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2', style: markerStyle },
+	          this.props.id
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-10' },
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'bold map-item-title' },
+	            this.props.title
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'map-item-date' },
+	            this.props.date
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            '@ ',
+	            this.props.start_time
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 	
 	var Marker = _react2.default.createClass({
@@ -35853,7 +36000,10 @@
 	
 	  handleLogoutSubmit: function handleLogoutSubmit(e) {
 	    e.preventDefault();
-	    sessionStorage.clear();
+	    sessionStorage.removeItem('first_name');
+	    sessionStorage.removeItem('image_url');
+	    sessionStorage.removeItem('user_id');
+	
 	    this.showModal();
 	  },
 	
@@ -35890,7 +36040,7 @@
 	        _OutlineModal2.default,
 	        { ref: 'modal', style: _modalStyles2.default.container },
 	        _react2.default.createElement(
-	          'h3',
+	          'p',
 	          { style: _modalStyles2.default.title },
 	          'Thanks for stopping by...see you soon!'
 	        ),
@@ -36660,7 +36810,7 @@
 	  },
 	  title: {
 	    margin: 0,
-	    paddingTop: '2em',
+	    padding: '2em 1em 0 1em',
 	    fontSize: '1.5em',
 	    color: 'orange',
 	    textAlign: 'center',
@@ -36838,27 +36988,27 @@
 	                { value: this.state.radius, ref: 'radiusInput', onChange: this.handleRadiusChange },
 	                _react2.default.createElement(
 	                  'option',
-	                  { value: '{"radius":0.08335, "zoom":7}' },
+	                  { value: '{"radius":0.08335, "zoom":3}' },
 	                  '5'
 	                ),
 	                _react2.default.createElement(
 	                  'option',
-	                  { value: '{"radius":0.1667, "zoom":10}' },
+	                  { value: '{"radius":0.1667, "zoom":7}' },
 	                  '10'
 	                ),
 	                _react2.default.createElement(
 	                  'option',
-	                  { value: '{"radius":0.25005, "zoom":12}' },
+	                  { value: '{"radius":0.25005, "zoom":10}' },
 	                  '15'
 	                ),
 	                _react2.default.createElement(
 	                  'option',
-	                  { value: '{"radius":0.41675, "zoom":15}' },
+	                  { value: '{"radius":0.41675, "zoom":12}' },
 	                  '25'
 	                ),
 	                _react2.default.createElement(
 	                  'option',
-	                  { value: '{"radius":0.8335, "zoom":17}' },
+	                  { value: '{"radius":0.8335, "zoom":14}' },
 	                  '50'
 	                )
 	              ),
@@ -38911,7 +39061,6 @@
 	  showModal: function showModal() {
 	    this.refs.modal.show();
 	  },
-	
 	  hideModal: function hideModal() {
 	    this.refs.modal.hide();
 	    _reactRouter.browserHistory.goBack();

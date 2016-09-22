@@ -10,13 +10,23 @@ var MapDisplay = React.createClass({
   render: function(){
 
     var mapStyle = {
-      width: '76%',
+      width: '100%',
       height: '400px',
-      marginLeft: '12%',
-      marginBottom: '50px'
+      marginBottom: '50px',
+      border: '2px solid orange'
+    }
+    var listStyle = {
+      width: "100%",
+      height: '400px',
+      border: '2px solid orange',
+      padding: 0
+    }
+    var margins = {
+      margin: '0 -15px 50px -15px'
     }
 
-    var count = 0;
+    var markerCount = 0;
+    var listCount = 0;
 
     var mapMarkers = this.props.data.map(function(marker, index){
       var filterTextLowerCase = this.props.filterText.toLowerCase();
@@ -36,16 +46,48 @@ var MapDisplay = React.createClass({
       if(withinRadius === false) {
         return;
       }
-      count++;
+      markerCount++;
 
       return (
         <Marker
           lat={marker.lat}
           lng={marker.lng}
           key={"marker:" + marker.id}
-          id={count}>
+          id={markerCount}>
           text={index + 1}
         </Marker>
+      )
+    }.bind(this));
+
+    var ListItems = this.props.data.map(function(item, index){
+      var filterTextLowerCase = this.props.filterText.toLowerCase();
+      var itemTitleLowerCase = item.title.toLowerCase();
+
+      var radius = this.props.radius;
+      var userLat = this.props.lat;
+      var userLng = this.props.lng;
+      var withinLatRadius = (item.lat < (userLat + radius) && item.lat > (userLat - radius));
+      var withinLngRadius = (item.lng > (userLng - radius) && item.lng < (userLng + radius));
+      var withinRadius = ((item.lng > (userLng - radius) && item.lng < (userLng + radius)) && (item.lat < (userLat + radius) && item.lat > (userLat - radius)));
+
+      if ((this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
+        return;
+      }
+
+      if(withinRadius === false) {
+        return;
+      }
+      listCount++;
+
+      return (
+        <Item
+          title={item.title}
+          date={item.date}
+          start_time={item.start_time}
+          key={"list-item:" + item.id}
+          id={listCount}>
+          text={index + 1}
+        </Item>
       )
     }.bind(this));
 
@@ -61,22 +103,58 @@ var MapDisplay = React.createClass({
       : null;
 
     return (
-      <div style={mapStyle} id="map">
-        {noClasses}
-        <GoogleMap
-          bootstrapURLKeys={{
-            key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
-            language: 'en'
-          }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}>
-          {mapMarkers}
-        </GoogleMap>
+      <div className="row">
+      {noClasses}
+        <div className="col-sm-1"></div>
+        <div className="col-sm-6">
+          <div style={mapStyle} id="map">
+            <GoogleMap
+              bootstrapURLKeys={{
+                key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
+                language: 'en'
+              }}
+              defaultCenter={this.props.center}
+              defaultZoom={this.props.zoom}>
+              {mapMarkers}
+            </GoogleMap>
+          </div>
+        </div>
+        <div className="col-sm-4" style={margins}>
+          <div style={listStyle}>
+            {noClasses}
+            {ListItems}
+          </div>
+        </div>
       </div>
     );
   }
 
 });
+
+var Item = React.createClass({
+  render: function(){
+
+    var markerStyle = {
+      color: 'black',
+      fontSize: '2em',
+      fontWeight: '700',
+      textAlign: 'right'
+    }
+
+    return (
+      <div className="map-list-item">
+        <div className="row">
+          <div className="col-sm-2" style={markerStyle}>{this.props.id}</div>
+          <div className="col-sm-10">
+            <p className="bold map-item-title">{this.props.title}</p>
+            <p className="map-item-date">{this.props.date}</p>
+            <p>@ {this.props.start_time}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+})
 
 var Marker = React.createClass({
 
