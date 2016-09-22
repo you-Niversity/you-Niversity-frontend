@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../../styles/modal-styles.js';
 
-var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com/";
+var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 
 var SingleCourseDisplay = React.createClass({
 

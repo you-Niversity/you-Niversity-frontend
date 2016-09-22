@@ -10,7 +10,7 @@ var DatePicker = require('react-datepicker');
 var moment = require('moment');
 moment().format();
 
-var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com/";
+var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 
 
 var AddCourseDisplay = React.createClass({
