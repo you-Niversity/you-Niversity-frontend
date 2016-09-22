@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "webpack -d --watch & nodemon",
     "build": "webpack -p",
-    "postinstall": "webpack -p --config webpack.prod.config.js"
   },
   "repository": {
     "type": "git",
