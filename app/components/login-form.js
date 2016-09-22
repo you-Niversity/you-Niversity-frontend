@@ -64,7 +64,6 @@ import modalStyles from './styles/modal-styles.js';
               loginErrorMessage={this.state.loginErrorMessage}
               err={this.state.err}
             />
-            <input type="submit" value="Login with Google" className="google-login form-submit-button"/>
             <p>Not signed up yet? <Link to="/signup"> Create an account!</Link></p>
           </div>
         </div>
@@ -136,7 +135,7 @@ var UserLoginForm = React.createClass({
           onChange={this.handleEmailChange}
         />
         <input
-          type="text"
+          type="password"
           placeholder="password"
           value={this.state.password}
           onChange={this.handlePasswordChange}

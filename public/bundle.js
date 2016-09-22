@@ -38942,7 +38942,6 @@
 	            loginErrorMessage: this.state.loginErrorMessage,
 	            err: this.state.err
 	          }),
-	          _react2.default.createElement('input', { type: 'submit', value: 'Login with Google', className: 'google-login form-submit-button' }),
 	          _react2.default.createElement(
 	            'p',
 	            null,
@@ -39028,7 +39027,7 @@
 	        onChange: this.handleEmailChange
 	      }),
 	      _react2.default.createElement('input', {
-	        type: 'text',
+	        type: 'password',
 	        placeholder: 'password',
 	        value: this.state.password,
 	        onChange: this.handlePasswordChange
@@ -44895,6 +44894,14 @@
 	
 	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 317);
 	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 316);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var SignupDisplay = _react2.default.createClass({
@@ -44902,21 +44909,47 @@
 	
 	
 	  handleUserSubmit: function handleUserSubmit(user) {
-	    console.log(user);
 	    _superagent2.default.post("http://localhost:8080/auth/signup").send(user).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error in creating this user");
 	      } else {
 	        console.log("successfully created user");
-	        location.href = '/';
+	        sessionStorage.setItem('first_name', user.first_name);
+	        sessionStorage.setItem('user_id', res.body.id);
+	        sessionStorage.setItem('image_url', user.profile_pic);
+	        this.props.login(res.body);
+	        this.showModal();
 	      }
 	    }.bind(this));
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	  },
+	
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    _reactRouter.browserHistory.goBack();
 	  },
 	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modal', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'Welcome to youNiversity!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideModal },
+	          'Close'
+	        )
+	      ),
 	      _react2.default.createElement('div', { className: 'col-sm-1' }),
 	      _react2.default.createElement(
 	        'div',
@@ -44924,7 +44957,6 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'signup-display' },
-	          _react2.default.createElement('input', { type: 'submit', value: 'Sign Up with Google', className: 'google-signup form-submit-button' }),
 	          _react2.default.createElement(AddUserForm, {
 	            onUserSubmit: this.handleUserSubmit
 	          }),
@@ -45108,13 +45140,13 @@
 	          onChange: this.handleStateChange
 	        }),
 	        _react2.default.createElement('input', {
-	          type: 'text',
+	          type: 'password',
 	          placeholder: 'password (8 character minimum)',
 	          value: this.state.password,
 	          onChange: this.handlePasswordChange
 	        }),
 	        _react2.default.createElement('input', {
-	          type: 'text',
+	          type: 'password',
 	          placeholder: 'confirm password',
 	          value: this.state.confirm_password,
 	          onChange: this.handleConfirmPasswordChange

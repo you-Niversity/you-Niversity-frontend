@@ -6,11 +6,12 @@ import request from 'superagent';
 import { connect } from 'react-redux';
 import store from '../store';
 import { userLoginSuccess } from '../actions/user-actions';
+import Modal from 'boron/OutlineModal';
+import modalStyles from './styles/modal-styles.js';
 
 var SignupDisplay = React.createClass({
 
   handleUserSubmit: function(user){
-    console.log(user);
     request
       .post("http://localhost:8080/auth/signup")
       .send(user)
@@ -19,18 +20,34 @@ var SignupDisplay = React.createClass({
           console.log("there was an error in creating this user");
         } else {
           console.log("successfully created user");
-          location.href = '/';
+          sessionStorage.setItem('first_name', user.first_name);
+          sessionStorage.setItem('user_id', res.body.id);
+          sessionStorage.setItem('image_url', user.profile_pic);
+          this.props.login(res.body);
+          this.showModal()
         }
       }.bind(this));
+  },
+
+  showModal: function(){
+      this.refs.modal.show();
+  },
+
+  hideModal: function(){
+    this.refs.modal.hide();
+    browserHistory.goBack();
   },
 
   render: function(){
     return (
       <div className="row">
+        <Modal ref="modal" style={modalStyles.container}>
+            <h2 style={modalStyles.title}>Welcome to youNiversity!</h2>
+            <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
+        </Modal>
         <div className="col-sm-1"></div>
         <div className="col-sm-10 form-display">
           <div className="signup-display">
-            <input type="submit" value="Sign Up with Google" className="google-signup form-submit-button"/>
             <AddUserForm
               onUserSubmit={this.handleUserSubmit}
             />
@@ -188,13 +205,13 @@ var AddUserForm = React.createClass({
           onChange={this.handleStateChange}
         />
         <input
-          type="text"
+          type="password"
           placeholder="password (8 character minimum)"
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
         <input
-          type="text"
+          type="password"
           placeholder="confirm password"
           value={this.state.confirm_password}
           onChange={this.handleConfirmPasswordChange}
