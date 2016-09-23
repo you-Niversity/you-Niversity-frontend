@@ -16,6 +16,7 @@ import SignUpDisplay from './components/signup-form.js';
 import AddCourseDisplay from './components/courses/add-course-display.js';
 import UpdateCourseDisplay from './components/courses/update-course-display.js';
 import UserDashboard from './components/user-dashboard.js';
+import MessageDisplay from './components/messages/message-display.js';
 import ErrorDisplay from './components/error-display.js';
 
 var AppRouter = React.createClass({
@@ -49,6 +50,11 @@ var AppRouter = React.createClass({
         <Route path="/users/:id">
           <Route component={PrimaryTemplate}>
             <IndexRoute component={UserDashboard} />
+          </Route>
+        </Route>
+        <Route path="/messages/:id">
+          <Route component={PrimaryTemplate}>
+            <IndexRoute component={MessageDisplay} />
           </Route>
         </Route>
         <Route path="/error">

@@ -1,3 +1,4 @@
+'use strict';
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import Modal from 'boron/OutlineModal';
@@ -69,6 +70,7 @@ var NavbarLoggedIn = React.createClass({
                 </li>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li><Link to={'/users/'+ id}>Dashboard</Link></li>
+                  <li><Link to={'/messages/'+ id}>Messages</Link></li>
                   <li><Link to="#" onClick={this.handleLogoutSubmit}>Logout</Link></li>
                 </ul>
               <li><div style={userPic}></div></li>

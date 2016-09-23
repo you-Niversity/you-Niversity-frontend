@@ -24475,16 +24475,17 @@
 	
 	var _userDashboard2 = _interopRequireDefault(_userDashboard);
 	
+	var _messageDisplay = __webpack_require__(/*! ./components/messages/message-display.js */ 358);
+	
+	var _messageDisplay2 = _interopRequireDefault(_messageDisplay);
+	
 	var _errorDisplay = __webpack_require__(/*! ./components/error-display.js */ 357);
 	
 	var _errorDisplay2 = _interopRequireDefault(_errorDisplay);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//import layouts here
-	
-	
-	//import components here
+	//below is an example of ES6 destructuring
 	var AppRouter = _react2.default.createClass({
 	  displayName: 'AppRouter',
 	
@@ -24545,6 +24546,15 @@
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
+	        { path: '/messages/:id' },
+	        _react2.default.createElement(
+	          _reactRouter.Route,
+	          { component: _primaryTemplate2.default },
+	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _messageDisplay2.default })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Route,
 	        { path: '/error' },
 	        _react2.default.createElement(
 	          _reactRouter.Route,
@@ -24555,7 +24565,11 @@
 	    );
 	  }
 	});
-	//below is an example of ES6 destructuring
+	
+	//import layouts here
+	
+	
+	//import components here
 	exports.default = AppRouter;
 
 /***/ },
@@ -36115,6 +36129,15 @@
 	                null,
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
+	                  { to: '/messages/' + id },
+	                  'Messages'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
 	                  { to: '#', onClick: this.handleLogoutSubmit },
 	                  'Logout'
 	                )
@@ -46222,6 +46245,88 @@
 	});
 	
 	exports.default = ErrorDisplay;
+
+/***/ },
+/* 358 */
+/*!****************************************************!*\
+  !*** ./app/components/messages/message-display.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	var _store = __webpack_require__(/*! ../../store */ 196);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MessageDisplay = _react2.default.createClass({
+	  displayName: 'MessageDisplay',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {};
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    console.log('component mounted!');
+	  },
+	
+	  render: function render() {
+	
+	    var messageBoxStyle = {
+	      border: "2px solid orange",
+	      margin: "65px 0 75px 0",
+	      width: "100%",
+	      height: "300px"
+	    };
+	
+	    var headerStyle = {
+	      color: "orange",
+	      fontSize: "2.5em",
+	      fontWeight: "700",
+	      padding: "10px"
+	    };
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row', style: messageBoxStyle },
+	      _react2.default.createElement(
+	        'h1',
+	        { style: headerStyle },
+	        'Inbox'
+	      )
+	    );
+	  }
+	
+	});
+	
+	exports.default = MessageDisplay;
 
 /***/ }
 /******/ ]);
