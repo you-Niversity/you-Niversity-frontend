@@ -24475,11 +24475,11 @@
 	
 	var _userDashboard2 = _interopRequireDefault(_userDashboard);
 	
-	var _messageDisplay = __webpack_require__(/*! ./components/messages/message-display.js */ 358);
+	var _messageDisplay = __webpack_require__(/*! ./components/messages/message-display.js */ 357);
 	
 	var _messageDisplay2 = _interopRequireDefault(_messageDisplay);
 	
-	var _errorDisplay = __webpack_require__(/*! ./components/error-display.js */ 357);
+	var _errorDisplay = __webpack_require__(/*! ./components/error-display.js */ 358);
 	
 	var _errorDisplay2 = _interopRequireDefault(_errorDisplay);
 	
@@ -46200,6 +46200,158 @@
 
 /***/ },
 /* 357 */
+/*!****************************************************!*\
+  !*** ./app/components/messages/message-display.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
+	var _threadList = __webpack_require__(/*! ./thread-list.js */ 359);
+	
+	var _threadList2 = _interopRequireDefault(_threadList);
+	
+	var _threadMessageDisplay = __webpack_require__(/*! ./thread-message-display.js */ 361);
+	
+	var _threadMessageDisplay2 = _interopRequireDefault(_threadMessageDisplay);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var DATABASE_URL = "http://localhost:8080";
+	
+	var MessageDisplay = _react2.default.createClass({
+	  displayName: 'MessageDisplay',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      threads: [],
+	      messages: []
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    console.log('component mounted!');
+	    var id = this.props.params.id;
+	    this.getThreadDataFromAPI(id);
+	  },
+	
+	  getThreadDataFromAPI: function getThreadDataFromAPI(id) {
+	    _superagent2.default.get(DATABASE_URL + "/messages/" + id).end(function (err, res) {
+	      if (err) {
+	        _reactRouter.browserHistory.push('/error');
+	      } else {
+	        this.setState({ threads: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  onThreadClick: function onThreadClick() {
+	    this.getMessageDataFromAPI();
+	  },
+	
+	  getMessageDataFromAPI: function getMessageDataFromAPI() {
+	    _superagent2.default.get(DATABASE_URL + "/messages/thread/" + 1).end(function (err, res) {
+	      if (err) {
+	        _reactRouter.browserHistory.push('/error');
+	      } else {
+	        this.setState({ messages: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  render: function render() {
+	
+	    var messageBoxStyle = {
+	      border: "2px solid orange",
+	      margin: "65px 0 75px 0",
+	      width: "100%",
+	      height: "300px"
+	    };
+	
+	    var headerStyle = {
+	      color: "orange",
+	      fontSize: "2.5em",
+	      fontWeight: "700",
+	      padding: "10px"
+	    };
+	
+	    var noMargins = {
+	      margin: '0 0 0 10px'
+	    };
+	
+	    var displayMessages = this.state.messages.length === 0 ? _react2.default.createElement(
+	      'h1',
+	      null,
+	      'Click a thread to the left to display messages.'
+	    ) : _react2.default.createElement(_threadMessageDisplay2.default, {
+	      data: this.state.messages
+	    });
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { style: messageBoxStyle },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row', style: noMargins },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row', style: headerStyle },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Inbox'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-5' },
+	            _react2.default.createElement(_threadList2.default, {
+	              data: this.state.threads,
+	              onThreadClick: this.onThreadClick
+	            })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-7' },
+	            displayMessages
+	          )
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	exports.default = MessageDisplay;
+
+/***/ },
+/* 358 */
 /*!*****************************************!*\
   !*** ./app/components/error-display.js ***!
   \*****************************************/
@@ -46247,10 +46399,10 @@
 	exports.default = ErrorDisplay;
 
 /***/ },
-/* 358 */
-/*!****************************************************!*\
-  !*** ./app/components/messages/message-display.js ***!
-  \****************************************************/
+/* 359 */
+/*!************************************************!*\
+  !*** ./app/components/messages/thread-list.js ***!
+  \************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46265,68 +46417,180 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _superagent = __webpack_require__(/*! superagent */ 271);
+	var _thread = __webpack_require__(/*! ./thread.js */ 360);
 	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
-	
-	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
-	
-	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
-	
-	var _modalStyles2 = _interopRequireDefault(_modalStyles);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	var _store = __webpack_require__(/*! ../../store */ 196);
-	
-	var _store2 = _interopRequireDefault(_store);
+	var _thread2 = _interopRequireDefault(_thread);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var MessageDisplay = _react2.default.createClass({
-	  displayName: 'MessageDisplay',
+	var ThreadList = _react2.default.createClass({
+	  displayName: 'ThreadList',
 	
-	
-	  getInitialState: function getInitialState() {
-	    return {};
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    console.log('component mounted!');
-	  },
 	
 	  render: function render() {
-	
-	    var messageBoxStyle = {
-	      border: "2px solid orange",
-	      margin: "65px 0 75px 0",
-	      width: "100%",
-	      height: "300px"
-	    };
-	
-	    var headerStyle = {
-	      color: "orange",
-	      fontSize: "2.5em",
-	      fontWeight: "700",
-	      padding: "10px"
-	    };
+	    var threadNodes = this.props.data.map(function (thread, index) {
+	      return _react2.default.createElement(_thread2.default, {
+	        key: 'thread' + thread.thread_id,
+	        id: thread.id,
+	        sender_first_name: thread.sender_first_name,
+	        sender_last_name: thread.sender_last_name,
+	        recipient_first_name: thread.recipient_first_name,
+	        recipient_last_name: thread.recipient_last_name,
+	        title: thread.title,
+	        unread: thread.unread_messages,
+	        onThreadClick: this.props.onThreadClick });
+	    }.bind(this));
 	
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'row', style: messageBoxStyle },
+	      { className: 'thread-list' },
+	      threadNodes
+	    );
+	  }
+	});
+	
+	exports.default = ThreadList;
+
+/***/ },
+/* 360 */
+/*!*******************************************!*\
+  !*** ./app/components/messages/thread.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Thread = _react2.default.createClass({
+	  displayName: 'Thread',
+	
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'single-thread', onClick: this.props.onThreadClick },
 	      _react2.default.createElement(
-	        'h1',
-	        { style: headerStyle },
-	        'Inbox'
+	        'h2',
+	        null,
+	        this.props.sender_first_name,
+	        ' ',
+	        this.props.sender_last_name
+	      ),
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        this.props.title
 	      )
 	    );
 	  }
-	
 	});
 	
-	exports.default = MessageDisplay;
+	exports.default = Thread;
+
+/***/ },
+/* 361 */
+/*!***********************************************************!*\
+  !*** ./app/components/messages/thread-message-display.js ***!
+  \***********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _message = __webpack_require__(/*! ./message.js */ 362);
+	
+	var _message2 = _interopRequireDefault(_message);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MessageList = _react2.default.createClass({
+	  displayName: 'MessageList',
+	
+	  render: function render() {
+	    console.log(this.props.data);
+	    var messageNodes = this.props.data.map(function (message, index) {
+	      return _react2.default.createElement(_message2.default, {
+	        key: 'message' + index,
+	        date: message.creation_date,
+	        message: message.message,
+	        read: message.read });
+	    }.bind(this));
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'message-list' },
+	      messageNodes
+	    );
+	  }
+	});
+	
+	exports.default = MessageList;
+
+/***/ },
+/* 362 */
+/*!********************************************!*\
+  !*** ./app/components/messages/message.js ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Message = _react2.default.createClass({
+	  displayName: 'Message',
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'single-message' },
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.date
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.message
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Message;
 
 /***/ }
 /******/ ]);

@@ -520,6 +520,35 @@ hr {
 	font-weight: 400;
 }
 
+/*messages*/
+.thread-list {
+	margin-left: -10px;
+	border-top: 2px solid orange;
+	border-right: 2px solid orange;
+	border-bottom: 2px solid orange;
+	border-radius: 3px;
+}
+.single-thread {
+	padding: 20px;
+}
+.single-thread:hover {
+	background-color: #ebebeb;
+}
+.single-thread h2 {
+	font-size: 1.3em;
+	font-weight: 400;
+}
+.single-thread h3 {
+
+}
+.single-message {
+	padding-top: 20px;
+	padding-right: 20px;
+}
+
+
+
+
 /*footer*/
 footer {
 	width: 100%;
