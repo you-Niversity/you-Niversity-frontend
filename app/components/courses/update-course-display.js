@@ -111,7 +111,8 @@ var UpdateCourseDisplay = React.createClass({
             onCourseSubmit={this.handleCourseUpdate}
             course={this.state.courseData}
           />
-          <input type="submit" onClick={this.handleCourseDelete} value="Delete this Course" className="form-submit-button" />
+          <input type="submit" onClick={browserHistory.goBack} value="Nevermind" className="form-submit-button fifty" />
+          <input type="submit" onClick={this.handleCourseDelete} value="Delete this Course" className="form-submit-button fifty" />
         </div>
       </div>
     );
@@ -198,13 +199,10 @@ var UpdateCourseForm = React.createClass({
         <input
           type="text"
           placeholder={this.props.course.title}
-          value={this.props.course.title}
           onChange={this.handleTitleChange}
         />
         <textarea
           placeholder={this.props.course.description}
-          value={this.props.course.description}
-
           rows="10"
           onChange={this.handleDescriptionChange}>
         </textarea>

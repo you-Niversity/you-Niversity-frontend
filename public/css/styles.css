@@ -60,10 +60,8 @@ ol, ul {
 	height: 275px;
 	background-position: center;
 }
-#center-content {
-	/*border-right: 1px solid lightgray;
-	border-left: 1px solid lightgray;*/
-	height: inherit;
+.margin-bottom {
+	margin-bottom: 50px;
 }
 .navbar {
 	margin-top: 50px;
@@ -279,6 +277,11 @@ hr {
 }
 .right {
 	text-align: right;
+}
+.fifty {
+	width: 47%;
+	margin-left: 2%;
+	margin-top: 0;
 }
 .map-list-item {
 	padding: 10px;
@@ -525,6 +528,7 @@ footer {
 	text-align: center;
 	background-color: black;
 }
+
 footer p {
 	padding-top: 20px;
 	font-size: 1.2em;

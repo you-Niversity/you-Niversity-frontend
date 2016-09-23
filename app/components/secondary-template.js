@@ -38,7 +38,6 @@ var SecondaryTemplate = React.createClass({
       </div>
     );
   }
-
 });
 
 

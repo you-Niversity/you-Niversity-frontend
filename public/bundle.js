@@ -39068,7 +39068,7 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'row' },
+	      { className: 'row margin-bottom' },
 	      _react2.default.createElement(
 	        _OutlineModal2.default,
 	        { ref: 'modal', style: _modalStyles2.default.container },
@@ -44939,7 +44939,6 @@
 	      )
 	    );
 	  }
-	
 	});
 	
 	var mapStateToProps = function mapStateToProps(store) {
@@ -45837,7 +45836,8 @@
 	          onCourseSubmit: this.handleCourseUpdate,
 	          course: this.state.courseData
 	        }),
-	        _react2.default.createElement('input', { type: 'submit', onClick: this.handleCourseDelete, value: 'Delete this Course', className: 'form-submit-button' })
+	        _react2.default.createElement('input', { type: 'submit', onClick: _reactRouter.browserHistory.goBack, value: 'Nevermind', className: 'form-submit-button fifty' }),
+	        _react2.default.createElement('input', { type: 'submit', onClick: this.handleCourseDelete, value: 'Delete this Course', className: 'form-submit-button fifty' })
 	      )
 	    );
 	  }
@@ -45928,13 +45928,10 @@
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          placeholder: this.props.course.title,
-	          value: this.props.course.title,
 	          onChange: this.handleTitleChange
 	        }),
 	        _react2.default.createElement('textarea', {
 	          placeholder: this.props.course.description,
-	          value: this.props.course.description,
-	
 	          rows: '10',
 	          onChange: this.handleDescriptionChange }),
 	        _react2.default.createElement('textarea', {

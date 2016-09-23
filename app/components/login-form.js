@@ -50,7 +50,7 @@ var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 
   render: function(){
     return (
-      <div className="row">
+      <div className="row margin-bottom">
 
         <Modal ref="modal" style={modalStyles.container}>
             <h2 style={modalStyles.title}>Login successful!</h2>
