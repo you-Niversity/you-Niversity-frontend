@@ -53,8 +53,8 @@ var MapDisplay = React.createClass({
           lat={marker.lat}
           lng={marker.lng}
           key={"marker:" + marker.id}
-          id={markerCount}>
-          text={index + 1}
+          order={markerCount}
+          id={marker.id}>
         </Marker>
       )
     }.bind(this));
@@ -70,7 +70,7 @@ var MapDisplay = React.createClass({
       var withinLngRadius = (item.lng > (userLng - radius) && item.lng < (userLng + radius));
       var withinRadius = ((item.lng > (userLng - radius) && item.lng < (userLng + radius)) && (item.lat < (userLat + radius) && item.lat > (userLat - radius)));
 
-      if ((this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
+      if ((this.props.filterText !== '' && itemTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
         return;
       }
 
@@ -85,8 +85,8 @@ var MapDisplay = React.createClass({
           date={item.date}
           start_time={item.start_time}
           key={"list-item:" + item.id}
-          id={listCount}>
-          text={index + 1}
+          order={listCount}
+          id={item.id}>
         </Item>
       )
     }.bind(this));
@@ -103,10 +103,10 @@ var MapDisplay = React.createClass({
       : null;
 
     return (
-      <div className="row">
+      <div className="row lowindex">
       {noClasses}
         <div className="col-sm-1"></div>
-        <div className="col-sm-6">
+        <div className="col-sm-6 lowindex">
           <div style={mapStyle} id="map">
             <GoogleMap
               bootstrapURLKeys={{
@@ -119,7 +119,7 @@ var MapDisplay = React.createClass({
             </GoogleMap>
           </div>
         </div>
-        <div className="col-sm-4" style={margins}>
+        <div className="col-sm-4 lowindex" style={margins}>
           <div style={listStyle}>
             {noClasses}
             {ListItems}
@@ -141,16 +141,21 @@ var Item = React.createClass({
       textAlign: 'right'
     }
 
+    console.log(this.props.id);
+    console.log(this.props.order);
+
     return (
       <div className="map-list-item">
-        <div className="row">
-          <div className="col-sm-2" style={markerStyle}>{this.props.id}</div>
-          <div className="col-sm-10">
-            <p className="bold map-item-title">{this.props.title}</p>
-            <p className="map-item-date">{this.props.date}</p>
-            <p>@ {this.props.start_time}</p>
+        <Link to={'/courses/'+this.props.id}>
+          <div className="row">
+            <div className="col-sm-2" style={markerStyle}>{this.props.order}</div>
+            <div className="col-sm-10">
+              <p className="bold map-item-title">{this.props.title}</p>
+              <p className="map-item-date">{this.props.date}</p>
+              <p>@ {this.props.start_time}</p>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     )
   }
@@ -193,7 +198,7 @@ var Marker = React.createClass({
     const style = this.props.$hover ? markerStyleHover : markerStyle;
 
     return (
-       <div style={style}>{this.props.id}</div>
+       <div style={style}>{this.props.order}</div>
     );
   }
 });

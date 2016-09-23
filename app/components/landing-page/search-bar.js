@@ -36,45 +36,45 @@ var SearchBar = React.createClass({
 
     var location = this.props.city + ', ' + this.props.state;
 
+
     return (
-      <div id="landing-search-div" className="row animated fadeIn">
-        <div className="col-sm-12">
-          <div id="search-bar" className="row" data-arbitrary="stuff">
-            <div className="col-sm-3">
-              <form>
-                <input
-                  type="text"
-                  placeholder=" Search courses"
-                  value={this.props.filterText}
-                  ref="filterTextInput"
-                  onChange={this.handleChange} />
-              </form>
-            </div>
-            <div className="col-sm-4">
-              <h4>within
-                <select value={this.state.radius} ref="radiusInput" onChange={this.handleRadiusChange}>
-                  <option value='{"radius":0.08335, "zoom":3}'>5</option>
-                  <option value='{"radius":0.1667, "zoom":7}'>10</option>
-                  <option value='{"radius":0.25005, "zoom":10}'>15</option>
-                  <option value='{"radius":0.41675, "zoom":12}'>25</option>
-                  <option value='{"radius":0.8335, "zoom":14}'>50</option>
-                </select>
-                miles of
-              </h4>
-            </div>
+        <div id="landing-search-div" className="row animated fadeIn">
+          <div className="col-sm-12">
+            <div id="search-bar" className="row" data-arbitrary="stuff">
+              <div className="col-sm-3">
+                <form>
+                  <input
+                    type="text"
+                    placeholder=" Search courses"
+                    value={this.props.filterText}
+                    ref="filterTextInput"
+                    onChange={this.handleChange} />
+                </form>
+              </div>
+              <div className="col-sm-4">
+                <h4>within
+                  <select value={this.state.radius} ref="radiusInput" onChange={this.handleRadiusChange}>
+                    <option value='{"radius":0.08335, "zoom":3}'>5</option>
+                    <option value='{"radius":0.1667, "zoom":7}'>10</option>
+                    <option value='{"radius":0.25005, "zoom":10}'>15</option>
+                    <option value='{"radius":0.41675, "zoom":12}'>25</option>
+                    <option value='{"radius":0.8335, "zoom":14}'>50</option>
+                  </select>
+                  miles of
+                </h4>
+              </div>
 
-            <div className="col-sm-5" id="search-geosuggest">
-              <Geosuggest
-                placeholder={location}
-                country="us"
-                onSuggestSelect={this.onSuggestSelect}
-                value={this.state.location}
-              />
+              <div className="col-sm-5" id="search-geosuggest">
+                <Geosuggest
+                  placeholder={location}
+                  country="us"
+                  onSuggestSelect={this.onSuggestSelect}
+                  value={this.state.location}
+                />
+              </div>
             </div>
-
           </div>
         </div>
-      </div>
     )
   }
 });

@@ -14,6 +14,7 @@ import Loading from 'react-loading';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../styles/modal-styles.js';
 
+
 var LandingPage = React.createClass({
 
   getInitialState: function() {
@@ -23,8 +24,8 @@ var LandingPage = React.createClass({
       lng: null,
       radius: 0.08335,
       zoom: 3,
-      city: 'getting',
-      state: 'location',
+      city: 'Fort Collins',
+      state: 'CO',
       filterText: ''
     };
   },
@@ -61,7 +62,7 @@ var LandingPage = React.createClass({
       navigator.geolocation.getCurrentPosition(function(position) {
         this.setState({lat: Number(position.coords.latitude), lng: Number(position.coords.longitude)});
         callback();
-      }.bind(this), this.showModal, {timeout: 5000});
+      }.bind(this), this.showModal, {timeout: 10000});
     };
   },
 
@@ -109,7 +110,7 @@ var LandingPage = React.createClass({
       marginLeft: '40%'
     }
 
-    var spinner = (this.state.lat === null) ?
+    var searchOrSpin = (this.state.lat === null) ?
       <div style={spinStyle}><Loading style={spinStyle} type='spinningBubbles' color='#e3e3e3' /></div>
       : <SearchBar
         filterText={this.state.filterText}
@@ -132,31 +133,31 @@ var LandingPage = React.createClass({
       : null;
 
     return (
-      <div className="container-fluid">
-        <div id="landing-div">
-          <Modal ref="modal" style={modalStyles.container}>
-              <h2 style={modalStyles.title}>We tried to find your location, <br /> but something went wrong. <br /> Type a location in the search bar below to narrow your results.</h2>
-              <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
-          </Modal>
-          <div id="landing-div-row" className="row">
-            <div className="col-sm-2"></div>
-            <div id="center-content" className="col-sm-8">
-              {loggedInNav}
-              {nav}
-              <WelcomeText />
-              {spinner}
+        <div className="container-fluid">
+          <div id="landing-div">
+            <Modal ref="modal" style={modalStyles.container}>
+                <h2 style={modalStyles.title}>We tried to find your location, <br /> but something went wrong. <br /> Type a location in the search bar below to narrow your results.</h2>
+                <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
+            </Modal>
+            <div id="landing-div-row" className="row">
+              <div className="col-sm-2"></div>
+              <div id="center-content" className="col-sm-8">
+                {loggedInNav}
+                {nav}
+                <WelcomeText />
+                {searchOrSpin}
 
+              </div>
             </div>
           </div>
+          <CourseDisplay
+            filterText={this.state.filterText}
+            lat={this.state.lat}
+            lng={this.state.lng}
+            radius={this.state.radius}
+          />
+          <Footer />
         </div>
-        <CourseDisplay
-          filterText={this.state.filterText}
-          lat={this.state.lat}
-          lng={this.state.lng}
-          radius={this.state.radius}
-        />
-        <Footer />
-      </div>
     );
   }
 });

@@ -32,6 +32,8 @@ var UpdateCourseDisplay = React.createClass({
         } else {
           console.log(res.body[0]);
           this.setState({courseData: res.body[0]});
+          console.log(this.state.courseData.unix_timestamp);
+          console.log(moment(moment.unix(this.state.courseData.unix_timestamp)._d).format("MMMM Do YYYY"));
         }
       }.bind(this))
   },
@@ -119,7 +121,18 @@ var UpdateCourseDisplay = React.createClass({
 var UpdateCourseForm = React.createClass({
 
   getInitialState: function(){
-    return {title: this.props.course.title, description: this.props.course.description, prerequisites: this.props.course.prerequisites, price: this.props.course.price, seats: this.props.course.seats, image_url: this.props.course.image_url, date: moment(), location: this.props.course.location, start_time: this.props.course.start_time, end_time: this.props.course.end_time}
+    return {
+      title: this.props.course.title,
+      description: this.props.course.description,
+      prerequisites: this.props.course.prerequisites,
+      price: this.props.course.price,
+      seats: this.props.course.seats,
+      image_url: this.props.course.image_url,
+      date: moment(moment.unix(this.props.course.unix_timestamp)._d).format("MMMM Do YYYY"),
+      location: this.props.course.location,
+      start_time: this.props.course.start_time,
+      end_time: this.props.course.end_time
+    }
   },
 
   handleTitleChange: function(event){
@@ -155,6 +168,10 @@ var UpdateCourseForm = React.createClass({
   },
   handleSubmit: function(event){
     event.preventDefault();
+
+    console.log(this.props.course.description);
+    console.log(this.state.description);
+
     var title = this.state.title.trim();
     var description = this.state.description.trim();
     var prerequisites = this.state.prerequisites.trim();
@@ -173,16 +190,21 @@ var UpdateCourseForm = React.createClass({
   },
 
   render: function() {
+    var today = moment();
+
     return (
       <form className="addCourseForm" onSubmit={this.handleSubmit}>
       <div className="col-sm-6">
         <input
           type="text"
           placeholder={this.props.course.title}
+          value={this.props.course.title}
           onChange={this.handleTitleChange}
         />
         <textarea
           placeholder={this.props.course.description}
+          value={this.props.course.description}
+
           rows="10"
           onChange={this.handleDescriptionChange}>
         </textarea>
@@ -209,8 +231,7 @@ var UpdateCourseForm = React.createClass({
           onChange={this.handleImageUrlChange}
         />
         <DatePicker
-          placeholder={this.props.course.date}
-          selected={this.state.date}
+          selected={today}
           onChange={this.handleDateChange}
         />
         <input
@@ -225,7 +246,7 @@ var UpdateCourseForm = React.createClass({
         />
 
         <Geosuggest
-          placeholder={this.props.course.location}
+          placeholder={'click to change location'}
           country="us"
           onSuggestSelect={this.onSuggestSelect}
         />

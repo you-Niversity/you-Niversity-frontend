@@ -50,7 +50,7 @@ var CourseListDisplay = React.createClass({
     return (
       <div className="row">
           <div className="col-sm-2"></div>
-          <div className="col-sm-8">
+          <div className="col-sm-8 lowindex">
             <div id="course-block" className="row">
               {noClasses}
               {courseNodes}

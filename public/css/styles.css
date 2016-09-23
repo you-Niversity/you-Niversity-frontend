@@ -134,7 +134,6 @@ ol, ul {
 	height: 80px;
 	border-radius: 3px;
 }
-
 #landing-div-row h2, #landing-div-row h3 {
 	text-align: center;
 	color: white;
@@ -284,8 +283,16 @@ hr {
 .map-list-item {
 	padding: 10px;
 }
+.map-list-item a {
+	color: black;
+}
+.map-list-item a:hover {
+	color: black;
+	text-decoration: none;
+}
 .map-list-item:hover {
 	background-color: #ebebeb;
+	cursor: pointer;
 }
 .map-item-title {
 	font-size: 1.2em;
@@ -368,6 +375,7 @@ hr {
 }
 #taught-by a:hover {
 	text-decoration: none;
+	cursor: pointer;
 }
 .link-plain {
 	color: black;
@@ -375,6 +383,7 @@ hr {
 .link-plain:hover {
 	text-decoration: none;
 	color: black;
+	cursor: pointer;
 }
 #roster-review-comments-div {
 	margin: 20px -15px;

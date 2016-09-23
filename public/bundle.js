@@ -30350,8 +30350,8 @@
 	      lng: null,
 	      radius: 0.08335,
 	      zoom: 3,
-	      city: 'getting',
-	      state: 'location',
+	      city: 'Fort Collins',
+	      state: 'CO',
 	      filterText: ''
 	    };
 	  },
@@ -30388,7 +30388,7 @@
 	      navigator.geolocation.getCurrentPosition(function (position) {
 	        this.setState({ lat: Number(position.coords.latitude), lng: Number(position.coords.longitude) });
 	        callback();
-	      }.bind(this), this.showModal, { timeout: 5000 });
+	      }.bind(this), this.showModal, { timeout: 10000 });
 	    };
 	  },
 	
@@ -30436,7 +30436,7 @@
 	      marginLeft: '40%'
 	    };
 	
-	    var spinner = this.state.lat === null ? _react2.default.createElement(
+	    var searchOrSpin = this.state.lat === null ? _react2.default.createElement(
 	      'div',
 	      { style: spinStyle },
 	      _react2.default.createElement(_reactLoading2.default, { style: spinStyle, type: 'spinningBubbles', color: '#e3e3e3' })
@@ -30490,7 +30490,7 @@
 	            loggedInNav,
 	            nav,
 	            _react2.default.createElement(_welcomeText2.default, null),
-	            spinner
+	            searchOrSpin
 	          )
 	        )
 	      ),
@@ -32490,16 +32490,12 @@
 	      }
 	      markerCount++;
 	
-	      return _react2.default.createElement(
-	        Marker,
-	        {
-	          lat: marker.lat,
-	          lng: marker.lng,
-	          key: "marker:" + marker.id,
-	          id: markerCount },
-	        'text=',
-	        index + 1
-	      );
+	      return _react2.default.createElement(Marker, {
+	        lat: marker.lat,
+	        lng: marker.lng,
+	        key: "marker:" + marker.id,
+	        order: markerCount,
+	        id: marker.id });
 	    }.bind(this));
 	
 	    var ListItems = this.props.data.map(function (item, index) {
@@ -32513,7 +32509,7 @@
 	      var withinLngRadius = item.lng > userLng - radius && item.lng < userLng + radius;
 	      var withinRadius = item.lng > userLng - radius && item.lng < userLng + radius && item.lat < userLat + radius && item.lat > userLat - radius;
 	
-	      if (this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
+	      if (this.props.filterText !== '' && itemTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
 	        return;
 	      }
 	
@@ -32522,17 +32518,13 @@
 	      }
 	      listCount++;
 	
-	      return _react2.default.createElement(
-	        Item,
-	        {
-	          title: item.title,
-	          date: item.date,
-	          start_time: item.start_time,
-	          key: "list-item:" + item.id,
-	          id: listCount },
-	        'text=',
-	        index + 1
-	      );
+	      return _react2.default.createElement(Item, {
+	        title: item.title,
+	        date: item.date,
+	        start_time: item.start_time,
+	        key: "list-item:" + item.id,
+	        order: listCount,
+	        id: item.id });
 	    }.bind(this));
 	
 	    var numberOfResults = this.props.data.length;
@@ -32550,12 +32542,12 @@
 	
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'row' },
+	      { className: 'row lowindex' },
 	      noClasses,
 	      _react2.default.createElement('div', { className: 'col-sm-1' }),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-6' },
+	        { className: 'col-sm-6 lowindex' },
 	        _react2.default.createElement(
 	          'div',
 	          { style: mapStyle, id: 'map' },
@@ -32574,7 +32566,7 @@
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-4', style: margins },
+	        { className: 'col-sm-4 lowindex', style: margins },
 	        _react2.default.createElement(
 	          'div',
 	          { style: listStyle },
@@ -32599,35 +32591,42 @@
 	      textAlign: 'right'
 	    };
 	
+	    console.log(this.props.id);
+	    console.log(this.props.order);
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'map-list-item' },
 	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
+	        _reactRouter.Link,
+	        { to: '/courses/' + this.props.id },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-2', style: markerStyle },
-	          this.props.id
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-10' },
+	          { className: 'row' },
 	          _react2.default.createElement(
-	            'p',
-	            { className: 'bold map-item-title' },
-	            this.props.title
+	            'div',
+	            { className: 'col-sm-2', style: markerStyle },
+	            this.props.order
 	          ),
 	          _react2.default.createElement(
-	            'p',
-	            { className: 'map-item-date' },
-	            this.props.date
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            '@ ',
-	            this.props.start_time
+	            'div',
+	            { className: 'col-sm-10' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'bold map-item-title' },
+	              this.props.title
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'map-item-date' },
+	              this.props.date
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              '@ ',
+	              this.props.start_time
+	            )
 	          )
 	        )
 	      )
@@ -32676,7 +32675,7 @@
 	    return _react2.default.createElement(
 	      'div',
 	      { style: style },
-	      this.props.id
+	      this.props.order
 	    );
 	  }
 	});
@@ -35799,7 +35798,7 @@
 	      _react2.default.createElement('div', { className: 'col-sm-2' }),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-8' },
+	        { className: 'col-sm-8 lowindex' },
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'course-block', className: 'row' },
@@ -45758,6 +45757,8 @@
 	      } else {
 	        console.log(res.body[0]);
 	        this.setState({ courseData: res.body[0] });
+	        console.log(this.state.courseData.unix_timestamp);
+	        console.log(moment(moment.unix(this.state.courseData.unix_timestamp)._d).format("MMMM Do YYYY"));
 	      }
 	    }.bind(this));
 	  },
@@ -45847,7 +45848,18 @@
 	
 	
 	  getInitialState: function getInitialState() {
-	    return { title: this.props.course.title, description: this.props.course.description, prerequisites: this.props.course.prerequisites, price: this.props.course.price, seats: this.props.course.seats, image_url: this.props.course.image_url, date: moment(), location: this.props.course.location, start_time: this.props.course.start_time, end_time: this.props.course.end_time };
+	    return {
+	      title: this.props.course.title,
+	      description: this.props.course.description,
+	      prerequisites: this.props.course.prerequisites,
+	      price: this.props.course.price,
+	      seats: this.props.course.seats,
+	      image_url: this.props.course.image_url,
+	      date: moment(moment.unix(this.props.course.unix_timestamp)._d).format("MMMM Do YYYY"),
+	      location: this.props.course.location,
+	      start_time: this.props.course.start_time,
+	      end_time: this.props.course.end_time
+	    };
 	  },
 	
 	  handleTitleChange: function handleTitleChange(event) {
@@ -45883,6 +45895,10 @@
 	  },
 	  handleSubmit: function handleSubmit(event) {
 	    event.preventDefault();
+	
+	    console.log(this.props.course.description);
+	    console.log(this.state.description);
+	
 	    var title = this.state.title.trim();
 	    var description = this.state.description.trim();
 	    var prerequisites = this.state.prerequisites.trim();
@@ -45901,6 +45917,8 @@
 	  },
 	
 	  render: function render() {
+	    var today = moment();
+	
 	    return _react2.default.createElement(
 	      'form',
 	      { className: 'addCourseForm', onSubmit: this.handleSubmit },
@@ -45910,10 +45928,13 @@
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          placeholder: this.props.course.title,
+	          value: this.props.course.title,
 	          onChange: this.handleTitleChange
 	        }),
 	        _react2.default.createElement('textarea', {
 	          placeholder: this.props.course.description,
+	          value: this.props.course.description,
+	
 	          rows: '10',
 	          onChange: this.handleDescriptionChange }),
 	        _react2.default.createElement('textarea', {
@@ -45940,8 +45961,7 @@
 	          onChange: this.handleImageUrlChange
 	        }),
 	        _react2.default.createElement(DatePicker, {
-	          placeholder: this.props.course.date,
-	          selected: this.state.date,
+	          selected: today,
 	          onChange: this.handleDateChange
 	        }),
 	        _react2.default.createElement('input', {
@@ -45955,7 +45975,7 @@
 	          onChange: this.handleEndTimeChange
 	        }),
 	        _react2.default.createElement(_reactGeosuggest2.default, {
-	          placeholder: this.props.course.location,
+	          placeholder: 'click to change location',
 	          country: 'us',
 	          onSuggestSelect: this.onSuggestSelect
 	        }),
