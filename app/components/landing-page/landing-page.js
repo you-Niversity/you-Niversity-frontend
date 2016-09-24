@@ -31,7 +31,6 @@ var LandingPage = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log(sessionStorage);
     this.getUserLocation(this.geocodeLatLng);
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});

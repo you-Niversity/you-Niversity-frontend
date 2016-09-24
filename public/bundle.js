@@ -30371,7 +30371,6 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    console.log(sessionStorage);
 	    this.getUserLocation(this.geocodeLatLng);
 	    if (!this.props.userState.profile && sessionStorage.user_id) {
 	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
@@ -30587,7 +30586,6 @@
 	  },
 	
 	  getCoursesFromAPI: function getCoursesFromAPI() {
-	    console.log(DATABASE_URL);
 	    _superagent2.default.get(DATABASE_URL + "/classes").end(function (err, res) {
 	      if (err) {
 	        _reactRouter.browserHistory.push('/error');
@@ -39274,6 +39272,10 @@
 	
 	var _commentBoard2 = _interopRequireDefault(_commentBoard);
 	
+	var _initiateMessageForm = __webpack_require__(/*! ../initiate-message-form.js */ 365);
+	
+	var _initiateMessageForm2 = _interopRequireDefault(_initiateMessageForm);
+	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
 	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
@@ -39287,6 +39289,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
+	var ATABASE_URL = "http://localhost:8080";
 	
 	var SingleCourseDisplay = _react2.default.createClass({
 	  displayName: 'SingleCourseDisplay',
@@ -39302,6 +39305,13 @@
 	      displayReviews: false,
 	      isUserEnrolledInCourse: false
 	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var id = this.props.params.id;
+	    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
+	    this.getRosterFromAPI(id);
+	    this.getCommentBoardFromAPI(id);
 	  },
 	
 	  getCourseDataFromAPI: function getCourseDataFromAPI(id, callback) {
@@ -39462,11 +39472,62 @@
 	    _reactRouter.browserHistory.push('/');
 	  },
 	
-	  componentDidMount: function componentDidMount() {
-	    var id = this.props.params.id;
-	    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
-	    this.getRosterFromAPI(id);
-	    this.getCommentBoardFromAPI(id);
+	  showMessageModal: function showMessageModal() {
+	    this.refs.modalMessage.show();
+	  },
+	  hideMessageModal: function hideMessageModal() {
+	    this.refs.modalMessage.hide();
+	    this.showMessageConfirmationModal();
+	  },
+	
+	  showMessageConfirmationModal: function showMessageConfirmationModal() {
+	    this.refs.modalMessageConfirmation.show();
+	  },
+	  hideMessageConfirmationModal: function hideMessageConfirmationModal() {
+	    this.refs.modalMessageConfirmation.hide();
+	  },
+	
+	  initiateMessageClick: function initiateMessageClick() {
+	    var instructor_id = this.state.courseData.user_id;
+	    var sender_id = Number(sessionStorage.user_id);
+	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + sender_id + '/' + instructor_id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing info from the API");
+	      } else {
+	        if (res.body.exists == true) {
+	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
+	        } else {
+	          console.log("make the modal show");
+	          this.showMessageModal();
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleMessageThreadCreation: function handleMessageThreadCreation(message) {
+	    var sender_id = sessionStorage.user_id;
+	    var recipient_id = this.state.courseData.user_id;
+	    _superagent2.default.post(DATABASE_URL + "/messages/threads").send({ message: message }).send({ class_id: this.state.courseData.id }).send({ sender_id: sender_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        console.log("we submitted the thread!!!");
+	        console.log(res.body[0]);
+	        this.handleMessageSubmit(res.body[0], sender_id, recipient_id, message);
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleMessageSubmit: function handleMessageSubmit(thread_id, sender_id, recipient_id, message) {
+	    console.log(thread_id, sender_id, recipient_id, message);
+	    _superagent2.default.post(DATABASE_URL + "/messages/" + sender_id).send({ message: message.message }).send({ thread_id: thread_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        console.log('next we must decide where to redirect. Perhaps show a modal.');
+	        this.hideMessageModal();
+	      }
+	    }.bind(this));
 	  },
 	
 	  render: function render() {
@@ -39492,7 +39553,9 @@
 	          'div',
 	          { className: 'col-sm-7' },
 	          _react2.default.createElement(_middleDisplay2.default, {
-	            data: this.state.courseData
+	            data: this.state.courseData,
+	            displayReviews: this.state.displayReviews,
+	            handleReviewDisplay: this.handleReviewDisplay
 	          })
 	        ),
 	        _react2.default.createElement(
@@ -39503,9 +39566,8 @@
 	            handleUserSignup: this.handleUserSignup,
 	            showUnenrollModal: this.showUnenrollModal,
 	            reviews: this.state.reviews,
-	            handleReviewDisplay: this.handleReviewDisplay,
-	            displayReviews: this.state.displayReviews,
-	            isUserEnrolledInCourse: this.state.isUserEnrolledInCourse
+	            isUserEnrolledInCourse: this.state.isUserEnrolledInCourse,
+	            initiateMessageClick: this.initiateMessageClick
 	          })
 	        )
 	      ),
@@ -39561,6 +39623,34 @@
 	        _react2.default.createElement(
 	          'button',
 	          { style: _modalStyles2.default.btn, onClick: this.hideModalConfirmUnenroll },
+	          'Close'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        {
+	          ref: 'modalMessage',
+	          style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'Message:'
+	        ),
+	        _react2.default.createElement(_initiateMessageForm2.default, {
+	          handleMessageSubmit: this.handleMessageThreadCreation
+	        })
+	      ),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modalMessageConfirmation', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'Message sent!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideMessageConfirmationModal },
 	          'Close'
 	        )
 	      )
@@ -39744,6 +39834,9 @@
 	  displayName: 'TitleDescriptionPrereqDisplay',
 	
 	  render: function render() {
+	
+	    var showReviews = this.props.displayReviews ? "Hide Reviews" : "Show Instructor Reviews";
+	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -39772,7 +39865,12 @@
 	        ),
 	        this.props.data.prerequisites
 	      ),
-	      _react2.default.createElement('hr', null)
+	      _react2.default.createElement('hr', null),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'center pointer', onClick: this.props.handleReviewDisplay },
+	        showReviews
+	      )
 	    );
 	  }
 	});
@@ -39826,8 +39924,6 @@
 	      ' seats left'
 	    );
 	
-	    var showReviews = this.props.displayReviews ? "Hide Reviews" : "Show Reviews";
-	
 	    var updateCourseButton = Number(sessionStorage.user_id) == this.props.data.user_id ? _react2.default.createElement(
 	      _reactRouter.Link,
 	      { className: 'link-plain', to: '/update/' + this.props.data.id },
@@ -39864,7 +39960,7 @@
 	
 	    var leaveClass = this.props.isUserEnrolledInCourse ? _react2.default.createElement(
 	      'div',
-	      { onClick: this.props.showUnenrollModal, className: 'btn-div btn-danger' },
+	      { onClick: this.props.showUnenrollModal, className: 'btn-div btn-danger pointer' },
 	      'Leave Class'
 	    ) : null;
 	
@@ -39875,16 +39971,12 @@
 	      signupButton,
 	      loginButton,
 	      enrolledInCourse,
+	      leaveClass,
 	      classFull,
 	      _react2.default.createElement(_taughtBy2.default, {
-	        data: this.props.data
-	      }),
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'center pointer', onClick: this.props.handleReviewDisplay },
-	        showReviews
-	      ),
-	      leaveClass
+	        data: this.props.data,
+	        initiateMessageClick: this.props.initiateMessageClick
+	      })
 	    );
 	  }
 	});
@@ -39921,10 +40013,19 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
+	var _messageIcon = __webpack_require__(/*! ../../icons/message-icon.js */ 364);
+	
+	var _messageIcon2 = _interopRequireDefault(_messageIcon);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var TaughtBy = _react2.default.createClass({
 	  displayName: 'TaughtBy',
+	
+	
+	  initiateMessageClick: function initiateMessageClick() {
+	    this.props.initiateMessageClick();
+	  },
 	
 	  render: function render() {
 	
@@ -39941,7 +40042,7 @@
 	      _react2.default.createElement(
 	        'p',
 	        { style: lineHeight, className: 'bold' },
-	        'Your Instructor'
+	        'Taught by:'
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Link,
@@ -39954,6 +40055,12 @@
 	          this.props.data.last_name
 	        ),
 	        _react2.default.createElement('div', { className: 'instructor-profile-img', style: instructorImageStyle })
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { onClick: this.initiateMessageClick, className: 'pointer' },
+	        _react2.default.createElement(_messageIcon2.default, null),
+	        'Message'
 	      )
 	    );
 	  }
@@ -46062,7 +46169,6 @@
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
 	        this.setState({ userData: res.body[0] });
-	        console.log(this.props.userState);
 	      }
 	    }.bind(this));
 	  },
@@ -46243,7 +46349,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
+	var ATABASE_URL = "https://localhost:8080";
 	
 	var MessageDisplay = _react2.default.createClass({
 	  displayName: 'MessageDisplay',
@@ -46747,6 +46854,127 @@
 	});
 	
 	exports.default = ErrorDisplay;
+
+/***/ },
+/* 364 */
+/*!**********************************************!*\
+  !*** ./app/components/icons/message-icon.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MessageIcon = _react2.default.createClass({
+	  displayName: 'MessageIcon',
+	
+	  render: function render() {
+	    return _react2.default.createElement(_reactFontawesome2.default, {
+	      name: 'envelope',
+	      size: 'lg',
+	      style: { marginRight: '5px', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
+	    });
+	  }
+	});
+	
+	exports.default = MessageIcon;
+
+/***/ },
+/* 365 */
+/*!*********************************************************!*\
+  !*** ./app/components/courses/initiate-message-form.js ***!
+  \*********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var moment = __webpack_require__(/*! moment */ 343);
+	moment().format();
+	
+	var InitiateMessageForm = _react2.default.createClass({
+	  displayName: 'InitiateMessageForm',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      message: ''
+	    };
+	  },
+	  handleMessageSubmit: function handleMessageSubmit(message) {
+	    this.props.handleMessageSubmit(message);
+	  },
+	
+	  handleMessageChange: function handleMessageChange(event) {
+	    this.setState({ message: event.target.value });
+	  },
+	
+	  handleSubmit: function handleSubmit(event) {
+	    event.preventDefault();
+	
+	    var message = this.state.message.trim();
+	
+	    if (!message) {
+	      console.log("Please fill out a comment before submitting");
+	      return;
+	    } else {
+	      this.handleMessageSubmit({
+	        message: message
+	      });
+	    }
+	    this.setState({
+	      message: ''
+	    });
+	  },
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'form',
+	      { onSubmit: this.handleSubmit },
+	      _react2.default.createElement('textarea', {
+	        type: 'text',
+	        required: true,
+	        placeholder: 'type message here...',
+	        value: this.state.message,
+	        onChange: this.handleMessageChange }),
+	      _react2.default.createElement('input', { type: 'submit', value: 'Send', className: 'form-submit-button' })
+	    );
+	  }
+	});
+	
+	exports.default = InitiateMessageForm;
 
 /***/ }
 /******/ ]);

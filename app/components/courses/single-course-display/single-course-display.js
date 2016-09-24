@@ -9,11 +9,13 @@ import RightDisplay from './right-display.js';
 import RosterList from '../roster-list.js';
 import ReviewList from '../review-list.js';
 import CommentBoard from '../comment-board.js';
+import InitiateMessageForm from '../initiate-message-form.js';
 import { connect } from 'react-redux';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../../styles/modal-styles.js';
 
 var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
+var ATABASE_URL ="http://localhost:8080";
 
 var SingleCourseDisplay = React.createClass({
 
@@ -27,6 +29,13 @@ var SingleCourseDisplay = React.createClass({
       displayReviews: false,
       isUserEnrolledInCourse: false
     };
+  },
+
+  componentDidMount: function(){
+    var id = this.props.params.id;
+    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
+    this.getRosterFromAPI(id);
+    this.getCommentBoardFromAPI(id);
   },
 
   getCourseDataFromAPI: function(id, callback){
@@ -214,12 +223,87 @@ var SingleCourseDisplay = React.createClass({
       browserHistory.push('/');
   },
 
-  componentDidMount: function(){
-    var id = this.props.params.id;
-    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
-    this.getRosterFromAPI(id);
-    this.getCommentBoardFromAPI(id);
+  showMessageModal: function(){
+      this.refs.modalMessage.show();
   },
+  hideMessageModal: function(){
+      this.refs.modalMessage.hide();
+      this.showMessageConfirmationModal();
+  },
+
+  showMessageConfirmationModal: function(){
+      this.refs.modalMessageConfirmation.show();
+  },
+  hideMessageConfirmationModal: function(){
+      this.refs.modalMessageConfirmation.hide();
+  },
+
+
+  initiateMessageClick: function(){
+    var instructor_id = this.state.courseData.user_id;
+    var sender_id = Number(sessionStorage.user_id);
+    request
+      .get(DATABASE_URL + "/messages/threadcheck/" + sender_id + '/' + instructor_id)
+      .end(function(err, res){
+        if(err){
+          console.log("There was an error grabbing info from the API");
+        } else {
+          if (res.body.exists == true) {
+            browserHistory.push('/messages/' + sessionStorage.user_id)
+          } else {
+            console.log("make the modal show");
+            this.showMessageModal();
+          }
+        }
+      }.bind(this))
+  },
+
+  handleMessageThreadCreation: function(message){
+    var sender_id = sessionStorage.user_id;
+    var recipient_id = this.state.courseData.user_id;
+    request
+      .post(DATABASE_URL + "/messages/threads")
+      .send({message: message})
+      .send({class_id: this.state.courseData.id})
+      .send({sender_id: sender_id})
+      .send({recipient_id: recipient_id})
+      .end(function(err, res){
+        if(err || !res.ok) {
+          console.log("there was an error submitting this comment.");
+        } else {
+          console.log("we submitted the thread!!!");
+          console.log(res.body[0]);
+          this.handleMessageSubmit(res.body[0], sender_id, recipient_id, message);
+        }
+      }.bind(this))
+  },
+
+  handleMessageSubmit: function(thread_id, sender_id, recipient_id, message){
+    console.log(thread_id, sender_id, recipient_id, message);
+    request
+      .post(DATABASE_URL + "/messages/" + sender_id)
+      .send({message: message.message})
+      .send({thread_id: thread_id})
+      .send({recipient_id: recipient_id})
+      .end(function(err, res){
+        if(err || !res.ok) {
+          console.log("there was an error submitting this comment.");
+        } else {
+          console.log('next we must decide where to redirect. Perhaps show a modal.');
+          this.hideMessageModal();
+        }
+      }.bind(this))
+  },
+
+
+
+
+
+
+
+
+
+
 
   render: function(){
 
@@ -240,6 +324,8 @@ var SingleCourseDisplay = React.createClass({
             <div className="col-sm-7">
               <TitleDescriptionPrereqDisplay
                 data={this.state.courseData}
+                displayReviews={this.state.displayReviews}
+                handleReviewDisplay={this.handleReviewDisplay}
               />
             </div>
             <div className="col-sm-2 no-padding">
@@ -248,9 +334,8 @@ var SingleCourseDisplay = React.createClass({
                 handleUserSignup={this.handleUserSignup}
                 showUnenrollModal={this.showUnenrollModal}
                 reviews={this.state.reviews}
-                handleReviewDisplay={this.handleReviewDisplay}
-                displayReviews={this.state.displayReviews}
                 isUserEnrolledInCourse={this.state.isUserEnrolledInCourse}
+                initiateMessageClick={this.initiateMessageClick}
               />
             </div>
           </div>
@@ -280,6 +365,20 @@ var SingleCourseDisplay = React.createClass({
           <Modal ref="modalConfirmUnenroll" style={modalStyles.container}>
               <h2 style={modalStyles.title}>You are no longer enrolled in this course.</h2>
               <button style={modalStyles.btn} onClick={this.hideModalConfirmUnenroll}>Close</button>
+          </Modal>
+
+          <Modal
+            ref="modalMessage"
+            style={modalStyles.container}>
+              <h2 style={modalStyles.title}>Message:</h2>
+              <InitiateMessageForm
+                handleMessageSubmit={this.handleMessageThreadCreation}
+              />
+          </Modal>
+
+          <Modal ref="modalMessageConfirmation" style={modalStyles.container}>
+              <h2 style={modalStyles.title}>Message sent!</h2>
+              <button style={modalStyles.btn} onClick={this.hideMessageConfirmationModal}>Close</button>
           </Modal>
 
         </div>

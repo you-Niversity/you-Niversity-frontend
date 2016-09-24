@@ -345,6 +345,7 @@ hr {
 	border-radius: 100%;
 	background-size: cover;
 	background-position: center;
+	margin-bottom: 10px;
 }
 .student-profile-img {
 	width: 80%;

@@ -7,8 +7,8 @@ import modalStyles from '../styles/modal-styles.js';
 import ThreadList from './thread-list.js';
 import MessageList from './thread-message-display.js';
 
-
-var DATABASE_URL = "http://localhost:8080";
+var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
+var ATABASE_URL = "https://localhost:8080";
 
 
 var MessageDisplay = React.createClass({

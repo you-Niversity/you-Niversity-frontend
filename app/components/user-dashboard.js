@@ -26,7 +26,6 @@ var UserDashboard = React.createClass({
           browserHistory.push('/error');
         } else {
           this.setState({userData: res.body[0]})
-          console.log(this.props.userState);
         }
       }.bind(this))
   },

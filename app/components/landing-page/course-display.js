@@ -21,7 +21,6 @@ var CourseDisplay = React.createClass({
   },
 
   getCoursesFromAPI: function() {
-    console.log(DATABASE_URL);
     request
       .get(DATABASE_URL + "/classes")
       .end(function(err, res){

@@ -15,9 +15,6 @@ var RightDisplay = React.createClass({
       : <div className="btn-div">{this.props.data.seats_remaining} seats left</div>;
 
 
-    var showReviews = (this.props.displayReviews) ?
-      "Hide Reviews" :
-      "Show Reviews";
 
     var updateCourseButton = (Number(sessionStorage.user_id) == this.props.data.user_id) ?
       <Link className="link-plain" to={'/update/' + this.props.data.id}><div onClick={this.props.handleCourseUpdate} className="btn-div">Update or Delete Course</div></Link>
@@ -36,7 +33,7 @@ var RightDisplay = React.createClass({
       : null;
 
     var leaveClass = (this.props.isUserEnrolledInCourse) ?
-      <div onClick={this.props.showUnenrollModal} className="btn-div btn-danger">Leave Class</div>
+      <div onClick={this.props.showUnenrollModal} className="btn-div btn-danger pointer">Leave Class</div>
       : null;
 
     return (
@@ -46,12 +43,12 @@ var RightDisplay = React.createClass({
         {signupButton}
         {loginButton}
         {enrolledInCourse}
+        {leaveClass}
         {classFull}
         <TaughtBy
           data={this.props.data}
+          initiateMessageClick={this.props.initiateMessageClick}
         />
-        <p className="center pointer" onClick={this.props.handleReviewDisplay}>{showReviews}</p>
-        {leaveClass}
       </div>
     );
   }
