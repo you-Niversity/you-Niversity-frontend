@@ -50,7 +50,7 @@ var CourseDisplay = React.createClass({
           lat={Number(this.props.lat)}
           lng={Number(this.props.lng)}
           radius={this.props.radius}
-          zoom={10}
+          zoom={this.props.zoom}
         />
         : null;
 

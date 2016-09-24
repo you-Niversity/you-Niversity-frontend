@@ -219,7 +219,7 @@ var AddUserForm = React.createClass({
           onChange={this.handleConfirmPasswordChange}
         />
       </div>
-      <input type="submit" value="Sign Up"/>
+      <input className="btn-success form-submit-button" type="submit" value="Sign Up"/>
       </form>
     )
   }

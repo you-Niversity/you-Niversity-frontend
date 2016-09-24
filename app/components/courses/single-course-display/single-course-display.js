@@ -299,16 +299,6 @@ var SingleCourseDisplay = React.createClass({
       }.bind(this))
   },
 
-
-
-
-
-
-
-
-
-
-
   render: function(){
 
     var reviews = (this.state.reviews.length > 0 && this.state.displayReviews) ?
@@ -328,6 +318,7 @@ var SingleCourseDisplay = React.createClass({
             <div className="col-sm-7">
               <TitleDescriptionPrereqDisplay
                 data={this.state.courseData}
+                reviews={this.state.reviews}
                 displayReviews={this.state.displayReviews}
                 handleReviewDisplay={this.handleReviewDisplay}
               />

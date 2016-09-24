@@ -81,9 +81,9 @@ var UserDashboard = React.createClass({
 
     return (
       <div>
-      <div className="CourseDisplay dashboard-display">
-        {teachingDisplay}
-        {takingDisplay}
+      <div className="dashboard-display">
+        <div className="teaching-block">{teachingDisplay}</div>
+        <div className="taking-block">{takingDisplay}</div>
       </div>
       </div>
     );

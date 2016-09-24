@@ -11,19 +11,23 @@ var MapDisplay = React.createClass({
 
     var mapStyle = {
       width: '100%',
+      marginLeft: '17px',
       height: '400px',
       marginBottom: '50px',
       border: '2px solid orange'
+
     }
     var listStyle = {
       width: "100%",
       height: '400px',
       border: '2px solid orange',
-      padding: 0
+      padding: 0,
+      overflowX: 'scroll'
     }
     var margins = {
       margin: '0 -15px 50px -15px'
     }
+
 
     var markerCount = 0;
     var listCount = 0;
@@ -140,9 +144,6 @@ var Item = React.createClass({
       fontWeight: '700',
       textAlign: 'right'
     }
-
-    console.log(this.props.id);
-    console.log(this.props.order);
 
     return (
       <div className="map-list-item">

@@ -186,7 +186,9 @@ var AddCourseForm = React.createClass({
           onSuggestSelect={this.onSuggestSelect}
           value={this.state.location}
         />
-        <input type="submit" value="Create Your Course!" className="form-submit-button"/>
+        <input type="submit" value="Create Your Course!" className="btn-success
+
+ form-submit-button"/>
 
       </div>
 

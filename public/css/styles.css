@@ -193,7 +193,7 @@ input:focus, textarea:focus, select:focus {
 	text-align: center;
 }
 #course-block {
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 }
 #course-block-top {
 	margin-bottom: 0;
@@ -250,10 +250,9 @@ hr {
 }
 .form-submit-button {
 	margin-bottom: 20px;
+	border-color: transparent !important;
 }
-.google-login {
-	margin-top: 0;
-}
+
 .form-display p {
 	text-align: center;
 	font-size: 1.1em;
@@ -411,7 +410,15 @@ hr {
 	margin-top: 20px;
 }
 .dashboard-display {
-	margin: 120px 0 20px 0;
+	margin: 100px 0 20px 0;
+	border: 2px solid orange;
+}
+.teaching-block {
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+.taking-block {
+	margin-bottom: 20;
 }
 /*create course display*/
 .create-course h2 {
@@ -423,7 +430,6 @@ hr {
 .create-course-form {
 	margin-top: 20px;
 }
-
 .geosuggest__suggests {
   position: absolute;
   top: 100%;
@@ -502,7 +508,8 @@ hr {
 	color: black;
 	padding: 20px;
 }
-.link-orange {
+.link-orange
+ {
 	color: orange;
 	font-weight: 400;
 }
@@ -525,10 +532,6 @@ hr {
 
 .thread-list {
 	margin-left: -10px;
-	/*border-top: 2px solid orange;
-	border-right: 2px solid orange;
-	border-bottom: 2px solid orange;
-	border-radius: 3px;*/
 }
 .single-thread {
 	padding: 20px;
@@ -579,10 +582,6 @@ hr {
 	color: white;
 }
 
-
-
-
-
 /*footer*/
 footer {
 	width: 100%;
@@ -609,6 +608,7 @@ footer img {
 	width: 40px;
 	margin: 20px 0 10px 0;
 }
-.orange {
+.orange
+ {
 	color: orange;
 }

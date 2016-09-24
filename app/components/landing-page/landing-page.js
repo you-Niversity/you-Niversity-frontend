@@ -22,8 +22,8 @@ var LandingPage = React.createClass({
     return {
       lat: null,
       lng: null,
-      radius: 0.08335,
-      zoom: 3,
+      radius: 0.8335,
+      zoom: 9,
       city: 'Fort Collins',
       state: 'CO',
       filterText: ''
@@ -44,6 +44,7 @@ var LandingPage = React.createClass({
   },
 
   handleRadiusInput: function(radius){
+    console.log(radius.zoom);
     var data = JSON.parse(radius);
     this.setState({
       radius: data.radius, zoom: data.zoom
@@ -154,6 +155,7 @@ var LandingPage = React.createClass({
             lat={this.state.lat}
             lng={this.state.lng}
             radius={this.state.radius}
+            zoom={this.state.zoom}
           />
           <Footer />
         </div>

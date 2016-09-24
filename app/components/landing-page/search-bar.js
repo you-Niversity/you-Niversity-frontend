@@ -54,11 +54,11 @@ var SearchBar = React.createClass({
               <div className="col-sm-4">
                 <h4>within
                   <select value={this.state.radius} ref="radiusInput" onChange={this.handleRadiusChange}>
-                    <option value='{"radius":0.08335, "zoom":3}'>5</option>
-                    <option value='{"radius":0.1667, "zoom":7}'>10</option>
-                    <option value='{"radius":0.25005, "zoom":10}'>15</option>
-                    <option value='{"radius":0.41675, "zoom":12}'>25</option>
-                    <option value='{"radius":0.8335, "zoom":14}'>50</option>
+                    <option value='{"radius":0.8335, "zoom":9}'>50</option>
+                    <option value='{"radius":0.41675, "zoom":10}'>25</option>
+                    <option value='{"radius":0.25005, "zoom":11}'>15</option>
+                    <option value='{"radius":0.1667, "zoom":12}'>10</option>
+                    <option value='{"radius":0.08335, "zoom":13}'>5</option>
                   </select>
                   miles of
                 </h4>

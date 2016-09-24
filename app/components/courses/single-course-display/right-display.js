@@ -21,11 +21,15 @@ var RightDisplay = React.createClass({
       : null;
 
     var signupButton = (sessionStorage.first_name && !this.props.isUserEnrolledInCourse && !(Number(sessionStorage.user_id) == this.props.data.user_id) && (!this.props.data.seats_remaining == 0)) ?
-      <div onClick={this.props.handleUserSignup} className="btn-success btn-div pointer">Sign Up</div>
+      <div onClick={this.props.handleUserSignup} className="btn-success
+
+ btn-div pointer">Sign Up</div>
       : null;
 
     var loginButton = (!sessionStorage.first_name && (!this.props.data.seats_remaining == 0)) ?
-      <Link className="link-plain" to="/login"><div className="btn-success btn-div">Log In<br/>to Sign Up</div></Link>
+      <Link className="link-plain" to="/login"><div className="btn-success
+
+ btn-div">Log In<br/>to Sign Up</div></Link>
       : null;
 
     var enrolledInCourse = (this.props.isUserEnrolledInCourse) ?

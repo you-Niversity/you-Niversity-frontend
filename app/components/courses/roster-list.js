@@ -8,7 +8,8 @@ var RosterList = React.createClass({
   render: function(){
 
     var noStudents = (this.props.data.length === 0) ?
-      <p className="center no-data-message">There are no students enrolled. <Link className="link-plain link-orange" to="/login">Be the first!</Link></p>
+      <p className="center no-data-message">There are no students enrolled. <Link className="link-plain link-orange
+" to="/login">Be the first!</Link></p>
       : null;
 
     var rosterNodes = this.props.data.map(function(student){

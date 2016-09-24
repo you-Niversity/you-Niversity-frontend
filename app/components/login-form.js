@@ -142,7 +142,8 @@ var UserLoginForm = React.createClass({
           onChange={this.handlePasswordChange}
         />
         {errMessage}
-        <input type="submit" value="Login" className="form-submit-button"/>
+        <input type="submit" value="Login" className="btn-success
+ form-submit-button"/>
       </form>
     )
   }
