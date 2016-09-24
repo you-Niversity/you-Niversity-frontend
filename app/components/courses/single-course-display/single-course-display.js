@@ -13,6 +13,7 @@ import InitiateMessageForm from '../initiate-message-form.js';
 import { connect } from 'react-redux';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../../styles/modal-styles.js';
+import modalStylesMargin from '../../styles/modal-styles-margin.js';
 
 var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 var ATABASE_URL ="http://localhost:8080";
@@ -230,6 +231,9 @@ var SingleCourseDisplay = React.createClass({
       this.refs.modalMessage.hide();
       this.showMessageConfirmationModal();
   },
+  hideMessageModalCancel: function(){
+      this.refs.modalMessage.hide();
+  },
 
   showMessageConfirmationModal: function(){
       this.refs.modalMessageConfirmation.show();
@@ -358,7 +362,7 @@ var SingleCourseDisplay = React.createClass({
 
           <Modal ref="modalUnenroll" style={modalStyles.container}>
               <h2 style={modalStyles.title}>Are you sure you want to leave this class?</h2>
-              <button style={modalStyles.btn} onClick={this.handleUserUnenrollSeatsRemaining}>Yes</button>
+              <button style={modalStylesMargin.btn} onClick={this.handleUserUnenrollSeatsRemaining}>Yes</button>
               <button style={modalStyles.btn} onClick={this.hideUnenrollModal}>Cancel</button>
           </Modal>
 
@@ -374,6 +378,7 @@ var SingleCourseDisplay = React.createClass({
               <InitiateMessageForm
                 handleMessageSubmit={this.handleMessageThreadCreation}
               />
+              <button style={modalStyles.btn} onClick={this.hideMessageModalCancel}>Cancel</button>
           </Modal>
 
           <Modal ref="modalMessageConfirmation" style={modalStyles.container}>

@@ -36826,7 +36826,8 @@
 	  },
 	  container: {
 	    padding: '2em',
-	    textAlign: 'center'
+	    textAlign: 'center',
+	    borderRadius: '3px'
 	  },
 	  title: {
 	    margin: 0,
@@ -39286,6 +39287,10 @@
 	
 	var _modalStyles2 = _interopRequireDefault(_modalStyles);
 	
+	var _modalStylesMargin = __webpack_require__(/*! ../../styles/modal-styles-margin.js */ 366);
+	
+	var _modalStylesMargin2 = _interopRequireDefault(_modalStylesMargin);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
@@ -39479,6 +39484,9 @@
 	    this.refs.modalMessage.hide();
 	    this.showMessageConfirmationModal();
 	  },
+	  hideMessageModalCancel: function hideMessageModalCancel() {
+	    this.refs.modalMessage.hide();
+	  },
 	
 	  showMessageConfirmationModal: function showMessageConfirmationModal() {
 	    this.refs.modalMessageConfirmation.show();
@@ -39603,7 +39611,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'button',
-	          { style: _modalStyles2.default.btn, onClick: this.handleUserUnenrollSeatsRemaining },
+	          { style: _modalStylesMargin2.default.btn, onClick: this.handleUserUnenrollSeatsRemaining },
 	          'Yes'
 	        ),
 	        _react2.default.createElement(
@@ -39638,7 +39646,12 @@
 	        ),
 	        _react2.default.createElement(_initiateMessageForm2.default, {
 	          handleMessageSubmit: this.handleMessageThreadCreation
-	        })
+	        }),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideMessageModalCancel },
+	          'Cancel'
+	        )
 	      ),
 	      _react2.default.createElement(
 	        _OutlineModal2.default,
@@ -39929,14 +39942,14 @@
 	      { className: 'link-plain', to: '/update/' + this.props.data.id },
 	      _react2.default.createElement(
 	        'div',
-	        { onClick: this.props.handleCourseUpdate, className: 'btn-div' },
+	        { onClick: this.props.handleCourseUpdate, className: 'btn-danger btn-div' },
 	        'Update or Delete Course'
 	      )
 	    ) : null;
 	
 	    var signupButton = sessionStorage.first_name && !this.props.isUserEnrolledInCourse && !(Number(sessionStorage.user_id) == this.props.data.user_id) && !this.props.data.seats_remaining == 0 ? _react2.default.createElement(
 	      'div',
-	      { onClick: this.props.handleUserSignup, className: 'btn-div pointer' },
+	      { onClick: this.props.handleUserSignup, className: 'btn-success btn-div pointer' },
 	      'Sign Up'
 	    ) : null;
 	
@@ -39945,7 +39958,7 @@
 	      { className: 'link-plain', to: '/login' },
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'btn-div' },
+	        { className: 'btn-success btn-div' },
 	        'Log In',
 	        _react2.default.createElement('br', null),
 	        'to Sign Up'
@@ -39999,6 +40012,8 @@
 	  value: true
 	});
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -40029,6 +40044,15 @@
 	
 	  render: function render() {
 	
+	    console.log(_typeof(Number(sessionStorage.user_id)), _typeof(this.props.data.user_id));
+	
+	    var sendMessageOption = Number(sessionStorage.user_id) !== this.props.data.user_id ? _react2.default.createElement(
+	      'span',
+	      { onClick: this.initiateMessageClick, className: 'pointer' },
+	      _react2.default.createElement(_messageIcon2.default, null),
+	      'Message'
+	    ) : null;
+	
 	    var instructorImageStyle = {
 	      backgroundImage: 'url(' + this.props.data.profile_pic + ')'
 	    };
@@ -40056,12 +40080,7 @@
 	        ),
 	        _react2.default.createElement('div', { className: 'instructor-profile-img', style: instructorImageStyle })
 	      ),
-	      _react2.default.createElement(
-	        'span',
-	        { onClick: this.initiateMessageClick, className: 'pointer' },
-	        _react2.default.createElement(_messageIcon2.default, null),
-	        'Message'
-	      )
+	      sendMessageOption
 	    );
 	  }
 	});
@@ -44911,9 +44930,9 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	var _modalStylesMargin = __webpack_require__(/*! ../styles/modal-styles-margin.js */ 366);
 	
-	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	var _modalStylesMargin2 = _interopRequireDefault(_modalStylesMargin);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44956,16 +44975,27 @@
 	  },
 	
 	  render: function render() {
+	
+	    var textAreaStyle = {
+	      width: "80%",
+	      marginLeft: "10%"
+	    };
+	
 	    return _react2.default.createElement(
 	      'form',
 	      { onSubmit: this.handleSubmit },
 	      _react2.default.createElement('textarea', {
 	        type: 'text',
+	        style: textAreaStyle,
 	        required: true,
 	        placeholder: 'type message here...',
 	        value: this.state.message,
 	        onChange: this.handleMessageChange }),
-	      _react2.default.createElement('input', { type: 'submit', value: 'Send', className: 'form-submit-button' })
+	      _react2.default.createElement(
+	        'button',
+	        { style: _modalStylesMargin2.default.btn, onClick: this.handleSubmit },
+	        'Send'
+	      )
 	    );
 	  }
 	});
@@ -46986,6 +47016,48 @@
 	});
 	
 	exports.default = ErrorDisplay;
+
+/***/ },
+/* 366 */
+/*!******************************************************!*\
+  !*** ./app/components/styles/modal-styles-margin.js ***!
+  \******************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var modalStylesMargin = {
+	  btn: {
+	    padding: '1em 2em',
+	    width: '25%',
+	    margin: '1em 0 0 37.5%',
+	    outline: 'none',
+	    fontSize: 16,
+	    fontWeight: '600',
+	    background: 'orange',
+	    color: '#FFFFFF',
+	    border: 'none',
+	    borderRadius: '3px'
+	  },
+	  container: {
+	    padding: '2em',
+	    textAlign: 'center',
+	    borderRadius: '3px'
+	  },
+	  title: {
+	    margin: 0,
+	    padding: '2em 1em 0 1em',
+	    fontSize: '1.5em',
+	    color: 'orange',
+	    textAlign: 'center',
+	    fontWeight: 400
+	  }
+	};
+	
+	exports.default = modalStylesMargin;
 
 /***/ }
 /******/ ]);

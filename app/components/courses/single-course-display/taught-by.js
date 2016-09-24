@@ -14,6 +14,12 @@ var TaughtBy = React.createClass({
 
   render: function(){
 
+    console.log(typeof(Number(sessionStorage.user_id)), typeof(this.props.data.user_id));
+
+    var sendMessageOption = (Number(sessionStorage.user_id) !== this.props.data.user_id) ?
+      <span onClick={this.initiateMessageClick} className="pointer"><MessageIcon />Message</span>
+      : null;
+
     var instructorImageStyle = {
       backgroundImage: 'url(' + this.props.data.profile_pic + ')',
     }
@@ -28,7 +34,7 @@ var TaughtBy = React.createClass({
             <p style={lineHeight}>{this.props.data.first_name} {this.props.data.last_name}</p>
             <div className="instructor-profile-img" style={instructorImageStyle}></div>
           </Link>
-          <span onClick={this.initiateMessageClick} className="pointer"><MessageIcon />Message</span>
+          {sendMessageOption}
         </div>
     );
   }

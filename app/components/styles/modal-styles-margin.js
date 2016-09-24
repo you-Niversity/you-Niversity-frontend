@@ -1,10 +1,10 @@
 'use strict';
 
-var modalStyles = {
+var modalStylesMargin = {
   btn: {
     padding: '1em 2em',
     width: '25%',
-    margin: '1em 0 2em 37.5%',
+    margin: '1em 0 0 37.5%',
     outline: 'none',
     fontSize: 16,
     fontWeight: '600',
@@ -28,4 +28,4 @@ var modalStyles = {
   }
 };
 
-export default modalStyles;
+export default modalStylesMargin;

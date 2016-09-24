@@ -3,7 +3,7 @@
 import React from 'react';
 import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
-import modalStyles from '../styles/modal-styles.js';
+import modalStylesMargin from '../styles/modal-styles-margin.js';
 var moment = require('moment');
 moment().format();
 
@@ -18,7 +18,7 @@ var InitiateMessageForm = React.createClass({
   handleMessageSubmit: function(message){
     this.props.handleMessageSubmit(message)
   },
-  
+
   handleMessageChange: function(event){
     this.setState({message: event.target.value})
   },
@@ -42,16 +42,23 @@ var InitiateMessageForm = React.createClass({
   },
 
   render: function(){
+
+    var textAreaStyle = {
+      width: "80%",
+      marginLeft: "10%"
+    }
+
     return (
       <form onSubmit={this.handleSubmit}>
         <textarea
           type="text"
+          style={textAreaStyle}
           required
           placeholder="type message here..."
           value={this.state.message}
           onChange={this.handleMessageChange}>
         </textarea>
-        <input type="submit" value="Send" className="form-submit-button"/>
+        <button style={modalStylesMargin.btn} onClick={this.handleSubmit}>Send</button>
       </form>
     );
   }
