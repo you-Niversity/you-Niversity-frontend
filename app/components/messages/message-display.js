@@ -16,17 +16,16 @@ var MessageDisplay = React.createClass({
   getInitialState: function(){
     return({
       threads: [],
-      messages: []
+      messages: [],
     })
   },
 
   componentDidMount: function(){
-    console.log('component mounted!');
     var id = this.props.params.id;
-    this.getThreadDataFromAPI(id);
+    this.getThreadDataFromAPI(id, this.getMessageDataFromAPI);
   },
 
-  getThreadDataFromAPI: function(id){
+  getThreadDataFromAPI: function(id, callback){
     request
       .get(DATABASE_URL + "/messages/" + id)
       .end(function(err, res){
@@ -34,22 +33,36 @@ var MessageDisplay = React.createClass({
           browserHistory.push('/error');
         } else {
           this.setState({threads: res.body});
+          callback(res.body[0].thread_id)
         }
       }.bind(this))
   },
 
-  onThreadClick: function(){
-    this.getMessageDataFromAPI();
+  onThreadClick: function(id){
+    this.getMessageDataFromAPI(id);
   },
 
-  getMessageDataFromAPI: function(){
+  getMessageDataFromAPI: function(id){
     request
-      .get(DATABASE_URL + "/messages/thread/" + 1)
+      .get(DATABASE_URL + "/messages/thread/" + id)
       .end(function(err, res){
         if(err){
           browserHistory.push('/error');
         } else {
           this.setState({messages: res.body});
+        }
+      }.bind(this))
+  },
+
+  deleteThread: function(id){
+    console.log(id);
+    request
+      .del(DATABASE_URL + "/messages/" + id)
+      .end(function(err, res){
+        if(err){
+          browserHistory.push('/error');
+        } else {
+          this.getThreadDataFromAPI(this.props.params.id, this.getMessageDataFromAPI);
         }
       }.bind(this))
   },
@@ -60,7 +73,6 @@ var MessageDisplay = React.createClass({
       border: "2px solid orange",
       margin: "65px 0 75px 0",
       width: "100%",
-      height: "300px"
     }
 
     var headerStyle = {
@@ -69,9 +81,14 @@ var MessageDisplay = React.createClass({
       fontWeight: "700",
       padding: "10px"
     }
+    var footerStyle={
+      backgroundColor: "orange",
+      height: '20px',
+      marginRight: '0px'
+    }
 
     var noMargins = {
-      margin: '0 0 0 10px'
+      margin: '0 0 0 15px'
     }
 
     var displayMessages = (this.state.messages.length === 0) ?
@@ -92,6 +109,7 @@ var MessageDisplay = React.createClass({
                 <ThreadList
                   data={this.state.threads}
                   onThreadClick={this.onThreadClick}
+                  deleteThread={this.deleteThread}
                 />
 
               </div>
@@ -101,6 +119,9 @@ var MessageDisplay = React.createClass({
                 {displayMessages}
 
               </div>
+            </div>
+
+            <div className="row" style={footerStyle}>
             </div>
         </div>
       </div>

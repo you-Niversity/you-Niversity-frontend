@@ -5,14 +5,15 @@ import Message from './message.js';
 
 var MessageList = React.createClass({
   render: function(){
-    console.log(this.props.data);
     var messageNodes = this.props.data.map(function(message, index) {
       return (
         <Message
           key={'message' + index}
           date={message.creation_date}
           message={message.message}
-          read={message.read}>
+          read={message.read}
+          sender_profile_pic={message.sender_profile_pic}
+          sender_first_name={message.sender_first_name}>
         </Message>
 
       )

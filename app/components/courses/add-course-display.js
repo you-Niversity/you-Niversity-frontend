@@ -22,7 +22,7 @@ var AddCourseDisplay = React.createClass({
   },
 
   handleCourseSubmit: function(course){
-    console.log(   moment(course.date._d.toString()).unix()   );
+    console.log(moment(course.date._d.toString()).unix()   );
     var unix_timestamp = moment(course.date._d.toString()).unix();
     var user_id = sessionStorage.user_id;
     request
