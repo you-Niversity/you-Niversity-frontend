@@ -17,6 +17,8 @@ var MessageDisplay = React.createClass({
     return({
       threads: [],
       messages: [],
+      currentThread: null,
+      class_id: null
     })
   },
 
@@ -49,13 +51,12 @@ var MessageDisplay = React.createClass({
         if(err){
           browserHistory.push('/error');
         } else {
-          this.setState({messages: res.body});
+          this.setState({messages: res.body, currentThread: res.body[0].thread_id});
         }
       }.bind(this))
   },
 
   deleteThread: function(id){
-    console.log(id);
     request
       .del(DATABASE_URL + "/messages/" + id)
       .end(function(err, res){
@@ -63,6 +64,25 @@ var MessageDisplay = React.createClass({
           browserHistory.push('/error');
         } else {
           this.getThreadDataFromAPI(this.props.params.id, this.getMessageDataFromAPI);
+        }
+      }.bind(this))
+  },
+
+  handleMessageSubmit: function(message){
+    var id = this.props.params.id;
+    var thread_id = this.state.currentThread;
+    var index = this.state.messages.length - 1;
+    var recipient_id = this.state.messages[index].sender_id;
+    request
+      .post(DATABASE_URL + "/messages/" + id)
+      .send({message: message})
+      .send({thread_id: thread_id})
+      .send({recipient_id: recipient_id})
+      .end(function(err, res){
+        if(err || !res.ok) {
+          console.log("there was an error submitting this comment.");
+        } else {
+          this.getMessageDataFromAPI(thread_id);
         }
       }.bind(this))
   },
@@ -91,12 +111,6 @@ var MessageDisplay = React.createClass({
       margin: '0 0 0 15px'
     }
 
-    var displayMessages = (this.state.messages.length === 0) ?
-      <h1>Click a thread to the left to display messages.</h1>
-      : <MessageList
-          data={this.state.messages}
-        />
-
     return (
       <div style={messageBoxStyle}>
         <div className="row" style={noMargins}>
@@ -116,7 +130,10 @@ var MessageDisplay = React.createClass({
 
               <div className="col-sm-7">
 
-                {displayMessages}
+              <MessageList
+                data={this.state.messages}
+                handleMessageSubmit={this.handleMessageSubmit}
+              />
 
               </div>
             </div>

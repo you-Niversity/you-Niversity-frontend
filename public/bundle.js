@@ -24479,7 +24479,7 @@
 	
 	var _messageDisplay2 = _interopRequireDefault(_messageDisplay);
 	
-	var _errorDisplay = __webpack_require__(/*! ./components/error-display.js */ 362);
+	var _errorDisplay = __webpack_require__(/*! ./components/error-display.js */ 363);
 	
 	var _errorDisplay2 = _interopRequireDefault(_errorDisplay);
 	
@@ -38712,15 +38712,19 @@
 	        'footer',
 	        null,
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'About ',
+	          _reactRouter.Link,
+	          { to: '#' },
 	          _react2.default.createElement(
-	            'span',
-	            { className: 'orange' },
-	            'youN'
-	          ),
-	          'iversity'
+	            'p',
+	            null,
+	            'About ',
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'orange' },
+	              'yoU'
+	            ),
+	            'niversity'
+	          )
 	        ),
 	        _react2.default.createElement(
 	          _reactRouter.Link,
@@ -46233,7 +46237,7 @@
 	
 	var _threadList2 = _interopRequireDefault(_threadList);
 	
-	var _threadMessageDisplay = __webpack_require__(/*! ./thread-message-display.js */ 360);
+	var _threadMessageDisplay = __webpack_require__(/*! ./thread-message-display.js */ 361);
 	
 	var _threadMessageDisplay2 = _interopRequireDefault(_threadMessageDisplay);
 	
@@ -46248,7 +46252,9 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      threads: [],
-	      messages: []
+	      messages: [],
+	      currentThread: null,
+	      class_id: null
 	    };
 	  },
 	
@@ -46277,18 +46283,31 @@
 	      if (err) {
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
-	        this.setState({ messages: res.body });
+	        this.setState({ messages: res.body, currentThread: res.body[0].thread_id });
 	      }
 	    }.bind(this));
 	  },
 	
 	  deleteThread: function deleteThread(id) {
-	    console.log(id);
 	    _superagent2.default.del(DATABASE_URL + "/messages/" + id).end(function (err, res) {
 	      if (err) {
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
 	        this.getThreadDataFromAPI(this.props.params.id, this.getMessageDataFromAPI);
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleMessageSubmit: function handleMessageSubmit(message) {
+	    var id = this.props.params.id;
+	    var thread_id = this.state.currentThread;
+	    var index = this.state.messages.length - 1;
+	    var recipient_id = this.state.messages[index].sender_id;
+	    _superagent2.default.post(DATABASE_URL + "/messages/" + id).send({ message: message }).send({ thread_id: thread_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        this.getMessageDataFromAPI(thread_id);
 	      }
 	    }.bind(this));
 	  },
@@ -46316,14 +46335,6 @@
 	    var noMargins = {
 	      margin: '0 0 0 15px'
 	    };
-	
-	    var displayMessages = this.state.messages.length === 0 ? _react2.default.createElement(
-	      'h1',
-	      null,
-	      'Click a thread to the left to display messages.'
-	    ) : _react2.default.createElement(_threadMessageDisplay2.default, {
-	      data: this.state.messages
-	    });
 	
 	    return _react2.default.createElement(
 	      'div',
@@ -46355,7 +46366,10 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-7' },
-	            displayMessages
+	            _react2.default.createElement(_threadMessageDisplay2.default, {
+	              data: this.state.messages,
+	              handleMessageSubmit: this.handleMessageSubmit
+	            })
 	          )
 	        ),
 	        _react2.default.createElement('div', { className: 'row', style: footerStyle })
@@ -46397,6 +46411,7 @@
 	
 	
 	  render: function render() {
+	    console.log(this.props.data);
 	    var threadNodes = this.props.data.map(function (thread, index) {
 	      return _react2.default.createElement(_thread2.default, {
 	        key: 'thread' + thread.thread_id,
@@ -46443,7 +46458,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _trashIcon = __webpack_require__(/*! ../icons/trash-icon.js */ 363);
+	var _trashIcon = __webpack_require__(/*! ../icons/trash-icon.js */ 360);
 	
 	var _trashIcon2 = _interopRequireDefault(_trashIcon);
 	
@@ -46504,6 +46519,43 @@
 
 /***/ },
 /* 360 */
+/*!********************************************!*\
+  !*** ./app/components/icons/trash-icon.js ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var TrashIcon = _react2.default.createClass({
+	  displayName: 'TrashIcon',
+	
+	  render: function render() {
+	    return _react2.default.createElement(_reactFontawesome2.default, {
+	      name: 'trash-o',
+	      size: 'lg',
+	      style: { marginRight: '5px', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
+	    });
+	  }
+	});
+	
+	exports.default = TrashIcon;
+
+/***/ },
+/* 361 */
 /*!***********************************************************!*\
   !*** ./app/components/messages/thread-message-display.js ***!
   \***********************************************************/
@@ -46521,14 +46573,34 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _message = __webpack_require__(/*! ./message.js */ 361);
+	var _message = __webpack_require__(/*! ./message.js */ 362);
 	
 	var _message2 = _interopRequireDefault(_message);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var MessageList = _react2.default.createClass({
 	  displayName: 'MessageList',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      message: ''
+	    };
+	  },
+	
+	  handleMessageChange: function handleMessageChange(event) {
+	    this.setState({ message: event.target.value });
+	  },
+	
+	  handleSubmit: function handleSubmit() {
+	    console.log('send post request now');
+	    this.props.handleMessageSubmit(this.state.message);
+	  },
 	
 	  render: function render() {
 	    var messageNodes = this.props.data.map(function (message, index) {
@@ -46541,10 +46613,27 @@
 	        sender_first_name: message.sender_first_name });
 	    }.bind(this));
 	
+	    var textArea = {
+	      width: "98%",
+	      height: "100px"
+	    };
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'message-list' },
-	      messageNodes
+	      messageNodes,
+	      _react2.default.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        _react2.default.createElement('textarea', {
+	          type: 'text',
+	          placeholder: 'reply',
+	          style: textArea,
+	          required: true,
+	          value: this.state.message,
+	          onChange: this.handleMessageChange }),
+	        _react2.default.createElement('input', { type: 'submit', value: 'Send', className: 'form-submit-button' })
+	      )
 	    );
 	  }
 	});
@@ -46552,7 +46641,7 @@
 	exports.default = MessageList;
 
 /***/ },
-/* 361 */
+/* 362 */
 /*!********************************************!*\
   !*** ./app/components/messages/message.js ***!
   \********************************************/
@@ -46612,7 +46701,7 @@
 	exports.default = Message;
 
 /***/ },
-/* 362 */
+/* 363 */
 /*!*****************************************!*\
   !*** ./app/components/error-display.js ***!
   \*****************************************/
@@ -46658,43 +46747,6 @@
 	});
 	
 	exports.default = ErrorDisplay;
-
-/***/ },
-/* 363 */
-/*!********************************************!*\
-  !*** ./app/components/icons/trash-icon.js ***!
-  \********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
-	
-	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var TrashIcon = _react2.default.createClass({
-	  displayName: 'TrashIcon',
-	
-	  render: function render() {
-	    return _react2.default.createElement(_reactFontawesome2.default, {
-	      name: 'trash-o',
-	      size: 'lg',
-	      style: { marginRight: '5px', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
-	    });
-	  }
-	});
-	
-	exports.default = TrashIcon;
 
 /***/ }
 /******/ ]);

@@ -553,14 +553,14 @@ hr {
 
 }
 .fa-trash-o {
-	margin: -10px 0 0 30px;
+	margin: 15px 0 0 30px;
 	color: darkgray;
 	font-size: 1.5em;
 	cursor: pointer;
 }
 .single-message {
 	padding-top: 10px;
-	background-color: #ebebeb;
+	background-color: orange;
 	border-radius: 6px;
 	margin: 10px 10px 10px 0;
 }
@@ -573,9 +573,9 @@ hr {
 }
 .single-message p {
 	font-size: 0.9em;
-	font-weight: 700;
+	font-weight: 400;
 	padding-bottom: 10px;
-	color: orange;
+	color: white;
 }
 
 
@@ -595,6 +595,14 @@ footer p {
 	padding-top: 20px;
 	font-size: 1.2em;
 	font-weight: 400;
+}
+footer a {
+	color: white;
+}
+footer a:hover {
+	text-decoration: none;
+	cursor: pointer;
+	color: white;
 }
 footer img {
 	width: 40px;

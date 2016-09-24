@@ -8,6 +8,7 @@ var ThreadList = React.createClass({
 
 
   render: function(){
+    console.log(this.props.data);
     var threadNodes = this.props.data.map(function(thread, index) {
       return (
         <Thread
