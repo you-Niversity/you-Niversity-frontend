@@ -6,7 +6,7 @@ import request from 'superagent';
 import MapIcon from '../icons/map-icon.js';
 import ListIcon from '../icons/list-icon.js';
 
-import MapDisplay from './map-display.js';
+import MapDisplay from './map/map-display.js';
 import CourseListDisplay from './course-list-display.js';
 
 var DATABASE_URL ="http://localhost:8080";

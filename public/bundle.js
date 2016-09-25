@@ -32158,7 +32158,7 @@
 	
 	var _listIcon2 = _interopRequireDefault(_listIcon);
 	
-	var _mapDisplay = __webpack_require__(/*! ./map-display.js */ 279);
+	var _mapDisplay = __webpack_require__(/*! ./map/map-display.js */ 369);
 	
 	var _mapDisplay2 = _interopRequireDefault(_mapDisplay);
 	
@@ -32453,242 +32453,7 @@
 	exports.default = ListIcon;
 
 /***/ },
-/* 279 */
-/*!****************************************************!*\
-  !*** ./app/components/landing-page/map-display.js ***!
-  \****************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _googleMapReact = __webpack_require__(/*! google-map-react */ 280);
-	
-	var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var MapDisplay = _react2.default.createClass({
-	  displayName: 'MapDisplay',
-	
-	
-	  render: function render() {
-	
-	    var markerCount = 0;
-	    var listCount = 0;
-	
-	    var mapMarkers = this.props.data.map(function (marker, index) {
-	      var filterTextLowerCase = this.props.filterText.toLowerCase();
-	      var markerTitleLowerCase = marker.title.toLowerCase();
-	
-	      var radius = this.props.radius;
-	      var userLat = this.props.lat;
-	      var userLng = this.props.lng;
-	      var withinLatRadius = marker.lat < userLat + radius && marker.lat > userLat - radius;
-	      var withinLngRadius = marker.lng > userLng - radius && marker.lng < userLng + radius;
-	      var withinRadius = marker.lng > userLng - radius && marker.lng < userLng + radius && marker.lat < userLat + radius && marker.lat > userLat - radius;
-	
-	      if (this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
-	        return;
-	      }
-	
-	      if (withinRadius === false) {
-	        return;
-	      }
-	      markerCount++;
-	
-	      return _react2.default.createElement(Marker, {
-	        lat: marker.lat,
-	        lng: marker.lng,
-	        key: "marker:" + marker.id,
-	        order: markerCount,
-	        id: marker.id });
-	    }.bind(this));
-	
-	    var ListItems = this.props.data.map(function (item, index) {
-	      var filterTextLowerCase = this.props.filterText.toLowerCase();
-	      var itemTitleLowerCase = item.title.toLowerCase();
-	
-	      var radius = this.props.radius;
-	      var userLat = this.props.lat;
-	      var userLng = this.props.lng;
-	      var withinLatRadius = item.lat < userLat + radius && item.lat > userLat - radius;
-	      var withinLngRadius = item.lng > userLng - radius && item.lng < userLng + radius;
-	      var withinRadius = item.lng > userLng - radius && item.lng < userLng + radius && item.lat < userLat + radius && item.lat > userLat - radius;
-	
-	      if (this.props.filterText !== '' && itemTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
-	        return;
-	      }
-	
-	      if (withinRadius === false) {
-	        return;
-	      }
-	      listCount++;
-	
-	      return _react2.default.createElement(Item, {
-	        title: item.title,
-	        date: item.date,
-	        start_time: item.start_time,
-	        key: "list-item:" + item.id,
-	        order: listCount,
-	        id: item.id });
-	    }.bind(this));
-	
-	    var numberOfResults = this.props.data.length;
-	    for (var i = 0; i < mapMarkers.length; i++) {
-	      if (mapMarkers[i] == undefined) {
-	        numberOfResults -= 1;
-	      }
-	    };
-	
-	    var noClasses = numberOfResults === 0 ? _react2.default.createElement(
-	      'h3',
-	      { className: 'center no-classes-message' },
-	      'There are no classes that match this search.'
-	    ) : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'row lowindex' },
-	      noClasses,
-	      _react2.default.createElement('div', { className: 'col-sm-1' }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-6 lowindex' },
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'map' },
-	          _react2.default.createElement(
-	            _googleMapReact2.default,
-	            {
-	              bootstrapURLKeys: {
-	                key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
-	                language: 'en'
-	              },
-	              defaultCenter: this.props.center,
-	              defaultZoom: this.props.zoom },
-	            mapMarkers
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-4 margins' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'map-list-style' },
-	          noClasses,
-	          ListItems
-	        )
-	      )
-	    );
-	  }
-	
-	});
-	
-	var Item = _react2.default.createClass({
-	  displayName: 'Item',
-	
-	  render: function render() {
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'map-list-item' },
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/courses/' + this.props.id },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-2 list-marker-style' },
-	            this.props.order
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-10' },
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'bold map-item-title' },
-	              this.props.title
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'map-item-date' },
-	              this.props.date
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              '@ ',
-	              this.props.start_time
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var Marker = _react2.default.createClass({
-	  displayName: 'Marker',
-	
-	
-	  propTypes: {
-	    $hover: _react.PropTypes.bool
-	  },
-	
-	  render: function render() {
-	    var markerStyle = {
-	      position: 'absolute',
-	      width: '32px',
-	      height: '32px',
-	      backgroundColor: 'orange',
-	      color: 'black',
-	      textAlign: 'center',
-	      fontSize: '2.5em',
-	      letterSpacing: '-2px',
-	      fontWeight: '700',
-	      border: '2px solid black',
-	      borderRadius: '100%'
-	    };
-	    var markerStyleHover = {
-	      position: 'absolute',
-	      width: '32px',
-	      height: '32px',
-	      backgroundColor: 'black',
-	      color: 'orange',
-	      textAlign: 'center',
-	      fontSize: '2.5em',
-	      letterSpacing: '-2px',
-	      fontWeight: '700',
-	      border: '2px solid orange',
-	      borderRadius: '100%'
-	    };
-	
-	    var style = this.props.$hover ? markerStyleHover : markerStyle;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { style: style },
-	      this.props.order
-	    );
-	  }
-	});
-	
-	exports.default = MapDisplay;
-
-/***/ },
+/* 279 */,
 /* 280 */
 /*!*****************************************!*\
   !*** ./~/google-map-react/lib/index.js ***!
@@ -47181,6 +46946,287 @@
 	});
 	
 	exports.default = ErrorDisplay;
+
+/***/ },
+/* 369 */
+/*!********************************************************!*\
+  !*** ./app/components/landing-page/map/map-display.js ***!
+  \********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _marker = __webpack_require__(/*! ./marker.js */ 371);
+	
+	var _marker2 = _interopRequireDefault(_marker);
+	
+	var _listItem = __webpack_require__(/*! ./list-item.js */ 370);
+	
+	var _listItem2 = _interopRequireDefault(_listItem);
+	
+	var _googleMapReact = __webpack_require__(/*! google-map-react */ 280);
+	
+	var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MapDisplay = _react2.default.createClass({
+	  displayName: 'MapDisplay',
+	
+	
+	  render: function render() {
+	
+	    var markerCount = 0;
+	    var mapMarkers = this.props.data.map(function (marker, index) {
+	      var filterTextLowerCase = this.props.filterText.toLowerCase();
+	      var markerTitleLowerCase = marker.title.toLowerCase();
+	      var radius = this.props.radius;
+	      var userLat = this.props.lat;
+	      var userLng = this.props.lng;
+	      var withinLatRadius = marker.lat < userLat + radius && marker.lat > userLat - radius;
+	      var withinLngRadius = marker.lng > userLng - radius && marker.lng < userLng + radius;
+	      var withinRadius = marker.lng > userLng - radius && marker.lng < userLng + radius && marker.lat < userLat + radius && marker.lat > userLat - radius;
+	
+	      if (this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
+	        return;
+	      }
+	      if (withinRadius === false) {
+	        return;
+	      }
+	      markerCount++;
+	
+	      return _react2.default.createElement(_marker2.default, {
+	        lat: marker.lat,
+	        lng: marker.lng,
+	        key: "marker:" + marker.id,
+	        order: markerCount,
+	        id: marker.id });
+	    }.bind(this));
+	
+	    var listCount = 0;
+	    var ListItems = this.props.data.map(function (item, index) {
+	      var filterTextLowerCase = this.props.filterText.toLowerCase();
+	      var itemTitleLowerCase = item.title.toLowerCase();
+	      var radius = this.props.radius;
+	      var userLat = this.props.lat;
+	      var userLng = this.props.lng;
+	      var withinLatRadius = item.lat < userLat + radius && item.lat > userLat - radius;
+	      var withinLngRadius = item.lng > userLng - radius && item.lng < userLng + radius;
+	      var withinRadius = item.lng > userLng - radius && item.lng < userLng + radius && item.lat < userLat + radius && item.lat > userLat - radius;
+	
+	      if (this.props.filterText !== '' && itemTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
+	        return;
+	      }
+	      if (withinRadius === false) {
+	        return;
+	      }
+	      listCount++;
+	
+	      return _react2.default.createElement(_listItem2.default, {
+	        title: item.title,
+	        date: item.date,
+	        start_time: item.start_time,
+	        key: "list-item:" + item.id,
+	        order: listCount,
+	        id: item.id });
+	    }.bind(this));
+	
+	    var numberOfResults = this.props.data.length;
+	    for (var i = 0; i < mapMarkers.length; i++) {
+	      if (mapMarkers[i] == undefined) {
+	        numberOfResults -= 1;
+	      }
+	    };
+	
+	    var noClasses = numberOfResults === 0 ? _react2.default.createElement(
+	      'h3',
+	      { className: 'center no-classes-message' },
+	      'There are no classes that match this search.'
+	    ) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row lowindex' },
+	      noClasses,
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6 lowindex' },
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'map' },
+	          _react2.default.createElement(
+	            _googleMapReact2.default,
+	            {
+	              bootstrapURLKeys: {
+	                key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
+	                language: 'en'
+	              },
+	              defaultCenter: this.props.center,
+	              defaultZoom: this.props.zoom },
+	            mapMarkers
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-4 margins' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'map-list-style' },
+	          noClasses,
+	          ListItems
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = MapDisplay;
+
+/***/ },
+/* 370 */
+/*!******************************************************!*\
+  !*** ./app/components/landing-page/map/list-item.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Item = _react2.default.createClass({
+	  displayName: 'Item',
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'map-list-item' },
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/courses/' + this.props.id },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-2 list-marker-style' },
+	            this.props.order
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-10' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'bold map-item-title' },
+	              this.props.title
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'map-item-date' },
+	              this.props.date
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              '@ ',
+	              this.props.start_time
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Item;
+
+/***/ },
+/* 371 */
+/*!***************************************************!*\
+  !*** ./app/components/landing-page/map/marker.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Marker = _react2.default.createClass({
+	  displayName: 'Marker',
+	
+	  propTypes: {
+	    $hover: _react.PropTypes.bool
+	  },
+	  render: function render() {
+	    var markerStyle = {
+	      position: 'absolute',
+	      width: '32px',
+	      height: '32px',
+	      backgroundColor: 'orange',
+	      color: 'black',
+	      textAlign: 'center',
+	      fontSize: '2.5em',
+	      letterSpacing: '-2px',
+	      fontWeight: '700',
+	      border: '2px solid black',
+	      borderRadius: '100%'
+	    };
+	    var markerStyleHover = {
+	      position: 'absolute',
+	      width: '32px',
+	      height: '32px',
+	      backgroundColor: 'black',
+	      color: 'orange',
+	      textAlign: 'center',
+	      fontSize: '2.5em',
+	      letterSpacing: '-2px',
+	      fontWeight: '700',
+	      border: '2px solid orange',
+	      borderRadius: '100%'
+	    };
+	
+	    var style = this.props.$hover ? markerStyleHover : markerStyle;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { style: style },
+	      this.props.order
+	    );
+	  }
+	});
+	
+	exports.default = Marker;
 
 /***/ }
 /******/ ]);

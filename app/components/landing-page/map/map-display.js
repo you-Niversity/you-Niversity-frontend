@@ -1,6 +1,8 @@
 'use strict';
 import React, {PropTypes, Component} from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import Marker from './marker.js';
+import Item from './list-item.js';
 
 import GoogleMap from 'google-map-react';
 
@@ -10,12 +12,9 @@ var MapDisplay = React.createClass({
   render: function(){
 
     var markerCount = 0;
-    var listCount = 0;
-
     var mapMarkers = this.props.data.map(function(marker, index){
       var filterTextLowerCase = this.props.filterText.toLowerCase();
       var markerTitleLowerCase = marker.title.toLowerCase();
-
       var radius = this.props.radius;
       var userLat = this.props.lat;
       var userLng = this.props.lng;
@@ -26,7 +25,6 @@ var MapDisplay = React.createClass({
       if ((this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
         return;
       }
-
       if(withinRadius === false) {
         return;
       }
@@ -43,10 +41,10 @@ var MapDisplay = React.createClass({
       )
     }.bind(this));
 
+    var listCount = 0;
     var ListItems = this.props.data.map(function(item, index){
       var filterTextLowerCase = this.props.filterText.toLowerCase();
       var itemTitleLowerCase = item.title.toLowerCase();
-
       var radius = this.props.radius;
       var userLat = this.props.lat;
       var userLng = this.props.lng;
@@ -57,7 +55,6 @@ var MapDisplay = React.createClass({
       if ((this.props.filterText !== '' && itemTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
         return;
       }
-
       if(withinRadius === false) {
         return;
       }
@@ -110,69 +107,6 @@ var MapDisplay = React.createClass({
           </div>
         </div>
       </div>
-    );
-  }
-
-});
-
-var Item = React.createClass({
-  render: function(){
-
-    return (
-      <div className="map-list-item">
-        <Link to={'/courses/'+this.props.id}>
-          <div className="row">
-            <div className="col-sm-2 list-marker-style">{this.props.order}</div>
-            <div className="col-sm-10">
-              <p className="bold map-item-title">{this.props.title}</p>
-              <p className="map-item-date">{this.props.date}</p>
-              <p>@ {this.props.start_time}</p>
-            </div>
-          </div>
-        </Link>
-      </div>
-    )
-  }
-})
-
-var Marker = React.createClass({
-
-  propTypes: {
-    $hover: PropTypes.bool,
-  },
-
-  render() {
-    var markerStyle = {
-      position: 'absolute',
-      width: '32px',
-      height: '32px',
-      backgroundColor: 'orange',
-      color: 'black',
-      textAlign: 'center',
-      fontSize: '2.5em',
-      letterSpacing: '-2px',
-      fontWeight: '700',
-      border: '2px solid black',
-      borderRadius: '100%'
-    }
-    var markerStyleHover = {
-      position: 'absolute',
-      width: '32px',
-      height: '32px',
-      backgroundColor: 'black',
-      color: 'orange',
-      textAlign: 'center',
-      fontSize: '2.5em',
-      letterSpacing: '-2px',
-      fontWeight: '700',
-      border: '2px solid orange',
-      borderRadius: '100%'
-    }
-
-    const style = this.props.$hover ? markerStyleHover : markerStyle;
-
-    return (
-       <div style={style}>{this.props.order}</div>
     );
   }
 });
