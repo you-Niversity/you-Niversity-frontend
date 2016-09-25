@@ -285,13 +285,19 @@ hr {
 .right {
 	text-align: right;
 }
+.no-margin {
+	margin: 0;
+}
 .line-height-one {
 	line-height: 1;
 }
 .fifty {
-	width: 47%;
+	width: 46%;
 	margin-left: 2%;
 	margin-top: 0;
+}
+.fifty-right {
+	margin-left: 4%;
 }
 .error-message {
 	color: red;
@@ -557,9 +563,11 @@ hr {
 	margin-right: 5px;
 	margin-left: 10px;
 }
-#add-comment:hover {
-	background-color: #ebebeb;
-	border-radius: 3px;
+.add-comment {
+	text-align: right;
+	padding: 10px;
+	cursor: pointer;
+	font-weight: 400;
 }
 .pointer {
 	cursor: pointer;

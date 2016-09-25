@@ -6,6 +6,7 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 var moment = require('moment');
 moment().format();
 import AddCommentForm from './add-comment-form.js';
+import Comment from './comment.js';
 import { connect } from 'react-redux';
 
 var CommentBoard = React.createClass({
@@ -43,24 +44,13 @@ var CommentBoard = React.createClass({
       )
     });
 
-    var addComment = {
-      textAlign: "right",
-      padding: "10px",
-      cursor: "pointer"
-    };
-
-    var addCommentButton = (sessionStorage.first_name) ?
-      <div className="row">
-        <div className="col-sm-12">
-          <p
-            style={addComment}
-            id="add-comment"
-            onClick={this.handleFormDisplay}>
+    var addCommentButton = (this.props.isUserEnrolledInCourse || this.props.instructor_id == Number(sessionStorage.user_id)) ?
+      <div className="row no-margin">
+          <p className="add-comment" onClick={this.handleFormDisplay}>
             + add comment
           </p>
-        </div>
-      </div> :
-      null;
+      </div>
+      : null;
 
     var addCommentForm = (this.state.displayForm) ?
       <AddCommentForm
@@ -93,28 +83,6 @@ var CommentBoard = React.createClass({
         </div>
       </div>
     );
-  }
-});
-
-var Comment = React.createClass({
-
-  render: function(){
-
-    var commenterImageStyle = {
-      backgroundImage: 'url(' + this.props.profile_pic + ')'
-    }
-
-    return (
-      <div className="row">
-        <div className="col-sm-3 commenter-image" style={commenterImageStyle}></div>
-        <div className="col-sm-9">
-          <p className="reviewer-name">{this.props.name}</p>
-          <p>{this.props.date}</p>
-          <p className="review-message">{this.props.comment}</p>
-          <hr />
-        </div>
-      </div>
-    )
   }
 });
 

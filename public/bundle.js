@@ -24439,51 +24439,53 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _landingPage = __webpack_require__(/*! ./components/landing-page/landing-page */ 269);
-	
-	var _landingPage2 = _interopRequireDefault(_landingPage);
-	
-	var _loginForm = __webpack_require__(/*! ./components/login-form */ 335);
-	
-	var _loginForm2 = _interopRequireDefault(_loginForm);
-	
-	var _singleCourseDisplay = __webpack_require__(/*! ./components/courses/single-course-display/single-course-display.js */ 336);
-	
-	var _singleCourseDisplay2 = _interopRequireDefault(_singleCourseDisplay);
-	
-	var _primaryTemplate = __webpack_require__(/*! ./components/primary-template */ 352);
+	var _primaryTemplate = __webpack_require__(/*! ./components/primary-template */ 269);
 	
 	var _primaryTemplate2 = _interopRequireDefault(_primaryTemplate);
 	
-	var _secondaryTemplate = __webpack_require__(/*! ./components/secondary-template */ 353);
+	var _secondaryTemplate = __webpack_require__(/*! ./components/secondary-template */ 292);
 	
 	var _secondaryTemplate2 = _interopRequireDefault(_secondaryTemplate);
 	
-	var _signupForm = __webpack_require__(/*! ./components/signup-form.js */ 355);
+	var _landingPage = __webpack_require__(/*! ./components/landing-page/landing-page */ 294);
+	
+	var _landingPage2 = _interopRequireDefault(_landingPage);
+	
+	var _loginForm = __webpack_require__(/*! ./components/login-form */ 340);
+	
+	var _loginForm2 = _interopRequireDefault(_loginForm);
+	
+	var _singleCourseDisplay = __webpack_require__(/*! ./components/courses/single-course-display.js */ 359);
+	
+	var _singleCourseDisplay2 = _interopRequireDefault(_singleCourseDisplay);
+	
+	var _signupForm = __webpack_require__(/*! ./components/signup-form.js */ 341);
 	
 	var _signupForm2 = _interopRequireDefault(_signupForm);
 	
-	var _addCourseDisplay = __webpack_require__(/*! ./components/courses/add-course-display.js */ 356);
+	var _addCourseDisplay = __webpack_require__(/*! ./components/courses/add-course-display.js */ 342);
 	
 	var _addCourseDisplay2 = _interopRequireDefault(_addCourseDisplay);
 	
-	var _updateCourseDisplay = __webpack_require__(/*! ./components/courses/update-course-display.js */ 359);
+	var _updateCourseDisplay = __webpack_require__(/*! ./components/courses/update-course-display.js */ 347);
 	
 	var _updateCourseDisplay2 = _interopRequireDefault(_updateCourseDisplay);
 	
-	var _userDashboard = __webpack_require__(/*! ./components/user-dashboard.js */ 360);
+	var _userDashboard = __webpack_require__(/*! ./components/user-dashboard.js */ 348);
 	
 	var _userDashboard2 = _interopRequireDefault(_userDashboard);
 	
-	var _messageDisplay = __webpack_require__(/*! ./components/messages/message-display.js */ 362);
+	var _messageDisplay = __webpack_require__(/*! ./components/messages/message-display.js */ 352);
 	
 	var _messageDisplay2 = _interopRequireDefault(_messageDisplay);
 	
-	var _errorDisplay = __webpack_require__(/*! ./components/error-display.js */ 368);
+	var _page = __webpack_require__(/*! ./components/404-page.js */ 358);
 	
-	var _errorDisplay2 = _interopRequireDefault(_errorDisplay);
+	var _page2 = _interopRequireDefault(_page);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	//import components here
 	
 	//below is an example of ES6 destructuring
 	var AppRouter = _react2.default.createClass({
@@ -24559,7 +24561,7 @@
 	        _react2.default.createElement(
 	          _reactRouter.Route,
 	          { component: _secondaryTemplate2.default },
-	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _errorDisplay2.default })
+	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _page2.default })
 	        )
 	      )
 	    );
@@ -24567,9 +24569,6 @@
 	});
 	
 	//import layouts here
-	
-	
-	//import components here
 	exports.default = AppRouter;
 
 /***/ },
@@ -30294,9 +30293,9 @@
 
 /***/ },
 /* 269 */
-/*!*****************************************************!*\
-  !*** ./app/components/landing-page/landing-page.js ***!
-  \*****************************************************/
+/*!********************************************!*\
+  !*** ./app/components/primary-template.js ***!
+  \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30305,53 +30304,35 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
 	var _superagent = __webpack_require__(/*! superagent */ 270);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _courseDisplay = __webpack_require__(/*! ./course-display.js */ 275);
-	
-	var _courseDisplay2 = _interopRequireDefault(_courseDisplay);
-	
-	var _navbar = __webpack_require__(/*! ../navbar.js */ 305);
+	var _navbar = __webpack_require__(/*! ./navbar.js */ 275);
 	
 	var _navbar2 = _interopRequireDefault(_navbar);
 	
-	var _navbarLoggedIn = __webpack_require__(/*! ../navbar-logged-in.js */ 306);
+	var _navbarLoggedIn = __webpack_require__(/*! ./navbar-logged-in.js */ 276);
 	
 	var _navbarLoggedIn2 = _interopRequireDefault(_navbarLoggedIn);
 	
-	var _welcomeText = __webpack_require__(/*! ./welcome-text.js */ 320);
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
 	
-	var _welcomeText2 = _interopRequireDefault(_welcomeText);
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
 	
-	var _searchBar = __webpack_require__(/*! ./search-bar.js */ 321);
-	
-	var _searchBar2 = _interopRequireDefault(_searchBar);
-	
-	var _footer = __webpack_require__(/*! ../footer.js */ 333);
+	var _footer = __webpack_require__(/*! ./footer.js */ 291);
 	
 	var _footer2 = _interopRequireDefault(_footer);
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
-	var _store = __webpack_require__(/*! ../../store */ 196);
+	var _store = __webpack_require__(/*! ../store */ 196);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _userActions = __webpack_require__(/*! ../../actions/user-actions */ 317);
+	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 287);
 	
-	var _reactLoading = __webpack_require__(/*! react-loading */ 334);
-	
-	var _reactLoading2 = _interopRequireDefault(_reactLoading);
-	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
-	
-	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
-	
-	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 286);
 	
 	var _modalStyles2 = _interopRequireDefault(_modalStyles);
 	
@@ -30359,29 +30340,18 @@
 	
 	var DATABASE_URL = "http://localhost:8080";
 	
-	var LandingPage = _react2.default.createClass({
-	  displayName: 'LandingPage',
+	var PrimaryTemplate = _react2.default.createClass({
+	  displayName: 'PrimaryTemplate',
 	
 	
 	  getInitialState: function getInitialState() {
-	
 	    return {
-	      lat: null,
-	      lng: null,
-	      radius: 0.8335,
-	      zoom: 9,
-	      city: 'Fort Collins',
-	      state: 'CO',
-	      filterText: '',
 	      unreadMessagesExist: null
 	    };
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    if (sessionStorage.user_id) {
-	      this.checkForUnreadMessages();
-	    }
-	    this.getUserLocation(this.geocodeLatLng);
+	    this.checkForUnreadMessages();
 	    if (!this.props.userState.profile && sessionStorage.user_id) {
 	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
 	    }
@@ -30390,150 +30360,70 @@
 	  checkForUnreadMessages: function checkForUnreadMessages() {
 	    _superagent2.default.get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id).end(function (err, res) {
 	      if (err) {
-	        _reactRouter.browserHistory.push('/error');
+	        browserHistory.push('/error');
 	      } else {
 	        this.setState({ unreadMessagesExist: res.body.unread_messages });
 	      }
 	    }.bind(this));
 	  },
 	
-	  handleUserInput: function handleUserInput(filterText) {
-	    this.setState({
-	      filterText: filterText
-	    });
-	  },
-	
-	  handleRadiusInput: function handleRadiusInput(radius) {
-	    var data = JSON.parse(radius);
-	    this.setState({
-	      radius: data.radius, zoom: data.zoom
-	    });
-	  },
-	
-	  getUserLocation: function getUserLocation(callback) {
-	    if (sessionStorage.getItem('city')) {
-	      var city = sessionStorage.getItem('city');
-	      var state = sessionStorage.getItem('state');
-	      var lat = sessionStorage.getItem('lat');
-	      var lng = sessionStorage.getItem('lng');
-	      this.setState({ city: city, state: state, lat: lat, lng: lng });
-	    } else {
-	      navigator.geolocation.getCurrentPosition(function (position) {
-	        this.setState({ lat: Number(position.coords.latitude), lng: Number(position.coords.longitude) });
-	        callback();
-	      }.bind(this), this.showModal, { timeout: 10000 });
-	    };
-	  },
-	
-	  geocodeLatLng: function geocodeLatLng() {
-	    var geocoder = new google.maps.Geocoder();
-	    var latlng = new google.maps.LatLng(this.state.lat, this.state.lng);
-	    geocoder.geocode({ 'location': latlng }, function (results, status) {
-	      if (status === 'OK') {
-	        if (results[1]) {
-	          var city = results[0].address_components[2].long_name;
-	          var state = results[0].address_components[4].short_name;
-	          this.setState({ city: city, state: state });
-	          sessionStorage.setItem('city', city);
-	          sessionStorage.setItem('state', state);
-	          sessionStorage.setItem('lat', this.state.lat);
-	          sessionStorage.setItem('lng', this.state.lng);
-	        } else {
-	          this.showModal();
-	        }
-	      } else {
-	        this.showModal();
-	      }
-	    }.bind(this));
-	  },
-	
 	  showModal: function showModal() {
 	    this.refs.modal.show();
-	    this.setState({ lat: 40.588476, lng: -105.074212 });
-	  },
-	  hideModal: function hideModal() {
-	    this.refs.modal.hide();
 	  },
 	
-	  handleLocationInput: function handleLocationInput(suggest) {
-	    this.setState({ lat: suggest.location.lat, lng: suggest.location.lng, city: suggest.gmaps.address_components[0].long_name, state: suggest.gmaps.address_components[2].long_name });
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    browserHistory.push('/');
 	  },
 	
 	  render: function render() {
-	
-	    var spinStyle = {
-	      marginLeft: '40%'
-	    };
-	
-	    var searchOrSpin = this.state.lat === null ? _react2.default.createElement(
-	      'div',
-	      { style: spinStyle },
-	      _react2.default.createElement(_reactLoading2.default, { style: spinStyle, type: 'spinningBubbles', color: '#e3e3e3' })
-	    ) : _react2.default.createElement(_searchBar2.default, {
-	      filterText: this.state.filterText,
-	      handleUserInput: this.handleUserInput,
-	      radius: this.state.radius,
-	      handleRadiusInput: this.handleRadiusInput,
-	      handleLocationInput: this.handleLocationInput,
-	      lat: this.state.lat,
-	      lng: this.state.lng,
-	      city: this.state.city,
-	      state: this.state.state
-	    });
-	
-	    var loggedInNav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, {
+	    var nav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, {
+	      showModal: this.showModal,
 	      unreadMessagesExist: this.state.unreadMessagesExist,
 	      checkForUnreadMessages: this.checkForUnreadMessages
-	    }) : null;
-	
-	    var nav = !sessionStorage.first_name ? _react2.default.createElement(_navbar2.default, null) : null;
+	    }) : _react2.default.createElement(_navbar2.default, null);
 	
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'container-fluid' },
+	      null,
 	      _react2.default.createElement(
 	        'div',
-	        { id: 'landing-div' },
-	        _react2.default.createElement(
-	          _OutlineModal2.default,
-	          { ref: 'modal', style: _modalStyles2.default.container },
-	          _react2.default.createElement(
-	            'h2',
-	            { style: _modalStyles2.default.title },
-	            'We tried to find your location, ',
-	            _react2.default.createElement('br', null),
-	            ' but something went wrong. ',
-	            _react2.default.createElement('br', null),
-	            ' Type a location in the search bar below to narrow your results.'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { style: _modalStyles2.default.btn, onClick: this.hideModal },
-	            'Close'
-	          )
-	        ),
+	        { className: 'container-fluid' },
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'landing-div-row', className: 'row' },
-	          _react2.default.createElement('div', { className: 'col-sm-2' }),
+	          { id: 'secondary-div' },
 	          _react2.default.createElement(
 	            'div',
-	            { id: 'center-content', className: 'col-sm-8' },
-	            loggedInNav,
-	            nav,
-	            _react2.default.createElement(_welcomeText2.default, null),
-	            searchOrSpin
+	            { id: 'secondary-div-row', className: 'row' },
+	            _react2.default.createElement('div', { className: 'col-sm-2' }),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'center-content', className: 'col-sm-8' },
+	              nav,
+	              this.props.children,
+	              _react2.default.createElement(
+	                _OutlineModal2.default,
+	                { ref: 'modal', style: _modalStyles2.default.container },
+	                _react2.default.createElement(
+	                  'h2',
+	                  { style: _modalStyles2.default.title },
+	                  'Thanks for stopping by...see you soon!'
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { style: _modalStyles2.default.btn, onClick: this.hideModal },
+	                  'Close'
+	                )
+	              )
+	            )
 	          )
 	        )
 	      ),
-	      _react2.default.createElement(_courseDisplay2.default, {
-	        filterText: this.state.filterText,
-	        lat: this.state.lat,
-	        lng: this.state.lng,
-	        radius: this.state.radius,
-	        zoom: this.state.zoom
-	      }),
-	      _react2.default.createElement(_footer2.default, null)
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_footer2.default, null)
+	      )
 	    );
 	  }
 	});
@@ -30549,7 +30439,7 @@
 	  };
 	};
 	
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LandingPage);
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PrimaryTemplate);
 
 /***/ },
 /* 270 */
@@ -32129,9 +32019,9 @@
 
 /***/ },
 /* 275 */
-/*!*******************************************************!*\
-  !*** ./app/components/landing-page/course-display.js ***!
-  \*******************************************************/
+/*!**********************************!*\
+  !*** ./app/components/navbar.js ***!
+  \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32146,125 +32036,989 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _mapIcon = __webpack_require__(/*! ../icons/map-icon.js */ 276);
-	
-	var _mapIcon2 = _interopRequireDefault(_mapIcon);
-	
-	var _listIcon = __webpack_require__(/*! ../icons/list-icon.js */ 278);
-	
-	var _listIcon2 = _interopRequireDefault(_listIcon);
-	
-	var _mapDisplay = __webpack_require__(/*! ./map/map-display.js */ 369);
-	
-	var _mapDisplay2 = _interopRequireDefault(_mapDisplay);
-	
-	var _courseListDisplay = __webpack_require__(/*! ./course-list-display.js */ 303);
-	
-	var _courseListDisplay2 = _interopRequireDefault(_courseListDisplay);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var Navbar = _react2.default.createClass({
+	  displayName: 'Navbar',
 	
-	var CourseDisplay = _react2.default.createClass({
-	  displayName: 'CourseDisplay',
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      data: [],
-	      showMap: false,
-	      showList: true
-	    };
-	  },
-	
-	  getCoursesFromAPI: function getCoursesFromAPI() {
-	    _superagent2.default.get(DATABASE_URL + "/classes").end(function (err, res) {
-	      if (err) {
-	        _reactRouter.browserHistory.push('/error');
-	      } else {
-	        this.setState({ data: res.body });
-	      }
-	    }.bind(this));
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    this.getCoursesFromAPI();
-	  },
-	
-	  handleViewChange: function handleViewChange() {
-	    this.setState({ showMap: !this.state.showMap, showList: !this.state.showList });
-	  },
 	
 	  render: function render() {
-	
-	    var mapView = this.state.showMap ? _react2.default.createElement(_mapDisplay2.default, {
-	      data: this.state.data,
-	      filterText: this.props.filterText,
-	      center: [Number(this.props.lat), Number(this.props.lng)],
-	      lat: Number(this.props.lat),
-	      lng: Number(this.props.lng),
-	      radius: this.props.radius,
-	      zoom: this.props.zoom
-	    }) : null;
-	
-	    var listView = this.state.showList && this.state.data.length > 0 ? _react2.default.createElement(_courseListDisplay2.default, {
-	      data: this.state.data,
-	      filterText: this.props.filterText,
-	      lat: Number(this.props.lat),
-	      lng: Number(this.props.lng),
-	      radius: this.props.radius
-	    }) : null;
-	
 	    return _react2.default.createElement(
-	      'div',
-	      { className: 'CourseDisplay' },
+	      'nav',
+	      { className: 'row' },
 	      _react2.default.createElement(
-	        'div',
-	        { className: 'row', id: 'class-display' },
+	        'nav',
+	        { className: 'navbar' },
 	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Upcoming Classes'
-	        ),
-	        _react2.default.createElement(
-	          'h4',
-	          null,
+	          'div',
+	          { className: 'container-fluid' },
 	          _react2.default.createElement(
-	            'span',
-	            { className: 'course-display-change pointer', onClick: this.handleViewChange },
-	            _react2.default.createElement(_listIcon2.default, null),
-	            'List'
+	            'div',
+	            { className: 'navbar-header' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement('img', { src: '../../images/owl.png' })
+	            ),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                ' ',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'you' },
+	                  'yoU'
+	                ),
+	                'niversity'
+	              )
+	            )
 	          ),
 	          _react2.default.createElement(
-	            'span',
-	            { className: 'black' },
-	            '  | '
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'course-display-change pointer', onClick: this.handleViewChange },
-	            _react2.default.createElement(_mapIcon2.default, null),
-	            'Map'
+	            'ul',
+	            { className: 'nav navbar-nav navbar-right' },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/login' },
+	                'login'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/signup' },
+	                'signup'
+	              )
+	            )
 	          )
 	        )
-	      ),
-	      mapView,
-	      listView
+	      )
 	    );
 	  }
 	});
 	
-	exports.default = CourseDisplay;
+	exports.default = Navbar;
 
 /***/ },
 /* 276 */
-/*!******************************************!*\
-  !*** ./app/components/icons/map-icon.js ***!
-  \******************************************/
+/*!********************************************!*\
+  !*** ./app/components/navbar-logged-in.js ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 286);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	var _store = __webpack_require__(/*! ../store */ 196);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 287);
+	
+	var _newMessagesIcon = __webpack_require__(/*! ./icons/new-messages-icon.js */ 288);
+	
+	var _newMessagesIcon2 = _interopRequireDefault(_newMessagesIcon);
+	
+	var _messageAlert = __webpack_require__(/*! ./icons/message-alert.js */ 290);
+	
+	var _messageAlert2 = _interopRequireDefault(_messageAlert);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NavbarLoggedIn = _react2.default.createClass({
+	  displayName: 'NavbarLoggedIn',
+	
+	
+	  componentDidMount: function componentDidMount() {
+	    this.props.checkForUnreadMessages();
+	  },
+	
+	  handleLogoutSubmit: function handleLogoutSubmit(e) {
+	    e.preventDefault();
+	    sessionStorage.removeItem('first_name');
+	    sessionStorage.removeItem('image_url');
+	    sessionStorage.removeItem('user_id');
+	    this.showModal();
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	  },
+	
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    this.props.logout();
+	    _reactRouter.browserHistory.push('/');
+	  },
+	
+	  render: function render() {
+	
+	    var first_name = sessionStorage.getItem('first_name');
+	    var id = sessionStorage.getItem('user_id');
+	    var image_url = sessionStorage.getItem('image_url');
+	
+	    var userPic = {
+	      backgroundImage: 'url(' + image_url + ')'
+	    };
+	
+	    var unreadMessagesExist = this.props.unreadMessagesExist ? _react2.default.createElement(_messageAlert2.default, null) : null;
+	
+	    return _react2.default.createElement(
+	      'nav',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modal', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'p',
+	          { style: _modalStyles2.default.title },
+	          'Thanks for stopping by...see you soon!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideModal },
+	          'Close'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'nav',
+	        { className: 'navbar' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container-fluid' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-header' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement('img', { src: '../../images/owl.png' })
+	            ),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                ' ',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'you' },
+	                  'yoU'
+	                ),
+	                'niversity'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'nav navbar-nav navbar-right' },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/addcourse' },
+	                '+ add course'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/messages/' + id },
+	                _react2.default.createElement(_newMessagesIcon2.default, null),
+	                unreadMessagesExist
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              { className: 'dropdown-toggle pointer', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
+	              'welcome, ',
+	              first_name,
+	              _react2.default.createElement('span', { className: 'caret' })
+	            ),
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/users/' + id },
+	                  'Dashboard'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '#', onClick: this.handleLogoutSubmit },
+	                  'Logout'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement('div', { className: 'nav-user-img', style: userPic })
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    logout: function logout(user) {
+	      dispatch((0, _userActions.userLogoutSuccess)());
+	    }
+	  };
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NavbarLoggedIn);
+
+/***/ },
+/* 277 */
+/*!*********************************!*\
+  !*** ./~/boron/OutlineModal.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var modalFactory = __webpack_require__(/*! ./modalFactory */ 278);
+	var insertKeyframesRule = __webpack_require__(/*! domkit/insertKeyframesRule */ 283);
+	var appendVendorPrefix = __webpack_require__(/*! domkit/appendVendorPrefix */ 280);
+	
+	var animation = {
+	    show: {
+	        animationDuration: '0.8s',
+	        animationTimingFunction: 'cubic-bezier(0.6,0,0.4,1)'
+	    },
+	    hide: {
+	        animationDuration: '0.4s',
+	        animationTimingFunction: 'ease-out'
+	    },
+	    showContentAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0,
+	        },
+	        '40%':{
+	            opacity: 0
+	        },
+	        '100%': {
+	            opacity: 1,
+	        }
+	    }),
+	
+	    hideContentAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 1
+	        },
+	        '100%': {
+	            opacity: 0,
+	        }
+	    }),
+	
+	    showBackdropAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0
+	        },
+	        '100%': {
+	            opacity: 0.9
+	        },
+	    }),
+	
+	    hideBackdropAnimation: insertKeyframesRule({
+	        '0%': {
+	            opacity: 0.9
+	        },
+	        '100%': {
+	            opacity: 0
+	        }
+	    })
+	};
+	
+	var showAnimation = animation.show;
+	var hideAnimation = animation.hide;
+	var showContentAnimation = animation.showContentAnimation;
+	var hideContentAnimation = animation.hideContentAnimation;
+	var showBackdropAnimation = animation.showBackdropAnimation;
+	var hideBackdropAnimation = animation.hideBackdropAnimation;
+	
+	module.exports = modalFactory({
+	    getRef: function(willHidden) {
+	        return 'content';
+	    },
+	    getSharp: function(willHidden) {
+	        var strokeDashLength = 1680;
+	
+	        var showSharpAnimation = insertKeyframesRule({
+	            '0%': {
+	                'stroke-dashoffset': strokeDashLength
+	            },
+	            '100%': {
+	                'stroke-dashoffset': 0
+	            },
+	        });
+	
+	
+	        var sharpStyle = {
+	            position: 'absolute',
+	            width: 'calc(100%)',
+	            height: 'calc(100%)',
+	            zIndex: '-1'
+	        };
+	
+	        var rectStyle = appendVendorPrefix({
+	            animationDuration: willHidden? '0.4s' :'0.8s',
+	            animationFillMode: 'forwards',
+	            animationName: willHidden? hideContentAnimation: showSharpAnimation,
+	            stroke: '#ffffff',
+	            strokeWidth: '2px',
+	            strokeDasharray: strokeDashLength
+	        });
+	
+	        return React.createElement("div", {style: sharpStyle}, 
+	            React.createElement("svg", {
+	                xmlns: "http://www.w3.org/2000/svg", 
+	                width: "100%", 
+	                height: "100%", 
+	                viewBox: "0 0 496 136", 
+	                preserveAspectRatio: "none"}, 
+	                React.createElement("rect", {style: rectStyle, 
+	                    x: "2", 
+	                    y: "2", 
+	                    fill: "none", 
+	                    width: "492", 
+	                    height: "132"})
+	            )
+	        )
+	    },
+	    getModalStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            zIndex: 1050,
+	            position: "fixed",
+	            width: "500px",
+	            transform: "translate3d(-50%, -50%, 0)",
+	            top: "50%",
+	            left: "50%"
+	        })
+	    },
+	    getBackdropStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            position: "fixed",
+	            top: 0,
+	            right: 0,
+	            bottom: 0,
+	            left: 0,
+	            zIndex: 1040,
+	            backgroundColor: "#373A47",
+	            animationFillMode: 'forwards',
+	            animationDuration: '0.4s',
+	            animationName: willHidden ? hideBackdropAnimation : showBackdropAnimation,
+	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
+	        });
+	    },
+	    getContentStyle: function(willHidden) {
+	        return appendVendorPrefix({
+	            margin: 0,
+	            backgroundColor: "white",
+	            animationDuration: (willHidden ? hideAnimation : showAnimation).animationDuration,
+	            animationFillMode: 'forwards',
+	            animationName: willHidden ? hideContentAnimation : showContentAnimation,
+	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
+	        })
+	    }
+	});
+
+
+/***/ },
+/* 278 */
+/*!*********************************!*\
+  !*** ./~/boron/modalFactory.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 1);
+	var transitionEvents = __webpack_require__(/*! domkit/transitionEvents */ 279);
+	var appendVendorPrefix = __webpack_require__(/*! domkit/appendVendorPrefix */ 280);
+	
+	module.exports = function(animation){
+	
+	    return React.createClass({
+	        propTypes: {
+	            className: React.PropTypes.string,
+	            // Close the modal when esc is pressed? Defaults to true.
+	            keyboard: React.PropTypes.bool,
+	            onShow: React.PropTypes.func,
+	            onHide: React.PropTypes.func,
+	            animation: React.PropTypes.object,
+	            backdrop: React.PropTypes.bool,
+	            closeOnClick: React.PropTypes.bool,
+	            modalStyle: React.PropTypes.object,
+	            backdropStyle: React.PropTypes.object,
+	            contentStyle: React.PropTypes.object,
+	        },
+	
+	        getDefaultProps: function() {
+	            return {
+	                className: "",
+	                onShow: function(){},
+	                onHide: function(){},
+	                animation: animation,
+	                keyboard: true,
+	                backdrop: true,
+	                closeOnClick: true,
+	                modalStyle: {},
+	                backdropStyle: {},
+	                contentStyle: {},
+	            };
+	        },
+	
+	        getInitialState: function(){
+	            return {
+	                willHidden: false,
+	                hidden: true
+	            }
+	        },
+	
+	        hasHidden: function(){
+	            return this.state.hidden;
+	        },
+	
+	        addTransitionListener: function(node, handle){
+	            if (node) {
+	              var endListener = function(e) {
+	                  if (e && e.target !== node) {
+	                      return;
+	                  }
+	                  transitionEvents.removeEndEventListener(node, endListener);
+	                  handle();
+	              };
+	              transitionEvents.addEndEventListener(node, endListener);
+	            }
+	        },
+	
+	        handleBackdropClick: function() {
+	            if (this.props.closeOnClick) {
+	                this.hide();
+	            }
+	        },
+	
+	        render: function() {
+	
+	            var hidden = this.hasHidden();
+	            if (hidden) return null;
+	
+	            var willHidden = this.state.willHidden;
+	            var animation = this.props.animation;
+	            var modalStyle = animation.getModalStyle(willHidden);
+	            var backdropStyle = animation.getBackdropStyle(willHidden);
+	            var contentStyle = animation.getContentStyle(willHidden);
+	            var ref = animation.getRef(willHidden);
+	            var sharp = animation.getSharp && animation.getSharp(willHidden);
+	
+	            // Apply custom style properties
+	            if (this.props.modalStyle) {
+	                var prefixedModalStyle = appendVendorPrefix(this.props.modalStyle);
+	                for (var style in prefixedModalStyle) {
+	                    modalStyle[style] = prefixedModalStyle[style];
+	                }
+	            }
+	
+	            if (this.props.backdropStyle) {
+	              var prefixedBackdropStyle = appendVendorPrefix(this.props.backdropStyle);
+	                for (var style in prefixedBackdropStyle) {
+	                    backdropStyle[style] = prefixedBackdropStyle[style];
+	                }
+	            }
+	
+	            if (this.props.contentStyle) {
+	              var prefixedContentStyle = appendVendorPrefix(this.props.contentStyle);
+	                for (var style in prefixedContentStyle) {
+	                    contentStyle[style] = prefixedContentStyle[style];
+	                }
+	            }
+	
+	            var backdrop = this.props.backdrop? React.createElement("div", {style: backdropStyle, onClick: this.props.closeOnClick? this.handleBackdropClick: null}): undefined;
+	
+	            if(willHidden) {
+	                var node = this.refs[ref];
+	                this.addTransitionListener(node, this.leave);
+	            }
+	
+	            return (React.createElement("span", null, 
+	                React.createElement("div", {ref: "modal", style: modalStyle, className: this.props.className}, 
+	                    sharp, 
+	                    React.createElement("div", {ref: "content", tabIndex: "-1", style: contentStyle}, 
+	                        this.props.children
+	                    )
+	                ), 
+	                backdrop
+	             ))
+	            ;
+	        },
+	
+	        leave: function(){
+	            this.setState({
+	                hidden: true
+	            });
+	            this.props.onHide();
+	        },
+	
+	        enter: function(){
+	            this.props.onShow();
+	        },
+	
+	        show: function(){
+	            if (!this.hasHidden()) return;
+	
+	            this.setState({
+	                willHidden: false,
+	                hidden: false
+	            });
+	
+	            setTimeout(function(){
+	              var ref = this.props.animation.getRef();
+	              var node = this.refs[ref];
+	              this.addTransitionListener(node, this.enter);
+	            }.bind(this), 0);
+	        },
+	
+	        hide: function(){
+	            if (this.hasHidden()) return;
+	
+	            this.setState({
+	                willHidden: true
+	            });
+	        },
+	
+	        toggle: function(){
+	            if (this.hasHidden())
+	                this.show();
+	            else
+	                this.hide();
+	        },
+	
+	        listenKeyboard: function(event) {
+	            if (this.props.keyboard &&
+	                    (event.key === "Escape" ||
+	                     event.keyCode === 27)) {
+	                this.hide();
+	            }
+	        },
+	
+	        componentDidMount: function(){
+	            window.addEventListener("keydown", this.listenKeyboard, true);
+	        },
+	
+	        componentWillUnmount: function() {
+	            window.removeEventListener("keydown", this.listenKeyboard, true);
+	        }
+	    });
+	}
+
+
+/***/ },
+/* 279 */
+/*!**************************************!*\
+  !*** ./~/domkit/transitionEvents.js ***!
+  \**************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/**
+	 * EVENT_NAME_MAP is used to determine which event fired when a
+	 * transition/animation ends, based on the style property used to
+	 * define that event.
+	 */
+	var EVENT_NAME_MAP = {
+	  transitionend: {
+	    'transition': 'transitionend',
+	    'WebkitTransition': 'webkitTransitionEnd',
+	    'MozTransition': 'mozTransitionEnd',
+	    'OTransition': 'oTransitionEnd',
+	    'msTransition': 'MSTransitionEnd'
+	  },
+	
+	  animationend: {
+	    'animation': 'animationend',
+	    'WebkitAnimation': 'webkitAnimationEnd',
+	    'MozAnimation': 'mozAnimationEnd',
+	    'OAnimation': 'oAnimationEnd',
+	    'msAnimation': 'MSAnimationEnd'
+	  }
+	};
+	
+	var endEvents = [];
+	
+	function detectEvents() {
+	  var testEl = document.createElement('div');
+	  var style = testEl.style;
+	
+	  // On some platforms, in particular some releases of Android 4.x,
+	  // the un-prefixed "animation" and "transition" properties are defined on the
+	  // style object but the events that fire will still be prefixed, so we need
+	  // to check if the un-prefixed events are useable, and if not remove them
+	  // from the map
+	  if (!('AnimationEvent' in window)) {
+	    delete EVENT_NAME_MAP.animationend.animation;
+	  }
+	
+	  if (!('TransitionEvent' in window)) {
+	    delete EVENT_NAME_MAP.transitionend.transition;
+	  }
+	
+	  for (var baseEventName in EVENT_NAME_MAP) {
+	    var baseEvents = EVENT_NAME_MAP[baseEventName];
+	    for (var styleName in baseEvents) {
+	      if (styleName in style) {
+	        endEvents.push(baseEvents[styleName]);
+	        break;
+	      }
+	    }
+	  }
+	}
+	
+	if (typeof window !== 'undefined') {
+	  detectEvents();
+	}
+	
+	
+	// We use the raw {add|remove}EventListener() call because EventListener
+	// does not know how to remove event listeners and we really should
+	// clean up. Also, these events are not triggered in older browsers
+	// so we should be A-OK here.
+	
+	function addEventListener(node, eventName, eventListener) {
+	  node.addEventListener(eventName, eventListener, false);
+	}
+	
+	function removeEventListener(node, eventName, eventListener) {
+	  node.removeEventListener(eventName, eventListener, false);
+	}
+	
+	module.exports = {
+	  addEndEventListener: function(node, eventListener) {
+	    if (endEvents.length === 0) {
+	      // If CSS transitions are not supported, trigger an "end animation"
+	      // event immediately.
+	      window.setTimeout(eventListener, 0);
+	      return;
+	    }
+	    endEvents.forEach(function(endEvent) {
+	      addEventListener(node, endEvent, eventListener);
+	    });
+	  },
+	
+	  removeEndEventListener: function(node, eventListener) {
+	    if (endEvents.length === 0) {
+	      return;
+	    }
+	    endEvents.forEach(function(endEvent) {
+	      removeEventListener(node, endEvent, eventListener);
+	    });
+	  }
+	};
+
+
+/***/ },
+/* 280 */
+/*!****************************************!*\
+  !*** ./~/domkit/appendVendorPrefix.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var getVendorPropertyName = __webpack_require__(/*! ./getVendorPropertyName */ 281);
+	
+	module.exports = function(target, sources) {
+	  var to = Object(target);
+	  var hasOwnProperty = Object.prototype.hasOwnProperty;
+	
+	  for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
+	    var nextSource = arguments[nextIndex];
+	    if (nextSource == null) {
+	      continue;
+	    }
+	
+	    var from = Object(nextSource);
+	
+	    for (var key in from) {
+	      if (hasOwnProperty.call(from, key)) {
+	        to[key] = from[key];
+	      }
+	    }
+	  }
+	
+	  var prefixed = {};
+	  for (var key in to) {
+	    prefixed[getVendorPropertyName(key)] = to[key]
+	  }
+	
+	  return prefixed
+	}
+
+
+/***/ },
+/* 281 */
+/*!*******************************************!*\
+  !*** ./~/domkit/getVendorPropertyName.js ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var builtinStyle = __webpack_require__(/*! ./builtinStyle */ 282);
+	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
+	var domVendorPrefix;
+	
+	// Helper function to get the proper vendor property name. (transition => WebkitTransition)
+	module.exports = function(prop, isSupportTest) {
+	
+	  var vendorProp;
+	  if (prop in builtinStyle) return prop;
+	
+	  var UpperProp = prop.charAt(0).toUpperCase() + prop.substr(1);
+	
+	  if (domVendorPrefix) {
+	
+	    vendorProp = domVendorPrefix + UpperProp;
+	    if (vendorProp in builtinStyle) {
+	      return vendorProp;
+	    }
+	  } else {
+	
+	    for (var i = 0; i < prefixes.length; ++i) {
+	      vendorProp = prefixes[i] + UpperProp;
+	      if (vendorProp in builtinStyle) {
+	        domVendorPrefix = prefixes[i];
+	        return vendorProp;
+	      }
+	    }
+	  }
+	
+	  // if support test, not fallback to origin prop name
+	  if (!isSupportTest) {
+	    return prop;
+	  }
+	
+	}
+
+
+/***/ },
+/* 282 */
+/*!**********************************!*\
+  !*** ./~/domkit/builtinStyle.js ***!
+  \**********************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	module.exports = document.createElement('div').style;
+
+
+/***/ },
+/* 283 */
+/*!*****************************************!*\
+  !*** ./~/domkit/insertKeyframesRule.js ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var insertRule = __webpack_require__(/*! ./insertRule */ 284);
+	var vendorPrefix = __webpack_require__(/*! ./getVendorPrefix */ 285)();
+	var index = 0;
+	
+	module.exports = function(keyframes) {
+	  // random name
+	  var name = 'anim_' + (++index) + (+new Date);
+	  var css = "@" + vendorPrefix + "keyframes " + name + " {";
+	
+	  for (var key in keyframes) {
+	    css += key + " {";
+	
+	    for (var property in keyframes[key]) {
+	      var part = ":" + keyframes[key][property] + ";";
+	      // We do vendor prefix for every property
+	      css += vendorPrefix + property + part;
+	      css += property + part;
+	    }
+	
+	    css += "}";
+	  }
+	
+	  css += "}";
+	
+	  insertRule(css);
+	
+	  return name
+	}
+
+
+/***/ },
+/* 284 */
+/*!********************************!*\
+  !*** ./~/domkit/insertRule.js ***!
+  \********************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var extraSheet;
+	
+	module.exports = function(css) {
+	
+	  if (!extraSheet) {
+	    // First time, create an extra stylesheet for adding rules
+	    extraSheet = document.createElement('style');
+	    document.getElementsByTagName('head')[0].appendChild(extraSheet);
+	    // Keep reference to actual StyleSheet object (`styleSheet` for IE < 9)
+	    extraSheet = extraSheet.sheet || extraSheet.styleSheet;
+	  }
+	
+	  var index = (extraSheet.cssRules || extraSheet.rules).length;
+	  extraSheet.insertRule(css, index);
+	
+	  return extraSheet;
+	}
+
+
+/***/ },
+/* 285 */
+/*!*************************************!*\
+  !*** ./~/domkit/getVendorPrefix.js ***!
+  \*************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var cssVendorPrefix;
+	
+	module.exports = function() {
+	
+	  if (cssVendorPrefix) return cssVendorPrefix;
+	
+	  var styles = window.getComputedStyle(document.documentElement, '');
+	  var pre = (Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o']))[1];
+	
+	  return cssVendorPrefix = '-' + pre + '-';
+	}
+
+
+/***/ },
+/* 286 */
+/*!***********************************************!*\
+  !*** ./app/components/styles/modal-styles.js ***!
+  \***********************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var modalStyles = {
+	  btn: {
+	    padding: '1em 2em',
+	    width: '25%',
+	    margin: '1em 0 2em 37.5%',
+	    outline: 'none',
+	    fontSize: 16,
+	    fontWeight: '600',
+	    background: 'orange',
+	    color: '#FFFFFF',
+	    border: 'none',
+	    borderRadius: '3px'
+	  },
+	  container: {
+	    padding: '2em',
+	    textAlign: 'center',
+	    borderRadius: '3px'
+	  },
+	  title: {
+	    margin: 0,
+	    padding: '2em 1em 0 1em',
+	    fontSize: '1.5em',
+	    color: 'orange',
+	    textAlign: 'center',
+	    fontWeight: 400
+	  }
+	};
+	
+	exports.default = modalStyles;
+
+/***/ },
+/* 287 */
+/*!*************************************!*\
+  !*** ./app/actions/user-actions.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.userLoginSuccess = userLoginSuccess;
+	exports.userLogoutSuccess = userLogoutSuccess;
+	
+	var _actionTypes = __webpack_require__(/*! ./action-types */ 206);
+	
+	function userLoginSuccess(user) {
+	  return {
+	
+	    type: _actionTypes.USER_LOGIN_SUCCESS,
+	    user: user
+	  };
+	}
+	
+	function userLogoutSuccess() {
+	  return {
+	    type: _actionTypes.USER_LOGOUT_SUCCESS
+	  };
+	}
+
+/***/ },
+/* 288 */
+/*!***************************************************!*\
+  !*** ./app/components/icons/new-messages-icon.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32277,29 +33031,28 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 289);
 	
 	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var MapIcon = _react2.default.createClass({
-	  displayName: 'MapIcon',
+	var NewMessagesIcon = _react2.default.createClass({
+	  displayName: 'NewMessagesIcon',
 	
 	  render: function render() {
 	    return _react2.default.createElement(_reactFontawesome2.default, {
-	      className: 'super-crazy-colors',
-	      name: 'globe',
+	      name: 'comments',
 	      size: 'lg',
-	      style: { marginRight: '5px', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
+	      style: { fontSize: '1.6em', cursor: 'pointer', color: 'orange', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
 	    });
 	  }
 	});
 	
-	exports.default = MapIcon;
+	exports.default = NewMessagesIcon;
 
 /***/ },
-/* 277 */
+/* 289 */
 /*!******************************************!*\
   !*** ./~/react-fontawesome/lib/index.js ***!
   \******************************************/
@@ -32415,7 +33168,694 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 278 */
+/* 290 */
+/*!***********************************************!*\
+  !*** ./app/components/icons/message-alert.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 289);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MessageAlertIcon = _react2.default.createClass({
+	  displayName: 'MessageAlertIcon',
+	
+	  render: function render() {
+	    return _react2.default.createElement(_reactFontawesome2.default, {
+	      name: 'bell',
+	      size: 'lg',
+	      style: { fontSize: '1em', cursor: 'pointer', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
+	    });
+	  }
+	});
+	
+	exports.default = MessageAlertIcon;
+
+/***/ },
+/* 291 */
+/*!**********************************!*\
+  !*** ./app/components/footer.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Footer = _react2.default.createClass({
+	  displayName: 'Footer',
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'footer',
+	        null,
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '#' },
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'About ',
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'orange' },
+	              'yoU'
+	            ),
+	            'niversity'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'https://github.com/you-Niversity' },
+	          _react2.default.createElement('img', { src: '../../images/github.png' })
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: 'https://www.linkedin.com/in/kristenfostermarks' },
+	          _react2.default.createElement('img', { src: '../../images/linkedin.png' })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Footer;
+
+/***/ },
+/* 292 */
+/*!**********************************************!*\
+  !*** ./app/components/secondary-template.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _navbarSecondary = __webpack_require__(/*! ./navbar-secondary.js */ 293);
+	
+	var _navbarSecondary2 = _interopRequireDefault(_navbarSecondary);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _footer = __webpack_require__(/*! ./footer.js */ 291);
+	
+	var _footer2 = _interopRequireDefault(_footer);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	var _store = __webpack_require__(/*! ../store */ 196);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 287);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SecondaryTemplate = _react2.default.createClass({
+	  displayName: 'SecondaryTemplate',
+	
+	
+	  componentDidMount: function componentDidMount() {
+	    if (!this.props.userState.profile && sessionStorage.user_id) {
+	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
+	    }
+	  },
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'container-fluid' },
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'secondary-div' },
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'secondary-div-row', className: 'row' },
+	            _react2.default.createElement('div', { className: 'col-sm-2' }),
+	            _react2.default.createElement(
+	              'div',
+	              { id: 'center-content', className: 'col-sm-8' },
+	              _react2.default.createElement(_navbarSecondary2.default, null),
+	              this.props.children
+	            )
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_footer2.default, null)
+	      )
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    login: function login(user) {
+	      dispatch((0, _userActions.userLoginSuccess)(user));
+	    }
+	  };
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SecondaryTemplate);
+
+/***/ },
+/* 293 */
+/*!********************************************!*\
+  !*** ./app/components/navbar-secondary.js ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NavbarSecondary = _react2.default.createClass({
+	  displayName: 'NavbarSecondary',
+	
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'nav',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'nav',
+	        { className: 'navbar' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container-fluid' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-header', id: 'secondary-header' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement('img', { src: '../../images/owl.png' })
+	            ),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                ' ',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'you' },
+	                  'yoU'
+	                ),
+	                'niversity'
+	              )
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = NavbarSecondary;
+
+/***/ },
+/* 294 */
+/*!*****************************************************!*\
+  !*** ./app/components/landing-page/landing-page.js ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _courseDisplay = __webpack_require__(/*! ./course-display.js */ 295);
+	
+	var _courseDisplay2 = _interopRequireDefault(_courseDisplay);
+	
+	var _navbar = __webpack_require__(/*! ../navbar.js */ 275);
+	
+	var _navbar2 = _interopRequireDefault(_navbar);
+	
+	var _navbarLoggedIn = __webpack_require__(/*! ../navbar-logged-in.js */ 276);
+	
+	var _navbarLoggedIn2 = _interopRequireDefault(_navbarLoggedIn);
+	
+	var _welcomeText = __webpack_require__(/*! ./welcome-text.js */ 326);
+	
+	var _welcomeText2 = _interopRequireDefault(_welcomeText);
+	
+	var _searchBar = __webpack_require__(/*! ./search-bar.js */ 327);
+	
+	var _searchBar2 = _interopRequireDefault(_searchBar);
+	
+	var _footer = __webpack_require__(/*! ../footer.js */ 291);
+	
+	var _footer2 = _interopRequireDefault(_footer);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	var _store = __webpack_require__(/*! ../../store */ 196);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _userActions = __webpack_require__(/*! ../../actions/user-actions */ 287);
+	
+	var _reactLoading = __webpack_require__(/*! react-loading */ 339);
+	
+	var _reactLoading2 = _interopRequireDefault(_reactLoading);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 286);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var DATABASE_URL = "http://localhost:8080";
+	
+	var LandingPage = _react2.default.createClass({
+	  displayName: 'LandingPage',
+	
+	
+	  getInitialState: function getInitialState() {
+	
+	    return {
+	      lat: null,
+	      lng: null,
+	      radius: 0.8335,
+	      zoom: 9,
+	      city: 'Fort Collins',
+	      state: 'CO',
+	      filterText: '',
+	      unreadMessagesExist: null
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    if (sessionStorage.user_id) {
+	      this.checkForUnreadMessages();
+	    }
+	    this.getUserLocation(this.geocodeLatLng);
+	    if (!this.props.userState.profile && sessionStorage.user_id) {
+	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
+	    }
+	  },
+	
+	  checkForUnreadMessages: function checkForUnreadMessages() {
+	    _superagent2.default.get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id).end(function (err, res) {
+	      if (err) {
+	        _reactRouter.browserHistory.push('/error');
+	      } else {
+	        this.setState({ unreadMessagesExist: res.body.unread_messages });
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleUserInput: function handleUserInput(filterText) {
+	    this.setState({
+	      filterText: filterText
+	    });
+	  },
+	
+	  handleRadiusInput: function handleRadiusInput(radius) {
+	    var data = JSON.parse(radius);
+	    this.setState({
+	      radius: data.radius, zoom: data.zoom
+	    });
+	  },
+	
+	  getUserLocation: function getUserLocation(callback) {
+	    if (sessionStorage.getItem('city')) {
+	      var city = sessionStorage.getItem('city');
+	      var state = sessionStorage.getItem('state');
+	      var lat = sessionStorage.getItem('lat');
+	      var lng = sessionStorage.getItem('lng');
+	      this.setState({ city: city, state: state, lat: lat, lng: lng });
+	    } else {
+	      navigator.geolocation.getCurrentPosition(function (position) {
+	        this.setState({ lat: Number(position.coords.latitude), lng: Number(position.coords.longitude) });
+	        callback();
+	      }.bind(this), this.showModal, { timeout: 10000 });
+	    };
+	  },
+	
+	  geocodeLatLng: function geocodeLatLng() {
+	    var geocoder = new google.maps.Geocoder();
+	    var latlng = new google.maps.LatLng(this.state.lat, this.state.lng);
+	    geocoder.geocode({ 'location': latlng }, function (results, status) {
+	      if (status === 'OK') {
+	        if (results[1]) {
+	          var city = results[0].address_components[2].long_name;
+	          var state = results[0].address_components[4].short_name;
+	          this.setState({ city: city, state: state });
+	          sessionStorage.setItem('city', city);
+	          sessionStorage.setItem('state', state);
+	          sessionStorage.setItem('lat', this.state.lat);
+	          sessionStorage.setItem('lng', this.state.lng);
+	        } else {
+	          this.showModal();
+	        }
+	      } else {
+	        this.showModal();
+	      }
+	    }.bind(this));
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	    this.setState({ lat: 40.588476, lng: -105.074212 });
+	  },
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	  },
+	
+	  handleLocationInput: function handleLocationInput(suggest) {
+	    this.setState({ lat: suggest.location.lat, lng: suggest.location.lng, city: suggest.gmaps.address_components[0].long_name, state: suggest.gmaps.address_components[2].long_name });
+	  },
+	
+	  render: function render() {
+	
+	    var spinStyle = {
+	      marginLeft: '40%'
+	    };
+	
+	    var searchOrSpin = this.state.lat === null ? _react2.default.createElement(
+	      'div',
+	      { style: spinStyle },
+	      _react2.default.createElement(_reactLoading2.default, { style: spinStyle, type: 'spinningBubbles', color: '#e3e3e3' })
+	    ) : _react2.default.createElement(_searchBar2.default, {
+	      filterText: this.state.filterText,
+	      handleUserInput: this.handleUserInput,
+	      radius: this.state.radius,
+	      handleRadiusInput: this.handleRadiusInput,
+	      handleLocationInput: this.handleLocationInput,
+	      lat: this.state.lat,
+	      lng: this.state.lng,
+	      city: this.state.city,
+	      state: this.state.state
+	    });
+	
+	    var loggedInNav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, {
+	      unreadMessagesExist: this.state.unreadMessagesExist,
+	      checkForUnreadMessages: this.checkForUnreadMessages
+	    }) : null;
+	
+	    var nav = !sessionStorage.first_name ? _react2.default.createElement(_navbar2.default, null) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'container-fluid' },
+	      _react2.default.createElement(
+	        'div',
+	        { id: 'landing-div' },
+	        _react2.default.createElement(
+	          _OutlineModal2.default,
+	          { ref: 'modal', style: _modalStyles2.default.container },
+	          _react2.default.createElement(
+	            'h2',
+	            { style: _modalStyles2.default.title },
+	            'We tried to find your location, ',
+	            _react2.default.createElement('br', null),
+	            ' but something went wrong. ',
+	            _react2.default.createElement('br', null),
+	            ' Type a location in the search bar below to narrow your results.'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { style: _modalStyles2.default.btn, onClick: this.hideModal },
+	            'Close'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'landing-div-row', className: 'row' },
+	          _react2.default.createElement('div', { className: 'col-sm-2' }),
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'center-content', className: 'col-sm-8' },
+	            loggedInNav,
+	            nav,
+	            _react2.default.createElement(_welcomeText2.default, null),
+	            searchOrSpin
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(_courseDisplay2.default, {
+	        filterText: this.state.filterText,
+	        lat: this.state.lat,
+	        lng: this.state.lng,
+	        radius: this.state.radius,
+	        zoom: this.state.zoom
+	      }),
+	      _react2.default.createElement(_footer2.default, null)
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    login: function login(user) {
+	      dispatch((0, _userActions.userLoginSuccess)(user));
+	    }
+	  };
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LandingPage);
+
+/***/ },
+/* 295 */
+/*!*******************************************************!*\
+  !*** ./app/components/landing-page/course-display.js ***!
+  \*******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _mapIcon = __webpack_require__(/*! ../icons/map-icon.js */ 296);
+	
+	var _mapIcon2 = _interopRequireDefault(_mapIcon);
+	
+	var _listIcon = __webpack_require__(/*! ../icons/list-icon.js */ 297);
+	
+	var _listIcon2 = _interopRequireDefault(_listIcon);
+	
+	var _mapDisplay = __webpack_require__(/*! ./map/map-display.js */ 298);
+	
+	var _mapDisplay2 = _interopRequireDefault(_mapDisplay);
+	
+	var _courseList = __webpack_require__(/*! ./course-list.js */ 324);
+	
+	var _courseList2 = _interopRequireDefault(_courseList);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var DATABASE_URL = "http://localhost:8080";
+	
+	var CourseDisplay = _react2.default.createClass({
+	  displayName: 'CourseDisplay',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      data: [],
+	      showMap: false,
+	      showList: true
+	    };
+	  },
+	
+	  getCoursesFromAPI: function getCoursesFromAPI() {
+	    _superagent2.default.get(DATABASE_URL + "/classes").end(function (err, res) {
+	      if (err) {
+	        _reactRouter.browserHistory.push('/error');
+	      } else {
+	        this.setState({ data: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    this.getCoursesFromAPI();
+	  },
+	
+	  handleViewChange: function handleViewChange() {
+	    this.setState({ showMap: !this.state.showMap, showList: !this.state.showList });
+	  },
+	
+	  render: function render() {
+	
+	    var mapView = this.state.showMap ? _react2.default.createElement(_mapDisplay2.default, {
+	      data: this.state.data,
+	      filterText: this.props.filterText,
+	      center: [Number(this.props.lat), Number(this.props.lng)],
+	      lat: Number(this.props.lat),
+	      lng: Number(this.props.lng),
+	      radius: this.props.radius,
+	      zoom: this.props.zoom
+	    }) : null;
+	
+	    var listView = this.state.showList && this.state.data.length > 0 ? _react2.default.createElement(_courseList2.default, {
+	      data: this.state.data,
+	      filterText: this.props.filterText,
+	      lat: Number(this.props.lat),
+	      lng: Number(this.props.lng),
+	      radius: this.props.radius
+	    }) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'CourseDisplay' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row', id: 'class-display' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Upcoming Classes'
+	        ),
+	        _react2.default.createElement(
+	          'h4',
+	          null,
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'course-display-change pointer', onClick: this.handleViewChange },
+	            _react2.default.createElement(_listIcon2.default, null),
+	            'List'
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'black' },
+	            '  | '
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'course-display-change pointer', onClick: this.handleViewChange },
+	            _react2.default.createElement(_mapIcon2.default, null),
+	            'Map'
+	          )
+	        )
+	      ),
+	      mapView,
+	      listView
+	    );
+	  }
+	});
+	
+	exports.default = CourseDisplay;
+
+/***/ },
+/* 296 */
+/*!******************************************!*\
+  !*** ./app/components/icons/map-icon.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 289);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MapIcon = _react2.default.createClass({
+	  displayName: 'MapIcon',
+	
+	  render: function render() {
+	    return _react2.default.createElement(_reactFontawesome2.default, {
+	      className: 'super-crazy-colors',
+	      name: 'globe',
+	      size: 'lg',
+	      style: { marginRight: '5px', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
+	    });
+	  }
+	});
+	
+	exports.default = MapIcon;
+
+/***/ },
+/* 297 */
 /*!*******************************************!*\
   !*** ./app/components/icons/list-icon.js ***!
   \*******************************************/
@@ -32431,7 +33871,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 289);
 	
 	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 	
@@ -32453,8 +33893,288 @@
 	exports.default = ListIcon;
 
 /***/ },
-/* 279 */,
-/* 280 */
+/* 298 */
+/*!********************************************************!*\
+  !*** ./app/components/landing-page/map/map-display.js ***!
+  \********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _marker = __webpack_require__(/*! ./marker.js */ 299);
+	
+	var _marker2 = _interopRequireDefault(_marker);
+	
+	var _listItem = __webpack_require__(/*! ./list-item.js */ 300);
+	
+	var _listItem2 = _interopRequireDefault(_listItem);
+	
+	var _googleMapReact = __webpack_require__(/*! google-map-react */ 301);
+	
+	var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MapDisplay = _react2.default.createClass({
+	  displayName: 'MapDisplay',
+	
+	
+	  render: function render() {
+	
+	    var markerCount = 0;
+	    var mapMarkers = this.props.data.map(function (marker, index) {
+	      var filterTextLowerCase = this.props.filterText.toLowerCase();
+	      var markerTitleLowerCase = marker.title.toLowerCase();
+	      var radius = this.props.radius;
+	      var userLat = this.props.lat;
+	      var userLng = this.props.lng;
+	      var withinLatRadius = marker.lat < userLat + radius && marker.lat > userLat - radius;
+	      var withinLngRadius = marker.lng > userLng - radius && marker.lng < userLng + radius;
+	      var withinRadius = marker.lng > userLng - radius && marker.lng < userLng + radius && marker.lat < userLat + radius && marker.lat > userLat - radius;
+	
+	      if (this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
+	        return;
+	      }
+	      if (withinRadius === false) {
+	        return;
+	      }
+	      markerCount++;
+	
+	      return _react2.default.createElement(_marker2.default, {
+	        lat: marker.lat,
+	        lng: marker.lng,
+	        key: "marker:" + marker.id,
+	        order: markerCount,
+	        id: marker.id });
+	    }.bind(this));
+	
+	    var listCount = 0;
+	    var ListItems = this.props.data.map(function (item, index) {
+	      var filterTextLowerCase = this.props.filterText.toLowerCase();
+	      var itemTitleLowerCase = item.title.toLowerCase();
+	      var radius = this.props.radius;
+	      var userLat = this.props.lat;
+	      var userLng = this.props.lng;
+	      var withinLatRadius = item.lat < userLat + radius && item.lat > userLat - radius;
+	      var withinLngRadius = item.lng > userLng - radius && item.lng < userLng + radius;
+	      var withinRadius = item.lng > userLng - radius && item.lng < userLng + radius && item.lat < userLat + radius && item.lat > userLat - radius;
+	
+	      if (this.props.filterText !== '' && itemTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
+	        return;
+	      }
+	      if (withinRadius === false) {
+	        return;
+	      }
+	      listCount++;
+	
+	      return _react2.default.createElement(_listItem2.default, {
+	        title: item.title,
+	        date: item.date,
+	        start_time: item.start_time,
+	        key: "list-item:" + item.id,
+	        order: listCount,
+	        id: item.id });
+	    }.bind(this));
+	
+	    var numberOfResults = this.props.data.length;
+	    for (var i = 0; i < mapMarkers.length; i++) {
+	      if (mapMarkers[i] == undefined) {
+	        numberOfResults -= 1;
+	      }
+	    };
+	
+	    var noClasses = numberOfResults === 0 ? _react2.default.createElement(
+	      'h3',
+	      { className: 'center no-classes-message' },
+	      'There are no classes that match this search.'
+	    ) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row lowindex' },
+	      noClasses,
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6 lowindex' },
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'map' },
+	          _react2.default.createElement(
+	            _googleMapReact2.default,
+	            {
+	              bootstrapURLKeys: {
+	                key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
+	                language: 'en'
+	              },
+	              defaultCenter: this.props.center,
+	              defaultZoom: this.props.zoom },
+	            mapMarkers
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-4 margins' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'map-list-style' },
+	          noClasses,
+	          ListItems
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = MapDisplay;
+
+/***/ },
+/* 299 */
+/*!***************************************************!*\
+  !*** ./app/components/landing-page/map/marker.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Marker = _react2.default.createClass({
+	  displayName: 'Marker',
+	
+	  propTypes: {
+	    $hover: _react.PropTypes.bool
+	  },
+	  render: function render() {
+	    var markerStyle = {
+	      position: 'absolute',
+	      width: '32px',
+	      height: '32px',
+	      backgroundColor: 'orange',
+	      color: 'black',
+	      textAlign: 'center',
+	      fontSize: '2.5em',
+	      letterSpacing: '-2px',
+	      fontWeight: '700',
+	      border: '2px solid black',
+	      borderRadius: '100%'
+	    };
+	    var markerStyleHover = {
+	      position: 'absolute',
+	      width: '32px',
+	      height: '32px',
+	      backgroundColor: 'black',
+	      color: 'orange',
+	      textAlign: 'center',
+	      fontSize: '2.5em',
+	      letterSpacing: '-2px',
+	      fontWeight: '700',
+	      border: '2px solid orange',
+	      borderRadius: '100%'
+	    };
+	
+	    var style = this.props.$hover ? markerStyleHover : markerStyle;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { style: style },
+	      this.props.order
+	    );
+	  }
+	});
+	
+	exports.default = Marker;
+
+/***/ },
+/* 300 */
+/*!******************************************************!*\
+  !*** ./app/components/landing-page/map/list-item.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Item = _react2.default.createClass({
+	  displayName: 'Item',
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'map-list-item' },
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/courses/' + this.props.id },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-2 list-marker-style' },
+	            this.props.order
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-10' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'bold map-item-title' },
+	              this.props.title
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'map-item-date' },
+	              this.props.date
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              '@ ',
+	              this.props.start_time
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Item;
+
+/***/ },
+/* 301 */
 /*!*****************************************!*\
   !*** ./~/google-map-react/lib/index.js ***!
   \*****************************************/
@@ -32467,7 +34187,7 @@
 	});
 	exports.default = undefined;
 	
-	var _google_map = __webpack_require__(/*! ./google_map.js */ 281);
+	var _google_map = __webpack_require__(/*! ./google_map.js */ 302);
 	
 	var _google_map2 = _interopRequireDefault(_google_map);
 	
@@ -32476,7 +34196,7 @@
 	exports.default = _google_map2.default;
 
 /***/ },
-/* 281 */
+/* 302 */
 /*!**********************************************!*\
   !*** ./~/google-map-react/lib/google_map.js ***!
   \**********************************************/
@@ -32504,63 +34224,63 @@
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 	
-	var _marker_dispatcher = __webpack_require__(/*! ./marker_dispatcher */ 282);
+	var _marker_dispatcher = __webpack_require__(/*! ./marker_dispatcher */ 303);
 	
 	var _marker_dispatcher2 = _interopRequireDefault(_marker_dispatcher);
 	
-	var _google_map_map = __webpack_require__(/*! ./google_map_map */ 284);
+	var _google_map_map = __webpack_require__(/*! ./google_map_map */ 305);
 	
 	var _google_map_map2 = _interopRequireDefault(_google_map_map);
 	
-	var _google_map_markers = __webpack_require__(/*! ./google_map_markers */ 285);
+	var _google_map_markers = __webpack_require__(/*! ./google_map_markers */ 306);
 	
 	var _google_map_markers2 = _interopRequireDefault(_google_map_markers);
 	
-	var _google_map_markers_prerender = __webpack_require__(/*! ./google_map_markers_prerender */ 287);
+	var _google_map_markers_prerender = __webpack_require__(/*! ./google_map_markers_prerender */ 308);
 	
 	var _google_map_markers_prerender2 = _interopRequireDefault(_google_map_markers_prerender);
 	
-	var _google_map_loader = __webpack_require__(/*! ./utils/loaders/google_map_loader */ 288);
+	var _google_map_loader = __webpack_require__(/*! ./utils/loaders/google_map_loader */ 309);
 	
 	var _google_map_loader2 = _interopRequireDefault(_google_map_loader);
 	
-	var _detect = __webpack_require__(/*! ./utils/detect */ 290);
+	var _detect = __webpack_require__(/*! ./utils/detect */ 311);
 	
 	var _detect2 = _interopRequireDefault(_detect);
 	
-	var _geo = __webpack_require__(/*! ./utils/geo */ 291);
+	var _geo = __webpack_require__(/*! ./utils/geo */ 312);
 	
 	var _geo2 = _interopRequireDefault(_geo);
 	
-	var _array_helper = __webpack_require__(/*! ./utils/array_helper */ 296);
+	var _array_helper = __webpack_require__(/*! ./utils/array_helper */ 317);
 	
 	var _array_helper2 = _interopRequireDefault(_array_helper);
 	
-	var _is_plain_object = __webpack_require__(/*! ./utils/is_plain_object */ 297);
+	var _is_plain_object = __webpack_require__(/*! ./utils/is_plain_object */ 318);
 	
 	var _is_plain_object2 = _interopRequireDefault(_is_plain_object);
 	
-	var _pick = __webpack_require__(/*! ./utils/pick */ 298);
+	var _pick = __webpack_require__(/*! ./utils/pick */ 319);
 	
 	var _pick2 = _interopRequireDefault(_pick);
 	
-	var _raf = __webpack_require__(/*! ./utils/raf */ 299);
+	var _raf = __webpack_require__(/*! ./utils/raf */ 320);
 	
 	var _raf2 = _interopRequireDefault(_raf);
 	
-	var _log = __webpack_require__(/*! ./utils/math/log2 */ 300);
+	var _log = __webpack_require__(/*! ./utils/math/log2 */ 321);
 	
 	var _log2 = _interopRequireDefault(_log);
 	
-	var _isNumber = __webpack_require__(/*! ./utils/isNumber */ 301);
+	var _isNumber = __webpack_require__(/*! ./utils/isNumber */ 322);
 	
 	var _isNumber2 = _interopRequireDefault(_isNumber);
 	
-	var _omit = __webpack_require__(/*! ./utils/omit */ 286);
+	var _omit = __webpack_require__(/*! ./utils/omit */ 307);
 	
 	var _omit2 = _interopRequireDefault(_omit);
 	
-	var _detectElementResize = __webpack_require__(/*! ./utils/detectElementResize */ 302);
+	var _detectElementResize = __webpack_require__(/*! ./utils/detectElementResize */ 323);
 	
 	var _detectElementResize2 = _interopRequireDefault(_detectElementResize);
 	
@@ -33495,7 +35215,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 3)))
 
 /***/ },
-/* 282 */
+/* 303 */
 /*!*****************************************************!*\
   !*** ./~/google-map-react/lib/marker_dispatcher.js ***!
   \*****************************************************/
@@ -33509,7 +35229,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _eventemitter = __webpack_require__(/*! eventemitter3 */ 283);
+	var _eventemitter = __webpack_require__(/*! eventemitter3 */ 304);
 	
 	var _eventemitter2 = _interopRequireDefault(_eventemitter);
 	
@@ -33562,7 +35282,7 @@
 	exports.default = MarkerDispatcher;
 
 /***/ },
-/* 283 */
+/* 304 */
 /*!**********************************!*\
   !*** ./~/eventemitter3/index.js ***!
   \**********************************/
@@ -33860,7 +35580,7 @@
 
 
 /***/ },
-/* 284 */
+/* 305 */
 /*!**************************************************!*\
   !*** ./~/google-map-react/lib/google_map_map.js ***!
   \**************************************************/
@@ -33923,7 +35643,7 @@
 	exports.default = GoogleMapMap;
 
 /***/ },
-/* 285 */
+/* 306 */
 /*!******************************************************!*\
   !*** ./~/google-map-react/lib/google_map_markers.js ***!
   \******************************************************/
@@ -33947,7 +35667,7 @@
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 	
-	var _omit = __webpack_require__(/*! ./utils/omit */ 286);
+	var _omit = __webpack_require__(/*! ./utils/omit */ 307);
 	
 	var _omit2 = _interopRequireDefault(_omit);
 	
@@ -34261,7 +35981,7 @@
 	exports.default = GoogleMapMarkers;
 
 /***/ },
-/* 286 */
+/* 307 */
 /*!**********************************************!*\
   !*** ./~/google-map-react/lib/utils/omit.js ***!
   \**********************************************/
@@ -34291,7 +36011,7 @@
 	exports.default = omit;
 
 /***/ },
-/* 287 */
+/* 308 */
 /*!****************************************************************!*\
   !*** ./~/google-map-react/lib/google_map_markers_prerender.js ***!
   \****************************************************************/
@@ -34317,7 +36037,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _google_map_markers = __webpack_require__(/*! ./google_map_markers.js */ 285);
+	var _google_map_markers = __webpack_require__(/*! ./google_map_markers.js */ 306);
 	
 	var _google_map_markers2 = _interopRequireDefault(_google_map_markers);
 	
@@ -34335,7 +36055,7 @@
 	};
 
 /***/ },
-/* 288 */
+/* 309 */
 /*!*******************************************************************!*\
   !*** ./~/google-map-react/lib/utils/loaders/google_map_loader.js ***!
   \*******************************************************************/
@@ -34359,7 +36079,7 @@
 	// TODO add libraries language and other map options
 	function googleMapLoader(bootstrapURLKeys) {
 	  if (!$script_) {
-	    $script_ = __webpack_require__(/*! scriptjs */ 289); // eslint-disable-line
+	    $script_ = __webpack_require__(/*! scriptjs */ 310); // eslint-disable-line
 	  }
 	
 	  // call from outside google-map-react
@@ -34416,7 +36136,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 3)))
 
 /***/ },
-/* 289 */
+/* 310 */
 /*!***********************************!*\
   !*** ./~/scriptjs/dist/script.js ***!
   \***********************************/
@@ -34548,7 +36268,7 @@
 
 
 /***/ },
-/* 290 */
+/* 311 */
 /*!************************************************!*\
   !*** ./~/google-map-react/lib/utils/detect.js ***!
   \************************************************/
@@ -34600,7 +36320,7 @@
 	}
 
 /***/ },
-/* 291 */
+/* 312 */
 /*!*********************************************!*\
   !*** ./~/google-map-react/lib/utils/geo.js ***!
   \*********************************************/
@@ -34616,15 +36336,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _lat_lng = __webpack_require__(/*! ./lib_geo/lat_lng.js */ 292);
+	var _lat_lng = __webpack_require__(/*! ./lib_geo/lat_lng.js */ 313);
 	
 	var _lat_lng2 = _interopRequireDefault(_lat_lng);
 	
-	var _pointGeometry = __webpack_require__(/*! point-geometry */ 294);
+	var _pointGeometry = __webpack_require__(/*! point-geometry */ 315);
 	
 	var _pointGeometry2 = _interopRequireDefault(_pointGeometry);
 	
-	var _transform = __webpack_require__(/*! ./lib_geo/transform.js */ 295);
+	var _transform = __webpack_require__(/*! ./lib_geo/transform.js */ 316);
 	
 	var _transform2 = _interopRequireDefault(_transform);
 	
@@ -34759,7 +36479,7 @@
 	exports.default = Geo;
 
 /***/ },
-/* 292 */
+/* 313 */
 /*!*********************************************************!*\
   !*** ./~/google-map-react/lib/utils/lib_geo/lat_lng.js ***!
   \*********************************************************/
@@ -34773,7 +36493,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _wrap2 = __webpack_require__(/*! ./wrap.js */ 293);
+	var _wrap2 = __webpack_require__(/*! ./wrap.js */ 314);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -34817,7 +36537,7 @@
 
 
 /***/ },
-/* 293 */
+/* 314 */
 /*!******************************************************!*\
   !*** ./~/google-map-react/lib/utils/lib_geo/wrap.js ***!
   \******************************************************/
@@ -34835,7 +36555,7 @@
 	}
 
 /***/ },
-/* 294 */
+/* 315 */
 /*!***********************************!*\
   !*** ./~/point-geometry/index.js ***!
   \***********************************/
@@ -34975,7 +36695,7 @@
 
 
 /***/ },
-/* 295 */
+/* 316 */
 /*!***********************************************************!*\
   !*** ./~/google-map-react/lib/utils/lib_geo/transform.js ***!
   \***********************************************************/
@@ -34989,15 +36709,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _lat_lng = __webpack_require__(/*! ./lat_lng */ 292);
+	var _lat_lng = __webpack_require__(/*! ./lat_lng */ 313);
 	
 	var _lat_lng2 = _interopRequireDefault(_lat_lng);
 	
-	var _pointGeometry = __webpack_require__(/*! point-geometry */ 294);
+	var _pointGeometry = __webpack_require__(/*! point-geometry */ 315);
 	
 	var _pointGeometry2 = _interopRequireDefault(_pointGeometry);
 	
-	var _wrap = __webpack_require__(/*! ./wrap.js */ 293);
+	var _wrap = __webpack_require__(/*! ./wrap.js */ 314);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -35158,7 +36878,7 @@
 	exports.default = Transform;
 
 /***/ },
-/* 296 */
+/* 317 */
 /*!******************************************************!*\
   !*** ./~/google-map-react/lib/utils/array_helper.js ***!
   \******************************************************/
@@ -35183,7 +36903,7 @@
 	}
 
 /***/ },
-/* 297 */
+/* 318 */
 /*!*********************************************************!*\
   !*** ./~/google-map-react/lib/utils/is_plain_object.js ***!
   \*********************************************************/
@@ -35224,7 +36944,7 @@
 	}
 
 /***/ },
-/* 298 */
+/* 319 */
 /*!**********************************************!*\
   !*** ./~/google-map-react/lib/utils/pick.js ***!
   \**********************************************/
@@ -35248,7 +36968,7 @@
 	}
 
 /***/ },
-/* 299 */
+/* 320 */
 /*!*********************************************!*\
   !*** ./~/google-map-react/lib/utils/raf.js ***!
   \*********************************************/
@@ -35271,7 +36991,7 @@
 	}
 
 /***/ },
-/* 300 */
+/* 321 */
 /*!***************************************************!*\
   !*** ./~/google-map-react/lib/utils/math/log2.js ***!
   \***************************************************/
@@ -35290,7 +37010,7 @@
 	exports.default = log2;
 
 /***/ },
-/* 301 */
+/* 322 */
 /*!**************************************************!*\
   !*** ./~/google-map-react/lib/utils/isNumber.js ***!
   \**************************************************/
@@ -35318,7 +37038,7 @@
 	}
 
 /***/ },
-/* 302 */
+/* 323 */
 /*!*************************************************************!*\
   !*** ./~/google-map-react/lib/utils/detectElementResize.js ***!
   \*************************************************************/
@@ -35495,10 +37215,10 @@
 	};
 
 /***/ },
-/* 303 */
-/*!************************************************************!*\
-  !*** ./app/components/landing-page/course-list-display.js ***!
-  \************************************************************/
+/* 324 */
+/*!****************************************************!*\
+  !*** ./app/components/landing-page/course-list.js ***!
+  \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35513,14 +37233,14 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _course = __webpack_require__(/*! ../courses/course.js */ 304);
+	var _course = __webpack_require__(/*! ../courses/course.js */ 325);
 	
 	var _course2 = _interopRequireDefault(_course);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var CourseListDisplay = _react2.default.createClass({
-	  displayName: 'CourseListDisplay',
+	var CourseList = _react2.default.createClass({
+	  displayName: 'CourseList',
 	
 	  render: function render() {
 	    var courseNodes = this.props.data.map(function (course) {
@@ -35581,10 +37301,10 @@
 	  }
 	});
 	
-	exports.default = CourseListDisplay;
+	exports.default = CourseList;
 
 /***/ },
-/* 304 */
+/* 325 */
 /*!******************************************!*\
   !*** ./app/components/courses/course.js ***!
   \******************************************/
@@ -35644,1078 +37364,7 @@
 	exports.default = Course;
 
 /***/ },
-/* 305 */
-/*!**********************************!*\
-  !*** ./app/components/navbar.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Navbar = _react2.default.createClass({
-	  displayName: 'Navbar',
-	
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'nav',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        'nav',
-	        { className: 'navbar' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'container-fluid' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'navbar-header' },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { className: 'navbar-brand', to: '/' },
-	              _react2.default.createElement('img', { src: '../../images/owl.png' })
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
-	              _react2.default.createElement(
-	                'h1',
-	                null,
-	                ' ',
-	                _react2.default.createElement(
-	                  'span',
-	                  { className: 'you' },
-	                  'yoU'
-	                ),
-	                'niversity'
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'nav navbar-nav navbar-right' },
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/login' },
-	                'login'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/signup' },
-	                'signup'
-	              )
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = Navbar;
-
-/***/ },
-/* 306 */
-/*!********************************************!*\
-  !*** ./app/components/navbar-logged-in.js ***!
-  \********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
-	
-	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
-	
-	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 316);
-	
-	var _modalStyles2 = _interopRequireDefault(_modalStyles);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	var _store = __webpack_require__(/*! ../store */ 196);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 317);
-	
-	var _newMessagesIcon = __webpack_require__(/*! ./icons/new-messages-icon.js */ 318);
-	
-	var _newMessagesIcon2 = _interopRequireDefault(_newMessagesIcon);
-	
-	var _messageAlert = __webpack_require__(/*! ./icons/message-alert.js */ 319);
-	
-	var _messageAlert2 = _interopRequireDefault(_messageAlert);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var NavbarLoggedIn = _react2.default.createClass({
-	  displayName: 'NavbarLoggedIn',
-	
-	
-	  componentDidMount: function componentDidMount() {
-	    this.props.checkForUnreadMessages();
-	  },
-	
-	  handleLogoutSubmit: function handleLogoutSubmit(e) {
-	    e.preventDefault();
-	    sessionStorage.removeItem('first_name');
-	    sessionStorage.removeItem('image_url');
-	    sessionStorage.removeItem('user_id');
-	    this.showModal();
-	  },
-	
-	  showModal: function showModal() {
-	    this.refs.modal.show();
-	  },
-	
-	  hideModal: function hideModal() {
-	    this.refs.modal.hide();
-	    this.props.logout();
-	    _reactRouter.browserHistory.push('/');
-	  },
-	
-	  render: function render() {
-	
-	    var first_name = sessionStorage.getItem('first_name');
-	    var id = sessionStorage.getItem('user_id');
-	    var image_url = sessionStorage.getItem('image_url');
-	
-	    var userPic = {
-	      backgroundImage: 'url(' + image_url + ')'
-	    };
-	
-	    var unreadMessagesExist = this.props.unreadMessagesExist ? _react2.default.createElement(_messageAlert2.default, null) : null;
-	
-	    return _react2.default.createElement(
-	      'nav',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        _OutlineModal2.default,
-	        { ref: 'modal', style: _modalStyles2.default.container },
-	        _react2.default.createElement(
-	          'p',
-	          { style: _modalStyles2.default.title },
-	          'Thanks for stopping by...see you soon!'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { style: _modalStyles2.default.btn, onClick: this.hideModal },
-	          'Close'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'nav',
-	        { className: 'navbar' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'container-fluid' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'navbar-header' },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { className: 'navbar-brand', to: '/' },
-	              _react2.default.createElement('img', { src: '../../images/owl.png' })
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
-	              _react2.default.createElement(
-	                'h1',
-	                null,
-	                ' ',
-	                _react2.default.createElement(
-	                  'span',
-	                  { className: 'you' },
-	                  'yoU'
-	                ),
-	                'niversity'
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'nav navbar-nav navbar-right' },
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/addcourse' },
-	                '+ add course'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/messages/' + id },
-	                _react2.default.createElement(_newMessagesIcon2.default, null),
-	                unreadMessagesExist
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              { className: 'dropdown-toggle pointer', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
-	              'welcome, ',
-	              first_name,
-	              _react2.default.createElement('span', { className: 'caret' })
-	            ),
-	            _react2.default.createElement(
-	              'ul',
-	              { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/users/' + id },
-	                  'Dashboard'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '#', onClick: this.handleLogoutSubmit },
-	                  'Logout'
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement('div', { className: 'nav-user-img', style: userPic })
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    logout: function logout(user) {
-	      dispatch((0, _userActions.userLogoutSuccess)());
-	    }
-	  };
-	};
-	
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NavbarLoggedIn);
-
-/***/ },
-/* 307 */
-/*!*********************************!*\
-  !*** ./~/boron/OutlineModal.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var modalFactory = __webpack_require__(/*! ./modalFactory */ 308);
-	var insertKeyframesRule = __webpack_require__(/*! domkit/insertKeyframesRule */ 313);
-	var appendVendorPrefix = __webpack_require__(/*! domkit/appendVendorPrefix */ 310);
-	
-	var animation = {
-	    show: {
-	        animationDuration: '0.8s',
-	        animationTimingFunction: 'cubic-bezier(0.6,0,0.4,1)'
-	    },
-	    hide: {
-	        animationDuration: '0.4s',
-	        animationTimingFunction: 'ease-out'
-	    },
-	    showContentAnimation: insertKeyframesRule({
-	        '0%': {
-	            opacity: 0,
-	        },
-	        '40%':{
-	            opacity: 0
-	        },
-	        '100%': {
-	            opacity: 1,
-	        }
-	    }),
-	
-	    hideContentAnimation: insertKeyframesRule({
-	        '0%': {
-	            opacity: 1
-	        },
-	        '100%': {
-	            opacity: 0,
-	        }
-	    }),
-	
-	    showBackdropAnimation: insertKeyframesRule({
-	        '0%': {
-	            opacity: 0
-	        },
-	        '100%': {
-	            opacity: 0.9
-	        },
-	    }),
-	
-	    hideBackdropAnimation: insertKeyframesRule({
-	        '0%': {
-	            opacity: 0.9
-	        },
-	        '100%': {
-	            opacity: 0
-	        }
-	    })
-	};
-	
-	var showAnimation = animation.show;
-	var hideAnimation = animation.hide;
-	var showContentAnimation = animation.showContentAnimation;
-	var hideContentAnimation = animation.hideContentAnimation;
-	var showBackdropAnimation = animation.showBackdropAnimation;
-	var hideBackdropAnimation = animation.hideBackdropAnimation;
-	
-	module.exports = modalFactory({
-	    getRef: function(willHidden) {
-	        return 'content';
-	    },
-	    getSharp: function(willHidden) {
-	        var strokeDashLength = 1680;
-	
-	        var showSharpAnimation = insertKeyframesRule({
-	            '0%': {
-	                'stroke-dashoffset': strokeDashLength
-	            },
-	            '100%': {
-	                'stroke-dashoffset': 0
-	            },
-	        });
-	
-	
-	        var sharpStyle = {
-	            position: 'absolute',
-	            width: 'calc(100%)',
-	            height: 'calc(100%)',
-	            zIndex: '-1'
-	        };
-	
-	        var rectStyle = appendVendorPrefix({
-	            animationDuration: willHidden? '0.4s' :'0.8s',
-	            animationFillMode: 'forwards',
-	            animationName: willHidden? hideContentAnimation: showSharpAnimation,
-	            stroke: '#ffffff',
-	            strokeWidth: '2px',
-	            strokeDasharray: strokeDashLength
-	        });
-	
-	        return React.createElement("div", {style: sharpStyle}, 
-	            React.createElement("svg", {
-	                xmlns: "http://www.w3.org/2000/svg", 
-	                width: "100%", 
-	                height: "100%", 
-	                viewBox: "0 0 496 136", 
-	                preserveAspectRatio: "none"}, 
-	                React.createElement("rect", {style: rectStyle, 
-	                    x: "2", 
-	                    y: "2", 
-	                    fill: "none", 
-	                    width: "492", 
-	                    height: "132"})
-	            )
-	        )
-	    },
-	    getModalStyle: function(willHidden) {
-	        return appendVendorPrefix({
-	            zIndex: 1050,
-	            position: "fixed",
-	            width: "500px",
-	            transform: "translate3d(-50%, -50%, 0)",
-	            top: "50%",
-	            left: "50%"
-	        })
-	    },
-	    getBackdropStyle: function(willHidden) {
-	        return appendVendorPrefix({
-	            position: "fixed",
-	            top: 0,
-	            right: 0,
-	            bottom: 0,
-	            left: 0,
-	            zIndex: 1040,
-	            backgroundColor: "#373A47",
-	            animationFillMode: 'forwards',
-	            animationDuration: '0.4s',
-	            animationName: willHidden ? hideBackdropAnimation : showBackdropAnimation,
-	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
-	        });
-	    },
-	    getContentStyle: function(willHidden) {
-	        return appendVendorPrefix({
-	            margin: 0,
-	            backgroundColor: "white",
-	            animationDuration: (willHidden ? hideAnimation : showAnimation).animationDuration,
-	            animationFillMode: 'forwards',
-	            animationName: willHidden ? hideContentAnimation : showContentAnimation,
-	            animationTimingFunction: (willHidden ? hideAnimation : showAnimation).animationTimingFunction
-	        })
-	    }
-	});
-
-
-/***/ },
-/* 308 */
-/*!*********************************!*\
-  !*** ./~/boron/modalFactory.js ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(/*! react */ 1);
-	var transitionEvents = __webpack_require__(/*! domkit/transitionEvents */ 309);
-	var appendVendorPrefix = __webpack_require__(/*! domkit/appendVendorPrefix */ 310);
-	
-	module.exports = function(animation){
-	
-	    return React.createClass({
-	        propTypes: {
-	            className: React.PropTypes.string,
-	            // Close the modal when esc is pressed? Defaults to true.
-	            keyboard: React.PropTypes.bool,
-	            onShow: React.PropTypes.func,
-	            onHide: React.PropTypes.func,
-	            animation: React.PropTypes.object,
-	            backdrop: React.PropTypes.bool,
-	            closeOnClick: React.PropTypes.bool,
-	            modalStyle: React.PropTypes.object,
-	            backdropStyle: React.PropTypes.object,
-	            contentStyle: React.PropTypes.object,
-	        },
-	
-	        getDefaultProps: function() {
-	            return {
-	                className: "",
-	                onShow: function(){},
-	                onHide: function(){},
-	                animation: animation,
-	                keyboard: true,
-	                backdrop: true,
-	                closeOnClick: true,
-	                modalStyle: {},
-	                backdropStyle: {},
-	                contentStyle: {},
-	            };
-	        },
-	
-	        getInitialState: function(){
-	            return {
-	                willHidden: false,
-	                hidden: true
-	            }
-	        },
-	
-	        hasHidden: function(){
-	            return this.state.hidden;
-	        },
-	
-	        addTransitionListener: function(node, handle){
-	            if (node) {
-	              var endListener = function(e) {
-	                  if (e && e.target !== node) {
-	                      return;
-	                  }
-	                  transitionEvents.removeEndEventListener(node, endListener);
-	                  handle();
-	              };
-	              transitionEvents.addEndEventListener(node, endListener);
-	            }
-	        },
-	
-	        handleBackdropClick: function() {
-	            if (this.props.closeOnClick) {
-	                this.hide();
-	            }
-	        },
-	
-	        render: function() {
-	
-	            var hidden = this.hasHidden();
-	            if (hidden) return null;
-	
-	            var willHidden = this.state.willHidden;
-	            var animation = this.props.animation;
-	            var modalStyle = animation.getModalStyle(willHidden);
-	            var backdropStyle = animation.getBackdropStyle(willHidden);
-	            var contentStyle = animation.getContentStyle(willHidden);
-	            var ref = animation.getRef(willHidden);
-	            var sharp = animation.getSharp && animation.getSharp(willHidden);
-	
-	            // Apply custom style properties
-	            if (this.props.modalStyle) {
-	                var prefixedModalStyle = appendVendorPrefix(this.props.modalStyle);
-	                for (var style in prefixedModalStyle) {
-	                    modalStyle[style] = prefixedModalStyle[style];
-	                }
-	            }
-	
-	            if (this.props.backdropStyle) {
-	              var prefixedBackdropStyle = appendVendorPrefix(this.props.backdropStyle);
-	                for (var style in prefixedBackdropStyle) {
-	                    backdropStyle[style] = prefixedBackdropStyle[style];
-	                }
-	            }
-	
-	            if (this.props.contentStyle) {
-	              var prefixedContentStyle = appendVendorPrefix(this.props.contentStyle);
-	                for (var style in prefixedContentStyle) {
-	                    contentStyle[style] = prefixedContentStyle[style];
-	                }
-	            }
-	
-	            var backdrop = this.props.backdrop? React.createElement("div", {style: backdropStyle, onClick: this.props.closeOnClick? this.handleBackdropClick: null}): undefined;
-	
-	            if(willHidden) {
-	                var node = this.refs[ref];
-	                this.addTransitionListener(node, this.leave);
-	            }
-	
-	            return (React.createElement("span", null, 
-	                React.createElement("div", {ref: "modal", style: modalStyle, className: this.props.className}, 
-	                    sharp, 
-	                    React.createElement("div", {ref: "content", tabIndex: "-1", style: contentStyle}, 
-	                        this.props.children
-	                    )
-	                ), 
-	                backdrop
-	             ))
-	            ;
-	        },
-	
-	        leave: function(){
-	            this.setState({
-	                hidden: true
-	            });
-	            this.props.onHide();
-	        },
-	
-	        enter: function(){
-	            this.props.onShow();
-	        },
-	
-	        show: function(){
-	            if (!this.hasHidden()) return;
-	
-	            this.setState({
-	                willHidden: false,
-	                hidden: false
-	            });
-	
-	            setTimeout(function(){
-	              var ref = this.props.animation.getRef();
-	              var node = this.refs[ref];
-	              this.addTransitionListener(node, this.enter);
-	            }.bind(this), 0);
-	        },
-	
-	        hide: function(){
-	            if (this.hasHidden()) return;
-	
-	            this.setState({
-	                willHidden: true
-	            });
-	        },
-	
-	        toggle: function(){
-	            if (this.hasHidden())
-	                this.show();
-	            else
-	                this.hide();
-	        },
-	
-	        listenKeyboard: function(event) {
-	            if (this.props.keyboard &&
-	                    (event.key === "Escape" ||
-	                     event.keyCode === 27)) {
-	                this.hide();
-	            }
-	        },
-	
-	        componentDidMount: function(){
-	            window.addEventListener("keydown", this.listenKeyboard, true);
-	        },
-	
-	        componentWillUnmount: function() {
-	            window.removeEventListener("keydown", this.listenKeyboard, true);
-	        }
-	    });
-	}
-
-
-/***/ },
-/* 309 */
-/*!**************************************!*\
-  !*** ./~/domkit/transitionEvents.js ***!
-  \**************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	/**
-	 * EVENT_NAME_MAP is used to determine which event fired when a
-	 * transition/animation ends, based on the style property used to
-	 * define that event.
-	 */
-	var EVENT_NAME_MAP = {
-	  transitionend: {
-	    'transition': 'transitionend',
-	    'WebkitTransition': 'webkitTransitionEnd',
-	    'MozTransition': 'mozTransitionEnd',
-	    'OTransition': 'oTransitionEnd',
-	    'msTransition': 'MSTransitionEnd'
-	  },
-	
-	  animationend: {
-	    'animation': 'animationend',
-	    'WebkitAnimation': 'webkitAnimationEnd',
-	    'MozAnimation': 'mozAnimationEnd',
-	    'OAnimation': 'oAnimationEnd',
-	    'msAnimation': 'MSAnimationEnd'
-	  }
-	};
-	
-	var endEvents = [];
-	
-	function detectEvents() {
-	  var testEl = document.createElement('div');
-	  var style = testEl.style;
-	
-	  // On some platforms, in particular some releases of Android 4.x,
-	  // the un-prefixed "animation" and "transition" properties are defined on the
-	  // style object but the events that fire will still be prefixed, so we need
-	  // to check if the un-prefixed events are useable, and if not remove them
-	  // from the map
-	  if (!('AnimationEvent' in window)) {
-	    delete EVENT_NAME_MAP.animationend.animation;
-	  }
-	
-	  if (!('TransitionEvent' in window)) {
-	    delete EVENT_NAME_MAP.transitionend.transition;
-	  }
-	
-	  for (var baseEventName in EVENT_NAME_MAP) {
-	    var baseEvents = EVENT_NAME_MAP[baseEventName];
-	    for (var styleName in baseEvents) {
-	      if (styleName in style) {
-	        endEvents.push(baseEvents[styleName]);
-	        break;
-	      }
-	    }
-	  }
-	}
-	
-	if (typeof window !== 'undefined') {
-	  detectEvents();
-	}
-	
-	
-	// We use the raw {add|remove}EventListener() call because EventListener
-	// does not know how to remove event listeners and we really should
-	// clean up. Also, these events are not triggered in older browsers
-	// so we should be A-OK here.
-	
-	function addEventListener(node, eventName, eventListener) {
-	  node.addEventListener(eventName, eventListener, false);
-	}
-	
-	function removeEventListener(node, eventName, eventListener) {
-	  node.removeEventListener(eventName, eventListener, false);
-	}
-	
-	module.exports = {
-	  addEndEventListener: function(node, eventListener) {
-	    if (endEvents.length === 0) {
-	      // If CSS transitions are not supported, trigger an "end animation"
-	      // event immediately.
-	      window.setTimeout(eventListener, 0);
-	      return;
-	    }
-	    endEvents.forEach(function(endEvent) {
-	      addEventListener(node, endEvent, eventListener);
-	    });
-	  },
-	
-	  removeEndEventListener: function(node, eventListener) {
-	    if (endEvents.length === 0) {
-	      return;
-	    }
-	    endEvents.forEach(function(endEvent) {
-	      removeEventListener(node, endEvent, eventListener);
-	    });
-	  }
-	};
-
-
-/***/ },
-/* 310 */
-/*!****************************************!*\
-  !*** ./~/domkit/appendVendorPrefix.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var getVendorPropertyName = __webpack_require__(/*! ./getVendorPropertyName */ 311);
-	
-	module.exports = function(target, sources) {
-	  var to = Object(target);
-	  var hasOwnProperty = Object.prototype.hasOwnProperty;
-	
-	  for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
-	    var nextSource = arguments[nextIndex];
-	    if (nextSource == null) {
-	      continue;
-	    }
-	
-	    var from = Object(nextSource);
-	
-	    for (var key in from) {
-	      if (hasOwnProperty.call(from, key)) {
-	        to[key] = from[key];
-	      }
-	    }
-	  }
-	
-	  var prefixed = {};
-	  for (var key in to) {
-	    prefixed[getVendorPropertyName(key)] = to[key]
-	  }
-	
-	  return prefixed
-	}
-
-
-/***/ },
-/* 311 */
-/*!*******************************************!*\
-  !*** ./~/domkit/getVendorPropertyName.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var builtinStyle = __webpack_require__(/*! ./builtinStyle */ 312);
-	var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
-	var domVendorPrefix;
-	
-	// Helper function to get the proper vendor property name. (transition => WebkitTransition)
-	module.exports = function(prop, isSupportTest) {
-	
-	  var vendorProp;
-	  if (prop in builtinStyle) return prop;
-	
-	  var UpperProp = prop.charAt(0).toUpperCase() + prop.substr(1);
-	
-	  if (domVendorPrefix) {
-	
-	    vendorProp = domVendorPrefix + UpperProp;
-	    if (vendorProp in builtinStyle) {
-	      return vendorProp;
-	    }
-	  } else {
-	
-	    for (var i = 0; i < prefixes.length; ++i) {
-	      vendorProp = prefixes[i] + UpperProp;
-	      if (vendorProp in builtinStyle) {
-	        domVendorPrefix = prefixes[i];
-	        return vendorProp;
-	      }
-	    }
-	  }
-	
-	  // if support test, not fallback to origin prop name
-	  if (!isSupportTest) {
-	    return prop;
-	  }
-	
-	}
-
-
-/***/ },
-/* 312 */
-/*!**********************************!*\
-  !*** ./~/domkit/builtinStyle.js ***!
-  \**********************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	module.exports = document.createElement('div').style;
-
-
-/***/ },
-/* 313 */
-/*!*****************************************!*\
-  !*** ./~/domkit/insertKeyframesRule.js ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var insertRule = __webpack_require__(/*! ./insertRule */ 314);
-	var vendorPrefix = __webpack_require__(/*! ./getVendorPrefix */ 315)();
-	var index = 0;
-	
-	module.exports = function(keyframes) {
-	  // random name
-	  var name = 'anim_' + (++index) + (+new Date);
-	  var css = "@" + vendorPrefix + "keyframes " + name + " {";
-	
-	  for (var key in keyframes) {
-	    css += key + " {";
-	
-	    for (var property in keyframes[key]) {
-	      var part = ":" + keyframes[key][property] + ";";
-	      // We do vendor prefix for every property
-	      css += vendorPrefix + property + part;
-	      css += property + part;
-	    }
-	
-	    css += "}";
-	  }
-	
-	  css += "}";
-	
-	  insertRule(css);
-	
-	  return name
-	}
-
-
-/***/ },
-/* 314 */
-/*!********************************!*\
-  !*** ./~/domkit/insertRule.js ***!
-  \********************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var extraSheet;
-	
-	module.exports = function(css) {
-	
-	  if (!extraSheet) {
-	    // First time, create an extra stylesheet for adding rules
-	    extraSheet = document.createElement('style');
-	    document.getElementsByTagName('head')[0].appendChild(extraSheet);
-	    // Keep reference to actual StyleSheet object (`styleSheet` for IE < 9)
-	    extraSheet = extraSheet.sheet || extraSheet.styleSheet;
-	  }
-	
-	  var index = (extraSheet.cssRules || extraSheet.rules).length;
-	  extraSheet.insertRule(css, index);
-	
-	  return extraSheet;
-	}
-
-
-/***/ },
-/* 315 */
-/*!*************************************!*\
-  !*** ./~/domkit/getVendorPrefix.js ***!
-  \*************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var cssVendorPrefix;
-	
-	module.exports = function() {
-	
-	  if (cssVendorPrefix) return cssVendorPrefix;
-	
-	  var styles = window.getComputedStyle(document.documentElement, '');
-	  var pre = (Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o']))[1];
-	
-	  return cssVendorPrefix = '-' + pre + '-';
-	}
-
-
-/***/ },
-/* 316 */
-/*!***********************************************!*\
-  !*** ./app/components/styles/modal-styles.js ***!
-  \***********************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var modalStyles = {
-	  btn: {
-	    padding: '1em 2em',
-	    width: '25%',
-	    margin: '1em 0 2em 37.5%',
-	    outline: 'none',
-	    fontSize: 16,
-	    fontWeight: '600',
-	    background: 'orange',
-	    color: '#FFFFFF',
-	    border: 'none',
-	    borderRadius: '3px'
-	  },
-	  container: {
-	    padding: '2em',
-	    textAlign: 'center',
-	    borderRadius: '3px'
-	  },
-	  title: {
-	    margin: 0,
-	    padding: '2em 1em 0 1em',
-	    fontSize: '1.5em',
-	    color: 'orange',
-	    textAlign: 'center',
-	    fontWeight: 400
-	  }
-	};
-	
-	exports.default = modalStyles;
-
-/***/ },
-/* 317 */
-/*!*************************************!*\
-  !*** ./app/actions/user-actions.js ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.userLoginSuccess = userLoginSuccess;
-	exports.userLogoutSuccess = userLogoutSuccess;
-	
-	var _actionTypes = __webpack_require__(/*! ./action-types */ 206);
-	
-	function userLoginSuccess(user) {
-	  return {
-	
-	    type: _actionTypes.USER_LOGIN_SUCCESS,
-	    user: user
-	  };
-	}
-	
-	function userLogoutSuccess() {
-	  return {
-	    type: _actionTypes.USER_LOGOUT_SUCCESS
-	  };
-	}
-
-/***/ },
-/* 318 */
-/*!***************************************************!*\
-  !*** ./app/components/icons/new-messages-icon.js ***!
-  \***************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
-	
-	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var NewMessagesIcon = _react2.default.createClass({
-	  displayName: 'NewMessagesIcon',
-	
-	  render: function render() {
-	    return _react2.default.createElement(_reactFontawesome2.default, {
-	      name: 'comments',
-	      size: 'lg',
-	      style: { fontSize: '1.6em', cursor: 'pointer', color: 'orange', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
-	    });
-	  }
-	});
-	
-	exports.default = NewMessagesIcon;
-
-/***/ },
-/* 319 */
-/*!***********************************************!*\
-  !*** ./app/components/icons/message-alert.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
-	
-	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var MessageAlertIcon = _react2.default.createClass({
-	  displayName: 'MessageAlertIcon',
-	
-	  render: function render() {
-	    return _react2.default.createElement(_reactFontawesome2.default, {
-	      name: 'bell',
-	      size: 'lg',
-	      style: { fontSize: '1em', cursor: 'pointer', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
-	    });
-	  }
-	});
-	
-	exports.default = MessageAlertIcon;
-
-/***/ },
-/* 320 */
+/* 326 */
 /*!*****************************************************!*\
   !*** ./app/components/landing-page/welcome-text.js ***!
   \*****************************************************/
@@ -36763,7 +37412,7 @@
 	exports.default = WelcomeText;
 
 /***/ },
-/* 321 */
+/* 327 */
 /*!***************************************************!*\
   !*** ./app/components/landing-page/search-bar.js ***!
   \***************************************************/
@@ -36779,7 +37428,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 322);
+	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 328);
 	
 	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
 	
@@ -36896,7 +37545,7 @@
 	exports.default = SearchBar;
 
 /***/ },
-/* 322 */
+/* 328 */
 /*!*************************************************!*\
   !*** ./~/react-geosuggest/module/Geosuggest.js ***!
   \*************************************************/
@@ -36916,31 +37565,31 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 323);
+	var _classnames = __webpack_require__(/*! classnames */ 329);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _lodash = __webpack_require__(/*! lodash.debounce */ 324);
+	var _lodash = __webpack_require__(/*! lodash.debounce */ 330);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _defaults = __webpack_require__(/*! ./defaults */ 325);
+	var _defaults = __webpack_require__(/*! ./defaults */ 331);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
-	var _propTypes = __webpack_require__(/*! ./prop-types */ 326);
+	var _propTypes = __webpack_require__(/*! ./prop-types */ 332);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 327);
+	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 333);
 	
 	var _filterInputAttributes2 = _interopRequireDefault(_filterInputAttributes);
 	
-	var _input = __webpack_require__(/*! ./input */ 328);
+	var _input = __webpack_require__(/*! ./input */ 334);
 	
 	var _input2 = _interopRequireDefault(_input);
 	
-	var _suggestList = __webpack_require__(/*! ./suggest-list */ 331);
+	var _suggestList = __webpack_require__(/*! ./suggest-list */ 337);
 	
 	var _suggestList2 = _interopRequireDefault(_suggestList);
 	
@@ -37449,7 +38098,7 @@
 	exports.default = Geosuggest;
 
 /***/ },
-/* 323 */
+/* 329 */
 /*!*******************************!*\
   !*** ./~/classnames/index.js ***!
   \*******************************/
@@ -37506,7 +38155,7 @@
 
 
 /***/ },
-/* 324 */
+/* 330 */
 /*!************************************!*\
   !*** ./~/lodash.debounce/index.js ***!
   \************************************/
@@ -37893,7 +38542,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 325 */
+/* 331 */
 /*!***********************************************!*\
   !*** ./~/react-geosuggest/module/defaults.js ***!
   \***********************************************/
@@ -37942,7 +38591,7 @@
 	};
 
 /***/ },
-/* 326 */
+/* 332 */
 /*!*************************************************!*\
   !*** ./~/react-geosuggest/module/prop-types.js ***!
   \*************************************************/
@@ -37993,7 +38642,7 @@
 	};
 
 /***/ },
-/* 327 */
+/* 333 */
 /*!**************************************************************!*\
   !*** ./~/react-geosuggest/module/filter-input-attributes.js ***!
   \**************************************************************/
@@ -38029,7 +38678,7 @@
 	 */
 
 /***/ },
-/* 328 */
+/* 334 */
 /*!********************************************!*\
   !*** ./~/react-geosuggest/module/input.js ***!
   \********************************************/
@@ -38049,15 +38698,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 329);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 335);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 323);
+	var _classnames = __webpack_require__(/*! classnames */ 329);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 327);
+	var _filterInputAttributes = __webpack_require__(/*! ./filter-input-attributes */ 333);
 	
 	var _filterInputAttributes2 = _interopRequireDefault(_filterInputAttributes);
 	
@@ -38220,16 +38869,16 @@
 	exports.default = Input;
 
 /***/ },
-/* 329 */
+/* 335 */
 /*!*************************************************!*\
   !*** ./~/react-addons-shallow-compare/index.js ***!
   \*************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! react/lib/shallowCompare */ 330);
+	module.exports = __webpack_require__(/*! react/lib/shallowCompare */ 336);
 
 /***/ },
-/* 330 */
+/* 336 */
 /*!***************************************!*\
   !*** ./~/react/lib/shallowCompare.js ***!
   \***************************************/
@@ -38262,7 +38911,7 @@
 	module.exports = shallowCompare;
 
 /***/ },
-/* 331 */
+/* 337 */
 /*!***************************************************!*\
   !*** ./~/react-geosuggest/module/suggest-list.js ***!
   \***************************************************/
@@ -38280,15 +38929,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 329);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 335);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 323);
+	var _classnames = __webpack_require__(/*! classnames */ 329);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _suggestItem = __webpack_require__(/*! ./suggest-item */ 332);
+	var _suggestItem = __webpack_require__(/*! ./suggest-item */ 338);
 	
 	var _suggestItem2 = _interopRequireDefault(_suggestItem);
 	
@@ -38402,7 +39051,7 @@
 	};
 
 /***/ },
-/* 332 */
+/* 338 */
 /*!***************************************************!*\
   !*** ./~/react-geosuggest/module/suggest-item.js ***!
   \***************************************************/
@@ -38420,11 +39069,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 329);
+	var _reactAddonsShallowCompare = __webpack_require__(/*! react-addons-shallow-compare */ 335);
 	
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 	
-	var _classnames = __webpack_require__(/*! classnames */ 323);
+	var _classnames = __webpack_require__(/*! classnames */ 329);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -38520,71 +39169,7 @@
 	};
 
 /***/ },
-/* 333 */
-/*!**********************************!*\
-  !*** ./app/components/footer.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Footer = _react2.default.createClass({
-	  displayName: 'Footer',
-	
-	  render: function render() {
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'footer',
-	        null,
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '#' },
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'About ',
-	            _react2.default.createElement(
-	              'span',
-	              { className: 'orange' },
-	              'yoU'
-	            ),
-	            'niversity'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'https://github.com/you-Niversity' },
-	          _react2.default.createElement('img', { src: '../../images/github.png' })
-	        ),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'https://www.linkedin.com/in/kristenfostermarks' },
-	          _react2.default.createElement('img', { src: '../../images/linkedin.png' })
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = Footer;
-
-/***/ },
-/* 334 */
+/* 339 */
 /*!***********************************************!*\
   !*** ./~/react-loading/dist/react-loading.js ***!
   \***********************************************/
@@ -38857,7 +39442,7 @@
 
 
 /***/ },
-/* 335 */
+/* 340 */
 /*!**************************************!*\
   !*** ./app/components/login-form.js ***!
   \**************************************/
@@ -38881,13 +39466,13 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 317);
+	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 287);
 	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
 	
 	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
 	
-	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 316);
+	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 286);
 	
 	var _modalStyles2 = _interopRequireDefault(_modalStyles);
 	
@@ -39058,10 +39643,10 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoginDisplay);
 
 /***/ },
-/* 336 */
-/*!*******************************************************************************!*\
-  !*** ./app/components/courses/single-course-display/single-course-display.js ***!
-  \*******************************************************************************/
+/* 341 */
+/*!***************************************!*\
+  !*** ./app/components/signup-form.js ***!
+  \***************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39070,273 +39655,361 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
 	var _superagent = __webpack_require__(/*! superagent */ 270);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _leftDisplay = __webpack_require__(/*! ./left-display.js */ 337);
-	
-	var _leftDisplay2 = _interopRequireDefault(_leftDisplay);
-	
-	var _middleDisplay = __webpack_require__(/*! ./middle-display.js */ 340);
-	
-	var _middleDisplay2 = _interopRequireDefault(_middleDisplay);
-	
-	var _rightDisplay = __webpack_require__(/*! ./right-display.js */ 341);
-	
-	var _rightDisplay2 = _interopRequireDefault(_rightDisplay);
-	
-	var _rosterList = __webpack_require__(/*! ../roster-list.js */ 344);
-	
-	var _rosterList2 = _interopRequireDefault(_rosterList);
-	
-	var _reviewList = __webpack_require__(/*! ../review-list.js */ 345);
-	
-	var _reviewList2 = _interopRequireDefault(_reviewList);
-	
-	var _commentBoard = __webpack_require__(/*! ../comment-board.js */ 348);
-	
-	var _commentBoard2 = _interopRequireDefault(_commentBoard);
-	
-	var _initiateMessageForm = __webpack_require__(/*! ../initiate-message-form.js */ 350);
-	
-	var _initiateMessageForm2 = _interopRequireDefault(_initiateMessageForm);
-	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	var _store = __webpack_require__(/*! ../store */ 196);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 287);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
 	
 	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
 	
-	var _modalStyles = __webpack_require__(/*! ../../styles/modal-styles.js */ 316);
+	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 286);
 	
 	var _modalStyles2 = _interopRequireDefault(_modalStyles);
-	
-	var _modalStylesMargin = __webpack_require__(/*! ../../styles/modal-styles-margin.js */ 351);
-	
-	var _modalStylesMargin2 = _interopRequireDefault(_modalStylesMargin);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var DATABASE_URL = "http://localhost:8080";
 	
-	var SingleCourseDisplay = _react2.default.createClass({
-	  displayName: 'SingleCourseDisplay',
+	var SignupDisplay = _react2.default.createClass({
+	  displayName: 'SignupDisplay',
+	
+	
+	  handleUserSubmit: function handleUserSubmit(user) {
+	    _superagent2.default.post(DATABASE_URL + "/auth/signup").send(user).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error in creating this user");
+	      } else {
+	        sessionStorage.setItem('first_name', user.first_name);
+	        sessionStorage.setItem('user_id', res.body.id);
+	        sessionStorage.setItem('image_url', user.profile_pic);
+	        this.props.login(res.body);
+	        this.showModal();
+	      }
+	    }.bind(this));
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	  },
+	
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    _reactRouter.browserHistory.goBack();
+	  },
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modal', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'Welcome to youNiversity!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideModal },
+	          'Close'
+	        )
+	      ),
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-10 form-display' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'signup-display' },
+	          _react2.default.createElement(AddUserForm, {
+	            onUserSubmit: this.handleUserSubmit
+	          }),
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'Already signed up? Login ',
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/login' },
+	              'here'
+	            ),
+	            '.'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var AddUserForm = _react2.default.createClass({
+	  displayName: 'AddUserForm',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return { first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '' };
+	  },
+	  handleFirstNameChange: function handleFirstNameChange(event) {
+	    this.setState({ first_name: event.target.value });
+	  },
+	  handleLastNameChange: function handleLastNameChange(event) {
+	    this.setState({ last_name: event.target.value });
+	  },
+	  handleEmailChange: function handleEmailChange(event) {
+	    this.setState({ email: event.target.value });
+	  },
+	  handleProfilePicChange: function handleProfilePicChange(event) {
+	    this.setState({ profile_pic: event.target.value });
+	  },
+	  handleCityChange: function handleCityChange(event) {
+	    this.setState({ city: event.target.value });
+	  },
+	  handleStateChange: function handleStateChange(event) {
+	    this.setState({ state: event.target.value });
+	  },
+	  handlePasswordChange: function handlePasswordChange(event) {
+	    this.setState({ password: event.target.value });
+	  },
+	  handleConfirmPasswordChange: function handleConfirmPasswordChange(event) {
+	    this.setState({ confirm_password: event.target.value });
+	  },
+	
+	  handleSubmit: function handleSubmit(event) {
+	    event.preventDefault();
+	    var first_name = this.state.first_name.trim();
+	    var last_name = this.state.last_name.trim();
+	    var email = this.state.email.trim();
+	    var profile_pic = this.state.profile_pic.trim();
+	    var city = this.state.city.trim();
+	    var state = this.state.state.trim();
+	    var password = this.state.password.trim();
+	    var confirm_password = this.state.confirm_password.trim();
+	    var passwordMatchingError = false;
+	    var allFieldsRequiredError = false;
+	    var passwordMinimumCharsError = false;
+	
+	    if (!first_name || !last_name || !email || !profile_pic || !city || !state || !password || !confirm_password) {
+	      allFieldsRequiredError = true;
+	    } else {
+	      allFieldsRequiredError = false;
+	    }
+	
+	    if (password.length < 8) {
+	      console.log('password is too short');
+	      passwordMinimumCharsError = true;
+	    } else {
+	      passwordMinimumCharsError = false;
+	    }
+	
+	    if (password !== confirm_password) {
+	      console.log('Passwords don\'t match.');
+	      passwordMatchingError = true;
+	    } else {
+	      passwordMatchingError = false;
+	    }
+	
+	    if (allFieldsRequiredError === true || passwordMatchingError === true || passwordMinimumCharsError === true) {
+	      console.log("An error needs to be addressed");
+	      this.setState({ passwordMatchingError: passwordMatchingError, allFieldsRequiredError: allFieldsRequiredError, passwordMinimumCharsError: passwordMinimumCharsError });
+	      return;
+	    } else {
+	      this.props.onUserSubmit({
+	        first_name: first_name,
+	        last_name: last_name,
+	        email: email,
+	        profile_pic: profile_pic,
+	        city: city,
+	        state: state,
+	        password: password
+	      });
+	    };
+	
+	    this.setState({
+	      first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false, passwordMinimumCharsError: false
+	    });
+	  },
+	
+	  render: function render() {
+	
+	    var passwordErrorMessage = this.state.passwordMatchingError ? _react2.default.createElement(
+	      'p',
+	      { className: 'error-message' },
+	      '*passwords do not match'
+	    ) : null;
+	
+	    var passwordMinimumCharsError = this.state.passwordMinimumCharsError ? _react2.default.createElement(
+	      'p',
+	      { className: 'error-message' },
+	      '*password should be at least 8 characters'
+	    ) : null;
+	
+	    var requiredFieldsErrorMessage = this.state.allFieldsRequiredError ? _react2.default.createElement(
+	      'p',
+	      { className: 'error-message' },
+	      '*all fields required'
+	    ) : null;
+	
+	    return _react2.default.createElement(
+	      'form',
+	      { className: 'addUserForm', onSubmit: this.handleSubmit },
+	      passwordErrorMessage,
+	      requiredFieldsErrorMessage,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          required: true,
+	          placeholder: 'first name',
+	          value: this.state.first_name,
+	          onChange: this.handleFirstNameChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          required: true,
+	          placeholder: 'last name',
+	          value: this.state.last_name,
+	          onChange: this.handleLastNameChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          required: true,
+	          placeholder: 'email',
+	          value: this.state.email,
+	          onChange: this.handleEmailChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          required: true,
+	          placeholder: 'profile picture url',
+	          value: this.state.profile_pic,
+	          onChange: this.handleProfilePicChange
+	        })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          required: true,
+	          placeholder: 'city',
+	          value: this.state.city,
+	          onChange: this.handleCityChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          required: true,
+	          placeholder: 'state',
+	          value: this.state.state,
+	          onChange: this.handleStateChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'password',
+	          required: true,
+	          placeholder: 'password (8 character minimum)',
+	          value: this.state.password,
+	          onChange: this.handlePasswordChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'password',
+	          required: true,
+	          placeholder: 'confirm password',
+	          value: this.state.confirm_password,
+	          onChange: this.handleConfirmPasswordChange
+	        })
+	      ),
+	      _react2.default.createElement('input', { className: 'btn-success form-submit-button', type: 'submit', value: 'Sign Up' })
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    login: function login(user) {
+	      dispatch((0, _userActions.userLoginSuccess)(user));
+	    }
+	  };
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SignupDisplay);
+
+/***/ },
+/* 342 */
+/*!******************************************************!*\
+  !*** ./app/components/courses/add-course-display.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 328);
+	
+	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 286);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var DatePicker = __webpack_require__(/*! react-datepicker */ 343);
+	var moment = __webpack_require__(/*! moment */ 344);
+	moment().format();
+	
+	var DATABASE_URL = "http://localhost:8080";
+	
+	var AddCourseDisplay = _react2.default.createClass({
+	  displayName: 'AddCourseDisplay',
 	
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      courseData: [],
-	      roster: [],
-	      commentBoard: [],
-	      reviews: [],
-	      displayReviews: false,
-	      isUserEnrolledInCourse: false,
-	      student_to_be_messaged: null
+	      data: [],
+	      newCourseID: null
 	    };
 	  },
 	
-	  componentDidMount: function componentDidMount() {
-	    var id = this.props.params.id;
-	    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
-	    this.getRosterFromAPI(id);
-	    this.getCommentBoardFromAPI(id);
-	  },
-	
-	  getCourseDataFromAPI: function getCourseDataFromAPI(id, callback) {
-	    _superagent2.default.get(DATABASE_URL + "/classes/" + id).end(function (err, res) {
-	      if (err) {
+	  handleCourseSubmit: function handleCourseSubmit(course) {
+	    console.log(moment(course.date._d.toString()).unix());
+	    var unix_timestamp = moment(course.date._d.toString()).unix();
+	    var user_id = sessionStorage.user_id;
+	    _superagent2.default.post(DATABASE_URL + "/classes").send(course).send({ user_id: user_id }).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ unix_timestamp: unix_timestamp }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
+	      if (err || !res.ok) {
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
-	        this.setState({ courseData: res.body[0] });
-	        if (callback) {
-	          callback(this.state.courseData.user_id);
-	        } else {
-	          this.showModal();
-	        }
-	      }
-	    }.bind(this));
-	  },
-	
-	  refreshCourseDataAfterUnenrolling: function refreshCourseDataAfterUnenrolling(id) {
-	    _superagent2.default.get(DATABASE_URL + "/classes/" + id).end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing this course from the API");
-	      } else {
-	        this.setState({ courseData: res.body[0] });
-	        getRosterFromAPI(id);
-	      }
-	    }.bind(this));
-	  },
-	
-	  getRosterFromAPI: function getRosterFromAPI(id) {
-	    _superagent2.default.get(DATABASE_URL + "/rosters/" + id).end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing this roster from the API");
-	      } else {
-	        var roster = res.body;
-	        if (sessionStorage.user_id) {
-	          for (var i = 0; i < roster.length; i++) {
-	            if (sessionStorage.user_id == roster[i].id) {
-	              this.setState({ roster: roster, isUserEnrolledInCourse: true });
-	            } else {
-	              this.setState({ roster: roster });
-	            }
-	          }
-	        } else {
-	          this.setState({ roster: roster });
-	        }
-	      }
-	    }.bind(this));
-	  },
-	
-	  getCommentBoardFromAPI: function getCommentBoardFromAPI(id) {
-	    _superagent2.default.get(DATABASE_URL + "/classes/" + id + "/comments").end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing course comments from the API");
-	      } else {
-	        this.setState({ commentBoard: res.body });
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleCommentSubmit: function handleCommentSubmit(comment) {
-	    var user_id = Number(sessionStorage.user_id);
-	    var id = this.props.params.id;
-	    _superagent2.default.post(DATABASE_URL + "/classes/" + id + "/comments").send(comment).send({ class_id: id }).send({ commenter_id: user_id }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error submitting this comment.");
-	      } else {
-	        this.getCommentBoardFromAPI(id);
-	      }
-	    }.bind(this));
-	  },
-	
-	  getReviewsFromAPI: function getReviewsFromAPI(id) {
-	    _superagent2.default.get(DATABASE_URL + "/users/" + id + "/reviews").end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing the reviews from the API");
-	      } else {
-	        this.setState({ reviews: res.body });
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleReviewDisplay: function handleReviewDisplay() {
-	    this.setState({ displayReviews: !this.state.displayReviews });
-	  },
-	
-	  handleUserSignup: function handleUserSignup() {
-	    var id = this.props.params.id;
-	    var seats_remaining = this.state.courseData.seats_remaining - 1;
-	    _superagent2.default.put(DATABASE_URL + "/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error signing up for this course.");
-	      } else {
-	        this.updateRoster();
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleUserUnenrollSeatsRemaining: function handleUserUnenrollSeatsRemaining() {
-	    var id = this.props.params.id;
-	    var seats_remaining = this.state.courseData.seats_remaining + 1;
-	    _superagent2.default.put(DATABASE_URL + "/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error signing up for this course.");
-	      } else {
-	        this.refreshCourseDataAfterUnenrolling(id);
-	        this.updateRosterUnenroll();
-	      }
-	    }.bind(this));
-	  },
-	
-	  updateRosterUnenroll: function updateRosterUnenroll() {
-	    var id = this.props.params.id;
-	    var user_id = Number(sessionStorage.user_id);
-	    _superagent2.default.del(DATABASE_URL + "/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error in deleting this user.");
-	      } else {
-	        this.getRosterFromAPI(id);
-	        this.hideUnenrollModal();
-	        this.showModalConfirmUnenroll();
-	      }
-	    }.bind(this));
-	  },
-	
-	  updateRoster: function updateRoster() {
-	    var id = this.props.params.id;
-	    var user_id = Number(sessionStorage.user_id);
-	    _superagent2.default.post(DATABASE_URL + "/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error adding a roster field.");
-	      } else {
-	        this.getRosterFromAPI(id);
-	        this.getCourseDataFromAPI(id);
-	      }
-	    }.bind(this));
-	  },
-	
-	  initiateMessageClick: function initiateMessageClick() {
-	    var instructor_id = this.state.courseData.user_id;
-	    var sender_id = Number(sessionStorage.user_id);
-	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + sender_id + '/' + instructor_id).end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing info from the API");
-	      } else {
-	        if (res.body.exists == true) {
-	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
-	        } else {
-	          this.showMessageModal();
-	        }
-	      }
-	    }.bind(this));
-	  },
-	
-	  initiateMessageClickFromInstructor: function initiateMessageClickFromInstructor(student_id) {
-	    console.log(student_id);
-	    this.setState({ student_to_be_messaged: student_id });
-	    var instructor_id = Number(sessionStorage.user_id);
-	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id).end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing info from the API");
-	      } else {
-	        if (res.body.exists == true) {
-	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
-	        } else {
-	          this.showMessageModal();
-	        }
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleMessageThreadCreation: function handleMessageThreadCreation(message) {
-	    var sender_id = Number(sessionStorage.user_id);
-	    var recipient_id = null;
-	    if (Number(sessionStorage.user_id) == this.state.courseData.user_id) {
-	      recipient_id = this.state.student_to_be_messaged;
-	    } else {
-	      recipient_id = this.state.courseData.user_id;
-	    }
-	    _superagent2.default.post(DATABASE_URL + "/messages/threads").send({ message: message }).send({ class_id: this.state.courseData.id }).send({ sender_id: sender_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error submitting this comment.");
-	      } else {
-	        this.handleMessageSubmit(res.body[0], sender_id, recipient_id, message);
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleMessageSubmit: function handleMessageSubmit(thread_id, sender_id, recipient_id, message) {
-	    console.log(thread_id, sender_id, recipient_id, message);
-	    _superagent2.default.post(DATABASE_URL + "/messages/" + sender_id).send({ message: message.message }).send({ thread_id: thread_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error submitting this comment.");
-	      } else {
-	        this.hideMessageModal();
+	        var newCourseID = res.body[0];
+	        this.setState({ newCourseID: newCourseID });
+	        this.showModal();
 	      }
 	    }.bind(this));
 	  },
@@ -39346,100 +40019,25 @@
 	  },
 	  hideModal: function hideModal() {
 	    this.refs.modal.hide();
-	  },
-	
-	  showUnenrollModal: function showUnenrollModal() {
-	    this.refs.modalUnenroll.show();
-	  },
-	  hideUnenrollModal: function hideUnenrollModal() {
-	    this.refs.modalUnenroll.hide();
-	  },
-	
-	  showModalConfirmUnenroll: function showModalConfirmUnenroll() {
-	    this.refs.modalConfirmUnenroll.show();
-	  },
-	  hideModalConfirmUnenroll: function hideModalConfirmUnenroll() {
-	    this.refs.modalConfirmUnenroll.hide();
-	    _reactRouter.browserHistory.push('/');
-	  },
-	
-	  showMessageModal: function showMessageModal() {
-	    this.refs.modalMessage.show();
-	  },
-	  hideMessageModal: function hideMessageModal() {
-	    this.refs.modalMessage.hide();
-	    this.showMessageConfirmationModal();
-	  },
-	  hideMessageModalCancel: function hideMessageModalCancel() {
-	    this.refs.modalMessage.hide();
-	  },
-	
-	  showMessageConfirmationModal: function showMessageConfirmationModal() {
-	    this.refs.modalMessageConfirmation.show();
-	  },
-	  hideMessageConfirmationModal: function hideMessageConfirmationModal() {
-	    this.refs.modalMessageConfirmation.hide();
+	    _reactRouter.browserHistory.push('/courses/' + this.state.newCourseID);
 	  },
 	
 	  render: function render() {
-	
-	    var reviews = this.state.reviews.length > 0 && this.state.displayReviews ? _react2.default.createElement(_reviewList2.default, {
-	      data: this.state.reviews
-	    }) : null;
-	
 	    return _react2.default.createElement(
 	      'div',
-	      null,
+	      { className: 'row create-course' },
 	      _react2.default.createElement(
-	        'div',
-	        { className: 'row', id: 'single-course-display' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-3 no-padding' },
-	          _react2.default.createElement(_leftDisplay2.default, {
-	            data: this.state.courseData
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-7' },
-	          _react2.default.createElement(_middleDisplay2.default, {
-	            data: this.state.courseData,
-	            reviews: this.state.reviews,
-	            displayReviews: this.state.displayReviews,
-	            handleReviewDisplay: this.handleReviewDisplay
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-2 no-padding' },
-	          _react2.default.createElement(_rightDisplay2.default, {
-	            data: this.state.courseData,
-	            handleUserSignup: this.handleUserSignup,
-	            showUnenrollModal: this.showUnenrollModal,
-	            reviews: this.state.reviews,
-	            isUserEnrolledInCourse: this.state.isUserEnrolledInCourse,
-	            initiateMessageClick: this.initiateMessageClick
-	          })
-	        )
+	        'h2',
+	        null,
+	        'Create a Course'
 	      ),
-	      reviews,
-	      _react2.default.createElement(_rosterList2.default, {
-	        data: this.state.roster,
-	        instructor_id: this.state.courseData.user_id,
-	        initiateMessageClick: this.initiateMessageClickFromInstructor
-	      }),
-	      _react2.default.createElement(_commentBoard2.default, {
-	        data: this.state.commentBoard,
-	        handleCommentSubmit: this.handleCommentSubmit
-	      }),
 	      _react2.default.createElement(
 	        _OutlineModal2.default,
 	        { ref: 'modal', style: _modalStyles2.default.container },
 	        _react2.default.createElement(
 	          'h2',
 	          { style: _modalStyles2.default.title },
-	          'You are all signed up!'
+	          'Class created!'
 	        ),
 	        _react2.default.createElement(
 	          'button',
@@ -39447,783 +40045,172 @@
 	          'Close'
 	        )
 	      ),
-	      _react2.default.createElement(
-	        _OutlineModal2.default,
-	        { ref: 'modalUnenroll', style: _modalStyles2.default.container },
-	        _react2.default.createElement(
-	          'h2',
-	          { style: _modalStyles2.default.title },
-	          'Are you sure you want to leave this class?'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { style: _modalStylesMargin2.default.btn, onClick: this.handleUserUnenrollSeatsRemaining },
-	          'Yes'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { style: _modalStyles2.default.btn, onClick: this.hideUnenrollModal },
-	          'Cancel'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        _OutlineModal2.default,
-	        { ref: 'modalConfirmUnenroll', style: _modalStyles2.default.container },
-	        _react2.default.createElement(
-	          'h2',
-	          { style: _modalStyles2.default.title },
-	          'You are no longer enrolled in this course.'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { style: _modalStyles2.default.btn, onClick: this.hideModalConfirmUnenroll },
-	          'Close'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        _OutlineModal2.default,
-	        {
-	          ref: 'modalMessage',
-	          style: _modalStyles2.default.container },
-	        _react2.default.createElement(
-	          'h2',
-	          { style: _modalStyles2.default.title },
-	          'Message:'
-	        ),
-	        _react2.default.createElement(_initiateMessageForm2.default, {
-	          handleMessageSubmit: this.handleMessageThreadCreation
-	        }),
-	        _react2.default.createElement(
-	          'button',
-	          { style: _modalStyles2.default.btn, onClick: this.hideMessageModalCancel },
-	          'Cancel'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        _OutlineModal2.default,
-	        { ref: 'modalMessageConfirmation', style: _modalStyles2.default.container },
-	        _react2.default.createElement(
-	          'h2',
-	          { style: _modalStyles2.default.title },
-	          'Message sent!'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { style: _modalStyles2.default.btn, onClick: this.hideMessageConfirmationModal },
-	          'Close'
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	
-	module.exports = (0, _reactRedux.connect)(mapStateToProps)(SingleCourseDisplay);
-
-/***/ },
-/* 337 */
-/*!**********************************************************************!*\
-  !*** ./app/components/courses/single-course-display/left-display.js ***!
-  \**********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 338);
-	
-	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CourseDateTimePlaceInstructorDisplay = _react2.default.createClass({
-	  displayName: 'CourseDateTimePlaceInstructorDisplay',
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'left-course-display center' },
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'bold' },
-	        this.props.data.date
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        this.props.data.start_time,
-	        ' to ',
-	        this.props.data.end_time
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'bold' },
-	        this.props.data.address
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        this.props.data.city,
-	        ', ',
-	        this.props.data.state
-	      ),
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'btn-div' },
-	        '$',
-	        this.props.data.price
+	        { className: 'col-sm-10 create-course-form form-display' },
+	        _react2.default.createElement(AddCourseForm, {
+	          onCourseSubmit: this.handleCourseSubmit
+	        })
 	      )
 	    );
 	  }
 	});
 	
-	exports.default = CourseDateTimePlaceInstructorDisplay;
-
-/***/ },
-/* 338 */
-/*!****************************************!*\
-  !*** ./~/superagent-no-cache/index.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	var ie
-	try {
-	  ie = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"ie\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))
-	} catch (e) {
-	  ie = __webpack_require__(/*! component-ie */ 339)
-	}
-	
-	function with_query_strings (request) {
-	  request._query = [Date.now().toString()]
-	  return request
-	}
-	
-	module.exports = function _superagentNoCache (request, mockIE) {
-	  request.set('X-Requested-With', 'XMLHttpRequest')
-	  request.set('Cache-Control', 'no-cache,no-store,must-revalidate,max-age=-1')
-	
-	  if (ie || mockIE) {
-	    with_query_strings(request)
-	  }
-	
-	  return request
-	}
-
-
-/***/ },
-/* 339 */
-/*!*********************************!*\
-  !*** ./~/component-ie/index.js ***!
-  \*********************************/
-/***/ function(module, exports) {
-
-	/**
-	 * Export `ie`.
-	 */
-	
-	module.exports = ie();
-	
-	/**
-	 * Initialize `ie`
-	 *
-	 * @return {Number|undefined}
-	 * @api public
-	 */
-	
-	function ie() {
-	  for( var v = 3,
-	           el = document.createElement('b'),
-	           // empty array as loop breaker (and exception-avoider) for non-IE and IE10+
-	           all = el.all || [];
-	       // i tag not well-formed since we know that IE5-IE9 won't mind
-	       el.innerHTML = '<!--[if gt IE ' + (++v) + ']><i><![endif]-->',
-	       all[0];
-	     );
-	  // return the documentMode for IE10+ compatibility
-	  // non-IE will get undefined
-	  return v > 4 ? v : document.documentMode;
-	}
-
-
-/***/ },
-/* 340 */
-/*!************************************************************************!*\
-  !*** ./app/components/courses/single-course-display/middle-display.js ***!
-  \************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 338);
-	
-	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var TitleDescriptionPrereqDisplay = _react2.default.createClass({
-	  displayName: 'TitleDescriptionPrereqDisplay',
+	var AddCourseForm = _react2.default.createClass({
+	  displayName: 'AddCourseForm',
 	
 	
-	  render: function render() {
-	
-	    var showReviews = this.props.displayReviews && this.props.reviews.length > 0 ? "Hide Instructor Reviews" : null;
-	
-	    var hideReviews = !this.props.displayReviews && this.props.reviews.length > 0 ? "Show Instructor Reviews" : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        { id: 'title-container' },
-	        _react2.default.createElement(
-	          'h2',
-	          { id: 'course-title' },
-	          this.props.data.title
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        { id: 'course-description' },
-	        this.props.data.description
-	      ),
-	      _react2.default.createElement('hr', null),
-	      _react2.default.createElement(
-	        'p',
-	        { id: 'course-prereqs' },
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'bold' },
-	          'Prerequisites: '
-	        ),
-	        this.props.data.prerequisites
-	      ),
-	      _react2.default.createElement('hr', null),
-	      _react2.default.createElement(
-	        'p',
-	        { className: 'bold orange right pointer', onClick: this.props.handleReviewDisplay },
-	        showReviews,
-	        hideReviews
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = TitleDescriptionPrereqDisplay;
-
-/***/ },
-/* 341 */
-/*!***********************************************************************!*\
-  !*** ./app/components/courses/single-course-display/right-display.js ***!
-  \***********************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 338);
-	
-	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _taughtBy = __webpack_require__(/*! ./taught-by.js */ 342);
-	
-	var _taughtBy2 = _interopRequireDefault(_taughtBy);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RightDisplay = _react2.default.createClass({
-	  displayName: 'RightDisplay',
-	
-	  render: function render() {
-	
-	    var classFull = this.props.data.seats_remaining == 0 ? _react2.default.createElement(
-	      'div',
-	      { className: 'btn-div' },
-	      'No Seats Remaining'
-	    ) : _react2.default.createElement(
-	      'div',
-	      { className: 'btn-div' },
-	      this.props.data.seats_remaining,
-	      ' seats left'
-	    );
-	
-	    var updateCourseButton = Number(sessionStorage.user_id) == this.props.data.user_id ? _react2.default.createElement(
-	      _reactRouter.Link,
-	      { className: 'link-plain', to: '/update/' + this.props.data.id },
-	      _react2.default.createElement(
-	        'div',
-	        { onClick: this.props.handleCourseUpdate, className: 'btn-danger btn-div' },
-	        'Update or Delete Course'
-	      )
-	    ) : null;
-	
-	    var signupButton = sessionStorage.first_name && !this.props.isUserEnrolledInCourse && !(Number(sessionStorage.user_id) == this.props.data.user_id) && !this.props.data.seats_remaining == 0 ? _react2.default.createElement(
-	      'div',
-	      { onClick: this.props.handleUserSignup, className: 'btn-success btn-div pointer' },
-	      'Sign Up'
-	    ) : null;
-	
-	    var loginButton = !sessionStorage.first_name && !this.props.data.seats_remaining == 0 ? _react2.default.createElement(
-	      _reactRouter.Link,
-	      { className: 'link-plain', to: '/login' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'btn-success btn-div' },
-	        'Log In',
-	        _react2.default.createElement('br', null),
-	        'to Sign Up'
-	      )
-	    ) : null;
-	
-	    var enrolledInCourse = this.props.isUserEnrolledInCourse ? _react2.default.createElement(
-	      'div',
-	      { className: 'btn-div' },
-	      'Enrolled!'
-	    ) : null;
-	
-	    var leaveClass = this.props.isUserEnrolledInCourse ? _react2.default.createElement(
-	      'div',
-	      { onClick: this.props.showUnenrollModal, className: 'btn-div btn-danger pointer' },
-	      'Leave Class'
-	    ) : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      updateCourseButton,
-	      signupButton,
-	      loginButton,
-	      enrolledInCourse,
-	      leaveClass,
-	      classFull,
-	      _react2.default.createElement(_taughtBy2.default, {
-	        data: this.props.data,
-	        initiateMessageClick: this.props.initiateMessageClick
-	      })
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	
-	module.exports = (0, _reactRedux.connect)(mapStateToProps)(RightDisplay);
-
-/***/ },
-/* 342 */
-/*!*******************************************************************!*\
-  !*** ./app/components/courses/single-course-display/taught-by.js ***!
-  \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 338);
-	
-	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _messageIcon = __webpack_require__(/*! ../../icons/message-icon.js */ 343);
-	
-	var _messageIcon2 = _interopRequireDefault(_messageIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	var TaughtBy = _react2.default.createClass({
-	  displayName: 'TaughtBy',
-	
-	
-	  initiateMessageClick: function initiateMessageClick() {
-	    this.props.initiateMessageClick();
+	  getInitialState: function getInitialState() {
+	    return { title: '', description: '', prerequisites: '', price: '', seats: '', image_url: '', date: moment(), location: '', start_time: '', end_time: '' };
+	  },
+	  handleTitleChange: function handleTitleChange(event) {
+	    this.setState({ title: event.target.value });
+	  },
+	  handleDescriptionChange: function handleDescriptionChange(event) {
+	    this.setState({ description: event.target.value });
+	  },
+	  handlePrereqChange: function handlePrereqChange(event) {
+	    this.setState({ prerequisites: event.target.value });
+	  },
+	  handlePriceChange: function handlePriceChange(event) {
+	    this.setState({ price: event.target.value });
+	  },
+	  handleSeatsChange: function handleSeatsChange(event) {
+	    this.setState({ seats: event.target.value });
+	  },
+	  handleImageUrlChange: function handleImageUrlChange(event) {
+	    this.setState({ image_url: event.target.value });
+	  },
+	  handleDateChange: function handleDateChange(date) {
+	    this.setState({ date: date });
+	    console.log(moment(date._d.toString()).unix());
+	  },
+	  onSuggestSelect: function onSuggestSelect(suggest) {
+	    var data = suggest.gmaps.address_components;
+	    this.setState({ location: [suggest.location.lat, suggest.location.lng, data[0].long_name, data[1].long_name, data[2].long_name, data[5].long_name] });
+	  },
+	  handleStartTimeChange: function handleStartTimeChange(event) {
+	    this.setState({ start_time: event.target.value });
+	  },
+	  handleEndTimeChange: function handleEndTimeChange(event) {
+	    this.setState({ end_time: event.target.value });
+	  },
+	  handleSubmit: function handleSubmit(event) {
+	    event.preventDefault();
+	    var title = this.state.title.trim();
+	    var description = this.state.description.trim();
+	    var prerequisites = this.state.prerequisites.trim();
+	    var price = this.state.price.trim();
+	    var seats = this.state.seats.trim();
+	    var image_url = this.state.image_url.trim();
+	    var date = this.state.date;
+	    var location = this.state.location;
+	    var start_time = this.state.start_time;
+	    var end_time = this.state.end_time;
+	    if (!title) {
+	      return;
+	    }
+	    this.props.onCourseSubmit({ title: title, description: description, prerequisites: prerequisites, price: price, total_seats: seats, image_url: image_url, date: date, location: location, start_time: start_time, end_time: end_time });
+	    this.setState({ title: '', description: '', prerequisites: '', price: '', seats: '', image_url: '', date: moment(), location: '', start_time: '', end_time: '' });
 	  },
 	
 	  render: function render() {
 	
-	    var sendMessageOption = sessionStorage.user_id && Number(sessionStorage.user_id) !== this.props.data.user_id ? _react2.default.createElement(
-	      'span',
-	      { onClick: this.initiateMessageClick, className: 'pointer' },
-	      _react2.default.createElement(_messageIcon2.default, null),
-	      'Message'
-	    ) : null;
-	
-	    var instructorImageStyle = {
-	      backgroundImage: 'url(' + this.props.data.profile_pic + ')'
-	    };
-	
-	    var taughtBy = this.props.data.user_id == Number(sessionStorage.user_id) ? _react2.default.createElement(
-	      'p',
-	      { className: 'line-height-one' },
-	      'you!'
-	    ) : _react2.default.createElement(
-	      'p',
-	      { className: 'line-height-one' },
-	      this.props.data.first_name,
-	      '    ',
-	      this.props.data.last_name
-	    );
-	
 	    return _react2.default.createElement(
-	      'div',
-	      { className: 'center', id: 'taught-by' },
+	      'form',
+	      { className: 'addCourseForm', onSubmit: this.handleSubmit },
 	      _react2.default.createElement(
-	        'p',
-	        _defineProperty({ className: 'line-height-one' }, 'className', 'bold'),
-	        'Taught by:'
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'course title',
+	          value: this.state.title,
+	          onChange: this.handleTitleChange
+	        }),
+	        _react2.default.createElement('textarea', {
+	          placeholder: 'Write a description of the course here.',
+	          rows: '10',
+	          value: this.state.description,
+	          onChange: this.handleDescriptionChange }),
+	        _react2.default.createElement('textarea', {
+	          placeholder: 'What knowledge, skills or materials should a student have before taking this course?',
+	          rows: '10',
+	          value: this.state.prerequisites,
+	          onChange: this.handlePrereqChange }),
+	        _react2.default.createElement('input', {
+	          type: 'number',
+	          placeholder: 'price per seat',
+	          value: this.state.price,
+	          onChange: this.handlePriceChange
+	        })
 	      ),
-	      taughtBy,
-	      _react2.default.createElement('div', { className: 'instructor-profile-img',
-	        style: instructorImageStyle }),
-	      sendMessageOption
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-6' },
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'number of seats',
+	          value: this.state.seats,
+	          onChange: this.handleSeatsChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'image_url',
+	          value: this.state.image_url,
+	          onChange: this.handleImageUrlChange
+	        }),
+	        _react2.default.createElement(DatePicker, {
+	          selected: this.state.date,
+	          onChange: this.handleDateChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'start time, ex: 6:30 a.m.',
+	          value: this.state.start_time,
+	          onChange: this.handleStartTimeChange
+	        }),
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          placeholder: 'end time, ex: 6:30 a.m.',
+	          value: this.state.end_time,
+	          onChange: this.handleEndTimeChange
+	        }),
+	        _react2.default.createElement(_reactGeosuggest2.default, {
+	          placeholder: 'meeting place',
+	          country: 'us',
+	          onSuggestSelect: this.onSuggestSelect,
+	          value: this.state.location
+	        }),
+	        _react2.default.createElement('input', { type: 'submit', value: 'Create Your Course!', className: 'btn-success form-submit-button' })
+	      )
 	    );
 	  }
 	});
 	
-	exports.default = TaughtBy;
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(AddCourseDisplay);
 
 /***/ },
 /* 343 */
-/*!**********************************************!*\
-  !*** ./app/components/icons/message-icon.js ***!
-  \**********************************************/
+/*!*********************************************************!*\
+  !*** ./~/react-datepicker/dist/react-datepicker.min.js ***!
+  \*********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
-	
-	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var MessageIcon = _react2.default.createClass({
-	  displayName: 'MessageIcon',
-	
-	  render: function render() {
-	    return _react2.default.createElement(_reactFontawesome2.default, {
-	      name: 'envelope',
-	      size: 'lg',
-	      style: { marginRight: '5px', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
-	    });
-	  }
-	});
-	
-	exports.default = MessageIcon;
+	!function(e,t){ true?module.exports=t(__webpack_require__(/*! moment */ 344),__webpack_require__(/*! react */ 1),__webpack_require__(/*! react-onclickoutside */ 346),__webpack_require__(/*! react-dom */ 34)):"function"==typeof define&&define.amd?define(["moment","react","react-onclickoutside","react-dom"],t):"object"==typeof exports?exports.DatePicker=t(require("moment"),require("react"),require("react-onclickoutside"),require("react-dom")):e.DatePicker=t(e.moment,e.React,e.OnClickOutside,e.ReactDOM)}(this,function(e,t,n,o){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={exports:{},id:o,loaded:!1};return e[o].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(1),i=o(a),s=n(5),l=o(s),p=n(3),d=o(p),f=n(13),u=o(f),c=n(12),h=o(c),m=n(4),y="react-datepicker-ignore-onclickoutside",g=d["default"].createClass({displayName:"DatePicker",propTypes:{autoComplete:d["default"].PropTypes.string,className:d["default"].PropTypes.string,dateFormat:d["default"].PropTypes.oneOfType([d["default"].PropTypes.string,d["default"].PropTypes.array]),dateFormatCalendar:d["default"].PropTypes.string,disabled:d["default"].PropTypes.bool,endDate:d["default"].PropTypes.object,excludeDates:d["default"].PropTypes.array,filterDate:d["default"].PropTypes.func,fixedHeight:d["default"].PropTypes.bool,id:d["default"].PropTypes.string,includeDates:d["default"].PropTypes.array,inline:d["default"].PropTypes.bool,isClearable:d["default"].PropTypes.bool,locale:d["default"].PropTypes.string,maxDate:d["default"].PropTypes.object,minDate:d["default"].PropTypes.object,name:d["default"].PropTypes.string,onBlur:d["default"].PropTypes.func,onChange:d["default"].PropTypes.func.isRequired,onFocus:d["default"].PropTypes.func,openToDate:d["default"].PropTypes.object,placeholderText:d["default"].PropTypes.string,popoverAttachment:d["default"].PropTypes.string,popoverTargetAttachment:d["default"].PropTypes.string,popoverTargetOffset:d["default"].PropTypes.string,readOnly:d["default"].PropTypes.bool,renderCalendarTo:d["default"].PropTypes.any,required:d["default"].PropTypes.bool,selected:d["default"].PropTypes.object,showYearDropdown:d["default"].PropTypes.bool,startDate:d["default"].PropTypes.object,tabIndex:d["default"].PropTypes.number,tetherConstraints:d["default"].PropTypes.array,title:d["default"].PropTypes.string,todayButton:d["default"].PropTypes.string},getDefaultProps:function(){return{dateFormatCalendar:"MMMM YYYY",onChange:function(){},disabled:!1,onFocus:function(){},onBlur:function(){},popoverAttachment:"top left",popoverTargetAttachment:"bottom left",popoverTargetOffset:"10px 0",tetherConstraints:[{to:"window",attachment:"together"}]}},getInitialState:function(){return{open:!1}},setOpen:function(e){this.setState({open:e})},handleFocus:function(e){this.props.onFocus(e),this.setOpen(!0)},handleBlur:function(e){this.state.open?this.refs.input.focus():this.props.onBlur(e)},handleCalendarClickOutside:function(e){this.setOpen(!1)},handleSelect:function(e){this.setSelected(e),this.setOpen(!1)},setSelected:function(e){(0,m.isSameDay)(this.props.selected,e)||this.props.onChange(e)},onInputClick:function(){this.props.disabled||this.setOpen(!0)},onInputKeyDown:function(e){"Enter"===e.key||"Escape"===e.key?(e.preventDefault(),this.setOpen(!1)):"Tab"===e.key&&this.setOpen(!1)},onClearClick:function(e){e.preventDefault(),this.props.onChange(null)},renderCalendar:function(){return this.props.inline||this.state.open&&!this.props.disabled?d["default"].createElement(l["default"],{ref:"calendar",locale:this.props.locale,dateFormat:this.props.dateFormatCalendar,selected:this.props.selected,onSelect:this.handleSelect,openToDate:this.props.openToDate,minDate:this.props.minDate,maxDate:this.props.maxDate,startDate:this.props.startDate,endDate:this.props.endDate,excludeDates:this.props.excludeDates,filterDate:this.props.filterDate,onClickOutside:this.handleCalendarClickOutside,includeDates:this.props.includeDates,showYearDropdown:this.props.showYearDropdown,todayButton:this.props.todayButton,outsideClickIgnoreClass:y,fixedHeight:this.props.fixedHeight}):null},renderDateInput:function(){var e=(0,h["default"])(this.props.className,r({},y,this.state.open));return d["default"].createElement(i["default"],{ref:"input",id:this.props.id,name:this.props.name,date:this.props.selected,locale:this.props.locale,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,filterDate:this.props.filterDate,dateFormat:this.props.dateFormat,onFocus:this.handleFocus,onBlur:this.handleBlur,onClick:this.onInputClick,onKeyDown:this.onInputKeyDown,onChangeDate:this.setSelected,placeholder:this.props.placeholderText,disabled:this.props.disabled,autoComplete:this.props.autoComplete,className:e,title:this.props.title,readOnly:this.props.readOnly,required:this.props.required,tabIndex:this.props.tabIndex})},renderClearButton:function(){return this.props.isClearable&&null!=this.props.selected?d["default"].createElement("a",{className:"react-datepicker__close-icon",href:"#",onClick:this.onClearClick}):null},render:function(){var e=this.renderCalendar();return this.props.inline?e:d["default"].createElement(u["default"],{classPrefix:"react-datepicker__tether",attachment:this.props.popoverAttachment,targetAttachment:this.props.popoverTargetAttachment,targetOffset:this.props.popoverTargetOffset,renderElementTo:this.props.renderCalendarTo,constraints:this.props.tetherConstraints},d["default"].createElement("div",{className:"react-datepicker__input-container"},this.renderDateInput(),this.renderClearButton()),e)}});e.exports=g},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){var n={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(n[o]=e[o]);return n}var a=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},i=n(2),s=o(i),l=n(3),p=o(l),d=n(4),f=p["default"].createClass({displayName:"DateInput",propTypes:{date:p["default"].PropTypes.object,dateFormat:p["default"].PropTypes.oneOfType([p["default"].PropTypes.string,p["default"].PropTypes.array]),disabled:p["default"].PropTypes.bool,excludeDates:p["default"].PropTypes.array,filterDate:p["default"].PropTypes.func,includeDates:p["default"].PropTypes.array,locale:p["default"].PropTypes.string,maxDate:p["default"].PropTypes.object,minDate:p["default"].PropTypes.object,onBlur:p["default"].PropTypes.func,onChange:p["default"].PropTypes.func,onChangeDate:p["default"].PropTypes.func},getDefaultProps:function(){return{dateFormat:"L"}},getInitialState:function(){return{value:this.safeDateFormat(this.props)}},componentWillReceiveProps:function(e){(0,d.isSameDay)(e.date,this.props.date)&&e.locale===this.props.locale&&e.dateFormat===this.props.dateFormat||this.setState({value:this.safeDateFormat(e)})},handleChange:function(e){this.props.onChange&&this.props.onChange(e),e.isDefaultPrevented()||this.handleChangeDate(e.target.value)},handleChangeDate:function(e){if(this.props.onChangeDate){var t=(0,s["default"])(e,this.props.dateFormat,this.props.locale||s["default"].locale(),!0);t.isValid()&&!(0,d.isDayDisabled)(t,this.props)?this.props.onChangeDate(t):""===e&&this.props.onChangeDate(null)}this.setState({value:e})},safeDateFormat:function(e){return e.date&&e.date.clone().locale(e.locale||s["default"].locale()).format(Array.isArray(e.dateFormat)?e.dateFormat[0]:e.dateFormat)||""},handleBlur:function(e){this.setState({value:this.safeDateFormat(this.props)}),this.props.onBlur&&this.props.onBlur(e)},focus:function(){this.refs.input.focus()},render:function(){var e=this.props,t=(e.date,e.locale,e.minDate,e.maxDate,e.excludeDates,e.includeDates,e.filterDate,e.dateFormat,e.onChangeDate,r(e,["date","locale","minDate","maxDate","excludeDates","includeDates","filterDate","dateFormat","onChangeDate"]));return p["default"].createElement("input",a({ref:"input",type:"text"},t,{value:this.state.value,onBlur:this.handleBlur,onChange:this.handleChange}))}});e.exports=f},function(t,n){t.exports=e},function(e,n){e.exports=t},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){return e&&t?e.isSame(t,"day"):!e&&!t}function a(e){var t=arguments.length<=1||void 0===arguments[1]?{}:arguments[1],n=t.minDate,o=t.maxDate,a=t.excludeDates,i=t.includeDates,s=t.filterDate;return n&&e.isBefore(n,"day")||o&&e.isAfter(o,"day")||a&&a.some(function(t){return r(e,t)})||i&&!i.some(function(t){return r(e,t)})||s&&!s(e.clone())||!1}function i(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.minDate,r=n.includeDates,a=e.clone().subtract(1,t);return o&&a.isBefore(o,t)||r&&r.every(function(e){return a.isBefore(e,t)})||!1}function s(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.maxDate,r=n.includeDates,a=e.clone().add(1,t);return o&&a.isAfter(o,t)||r&&r.every(function(e){return a.isAfter(e,t)})||!1}function l(e){var t=e.minDate,n=e.includeDates;return n&&t?f["default"].min(n.filter(function(e){return t.isSameOrBefore(e,"day")})):n?f["default"].min(n):t}function p(e){var t=e.maxDate,n=e.includeDates;return n&&t?f["default"].max(n.filter(function(e){return t.isSameOrAfter(e,"day")})):n?f["default"].max(n):t}Object.defineProperty(t,"__esModule",{value:!0}),t.isSameDay=r,t.isDayDisabled=a,t.allDaysDisabledBefore=i,t.allDaysDisabledAfter=s,t.getEffectiveMinDate=l,t.getEffectiveMaxDate=p;var d=n(2),f=o(d)},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(6),s=o(i),l=n(9),p=o(l),d=n(3),f=o(d),u=n(4),c=f["default"].createClass({displayName:"Calendar",propTypes:{dateFormat:f["default"].PropTypes.string.isRequired,endDate:f["default"].PropTypes.object,excludeDates:f["default"].PropTypes.array,filterDate:f["default"].PropTypes.func,fixedHeight:f["default"].PropTypes.bool,includeDates:f["default"].PropTypes.array,locale:f["default"].PropTypes.string,maxDate:f["default"].PropTypes.object,minDate:f["default"].PropTypes.object,onClickOutside:f["default"].PropTypes.func.isRequired,onSelect:f["default"].PropTypes.func.isRequired,openToDate:f["default"].PropTypes.object,selected:f["default"].PropTypes.object,showYearDropdown:f["default"].PropTypes.bool,startDate:f["default"].PropTypes.object,todayButton:f["default"].PropTypes.string},mixins:[n(8)],getInitialState:function(){return{date:this.localizeMoment(this.getDateInView())}},componentWillReceiveProps:function(e){e.selected&&!(0,u.isSameDay)(e.selected,this.props.selected)&&this.setState({date:this.localizeMoment(e.selected)})},handleClickOutside:function(e){this.props.onClickOutside(e)},getDateInView:function(){var e=this.props,t=e.selected,n=e.openToDate,o=(0,u.getEffectiveMinDate)(this.props),r=(0,u.getEffectiveMaxDate)(this.props),i=(0,a["default"])();return t?t:o&&r&&n&&n.isBetween(o,r)?n:o&&n&&n.isAfter(o)?n:o&&o.isAfter(i)?o:r&&n&&n.isBefore(r)?n:r&&r.isBefore(i)?r:n?n:i},localizeMoment:function(e){return e.clone().locale(this.props.locale||a["default"].locale())},increaseMonth:function(){this.setState({date:this.state.date.clone().add(1,"month")})},decreaseMonth:function(){this.setState({date:this.state.date.clone().subtract(1,"month")})},handleDayClick:function(e){this.props.onSelect(e)},changeYear:function(e){this.setState({date:this.state.date.clone().set("year",e)})},header:function(){var e=this.state.date.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(t){var n=e.clone().add(t,"days");return f["default"].createElement("div",{key:t,className:"react-datepicker__day-name"},n.localeData().weekdaysMin(n))})},renderPreviousMonthButton:function(){if(!(0,u.allDaysDisabledBefore)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--previous",onClick:this.decreaseMonth})},renderNextMonthButton:function(){if(!(0,u.allDaysDisabledAfter)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--next",onClick:this.increaseMonth})},renderCurrentMonth:function(){var e=["react-datepicker__current-month"];return this.props.showYearDropdown&&e.push("react-datepicker__current-month--hasYearDropdown"),f["default"].createElement("div",{className:e.join(" ")},this.state.date.format(this.props.dateFormat))},renderYearDropdown:function(){if(this.props.showYearDropdown)return f["default"].createElement(s["default"],{onChange:this.changeYear,year:this.state.date.year()})},renderTodayButton:function(){var e=this;if(this.props.todayButton)return f["default"].createElement("div",{className:"react-datepicker__today-button",onClick:function(){return e.props.onSelect((0,a["default"])())}},this.props.todayButton)},render:function(){return f["default"].createElement("div",{className:"react-datepicker"},f["default"].createElement("div",{className:"react-datepicker__triangle"}),f["default"].createElement("div",{className:"react-datepicker__header"},this.renderPreviousMonthButton(),this.renderCurrentMonth(),this.renderYearDropdown(),this.renderNextMonthButton(),f["default"].createElement("div",null,this.header())),f["default"].createElement(p["default"],{day:this.state.date,onDayClick:this.handleDayClick,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,fixedHeight:this.props.fixedHeight,filterDate:this.props.filterDate,selected:this.props.selected,startDate:this.props.startDate,endDate:this.props.endDate}),this.renderTodayButton())}});e.exports=c},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(7),s=o(i),l=a["default"].createClass({displayName:"YearDropdown",propTypes:{onChange:a["default"].PropTypes.func.isRequired,year:a["default"].PropTypes.number.isRequired},getInitialState:function(){return{dropdownVisible:!1}},renderReadView:function(){return a["default"].createElement("div",{className:"react-datepicker__year-read-view",onClick:this.toggleDropdown},a["default"].createElement("span",{className:"react-datepicker__year-read-view--selected-year"},this.props.year),a["default"].createElement("span",{className:"react-datepicker__year-read-view--down-arrow"}))},renderDropdown:function(){return a["default"].createElement(s["default"],{ref:"options",year:this.props.year,onChange:this.onChange,onCancel:this.toggleDropdown})},onChange:function(e){this.toggleDropdown(),e!==this.props.year&&this.props.onChange(e)},toggleDropdown:function(){this.setState({dropdownVisible:!this.state.dropdownVisible})},render:function(){return a["default"].createElement("div",null,this.state.dropdownVisible?this.renderDropdown():this.renderReadView())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e){for(var t=[],n=0;n<5;n++)t.push(e-n);return t}var a=n(3),i=o(a),s=i["default"].createClass({displayName:"YearDropdownOptions",propTypes:{onCancel:i["default"].PropTypes.func.isRequired,onChange:i["default"].PropTypes.func.isRequired,year:i["default"].PropTypes.number.isRequired},mixins:[n(8)],getInitialState:function(){return{yearsList:r(this.props.year)}},renderOptions:function(){var e=this,t=this.props.year,n=this.state.yearsList.map(function(n){return i["default"].createElement("div",{className:"react-datepicker__year-option",key:n,onClick:e.onChange.bind(e,n)},t===n?i["default"].createElement("span",{className:"react-datepicker__year-option--selected"},"✓"):"",n)});return n.unshift(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"upcoming",key:"upcoming",onClick:this.incrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"}))),n.push(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"previous",key:"previous",onClick:this.decrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-previous"}))),n},onChange:function(e){this.props.onChange(e)},handleClickOutside:function(){this.props.onCancel()},shiftYears:function(e){var t=this.state.yearsList.map(function(t){return t+e});this.setState({yearsList:t})},incrementYears:function(){return this.shiftYears(1)},decrementYears:function(){return this.shiftYears(-1)},render:function(){return i["default"].createElement("div",{className:"react-datepicker__year-dropdown"},this.renderOptions())}});e.exports=s},function(e,t){e.exports=n},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(10),s=o(i),l=a["default"].createClass({displayName:"Month",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,fixedHeight:a["default"].PropTypes.bool,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},isWeekInMonth:function(e){var t=this.props.day,n=e.clone().add(6,"days");return e.isSame(t,"month")||n.isSame(t,"month")},renderWeeks:function(){var e=this,t=this.props.day.clone().startOf("month").startOf("week");return[0,1,2,3,4,5].map(function(e){return t.clone().add(e,"weeks")}).filter(function(t){return e.props.fixedHeight||e.isWeekInMonth(t)}).map(function(t,n){return a["default"].createElement(s["default"],{key:n,day:t,month:e.props.day.month(),onDayClick:e.handleDayClick,minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__month",role:"listbox"},this.renderWeeks())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(11),s=o(i),l=a["default"].createClass({displayName:"Week",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,month:a["default"].PropTypes.number,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},renderDays:function(){var e=this,t=this.props.day.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(n){var o=t.clone().add(n,"days");return a["default"].createElement(s["default"],{key:n,day:o,month:e.props.month,onClick:e.handleDayClick.bind(e,o),minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__week"},this.renderDays())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(3),s=o(i),l=n(12),p=o(l),d=n(4),f=s["default"].createClass({displayName:"Day",propTypes:{day:s["default"].PropTypes.object.isRequired,endDate:s["default"].PropTypes.object,excludeDates:s["default"].PropTypes.array,filterDate:s["default"].PropTypes.func,includeDates:s["default"].PropTypes.array,maxDate:s["default"].PropTypes.object,minDate:s["default"].PropTypes.object,month:s["default"].PropTypes.number,onClick:s["default"].PropTypes.func,selected:s["default"].PropTypes.object,startDate:s["default"].PropTypes.object},handleClick:function(e){!this.isDisabled()&&this.props.onClick&&this.props.onClick(e)},isSameDay:function(e){return(0,d.isSameDay)(this.props.day,e)},isDisabled:function(){return(0,d.isDayDisabled)(this.props.day,this.props)},isInRange:function(){var e=this.props,t=e.day,n=e.startDate,o=e.endDate;if(!n||!o)return!1;var r=n.clone().startOf("day").subtract(1,"seconds"),a=o.clone().startOf("day").add(1,"seconds");return t.clone().startOf("day").isBetween(r,a)},isWeekend:function(){var e=this.props.day.day();return 0===e||6===e},isOutsideMonth:function(){return void 0!==this.props.month&&this.props.month!==this.props.day.month()},getClassNames:function(){return(0,p["default"])("react-datepicker__day",{"react-datepicker__day--disabled":this.isDisabled(),"react-datepicker__day--selected":this.isSameDay(this.props.selected),"react-datepicker__day--in-range":this.isInRange(),"react-datepicker__day--today":this.isSameDay((0,a["default"])()),"react-datepicker__day--weekend":this.isWeekend(),"react-datepicker__day--outside-month":this.isOutsideMonth()})},render:function(){return s["default"].createElement("div",{className:this.getClassNames(),onClick:this.handleClick,"aria-label":"day-"+this.props.day.date(),role:"option"},this.props.day.date())}});e.exports=f},function(e,t,n){var o,r;/*!
+		  Copyright (c) 2016 Jed Watson.
+		  Licensed under the MIT License (MIT), see
+		  http://jedwatson.github.io/classnames
+		*/
+	!function(){"use strict";function n(){for(var e=[],t=0;t<arguments.length;t++){var o=arguments[t];if(o){var r=typeof o;if("string"===r||"number"===r)e.push(o);else if(Array.isArray(o))e.push(n.apply(null,o));else if("object"===r)for(var i in o)a.call(o,i)&&o[i]&&e.push(i)}}return e.join(" ")}var a={}.hasOwnProperty;"undefined"!=typeof e&&e.exports?e.exports=n:(o=[],r=function(){return n}.apply(t,o),!(void 0!==r&&(e.exports=r)))}()},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){var n={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(n[o]=e[o]);return n}function a(e,t,n){var o=e.children,r=s.Children.count(o);return r<=0?new Error(n+" expects at least one child to use as the target element."):r>2?new Error("Only a max of two children allowed in "+n+"."):void 0}var i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},s=n(3),l=o(s),p=n(14),d=o(p),f=n(15),u=o(f),c=["top left","top center","top right","middle left","middle center","middle right","bottom left","bottom center","bottom right"],h=l["default"].createClass({displayName:"TetherComponent",propTypes:{attachment:s.PropTypes.oneOf(c).isRequired,children:a,className:s.PropTypes.string,classPrefix:s.PropTypes.string,classes:s.PropTypes.object,constraints:s.PropTypes.array,enabled:s.PropTypes.bool,id:s.PropTypes.string,offset:s.PropTypes.string,optimizations:s.PropTypes.object,renderElementTag:s.PropTypes.string,renderElementTo:s.PropTypes.any,style:s.PropTypes.object,targetAttachment:s.PropTypes.oneOf(c),targetModifier:s.PropTypes.string,targetOffset:s.PropTypes.string},getDefaultProps:function(){return{renderElementTag:"div",renderElementTo:null}},componentDidMount:function(){this._targetNode=d["default"].findDOMNode(this),this._update()},componentDidUpdate:function(){this._update()},componentWillUnmount:function(){this._destroy()},disable:function(){this._tether.disable()},enable:function(){this._tether.enable()},position:function(){this._tether.position()},_destroy:function(){this._elementParentNode&&(d["default"].unmountComponentAtNode(this._elementParentNode),this._elementParentNode.parentNode.removeChild(this._elementParentNode)),this._tether&&this._tether.destroy(),this._elementParentNode=null,this._tether=null},_update:function(){var e=this,t=this.props,n=t.children,o=t.renderElementTag,r=t.renderElementTo,a=n[1];if(!a)return void(this._tether&&this._destroy());if(!this._elementParentNode){this._elementParentNode=document.createElement(o);var i=r||document.body;i.appendChild(this._elementParentNode)}d["default"].unstable_renderSubtreeIntoContainer(this,a,this._elementParentNode,function(){e._updateTether()})},_updateTether:function(){var e=this.props,t=(e.renderElementTag,e.renderElementTo,r(e,["renderElementTag","renderElementTo"])),n=i({target:this._targetNode,element:this._elementParentNode},t);this._tether?this._tether.setOptions(n):this._tether=new u["default"](n),this._tether.position()},render:function(){var e=this.props.children,t=null;return s.Children.forEach(e,function(e,n){if(0===n)return void(t=e)}),t}});e.exports=h},function(e,t){e.exports=o},function(e,t,n){var o,r;/*! tether 1.3.4 */
+	!function(a,i){o=i,r="function"==typeof o?o.call(t,n,t,e):o,!(void 0!==r&&(e.exports=r))}(this,function(e,t,n){"use strict";function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e){var t=e.getBoundingClientRect(),n={};for(var o in t)n[o]=t[o];if(e.ownerDocument!==document){var a=e.ownerDocument.defaultView.frameElement;if(a){var i=r(a);n.top+=i.top,n.bottom+=i.top,n.left+=i.left,n.right+=i.left}}return n}function a(e){var t=getComputedStyle(e)||{},n=t.position,o=[];if("fixed"===n)return[e];for(var r=e;(r=r.parentNode)&&r&&1===r.nodeType;){var a=void 0;try{a=getComputedStyle(r)}catch(i){}if("undefined"==typeof a||null===a)return o.push(r),o;var s=a,l=s.overflow,p=s.overflowX,d=s.overflowY;/(auto|scroll)/.test(l+d+p)&&("absolute"!==n||["relative","absolute","fixed"].indexOf(a.position)>=0)&&o.push(r)}return o.push(e.ownerDocument.body),e.ownerDocument!==document&&o.push(e.ownerDocument.defaultView),o}function i(){_&&document.body.removeChild(_),_=null}function s(e){var t=void 0;e===document?(t=document,e=document.documentElement):t=e.ownerDocument;var n=t.documentElement,o=r(e),a=k();return o.top-=a.top,o.left-=a.left,"undefined"==typeof o.width&&(o.width=document.body.scrollWidth-o.left-o.right),"undefined"==typeof o.height&&(o.height=document.body.scrollHeight-o.top-o.bottom),o.top=o.top-n.clientTop,o.left=o.left-n.clientLeft,o.right=t.body.clientWidth-o.width-o.left,o.bottom=t.body.clientHeight-o.height-o.top,o}function l(e){return e.offsetParent||document.documentElement}function p(){var e=document.createElement("div");e.style.width="100%",e.style.height="200px";var t=document.createElement("div");d(t.style,{position:"absolute",top:0,left:0,pointerEvents:"none",visibility:"hidden",width:"200px",height:"150px",overflow:"hidden"}),t.appendChild(e),document.body.appendChild(t);var n=e.offsetWidth;t.style.overflow="scroll";var o=e.offsetWidth;n===o&&(o=t.clientWidth),document.body.removeChild(t);var r=n-o;return{width:r,height:r}}function d(){var e=arguments.length<=0||void 0===arguments[0]?{}:arguments[0],t=[];return Array.prototype.push.apply(t,arguments),t.slice(1).forEach(function(t){if(t)for(var n in t)({}).hasOwnProperty.call(t,n)&&(e[n]=t[n])}),e}function f(e,t){if("undefined"!=typeof e.classList)t.split(" ").forEach(function(t){t.trim()&&e.classList.remove(t)});else{var n=new RegExp("(^| )"+t.split(" ").join("|")+"( |$)","gi"),o=h(e).replace(n," ");m(e,o)}}function u(e,t){if("undefined"!=typeof e.classList)t.split(" ").forEach(function(t){t.trim()&&e.classList.add(t)});else{f(e,t);var n=h(e)+(" "+t);m(e,n)}}function c(e,t){if("undefined"!=typeof e.classList)return e.classList.contains(t);var n=h(e);return new RegExp("(^| )"+t+"( |$)","gi").test(n)}function h(e){return e.className instanceof e.ownerDocument.defaultView.SVGAnimatedString?e.className.baseVal:e.className}function m(e,t){e.setAttribute("class",t)}function y(e,t,n){n.forEach(function(n){t.indexOf(n)===-1&&c(e,n)&&f(e,n)}),t.forEach(function(t){c(e,t)||u(e,t)})}function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function g(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}function v(e,t){var n=arguments.length<=2||void 0===arguments[2]?1:arguments[2];return e+n>=t&&t>=e-n}function b(){return"undefined"!=typeof performance&&"undefined"!=typeof performance.now?performance.now():+new Date}function D(){for(var e={top:0,left:0},t=arguments.length,n=Array(t),o=0;o<t;o++)n[o]=arguments[o];return n.forEach(function(t){var n=t.top,o=t.left;"string"==typeof n&&(n=parseFloat(n,10)),"string"==typeof o&&(o=parseFloat(o,10)),e.top+=n,e.left+=o}),e}function T(e,t){return"string"==typeof e.left&&e.left.indexOf("%")!==-1&&(e.left=parseFloat(e.left,10)/100*t.width),"string"==typeof e.top&&e.top.indexOf("%")!==-1&&(e.top=parseFloat(e.top,10)/100*t.height),e}function C(e,t){return"scrollParent"===t?t=e.scrollParents[0]:"window"===t&&(t=[pageXOffset,pageYOffset,innerWidth+pageXOffset,innerHeight+pageYOffset]),t===document&&(t=t.documentElement),"undefined"!=typeof t.nodeType&&!function(){var e=t,n=s(t),o=n,r=getComputedStyle(t);if(t=[o.left,o.top,n.width+o.left,n.height+o.top],e.ownerDocument!==document){var a=e.ownerDocument.defaultView;t[0]+=a.pageXOffset,t[1]+=a.pageYOffset,t[2]+=a.pageXOffset,t[3]+=a.pageYOffset}K.forEach(function(e,n){e=e[0].toUpperCase()+e.substr(1),"Top"===e||"Left"===e?t[n]+=parseFloat(r["border"+e+"Width"]):t[n]-=parseFloat(r["border"+e+"Width"])})}(),t}var P=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}(),w=void 0;"undefined"==typeof w&&(w={modules:[]});var _=null,x=function(){var e=0;return function(){return++e}}(),O={},k=function(){var e=_;e||(e=document.createElement("div"),e.setAttribute("data-tether-id",x()),d(e.style,{top:0,left:0,position:"absolute"}),document.body.appendChild(e),_=e);var t=e.getAttribute("data-tether-id");return"undefined"==typeof O[t]&&(O[t]=r(e),j(function(){delete O[t]})),O[t]},E=[],j=function(e){E.push(e)},S=function(){for(var e=void 0;e=E.pop();)e()},N=function(){function e(){o(this,e)}return P(e,[{key:"on",value:function(e,t,n){var o=!(arguments.length<=3||void 0===arguments[3])&&arguments[3];"undefined"==typeof this.bindings&&(this.bindings={}),"undefined"==typeof this.bindings[e]&&(this.bindings[e]=[]),this.bindings[e].push({handler:t,ctx:n,once:o})}},{key:"once",value:function(e,t,n){this.on(e,t,n,!0)}},{key:"off",value:function(e,t){if("undefined"!=typeof this.bindings&&"undefined"!=typeof this.bindings[e])if("undefined"==typeof t)delete this.bindings[e];else for(var n=0;n<this.bindings[e].length;)this.bindings[e][n].handler===t?this.bindings[e].splice(n,1):++n}},{key:"trigger",value:function(e){if("undefined"!=typeof this.bindings&&this.bindings[e]){for(var t=0,n=arguments.length,o=Array(n>1?n-1:0),r=1;r<n;r++)o[r-1]=arguments[r];for(;t<this.bindings[e].length;){var a=this.bindings[e][t],i=a.handler,s=a.ctx,l=a.once,p=s;"undefined"==typeof p&&(p=this),i.apply(p,o),l?this.bindings[e].splice(t,1):++t}}}}]),e}();w.Utils={getActualBoundingClientRect:r,getScrollParents:a,getBounds:s,getOffsetParent:l,extend:d,addClass:u,removeClass:f,hasClass:c,updateClasses:y,defer:j,flush:S,uniqueId:x,Evented:N,getScrollBarSize:p,removeUtilElements:i};var M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),P=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}(),A=function(e,t,n){for(var o=!0;o;){var r=e,a=t,i=n;o=!1,null===r&&(r=Function.prototype);var s=Object.getOwnPropertyDescriptor(r,a);if(void 0!==s){if("value"in s)return s.value;var l=s.get;if(void 0===l)return;return l.call(i)}var p=Object.getPrototypeOf(r);if(null===p)return;e=p,t=a,n=i,o=!0,s=p=void 0}};if("undefined"==typeof w)throw new Error("You must include the utils.js file before tether.js");var B=w.Utils,a=B.getScrollParents,s=B.getBounds,l=B.getOffsetParent,d=B.extend,u=B.addClass,f=B.removeClass,y=B.updateClasses,j=B.defer,S=B.flush,p=B.getScrollBarSize,i=B.removeUtilElements,F=function(){if("undefined"==typeof document)return"";for(var e=document.createElement("div"),t=["transform","WebkitTransform","OTransform","MozTransform","msTransform"],n=0;n<t.length;++n){var o=t[n];if(void 0!==e.style[o])return o}}(),Y=[],W=function(){Y.forEach(function(e){e.position(!1)}),S()};!function(){var e=null,t=null,n=null,o=function r(){return"undefined"!=typeof t&&t>16?(t=Math.min(t-16,250),void(n=setTimeout(r,250))):void("undefined"!=typeof e&&b()-e<10||(null!=n&&(clearTimeout(n),n=null),e=b(),W(),t=b()-e))};"undefined"!=typeof window&&"undefined"!=typeof window.addEventListener&&["resize","scroll","touchmove"].forEach(function(e){window.addEventListener(e,o)})}();var q={center:"center",left:"right",right:"left"},I={middle:"middle",top:"bottom",bottom:"top"},R={top:0,left:0,middle:"50%",center:"50%",bottom:"100%",right:"100%"},z=function(e,t){var n=e.left,o=e.top;return"auto"===n&&(n=q[t.left]),"auto"===o&&(o=I[t.top]),{left:n,top:o}},H=function(e){var t=e.left,n=e.top;return"undefined"!=typeof R[e.left]&&(t=R[e.left]),"undefined"!=typeof R[e.top]&&(n=R[e.top]),{left:t,top:n}},L=function(e){var t=e.split(" "),n=M(t,2),o=n[0],r=n[1];return{top:o,left:r}},V=L,X=function(e){function t(e){var n=this;o(this,t),A(Object.getPrototypeOf(t.prototype),"constructor",this).call(this),this.position=this.position.bind(this),Y.push(this),this.history=[],this.setOptions(e,!1),w.modules.forEach(function(e){"undefined"!=typeof e.initialize&&e.initialize.call(n)}),this.position()}return g(t,e),P(t,[{key:"getClass",value:function(){var e=arguments.length<=0||void 0===arguments[0]?"":arguments[0],t=this.options.classes;return"undefined"!=typeof t&&t[e]?this.options.classes[e]:this.options.classPrefix?this.options.classPrefix+"-"+e:e}},{key:"setOptions",value:function(e){var t=this,n=arguments.length<=1||void 0===arguments[1]||arguments[1],o={offset:"0 0",targetOffset:"0 0",targetAttachment:"auto auto",classPrefix:"tether"};this.options=d(o,e);var r=this.options,i=r.element,s=r.target,l=r.targetModifier;if(this.element=i,this.target=s,this.targetModifier=l,"viewport"===this.target?(this.target=document.body,this.targetModifier="visible"):"scroll-handle"===this.target&&(this.target=document.body,this.targetModifier="scroll-handle"),["element","target"].forEach(function(e){if("undefined"==typeof t[e])throw new Error("Tether Error: Both element and target must be defined");"undefined"!=typeof t[e].jquery?t[e]=t[e][0]:"string"==typeof t[e]&&(t[e]=document.querySelector(t[e]))}),u(this.element,this.getClass("element")),this.options.addTargetClasses!==!1&&u(this.target,this.getClass("target")),!this.options.attachment)throw new Error("Tether Error: You must provide an attachment");this.targetAttachment=V(this.options.targetAttachment),this.attachment=V(this.options.attachment),this.offset=L(this.options.offset),this.targetOffset=L(this.options.targetOffset),"undefined"!=typeof this.scrollParents&&this.disable(),"scroll-handle"===this.targetModifier?this.scrollParents=[this.target]:this.scrollParents=a(this.target),this.options.enabled!==!1&&this.enable(n)}},{key:"getTargetBounds",value:function(){if("undefined"==typeof this.targetModifier)return s(this.target);if("visible"===this.targetModifier){if(this.target===document.body)return{top:pageYOffset,left:pageXOffset,height:innerHeight,width:innerWidth};var e=s(this.target),t={height:e.height,width:e.width,top:e.top,left:e.left};return t.height=Math.min(t.height,e.height-(pageYOffset-e.top)),t.height=Math.min(t.height,e.height-(e.top+e.height-(pageYOffset+innerHeight))),t.height=Math.min(innerHeight,t.height),t.height-=2,t.width=Math.min(t.width,e.width-(pageXOffset-e.left)),t.width=Math.min(t.width,e.width-(e.left+e.width-(pageXOffset+innerWidth))),t.width=Math.min(innerWidth,t.width),t.width-=2,t.top<pageYOffset&&(t.top=pageYOffset),t.left<pageXOffset&&(t.left=pageXOffset),t}if("scroll-handle"===this.targetModifier){var e=void 0,n=this.target;n===document.body?(n=document.documentElement,e={left:pageXOffset,top:pageYOffset,height:innerHeight,width:innerWidth}):e=s(n);var o=getComputedStyle(n),r=n.scrollWidth>n.clientWidth||[o.overflow,o.overflowX].indexOf("scroll")>=0||this.target!==document.body,a=0;r&&(a=15);var i=e.height-parseFloat(o.borderTopWidth)-parseFloat(o.borderBottomWidth)-a,t={width:15,height:.975*i*(i/n.scrollHeight),left:e.left+e.width-parseFloat(o.borderLeftWidth)-15},l=0;i<408&&this.target===document.body&&(l=-11e-5*Math.pow(i,2)-.00727*i+22.58),this.target!==document.body&&(t.height=Math.max(t.height,24));var p=this.target.scrollTop/(n.scrollHeight-i);return t.top=p*(i-t.height-l)+e.top+parseFloat(o.borderTopWidth),this.target===document.body&&(t.height=Math.max(t.height,24)),t}}},{key:"clearCache",value:function(){this._cache={}}},{key:"cache",value:function(e,t){return"undefined"==typeof this._cache&&(this._cache={}),"undefined"==typeof this._cache[e]&&(this._cache[e]=t.call(this)),this._cache[e]}},{key:"enable",value:function(){var e=this,t=arguments.length<=0||void 0===arguments[0]||arguments[0];this.options.addTargetClasses!==!1&&u(this.target,this.getClass("enabled")),u(this.element,this.getClass("enabled")),this.enabled=!0,this.scrollParents.forEach(function(t){t!==e.target.ownerDocument&&t.addEventListener("scroll",e.position)}),t&&this.position()}},{key:"disable",value:function(){var e=this;f(this.target,this.getClass("enabled")),f(this.element,this.getClass("enabled")),this.enabled=!1,"undefined"!=typeof this.scrollParents&&this.scrollParents.forEach(function(t){t.removeEventListener("scroll",e.position)})}},{key:"destroy",value:function(){var e=this;this.disable(),Y.forEach(function(t,n){t===e&&Y.splice(n,1)}),0===Y.length&&i()}},{key:"updateAttachClasses",value:function(e,t){var n=this;e=e||this.attachment,t=t||this.targetAttachment;var o=["left","top","bottom","right","middle","center"];"undefined"!=typeof this._addAttachClasses&&this._addAttachClasses.length&&this._addAttachClasses.splice(0,this._addAttachClasses.length),"undefined"==typeof this._addAttachClasses&&(this._addAttachClasses=[]);var r=this._addAttachClasses;e.top&&r.push(this.getClass("element-attached")+"-"+e.top),e.left&&r.push(this.getClass("element-attached")+"-"+e.left),t.top&&r.push(this.getClass("target-attached")+"-"+t.top),t.left&&r.push(this.getClass("target-attached")+"-"+t.left);var a=[];o.forEach(function(e){a.push(n.getClass("element-attached")+"-"+e),a.push(n.getClass("target-attached")+"-"+e)}),j(function(){"undefined"!=typeof n._addAttachClasses&&(y(n.element,n._addAttachClasses,a),n.options.addTargetClasses!==!1&&y(n.target,n._addAttachClasses,a),delete n._addAttachClasses)})}},{key:"position",value:function(){var e=this,t=arguments.length<=0||void 0===arguments[0]||arguments[0];if(this.enabled){this.clearCache();var n=z(this.targetAttachment,this.attachment);this.updateAttachClasses(this.attachment,n);var o=this.cache("element-bounds",function(){return s(e.element)}),r=o.width,a=o.height;if(0===r&&0===a&&"undefined"!=typeof this.lastSize){var i=this.lastSize;r=i.width,a=i.height}else this.lastSize={width:r,height:a};var d=this.cache("target-bounds",function(){return e.getTargetBounds()}),f=d,u=T(H(this.attachment),{width:r,height:a}),c=T(H(n),f),h=T(this.offset,{width:r,height:a}),m=T(this.targetOffset,f);u=D(u,h),c=D(c,m);for(var y=d.left+c.left-u.left,g=d.top+c.top-u.top,v=0;v<w.modules.length;++v){var b=w.modules[v],C=b.position.call(this,{left:y,top:g,targetAttachment:n,targetPos:d,elementPos:o,offset:u,targetOffset:c,manualOffset:h,manualTargetOffset:m,scrollbarSize:O,attachment:this.attachment});if(C===!1)return!1;"undefined"!=typeof C&&"object"==typeof C&&(g=C.top,y=C.left)}var P={page:{top:g,left:y},viewport:{top:g-pageYOffset,bottom:pageYOffset-g-a+innerHeight,left:y-pageXOffset,right:pageXOffset-y-r+innerWidth}},_=this.target.ownerDocument,x=_.defaultView,O=void 0;return _.body.scrollWidth>x.innerWidth&&(O=this.cache("scrollbar-size",p),P.viewport.bottom-=O.height),_.body.scrollHeight>x.innerHeight&&(O=this.cache("scrollbar-size",p),P.viewport.right-=O.width),["","static"].indexOf(_.body.style.position)!==-1&&["","static"].indexOf(_.body.parentElement.style.position)!==-1||(P.page.bottom=_.body.scrollHeight-g-a,P.page.right=_.body.scrollWidth-y-r),"undefined"!=typeof this.options.optimizations&&this.options.optimizations.moveElement!==!1&&"undefined"==typeof this.targetModifier&&!function(){var t=e.cache("target-offsetparent",function(){return l(e.target)}),n=e.cache("target-offsetparent-bounds",function(){return s(t)}),o=getComputedStyle(t),r=n,a={};if(["Top","Left","Bottom","Right"].forEach(function(e){a[e.toLowerCase()]=parseFloat(o["border"+e+"Width"])}),n.right=_.body.scrollWidth-n.left-r.width+a.right,n.bottom=_.body.scrollHeight-n.top-r.height+a.bottom,P.page.top>=n.top+a.top&&P.page.bottom>=n.bottom&&P.page.left>=n.left+a.left&&P.page.right>=n.right){var i=t.scrollTop,p=t.scrollLeft;P.offset={top:P.page.top-n.top+i-a.top,left:P.page.left-n.left+p-a.left}}}(),this.move(P),this.history.unshift(P),this.history.length>3&&this.history.pop(),t&&S(),!0}}},{key:"move",value:function(e){var t=this;if("undefined"!=typeof this.element.parentNode){var n={};for(var o in e){n[o]={};for(var r in e[o]){for(var a=!1,i=0;i<this.history.length;++i){var s=this.history[i];if("undefined"!=typeof s[o]&&!v(s[o][r],e[o][r])){a=!0;break}}a||(n[o][r]=!0)}}var p={top:"",left:"",right:"",bottom:""},f=function(e,n){var o="undefined"!=typeof t.options.optimizations,r=o?t.options.optimizations.gpu:null;if(r!==!1){var a=void 0,i=void 0;e.top?(p.top=0,a=n.top):(p.bottom=0,a=-n.bottom),e.left?(p.left=0,i=n.left):(p.right=0,i=-n.right),p[F]="translateX("+Math.round(i)+"px) translateY("+Math.round(a)+"px)","msTransform"!==F&&(p[F]+=" translateZ(0)")}else e.top?p.top=n.top+"px":p.bottom=n.bottom+"px",e.left?p.left=n.left+"px":p.right=n.right+"px"},u=!1;if((n.page.top||n.page.bottom)&&(n.page.left||n.page.right)?(p.position="absolute",f(n.page,e.page)):(n.viewport.top||n.viewport.bottom)&&(n.viewport.left||n.viewport.right)?(p.position="fixed",f(n.viewport,e.viewport)):"undefined"!=typeof n.offset&&n.offset.top&&n.offset.left?!function(){p.position="absolute";var o=t.cache("target-offsetparent",function(){return l(t.target)});l(t.element)!==o&&j(function(){t.element.parentNode.removeChild(t.element),o.appendChild(t.element)}),f(n.offset,e.offset),u=!0}():(p.position="absolute",f({top:!0,left:!0},e.page)),!u){for(var c=!0,h=this.element.parentNode;h&&1===h.nodeType&&"BODY"!==h.tagName;){if("static"!==getComputedStyle(h).position){c=!1;break}h=h.parentNode}c||(this.element.parentNode.removeChild(this.element),this.element.ownerDocument.body.appendChild(this.element))}var m={},y=!1;for(var r in p){var g=p[r],b=this.element.style[r];b!==g&&(y=!0,m[r]=g)}y&&j(function(){d(t.element.style,m),t.trigger("repositioned")})}}}]),t}(N);X.modules=[],w.position=W;var U=d(X,w),M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),B=w.Utils,s=B.getBounds,d=B.extend,y=B.updateClasses,j=B.defer,K=["left","top","right","bottom"];w.modules.push({position:function(e){var t=this,n=e.top,o=e.left,r=e.targetAttachment;if(!this.options.constraints)return!0;var a=this.cache("element-bounds",function(){return s(t.element)}),i=a.height,l=a.width;if(0===l&&0===i&&"undefined"!=typeof this.lastSize){var p=this.lastSize;l=p.width,i=p.height}var f=this.cache("target-bounds",function(){return t.getTargetBounds()}),u=f.height,c=f.width,h=[this.getClass("pinned"),this.getClass("out-of-bounds")];this.options.constraints.forEach(function(e){var t=e.outOfBoundsClass,n=e.pinnedClass;t&&h.push(t),n&&h.push(n)}),h.forEach(function(e){["left","top","right","bottom"].forEach(function(t){h.push(e+"-"+t)})});var m=[],g=d({},r),v=d({},this.attachment);return this.options.constraints.forEach(function(e){var a=e.to,s=e.attachment,p=e.pin;"undefined"==typeof s&&(s="");var d=void 0,f=void 0;if(s.indexOf(" ")>=0){var h=s.split(" "),y=M(h,2);f=y[0],d=y[1]}else d=f=s;var b=C(t,a);"target"!==f&&"both"!==f||(n<b[1]&&"top"===g.top&&(n+=u,g.top="bottom"),n+i>b[3]&&"bottom"===g.top&&(n-=u,g.top="top")),"together"===f&&("top"===g.top&&("bottom"===v.top&&n<b[1]?(n+=u,g.top="bottom",n+=i,v.top="top"):"top"===v.top&&n+i>b[3]&&n-(i-u)>=b[1]&&(n-=i-u,g.top="bottom",v.top="bottom")),"bottom"===g.top&&("top"===v.top&&n+i>b[3]?(n-=u,g.top="top",n-=i,v.top="bottom"):"bottom"===v.top&&n<b[1]&&n+(2*i-u)<=b[3]&&(n+=i-u,g.top="top",v.top="top")),"middle"===g.top&&(n+i>b[3]&&"top"===v.top?(n-=i,v.top="bottom"):n<b[1]&&"bottom"===v.top&&(n+=i,v.top="top"))),"target"!==d&&"both"!==d||(o<b[0]&&"left"===g.left&&(o+=c,g.left="right"),o+l>b[2]&&"right"===g.left&&(o-=c,g.left="left")),"together"===d&&(o<b[0]&&"left"===g.left?"right"===v.left?(o+=c,g.left="right",o+=l,v.left="left"):"left"===v.left&&(o+=c,g.left="right",o-=l,v.left="right"):o+l>b[2]&&"right"===g.left?"left"===v.left?(o-=c,g.left="left",o-=l,v.left="right"):"right"===v.left&&(o-=c,g.left="left",o+=l,v.left="left"):"center"===g.left&&(o+l>b[2]&&"left"===v.left?(o-=l,v.left="right"):o<b[0]&&"right"===v.left&&(o+=l,v.left="left"))),"element"!==f&&"both"!==f||(n<b[1]&&"bottom"===v.top&&(n+=i,v.top="top"),n+i>b[3]&&"top"===v.top&&(n-=i,v.top="bottom")),"element"!==d&&"both"!==d||(o<b[0]&&("right"===v.left?(o+=l,v.left="left"):"center"===v.left&&(o+=l/2,v.left="left")),o+l>b[2]&&("left"===v.left?(o-=l,v.left="right"):"center"===v.left&&(o-=l/2,v.left="right"))),"string"==typeof p?p=p.split(",").map(function(e){return e.trim()}):p===!0&&(p=["top","left","right","bottom"]),p=p||[];var D=[],T=[];n<b[1]&&(p.indexOf("top")>=0?(n=b[1],D.push("top")):T.push("top")),n+i>b[3]&&(p.indexOf("bottom")>=0?(n=b[3]-i,D.push("bottom")):T.push("bottom")),o<b[0]&&(p.indexOf("left")>=0?(o=b[0],D.push("left")):T.push("left")),o+l>b[2]&&(p.indexOf("right")>=0?(o=b[2]-l,D.push("right")):T.push("right")),D.length&&!function(){var e=void 0;e="undefined"!=typeof t.options.pinnedClass?t.options.pinnedClass:t.getClass("pinned"),m.push(e),D.forEach(function(t){m.push(e+"-"+t)})}(),T.length&&!function(){var e=void 0;e="undefined"!=typeof t.options.outOfBoundsClass?t.options.outOfBoundsClass:t.getClass("out-of-bounds"),m.push(e),T.forEach(function(t){m.push(e+"-"+t)})}(),(D.indexOf("left")>=0||D.indexOf("right")>=0)&&(v.left=g.left=!1),(D.indexOf("top")>=0||D.indexOf("bottom")>=0)&&(v.top=g.top=!1),g.top===r.top&&g.left===r.left&&v.top===t.attachment.top&&v.left===t.attachment.left||(t.updateAttachClasses(v,g),t.trigger("update",{attachment:v,targetAttachment:g}))}),j(function(){t.options.addTargetClasses!==!1&&y(t.target,m,h),y(t.element,m,h)}),{top:n,left:o}}});var B=w.Utils,s=B.getBounds,y=B.updateClasses,j=B.defer;w.modules.push({position:function(e){var t=this,n=e.top,o=e.left,r=this.cache("element-bounds",function(){return s(t.element)}),a=r.height,i=r.width,l=this.getTargetBounds(),p=n+a,d=o+i,f=[];n<=l.bottom&&p>=l.top&&["left","right"].forEach(function(e){var t=l[e];t!==o&&t!==d||f.push(e)}),o<=l.right&&d>=l.left&&["top","bottom"].forEach(function(e){var t=l[e];t!==n&&t!==p||f.push(e)});var u=[],c=[],h=["left","top","right","bottom"];return u.push(this.getClass("abutted")),h.forEach(function(e){u.push(t.getClass("abutted")+"-"+e)}),f.length&&c.push(this.getClass("abutted")),f.forEach(function(e){c.push(t.getClass("abutted")+"-"+e)}),j(function(){t.options.addTargetClasses!==!1&&y(t.target,c,u),y(t.element,c,u)}),!0}});var M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}();return w.modules.push({position:function(e){var t=e.top,n=e.left;if(this.options.shift){var o=this.options.shift;"function"==typeof this.options.shift&&(o=this.options.shift.call(this,{top:t,left:n}));var r=void 0,a=void 0;if("string"==typeof o){o=o.split(" "),o[1]=o[1]||o[0];var i=o,s=M(i,2);r=s[0],a=s[1],r=parseFloat(r,10),a=parseFloat(a,10)}else r=o.top,a=o.left;return t+=r,n+=a,{top:t,left:n}}}}),U})}])});
 
 /***/ },
 /* 344 */
-/*!***********************************************!*\
-  !*** ./app/components/courses/roster-list.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _messageIcon = __webpack_require__(/*! ../icons/message-icon.js */ 343);
-	
-	var _messageIcon2 = _interopRequireDefault(_messageIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RosterList = _react2.default.createClass({
-	  displayName: 'RosterList',
-	
-	
-	  render: function render() {
-	
-	    var noStudents = this.props.data.length === 0 ? _react2.default.createElement(
-	      'p',
-	      { className: 'center no-data-message' },
-	      'There are no students enrolled. ',
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { className: 'link-plain link-orange', to: '/login' },
-	        'Be the first!'
-	      )
-	    ) : null;
-	
-	    var rosterNodes = this.props.data.map(function (student) {
-	      return _react2.default.createElement(Student, {
-	        first_name: student.first_name,
-	        instructor_id: this.props.instructor_id,
-	        last_name: student.last_name,
-	        profile_pic: student.profile_pic,
-	        key: student.id,
-	        id: student.id,
-	        initiateMessageClick: this.props.initiateMessageClick });
-	    }.bind(this));
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { id: 'roster-review-comments-div' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-12' },
-	          _react2.default.createElement(
-	            'h2',
-	            { className: 'center' },
-	            'Course Roster'
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        noStudents,
-	        _react2.default.createElement('div', { className: 'col-sm-2' }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-8 roster-list' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            rosterNodes
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var Student = _react2.default.createClass({
-	  displayName: 'Student',
-	
-	
-	  initiateMessageClick: function initiateMessageClick() {
-	    console.log("send that fool a message!");
-	    this.props.initiateMessageClick(this.props.id);
-	  },
-	
-	  render: function render() {
-	
-	    var sendMessageOption = sessionStorage.user_id && Number(sessionStorage.user_id) == this.props.instructor_id ? _react2.default.createElement(
-	      'span',
-	      { onClick: this.initiateMessageClick, className: 'message-student pointer' },
-	      _react2.default.createElement(_messageIcon2.default, null)
-	    ) : null;
-	
-	    var studentImageStyle = {
-	      backgroundImage: 'url(' + this.props.profile_pic + ')'
-	    };
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'col-sm-3' },
-	      _react2.default.createElement(
-	        'h3',
-	        { className: 'center' },
-	        this.props.first_name,
-	        ' ',
-	        this.props.last_name
-	      ),
-	      sendMessageOption,
-	      _react2.default.createElement('div', { className: 'student-profile-img center', style: studentImageStyle })
-	    );
-	  }
-	});
-	
-	exports.default = RosterList;
-
-/***/ },
-/* 345 */
-/*!***********************************************!*\
-  !*** ./app/components/courses/review-list.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var moment = __webpack_require__(/*! moment */ 346);
-	moment().format();
-	
-	var ReviewList = _react2.default.createClass({
-	  displayName: 'ReviewList',
-	
-	
-	  render: function render() {
-	    var reviewNodes = this.props.data.map(function (review) {
-	      return _react2.default.createElement(Review, {
-	        date: moment(review.creation_date).format("MMMM Do YYYY"),
-	        name: review.first_name + ' ' + review.last_name,
-	        profile_pic: review.profile_pic,
-	        review: review.review,
-	        key: "review" + review.id
-	      });
-	    });
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { id: 'roster-review-comments-div' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-12' },
-	          _react2.default.createElement(
-	            'h2',
-	            { className: 'center' },
-	            'Instructor Reviews'
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        _react2.default.createElement('div', { className: 'col-sm-2' }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-10 roster-list' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            reviewNodes
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var Review = _react2.default.createClass({
-	  displayName: 'Review',
-	
-	
-	  render: function render() {
-	
-	    var reviewerImageStyle = {
-	      backgroundImage: 'url(' + this.props.profile_pic + ')'
-	    };
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement('div', { className: 'col-sm-3 reviewer-image-style', style: reviewerImageStyle }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-9' },
-	        _react2.default.createElement(
-	          'p',
-	          { className: 'reviewer-name' },
-	          this.props.name
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          this.props.date
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          { className: 'review-message' },
-	          this.props.review
-	        ),
-	        _react2.default.createElement('hr', null)
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = ReviewList;
-
-/***/ },
-/* 346 */
 /*!****************************!*\
   !*** ./~/moment/moment.js ***!
   \****************************/
@@ -44463,10 +44450,10 @@
 	    return _moment;
 	
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 347)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 345)(module)))
 
 /***/ },
-/* 347 */
+/* 345 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -44485,1272 +44472,7 @@
 
 
 /***/ },
-/* 348 */
-/*!*************************************************!*\
-  !*** ./app/components/courses/comment-board.js ***!
-  \*************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _addCommentForm = __webpack_require__(/*! ./add-comment-form.js */ 349);
-	
-	var _addCommentForm2 = _interopRequireDefault(_addCommentForm);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var moment = __webpack_require__(/*! moment */ 346);
-	moment().format();
-	
-	
-	var CommentBoard = _react2.default.createClass({
-	  displayName: 'CommentBoard',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      displayForm: false
-	    };
-	  },
-	
-	  handleFormDisplay: function handleFormDisplay() {
-	    this.setState({ displayForm: !this.state.displayForm });
-	  },
-	
-	  render: function render() {
-	
-	    var noCommentsNotLogged = this.props.data.length == 0 && !sessionStorage.first_name ? _react2.default.createElement(
-	      'p',
-	      { className: 'center no-data-message' },
-	      'No comments. ',
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { className: 'link-plain link-orange', to: '/login' },
-	        'Log in and sign up'
-	      ),
-	      ' to start commenting!'
-	    ) : null;
-	
-	    var noCommentsLogged = this.props.data.length == 0 && sessionStorage.first_name ? _react2.default.createElement(
-	      'p',
-	      { className: 'center no-data-message' },
-	      'Be the first to add a comment!'
-	    ) : null;
-	
-	    var commentNodes = this.props.data.map(function (comment) {
-	      return _react2.default.createElement(Comment, {
-	        date: moment(comment.comment_date).format("MMMM Do YYYY"),
-	        name: comment.first_name + ' ' + comment.last_name,
-	        profile_pic: comment.profile_pic,
-	        comment: comment.comment,
-	        key: "review" + comment.id
-	      });
-	    });
-	
-	    var addComment = {
-	      textAlign: "right",
-	      padding: "10px",
-	      cursor: "pointer"
-	    };
-	
-	    var addCommentButton = sessionStorage.first_name ? _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-12' },
-	        _react2.default.createElement(
-	          'p',
-	          {
-	            style: addComment,
-	            id: 'add-comment',
-	            onClick: this.handleFormDisplay },
-	          '+ add comment'
-	        )
-	      )
-	    ) : null;
-	
-	    var addCommentForm = this.state.displayForm ? _react2.default.createElement(_addCommentForm2.default, {
-	      handleCommentSubmit: this.props.handleCommentSubmit,
-	      changeFormDisplay: this.handleFormDisplay
-	    }) : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { id: 'roster-review-comments-div' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-12' },
-	          _react2.default.createElement(
-	            'h2',
-	            { className: 'center' },
-	            'Comment Board'
-	          )
-	        )
-	      ),
-	      addCommentButton,
-	      addCommentForm,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'row' },
-	        noCommentsNotLogged,
-	        noCommentsLogged,
-	        _react2.default.createElement('div', { className: 'col-sm-2' }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-10 roster-list' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            commentNodes
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var Comment = _react2.default.createClass({
-	  displayName: 'Comment',
-	
-	
-	  render: function render() {
-	
-	    var commenterImageStyle = {
-	      backgroundImage: 'url(' + this.props.profile_pic + ')'
-	    };
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement('div', { className: 'col-sm-3 commenter-image', style: commenterImageStyle }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-9' },
-	        _react2.default.createElement(
-	          'p',
-	          { className: 'reviewer-name' },
-	          this.props.name
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          this.props.date
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          { className: 'review-message' },
-	          this.props.comment
-	        ),
-	        _react2.default.createElement('hr', null)
-	      )
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	module.exports = (0, _reactRedux.connect)(mapStateToProps)(CommentBoard);
-
-/***/ },
-/* 349 */
-/*!****************************************************!*\
-  !*** ./app/components/courses/add-comment-form.js ***!
-  \****************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var moment = __webpack_require__(/*! moment */ 346);
-	moment().format();
-	
-	var AddCommentForm = _react2.default.createClass({
-	  displayName: 'AddCommentForm',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return { comment: '' };
-	  },
-	  handleCommentChange: function handleCommentChange(event) {
-	    this.setState({ comment: event.target.value });
-	  },
-	  handleSubmit: function handleSubmit(event) {
-	    event.preventDefault();
-	
-	    var comment = this.state.comment.trim();
-	
-	    if (!comment) {
-	      console.log("Please fill out a comment before submitting");
-	      return;
-	    } else {
-	      this.props.changeFormDisplay();
-	      this.props.handleCommentSubmit({
-	        comment: comment
-	      });
-	    }
-	    this.setState({
-	      comment: ''
-	    });
-	  },
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'form',
-	      { className: 'commentSubmitForm', onSubmit: this.handleSubmit },
-	      _react2.default.createElement('textarea', {
-	        type: 'text',
-	        placeholder: 'comment',
-	        value: this.state.comment,
-	        onChange: this.handleCommentChange }),
-	      _react2.default.createElement('input', { type: 'submit', value: 'Add Comment', className: 'form-submit-button' })
-	    );
-	  }
-	});
-	
-	exports.default = AddCommentForm;
-
-/***/ },
-/* 350 */
-/*!*********************************************************!*\
-  !*** ./app/components/courses/initiate-message-form.js ***!
-  \*********************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _modalStylesMargin = __webpack_require__(/*! ../styles/modal-styles-margin.js */ 351);
-	
-	var _modalStylesMargin2 = _interopRequireDefault(_modalStylesMargin);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var moment = __webpack_require__(/*! moment */ 346);
-	moment().format();
-	
-	var InitiateMessageForm = _react2.default.createClass({
-	  displayName: 'InitiateMessageForm',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      message: ''
-	    };
-	  },
-	
-	  handleMessageSubmit: function handleMessageSubmit(message) {
-	    this.props.handleMessageSubmit(message);
-	  },
-	
-	  handleMessageChange: function handleMessageChange(event) {
-	    this.setState({ message: event.target.value });
-	  },
-	
-	  handleSubmit: function handleSubmit(event) {
-	    event.preventDefault();
-	    var message = this.state.message.trim();
-	    if (!message) {
-	      return;
-	    } else {
-	      this.handleMessageSubmit({
-	        message: message
-	      });
-	    }
-	    this.setState({
-	      message: ''
-	    });
-	  },
-	
-	  render: function render() {
-	
-	    var textAreaStyle = {
-	      width: "80%",
-	      marginLeft: "10%"
-	    };
-	
-	    return _react2.default.createElement(
-	      'form',
-	      { onSubmit: this.handleSubmit },
-	      _react2.default.createElement('textarea', {
-	        type: 'text',
-	        style: textAreaStyle,
-	        required: true,
-	        placeholder: 'type message here...',
-	        value: this.state.message,
-	        onChange: this.handleMessageChange }),
-	      _react2.default.createElement(
-	        'button',
-	        { style: _modalStylesMargin2.default.btn, onClick: this.handleSubmit },
-	        'Send'
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = InitiateMessageForm;
-
-/***/ },
-/* 351 */
-/*!******************************************************!*\
-  !*** ./app/components/styles/modal-styles-margin.js ***!
-  \******************************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var modalStylesMargin = {
-	  btn: {
-	    padding: '1em 2em',
-	    width: '25%',
-	    margin: '1em 0 0 37.5%',
-	    outline: 'none',
-	    fontSize: 16,
-	    fontWeight: '600',
-	    background: 'orange',
-	    color: '#FFFFFF',
-	    border: 'none',
-	    borderRadius: '3px'
-	  },
-	  container: {
-	    padding: '2em',
-	    textAlign: 'center',
-	    borderRadius: '3px'
-	  },
-	  title: {
-	    margin: 0,
-	    padding: '2em 1em 0 1em',
-	    fontSize: '1.5em',
-	    color: 'orange',
-	    textAlign: 'center',
-	    fontWeight: 400
-	  }
-	};
-	
-	exports.default = modalStylesMargin;
-
-/***/ },
-/* 352 */
-/*!********************************************!*\
-  !*** ./app/components/primary-template.js ***!
-  \********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _navbar = __webpack_require__(/*! ./navbar.js */ 305);
-	
-	var _navbar2 = _interopRequireDefault(_navbar);
-	
-	var _navbarLoggedIn = __webpack_require__(/*! ./navbar-logged-in.js */ 306);
-	
-	var _navbarLoggedIn2 = _interopRequireDefault(_navbarLoggedIn);
-	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
-	
-	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
-	
-	var _footer = __webpack_require__(/*! ./footer.js */ 333);
-	
-	var _footer2 = _interopRequireDefault(_footer);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	var _store = __webpack_require__(/*! ../store */ 196);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 317);
-	
-	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 316);
-	
-	var _modalStyles2 = _interopRequireDefault(_modalStyles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var DATABASE_URL = "http://localhost:8080";
-	
-	var PrimaryTemplate = _react2.default.createClass({
-	  displayName: 'PrimaryTemplate',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      unreadMessagesExist: null
-	    };
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    this.checkForUnreadMessages();
-	    if (!this.props.userState.profile && sessionStorage.user_id) {
-	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
-	    }
-	  },
-	
-	  checkForUnreadMessages: function checkForUnreadMessages() {
-	    _superagent2.default.get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id).end(function (err, res) {
-	      if (err) {
-	        browserHistory.push('/error');
-	      } else {
-	        this.setState({ unreadMessagesExist: res.body.unread_messages });
-	      }
-	    }.bind(this));
-	  },
-	
-	  showModal: function showModal() {
-	    this.refs.modal.show();
-	  },
-	
-	  hideModal: function hideModal() {
-	    this.refs.modal.hide();
-	    browserHistory.push('/');
-	  },
-	
-	  render: function render() {
-	    var nav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, {
-	      showModal: this.showModal,
-	      unreadMessagesExist: this.state.unreadMessagesExist,
-	      checkForUnreadMessages: this.checkForUnreadMessages
-	    }) : _react2.default.createElement(_navbar2.default, null);
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'container-fluid' },
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'secondary-div' },
-	          _react2.default.createElement(
-	            'div',
-	            { id: 'secondary-div-row', className: 'row' },
-	            _react2.default.createElement('div', { className: 'col-sm-2' }),
-	            _react2.default.createElement(
-	              'div',
-	              { id: 'center-content', className: 'col-sm-8' },
-	              nav,
-	              this.props.children,
-	              _react2.default.createElement(
-	                _OutlineModal2.default,
-	                { ref: 'modal', style: _modalStyles2.default.container },
-	                _react2.default.createElement(
-	                  'h2',
-	                  { style: _modalStyles2.default.title },
-	                  'Thanks for stopping by...see you soon!'
-	                ),
-	                _react2.default.createElement(
-	                  'button',
-	                  { style: _modalStyles2.default.btn, onClick: this.hideModal },
-	                  'Close'
-	                )
-	              )
-	            )
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_footer2.default, null)
-	      )
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    login: function login(user) {
-	      dispatch((0, _userActions.userLoginSuccess)(user));
-	    }
-	  };
-	};
-	
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PrimaryTemplate);
-
-/***/ },
-/* 353 */
-/*!**********************************************!*\
-  !*** ./app/components/secondary-template.js ***!
-  \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _navbarSecondary = __webpack_require__(/*! ./navbar-secondary.js */ 354);
-	
-	var _navbarSecondary2 = _interopRequireDefault(_navbarSecondary);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _footer = __webpack_require__(/*! ./footer.js */ 333);
-	
-	var _footer2 = _interopRequireDefault(_footer);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	var _store = __webpack_require__(/*! ../store */ 196);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 317);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SecondaryTemplate = _react2.default.createClass({
-	  displayName: 'SecondaryTemplate',
-	
-	
-	  componentDidMount: function componentDidMount() {
-	    if (!this.props.userState.profile && sessionStorage.user_id) {
-	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
-	    }
-	  },
-	
-	  render: function render() {
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'container-fluid' },
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'secondary-div' },
-	          _react2.default.createElement(
-	            'div',
-	            { id: 'secondary-div-row', className: 'row' },
-	            _react2.default.createElement('div', { className: 'col-sm-2' }),
-	            _react2.default.createElement(
-	              'div',
-	              { id: 'center-content', className: 'col-sm-8' },
-	              _react2.default.createElement(_navbarSecondary2.default, null),
-	              this.props.children
-	            )
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_footer2.default, null)
-	      )
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    login: function login(user) {
-	      dispatch((0, _userActions.userLoginSuccess)(user));
-	    }
-	  };
-	};
-	
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SecondaryTemplate);
-
-/***/ },
-/* 354 */
-/*!********************************************!*\
-  !*** ./app/components/navbar-secondary.js ***!
-  \********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var NavbarSecondary = _react2.default.createClass({
-	  displayName: 'NavbarSecondary',
-	
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'nav',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        'nav',
-	        { className: 'navbar' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'container-fluid' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'navbar-header', id: 'secondary-header' },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { className: 'navbar-brand', to: '/' },
-	              _react2.default.createElement('img', { src: '../../images/owl.png' })
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { id: 'you-niversity', className: 'navbar-brand', to: '/' },
-	              _react2.default.createElement(
-	                'h1',
-	                null,
-	                ' ',
-	                _react2.default.createElement(
-	                  'span',
-	                  { className: 'you' },
-	                  'yoU'
-	                ),
-	                'niversity'
-	              )
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = NavbarSecondary;
-
-/***/ },
-/* 355 */
-/*!***************************************!*\
-  !*** ./app/components/signup-form.js ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	var _store = __webpack_require__(/*! ../store */ 196);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 317);
-	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
-	
-	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
-	
-	var _modalStyles = __webpack_require__(/*! ./styles/modal-styles.js */ 316);
-	
-	var _modalStyles2 = _interopRequireDefault(_modalStyles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var DATABASE_URL = "http://localhost:8080";
-	
-	var SignupDisplay = _react2.default.createClass({
-	  displayName: 'SignupDisplay',
-	
-	
-	  handleUserSubmit: function handleUserSubmit(user) {
-	    _superagent2.default.post(DATABASE_URL + "/auth/signup").send(user).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error in creating this user");
-	      } else {
-	        sessionStorage.setItem('first_name', user.first_name);
-	        sessionStorage.setItem('user_id', res.body.id);
-	        sessionStorage.setItem('image_url', user.profile_pic);
-	        this.props.login(res.body);
-	        this.showModal();
-	      }
-	    }.bind(this));
-	  },
-	
-	  showModal: function showModal() {
-	    this.refs.modal.show();
-	  },
-	
-	  hideModal: function hideModal() {
-	    this.refs.modal.hide();
-	    _reactRouter.browserHistory.goBack();
-	  },
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement(
-	        _OutlineModal2.default,
-	        { ref: 'modal', style: _modalStyles2.default.container },
-	        _react2.default.createElement(
-	          'h2',
-	          { style: _modalStyles2.default.title },
-	          'Welcome to youNiversity!'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { style: _modalStyles2.default.btn, onClick: this.hideModal },
-	          'Close'
-	        )
-	      ),
-	      _react2.default.createElement('div', { className: 'col-sm-1' }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-10 form-display' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'signup-display' },
-	          _react2.default.createElement(AddUserForm, {
-	            onUserSubmit: this.handleUserSubmit
-	          }),
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Already signed up? Login ',
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/login' },
-	              'here'
-	            ),
-	            '.'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var AddUserForm = _react2.default.createClass({
-	  displayName: 'AddUserForm',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return { first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '' };
-	  },
-	  handleFirstNameChange: function handleFirstNameChange(event) {
-	    this.setState({ first_name: event.target.value });
-	  },
-	  handleLastNameChange: function handleLastNameChange(event) {
-	    this.setState({ last_name: event.target.value });
-	  },
-	  handleEmailChange: function handleEmailChange(event) {
-	    this.setState({ email: event.target.value });
-	  },
-	  handleProfilePicChange: function handleProfilePicChange(event) {
-	    this.setState({ profile_pic: event.target.value });
-	  },
-	  handleCityChange: function handleCityChange(event) {
-	    this.setState({ city: event.target.value });
-	  },
-	  handleStateChange: function handleStateChange(event) {
-	    this.setState({ state: event.target.value });
-	  },
-	  handlePasswordChange: function handlePasswordChange(event) {
-	    this.setState({ password: event.target.value });
-	  },
-	  handleConfirmPasswordChange: function handleConfirmPasswordChange(event) {
-	    this.setState({ confirm_password: event.target.value });
-	  },
-	
-	  handleSubmit: function handleSubmit(event) {
-	    event.preventDefault();
-	    var first_name = this.state.first_name.trim();
-	    var last_name = this.state.last_name.trim();
-	    var email = this.state.email.trim();
-	    var profile_pic = this.state.profile_pic.trim();
-	    var city = this.state.city.trim();
-	    var state = this.state.state.trim();
-	    var password = this.state.password.trim();
-	    var confirm_password = this.state.confirm_password.trim();
-	    var passwordMatchingError = false;
-	    var allFieldsRequiredError = false;
-	    var passwordMinimumCharsError = false;
-	
-	    if (!first_name || !last_name || !email || !profile_pic || !city || !state || !password || !confirm_password) {
-	      allFieldsRequiredError = true;
-	    } else {
-	      allFieldsRequiredError = false;
-	    }
-	
-	    if (password.length < 8) {
-	      console.log('password is too short');
-	      passwordMinimumCharsError = true;
-	    } else {
-	      passwordMinimumCharsError = false;
-	    }
-	
-	    if (password !== confirm_password) {
-	      console.log('Passwords don\'t match.');
-	      passwordMatchingError = true;
-	    } else {
-	      passwordMatchingError = false;
-	    }
-	
-	    if (allFieldsRequiredError === true || passwordMatchingError === true || passwordMinimumCharsError === true) {
-	      console.log("An error needs to be addressed");
-	      this.setState({ passwordMatchingError: passwordMatchingError, allFieldsRequiredError: allFieldsRequiredError, passwordMinimumCharsError: passwordMinimumCharsError });
-	      return;
-	    } else {
-	      this.props.onUserSubmit({
-	        first_name: first_name,
-	        last_name: last_name,
-	        email: email,
-	        profile_pic: profile_pic,
-	        city: city,
-	        state: state,
-	        password: password
-	      });
-	    };
-	
-	    this.setState({
-	      first_name: '', last_name: '', email: '', profile_pic: '', city: '', state: '', password: '', confirm_password: '', passwordMatchingError: false, allFieldsRequiredError: false, passwordMinimumCharsError: false
-	    });
-	  },
-	
-	  render: function render() {
-	
-	    var passwordErrorMessage = this.state.passwordMatchingError ? _react2.default.createElement(
-	      'p',
-	      { className: 'error-message' },
-	      '*passwords do not match'
-	    ) : null;
-	
-	    var passwordMinimumCharsError = this.state.passwordMinimumCharsError ? _react2.default.createElement(
-	      'p',
-	      { className: 'error-message' },
-	      '*password should be at least 8 characters'
-	    ) : null;
-	
-	    var requiredFieldsErrorMessage = this.state.allFieldsRequiredError ? _react2.default.createElement(
-	      'p',
-	      { className: 'error-message' },
-	      '*all fields required'
-	    ) : null;
-	
-	    return _react2.default.createElement(
-	      'form',
-	      { className: 'addUserForm', onSubmit: this.handleSubmit },
-	      passwordErrorMessage,
-	      requiredFieldsErrorMessage,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-6' },
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          required: true,
-	          placeholder: 'first name',
-	          value: this.state.first_name,
-	          onChange: this.handleFirstNameChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          required: true,
-	          placeholder: 'last name',
-	          value: this.state.last_name,
-	          onChange: this.handleLastNameChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          required: true,
-	          placeholder: 'email',
-	          value: this.state.email,
-	          onChange: this.handleEmailChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          required: true,
-	          placeholder: 'profile picture url',
-	          value: this.state.profile_pic,
-	          onChange: this.handleProfilePicChange
-	        })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-6' },
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          required: true,
-	          placeholder: 'city',
-	          value: this.state.city,
-	          onChange: this.handleCityChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          required: true,
-	          placeholder: 'state',
-	          value: this.state.state,
-	          onChange: this.handleStateChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'password',
-	          required: true,
-	          placeholder: 'password (8 character minimum)',
-	          value: this.state.password,
-	          onChange: this.handlePasswordChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'password',
-	          required: true,
-	          placeholder: 'confirm password',
-	          value: this.state.confirm_password,
-	          onChange: this.handleConfirmPasswordChange
-	        })
-	      ),
-	      _react2.default.createElement('input', { className: 'btn-success form-submit-button', type: 'submit', value: 'Sign Up' })
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    login: function login(user) {
-	      dispatch((0, _userActions.userLoginSuccess)(user));
-	    }
-	  };
-	};
-	
-	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SignupDisplay);
-
-/***/ },
-/* 356 */
-/*!******************************************************!*\
-  !*** ./app/components/courses/add-course-display.js ***!
-  \******************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 270);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 322);
-	
-	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
-	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
-	
-	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
-	
-	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
-	
-	var _modalStyles2 = _interopRequireDefault(_modalStyles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var DatePicker = __webpack_require__(/*! react-datepicker */ 357);
-	var moment = __webpack_require__(/*! moment */ 346);
-	moment().format();
-	
-	var DATABASE_URL = "http://localhost:8080";
-	
-	var AddCourseDisplay = _react2.default.createClass({
-	  displayName: 'AddCourseDisplay',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      data: [],
-	      newCourseID: null
-	    };
-	  },
-	
-	  handleCourseSubmit: function handleCourseSubmit(course) {
-	    console.log(moment(course.date._d.toString()).unix());
-	    var unix_timestamp = moment(course.date._d.toString()).unix();
-	    var user_id = sessionStorage.user_id;
-	    _superagent2.default.post(DATABASE_URL + "/classes").send(course).send({ user_id: user_id }).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ unix_timestamp: unix_timestamp }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        _reactRouter.browserHistory.push('/error');
-	      } else {
-	        var newCourseID = res.body[0];
-	        this.setState({ newCourseID: newCourseID });
-	        this.showModal();
-	      }
-	    }.bind(this));
-	  },
-	
-	  showModal: function showModal() {
-	    this.refs.modal.show();
-	  },
-	  hideModal: function hideModal() {
-	    this.refs.modal.hide();
-	    _reactRouter.browserHistory.push('/courses/' + this.state.newCourseID);
-	  },
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'row create-course' },
-	      _react2.default.createElement(
-	        'h2',
-	        null,
-	        'Create a Course'
-	      ),
-	      _react2.default.createElement(
-	        _OutlineModal2.default,
-	        { ref: 'modal', style: _modalStyles2.default.container },
-	        _react2.default.createElement(
-	          'h2',
-	          { style: _modalStyles2.default.title },
-	          'Class created!'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { style: _modalStyles2.default.btn, onClick: this.hideModal },
-	          'Close'
-	        )
-	      ),
-	      _react2.default.createElement('div', { className: 'col-sm-1' }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-10 create-course-form form-display' },
-	        _react2.default.createElement(AddCourseForm, {
-	          onCourseSubmit: this.handleCourseSubmit
-	        })
-	      )
-	    );
-	  }
-	});
-	
-	var AddCourseForm = _react2.default.createClass({
-	  displayName: 'AddCourseForm',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return { title: '', description: '', prerequisites: '', price: '', seats: '', image_url: '', date: moment(), location: '', start_time: '', end_time: '' };
-	  },
-	  handleTitleChange: function handleTitleChange(event) {
-	    this.setState({ title: event.target.value });
-	  },
-	  handleDescriptionChange: function handleDescriptionChange(event) {
-	    this.setState({ description: event.target.value });
-	  },
-	  handlePrereqChange: function handlePrereqChange(event) {
-	    this.setState({ prerequisites: event.target.value });
-	  },
-	  handlePriceChange: function handlePriceChange(event) {
-	    this.setState({ price: event.target.value });
-	  },
-	  handleSeatsChange: function handleSeatsChange(event) {
-	    this.setState({ seats: event.target.value });
-	  },
-	  handleImageUrlChange: function handleImageUrlChange(event) {
-	    this.setState({ image_url: event.target.value });
-	  },
-	  handleDateChange: function handleDateChange(date) {
-	    this.setState({ date: date });
-	    console.log(moment(date._d.toString()).unix());
-	  },
-	  onSuggestSelect: function onSuggestSelect(suggest) {
-	    var data = suggest.gmaps.address_components;
-	    this.setState({ location: [suggest.location.lat, suggest.location.lng, data[0].long_name, data[1].long_name, data[2].long_name, data[5].long_name] });
-	  },
-	  handleStartTimeChange: function handleStartTimeChange(event) {
-	    this.setState({ start_time: event.target.value });
-	  },
-	  handleEndTimeChange: function handleEndTimeChange(event) {
-	    this.setState({ end_time: event.target.value });
-	  },
-	  handleSubmit: function handleSubmit(event) {
-	    event.preventDefault();
-	    var title = this.state.title.trim();
-	    var description = this.state.description.trim();
-	    var prerequisites = this.state.prerequisites.trim();
-	    var price = this.state.price.trim();
-	    var seats = this.state.seats.trim();
-	    var image_url = this.state.image_url.trim();
-	    var date = this.state.date;
-	    var location = this.state.location;
-	    var start_time = this.state.start_time;
-	    var end_time = this.state.end_time;
-	    if (!title) {
-	      return;
-	    }
-	    this.props.onCourseSubmit({ title: title, description: description, prerequisites: prerequisites, price: price, total_seats: seats, image_url: image_url, date: date, location: location, start_time: start_time, end_time: end_time });
-	    this.setState({ title: '', description: '', prerequisites: '', price: '', seats: '', image_url: '', date: moment(), location: '', start_time: '', end_time: '' });
-	  },
-	
-	  render: function render() {
-	
-	    return _react2.default.createElement(
-	      'form',
-	      { className: 'addCourseForm', onSubmit: this.handleSubmit },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-6' },
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          placeholder: 'course title',
-	          value: this.state.title,
-	          onChange: this.handleTitleChange
-	        }),
-	        _react2.default.createElement('textarea', {
-	          placeholder: 'Write a description of the course here.',
-	          rows: '10',
-	          value: this.state.description,
-	          onChange: this.handleDescriptionChange }),
-	        _react2.default.createElement('textarea', {
-	          placeholder: 'What knowledge, skills or materials should a student have before taking this course?',
-	          rows: '10',
-	          value: this.state.prerequisites,
-	          onChange: this.handlePrereqChange }),
-	        _react2.default.createElement('input', {
-	          type: 'number',
-	          placeholder: 'price per seat',
-	          value: this.state.price,
-	          onChange: this.handlePriceChange
-	        })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-6' },
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          placeholder: 'number of seats',
-	          value: this.state.seats,
-	          onChange: this.handleSeatsChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          placeholder: 'image_url',
-	          value: this.state.image_url,
-	          onChange: this.handleImageUrlChange
-	        }),
-	        _react2.default.createElement(DatePicker, {
-	          selected: this.state.date,
-	          onChange: this.handleDateChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          placeholder: 'start time, ex: 6:30 a.m.',
-	          value: this.state.start_time,
-	          onChange: this.handleStartTimeChange
-	        }),
-	        _react2.default.createElement('input', {
-	          type: 'text',
-	          placeholder: 'end time, ex: 6:30 a.m.',
-	          value: this.state.end_time,
-	          onChange: this.handleEndTimeChange
-	        }),
-	        _react2.default.createElement(_reactGeosuggest2.default, {
-	          placeholder: 'meeting place',
-	          country: 'us',
-	          onSuggestSelect: this.onSuggestSelect,
-	          value: this.state.location
-	        }),
-	        _react2.default.createElement('input', { type: 'submit', value: 'Create Your Course!', className: 'btn-success form-submit-button' })
-	      )
-	    );
-	  }
-	});
-	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return store;
-	};
-	module.exports = (0, _reactRedux.connect)(mapStateToProps)(AddCourseDisplay);
-
-/***/ },
-/* 357 */
-/*!*********************************************************!*\
-  !*** ./~/react-datepicker/dist/react-datepicker.min.js ***!
-  \*********************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	!function(e,t){ true?module.exports=t(__webpack_require__(/*! moment */ 346),__webpack_require__(/*! react */ 1),__webpack_require__(/*! react-onclickoutside */ 358),__webpack_require__(/*! react-dom */ 34)):"function"==typeof define&&define.amd?define(["moment","react","react-onclickoutside","react-dom"],t):"object"==typeof exports?exports.DatePicker=t(require("moment"),require("react"),require("react-onclickoutside"),require("react-dom")):e.DatePicker=t(e.moment,e.React,e.OnClickOutside,e.ReactDOM)}(this,function(e,t,n,o){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={exports:{},id:o,loaded:!1};return e[o].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var a=n(1),i=o(a),s=n(5),l=o(s),p=n(3),d=o(p),f=n(13),u=o(f),c=n(12),h=o(c),m=n(4),y="react-datepicker-ignore-onclickoutside",g=d["default"].createClass({displayName:"DatePicker",propTypes:{autoComplete:d["default"].PropTypes.string,className:d["default"].PropTypes.string,dateFormat:d["default"].PropTypes.oneOfType([d["default"].PropTypes.string,d["default"].PropTypes.array]),dateFormatCalendar:d["default"].PropTypes.string,disabled:d["default"].PropTypes.bool,endDate:d["default"].PropTypes.object,excludeDates:d["default"].PropTypes.array,filterDate:d["default"].PropTypes.func,fixedHeight:d["default"].PropTypes.bool,id:d["default"].PropTypes.string,includeDates:d["default"].PropTypes.array,inline:d["default"].PropTypes.bool,isClearable:d["default"].PropTypes.bool,locale:d["default"].PropTypes.string,maxDate:d["default"].PropTypes.object,minDate:d["default"].PropTypes.object,name:d["default"].PropTypes.string,onBlur:d["default"].PropTypes.func,onChange:d["default"].PropTypes.func.isRequired,onFocus:d["default"].PropTypes.func,openToDate:d["default"].PropTypes.object,placeholderText:d["default"].PropTypes.string,popoverAttachment:d["default"].PropTypes.string,popoverTargetAttachment:d["default"].PropTypes.string,popoverTargetOffset:d["default"].PropTypes.string,readOnly:d["default"].PropTypes.bool,renderCalendarTo:d["default"].PropTypes.any,required:d["default"].PropTypes.bool,selected:d["default"].PropTypes.object,showYearDropdown:d["default"].PropTypes.bool,startDate:d["default"].PropTypes.object,tabIndex:d["default"].PropTypes.number,tetherConstraints:d["default"].PropTypes.array,title:d["default"].PropTypes.string,todayButton:d["default"].PropTypes.string},getDefaultProps:function(){return{dateFormatCalendar:"MMMM YYYY",onChange:function(){},disabled:!1,onFocus:function(){},onBlur:function(){},popoverAttachment:"top left",popoverTargetAttachment:"bottom left",popoverTargetOffset:"10px 0",tetherConstraints:[{to:"window",attachment:"together"}]}},getInitialState:function(){return{open:!1}},setOpen:function(e){this.setState({open:e})},handleFocus:function(e){this.props.onFocus(e),this.setOpen(!0)},handleBlur:function(e){this.state.open?this.refs.input.focus():this.props.onBlur(e)},handleCalendarClickOutside:function(e){this.setOpen(!1)},handleSelect:function(e){this.setSelected(e),this.setOpen(!1)},setSelected:function(e){(0,m.isSameDay)(this.props.selected,e)||this.props.onChange(e)},onInputClick:function(){this.props.disabled||this.setOpen(!0)},onInputKeyDown:function(e){"Enter"===e.key||"Escape"===e.key?(e.preventDefault(),this.setOpen(!1)):"Tab"===e.key&&this.setOpen(!1)},onClearClick:function(e){e.preventDefault(),this.props.onChange(null)},renderCalendar:function(){return this.props.inline||this.state.open&&!this.props.disabled?d["default"].createElement(l["default"],{ref:"calendar",locale:this.props.locale,dateFormat:this.props.dateFormatCalendar,selected:this.props.selected,onSelect:this.handleSelect,openToDate:this.props.openToDate,minDate:this.props.minDate,maxDate:this.props.maxDate,startDate:this.props.startDate,endDate:this.props.endDate,excludeDates:this.props.excludeDates,filterDate:this.props.filterDate,onClickOutside:this.handleCalendarClickOutside,includeDates:this.props.includeDates,showYearDropdown:this.props.showYearDropdown,todayButton:this.props.todayButton,outsideClickIgnoreClass:y,fixedHeight:this.props.fixedHeight}):null},renderDateInput:function(){var e=(0,h["default"])(this.props.className,r({},y,this.state.open));return d["default"].createElement(i["default"],{ref:"input",id:this.props.id,name:this.props.name,date:this.props.selected,locale:this.props.locale,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,filterDate:this.props.filterDate,dateFormat:this.props.dateFormat,onFocus:this.handleFocus,onBlur:this.handleBlur,onClick:this.onInputClick,onKeyDown:this.onInputKeyDown,onChangeDate:this.setSelected,placeholder:this.props.placeholderText,disabled:this.props.disabled,autoComplete:this.props.autoComplete,className:e,title:this.props.title,readOnly:this.props.readOnly,required:this.props.required,tabIndex:this.props.tabIndex})},renderClearButton:function(){return this.props.isClearable&&null!=this.props.selected?d["default"].createElement("a",{className:"react-datepicker__close-icon",href:"#",onClick:this.onClearClick}):null},render:function(){var e=this.renderCalendar();return this.props.inline?e:d["default"].createElement(u["default"],{classPrefix:"react-datepicker__tether",attachment:this.props.popoverAttachment,targetAttachment:this.props.popoverTargetAttachment,targetOffset:this.props.popoverTargetOffset,renderElementTo:this.props.renderCalendarTo,constraints:this.props.tetherConstraints},d["default"].createElement("div",{className:"react-datepicker__input-container"},this.renderDateInput(),this.renderClearButton()),e)}});e.exports=g},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){var n={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(n[o]=e[o]);return n}var a=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},i=n(2),s=o(i),l=n(3),p=o(l),d=n(4),f=p["default"].createClass({displayName:"DateInput",propTypes:{date:p["default"].PropTypes.object,dateFormat:p["default"].PropTypes.oneOfType([p["default"].PropTypes.string,p["default"].PropTypes.array]),disabled:p["default"].PropTypes.bool,excludeDates:p["default"].PropTypes.array,filterDate:p["default"].PropTypes.func,includeDates:p["default"].PropTypes.array,locale:p["default"].PropTypes.string,maxDate:p["default"].PropTypes.object,minDate:p["default"].PropTypes.object,onBlur:p["default"].PropTypes.func,onChange:p["default"].PropTypes.func,onChangeDate:p["default"].PropTypes.func},getDefaultProps:function(){return{dateFormat:"L"}},getInitialState:function(){return{value:this.safeDateFormat(this.props)}},componentWillReceiveProps:function(e){(0,d.isSameDay)(e.date,this.props.date)&&e.locale===this.props.locale&&e.dateFormat===this.props.dateFormat||this.setState({value:this.safeDateFormat(e)})},handleChange:function(e){this.props.onChange&&this.props.onChange(e),e.isDefaultPrevented()||this.handleChangeDate(e.target.value)},handleChangeDate:function(e){if(this.props.onChangeDate){var t=(0,s["default"])(e,this.props.dateFormat,this.props.locale||s["default"].locale(),!0);t.isValid()&&!(0,d.isDayDisabled)(t,this.props)?this.props.onChangeDate(t):""===e&&this.props.onChangeDate(null)}this.setState({value:e})},safeDateFormat:function(e){return e.date&&e.date.clone().locale(e.locale||s["default"].locale()).format(Array.isArray(e.dateFormat)?e.dateFormat[0]:e.dateFormat)||""},handleBlur:function(e){this.setState({value:this.safeDateFormat(this.props)}),this.props.onBlur&&this.props.onBlur(e)},focus:function(){this.refs.input.focus()},render:function(){var e=this.props,t=(e.date,e.locale,e.minDate,e.maxDate,e.excludeDates,e.includeDates,e.filterDate,e.dateFormat,e.onChangeDate,r(e,["date","locale","minDate","maxDate","excludeDates","includeDates","filterDate","dateFormat","onChangeDate"]));return p["default"].createElement("input",a({ref:"input",type:"text"},t,{value:this.state.value,onBlur:this.handleBlur,onChange:this.handleChange}))}});e.exports=f},function(t,n){t.exports=e},function(e,n){e.exports=t},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){return e&&t?e.isSame(t,"day"):!e&&!t}function a(e){var t=arguments.length<=1||void 0===arguments[1]?{}:arguments[1],n=t.minDate,o=t.maxDate,a=t.excludeDates,i=t.includeDates,s=t.filterDate;return n&&e.isBefore(n,"day")||o&&e.isAfter(o,"day")||a&&a.some(function(t){return r(e,t)})||i&&!i.some(function(t){return r(e,t)})||s&&!s(e.clone())||!1}function i(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.minDate,r=n.includeDates,a=e.clone().subtract(1,t);return o&&a.isBefore(o,t)||r&&r.every(function(e){return a.isBefore(e,t)})||!1}function s(e,t){var n=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],o=n.maxDate,r=n.includeDates,a=e.clone().add(1,t);return o&&a.isAfter(o,t)||r&&r.every(function(e){return a.isAfter(e,t)})||!1}function l(e){var t=e.minDate,n=e.includeDates;return n&&t?f["default"].min(n.filter(function(e){return t.isSameOrBefore(e,"day")})):n?f["default"].min(n):t}function p(e){var t=e.maxDate,n=e.includeDates;return n&&t?f["default"].max(n.filter(function(e){return t.isSameOrAfter(e,"day")})):n?f["default"].max(n):t}Object.defineProperty(t,"__esModule",{value:!0}),t.isSameDay=r,t.isDayDisabled=a,t.allDaysDisabledBefore=i,t.allDaysDisabledAfter=s,t.getEffectiveMinDate=l,t.getEffectiveMaxDate=p;var d=n(2),f=o(d)},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(6),s=o(i),l=n(9),p=o(l),d=n(3),f=o(d),u=n(4),c=f["default"].createClass({displayName:"Calendar",propTypes:{dateFormat:f["default"].PropTypes.string.isRequired,endDate:f["default"].PropTypes.object,excludeDates:f["default"].PropTypes.array,filterDate:f["default"].PropTypes.func,fixedHeight:f["default"].PropTypes.bool,includeDates:f["default"].PropTypes.array,locale:f["default"].PropTypes.string,maxDate:f["default"].PropTypes.object,minDate:f["default"].PropTypes.object,onClickOutside:f["default"].PropTypes.func.isRequired,onSelect:f["default"].PropTypes.func.isRequired,openToDate:f["default"].PropTypes.object,selected:f["default"].PropTypes.object,showYearDropdown:f["default"].PropTypes.bool,startDate:f["default"].PropTypes.object,todayButton:f["default"].PropTypes.string},mixins:[n(8)],getInitialState:function(){return{date:this.localizeMoment(this.getDateInView())}},componentWillReceiveProps:function(e){e.selected&&!(0,u.isSameDay)(e.selected,this.props.selected)&&this.setState({date:this.localizeMoment(e.selected)})},handleClickOutside:function(e){this.props.onClickOutside(e)},getDateInView:function(){var e=this.props,t=e.selected,n=e.openToDate,o=(0,u.getEffectiveMinDate)(this.props),r=(0,u.getEffectiveMaxDate)(this.props),i=(0,a["default"])();return t?t:o&&r&&n&&n.isBetween(o,r)?n:o&&n&&n.isAfter(o)?n:o&&o.isAfter(i)?o:r&&n&&n.isBefore(r)?n:r&&r.isBefore(i)?r:n?n:i},localizeMoment:function(e){return e.clone().locale(this.props.locale||a["default"].locale())},increaseMonth:function(){this.setState({date:this.state.date.clone().add(1,"month")})},decreaseMonth:function(){this.setState({date:this.state.date.clone().subtract(1,"month")})},handleDayClick:function(e){this.props.onSelect(e)},changeYear:function(e){this.setState({date:this.state.date.clone().set("year",e)})},header:function(){var e=this.state.date.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(t){var n=e.clone().add(t,"days");return f["default"].createElement("div",{key:t,className:"react-datepicker__day-name"},n.localeData().weekdaysMin(n))})},renderPreviousMonthButton:function(){if(!(0,u.allDaysDisabledBefore)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--previous",onClick:this.decreaseMonth})},renderNextMonthButton:function(){if(!(0,u.allDaysDisabledAfter)(this.state.date,"month",this.props))return f["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--next",onClick:this.increaseMonth})},renderCurrentMonth:function(){var e=["react-datepicker__current-month"];return this.props.showYearDropdown&&e.push("react-datepicker__current-month--hasYearDropdown"),f["default"].createElement("div",{className:e.join(" ")},this.state.date.format(this.props.dateFormat))},renderYearDropdown:function(){if(this.props.showYearDropdown)return f["default"].createElement(s["default"],{onChange:this.changeYear,year:this.state.date.year()})},renderTodayButton:function(){var e=this;if(this.props.todayButton)return f["default"].createElement("div",{className:"react-datepicker__today-button",onClick:function(){return e.props.onSelect((0,a["default"])())}},this.props.todayButton)},render:function(){return f["default"].createElement("div",{className:"react-datepicker"},f["default"].createElement("div",{className:"react-datepicker__triangle"}),f["default"].createElement("div",{className:"react-datepicker__header"},this.renderPreviousMonthButton(),this.renderCurrentMonth(),this.renderYearDropdown(),this.renderNextMonthButton(),f["default"].createElement("div",null,this.header())),f["default"].createElement(p["default"],{day:this.state.date,onDayClick:this.handleDayClick,minDate:this.props.minDate,maxDate:this.props.maxDate,excludeDates:this.props.excludeDates,includeDates:this.props.includeDates,fixedHeight:this.props.fixedHeight,filterDate:this.props.filterDate,selected:this.props.selected,startDate:this.props.startDate,endDate:this.props.endDate}),this.renderTodayButton())}});e.exports=c},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(7),s=o(i),l=a["default"].createClass({displayName:"YearDropdown",propTypes:{onChange:a["default"].PropTypes.func.isRequired,year:a["default"].PropTypes.number.isRequired},getInitialState:function(){return{dropdownVisible:!1}},renderReadView:function(){return a["default"].createElement("div",{className:"react-datepicker__year-read-view",onClick:this.toggleDropdown},a["default"].createElement("span",{className:"react-datepicker__year-read-view--selected-year"},this.props.year),a["default"].createElement("span",{className:"react-datepicker__year-read-view--down-arrow"}))},renderDropdown:function(){return a["default"].createElement(s["default"],{ref:"options",year:this.props.year,onChange:this.onChange,onCancel:this.toggleDropdown})},onChange:function(e){this.toggleDropdown(),e!==this.props.year&&this.props.onChange(e)},toggleDropdown:function(){this.setState({dropdownVisible:!this.state.dropdownVisible})},render:function(){return a["default"].createElement("div",null,this.state.dropdownVisible?this.renderDropdown():this.renderReadView())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e){for(var t=[],n=0;n<5;n++)t.push(e-n);return t}var a=n(3),i=o(a),s=i["default"].createClass({displayName:"YearDropdownOptions",propTypes:{onCancel:i["default"].PropTypes.func.isRequired,onChange:i["default"].PropTypes.func.isRequired,year:i["default"].PropTypes.number.isRequired},mixins:[n(8)],getInitialState:function(){return{yearsList:r(this.props.year)}},renderOptions:function(){var e=this,t=this.props.year,n=this.state.yearsList.map(function(n){return i["default"].createElement("div",{className:"react-datepicker__year-option",key:n,onClick:e.onChange.bind(e,n)},t===n?i["default"].createElement("span",{className:"react-datepicker__year-option--selected"},"✓"):"",n)});return n.unshift(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"upcoming",key:"upcoming",onClick:this.incrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"}))),n.push(i["default"].createElement("div",{className:"react-datepicker__year-option",ref:"previous",key:"previous",onClick:this.decrementYears},i["default"].createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-previous"}))),n},onChange:function(e){this.props.onChange(e)},handleClickOutside:function(){this.props.onCancel()},shiftYears:function(e){var t=this.state.yearsList.map(function(t){return t+e});this.setState({yearsList:t})},incrementYears:function(){return this.shiftYears(1)},decrementYears:function(){return this.shiftYears(-1)},render:function(){return i["default"].createElement("div",{className:"react-datepicker__year-dropdown"},this.renderOptions())}});e.exports=s},function(e,t){e.exports=n},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(10),s=o(i),l=a["default"].createClass({displayName:"Month",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,fixedHeight:a["default"].PropTypes.bool,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},isWeekInMonth:function(e){var t=this.props.day,n=e.clone().add(6,"days");return e.isSame(t,"month")||n.isSame(t,"month")},renderWeeks:function(){var e=this,t=this.props.day.clone().startOf("month").startOf("week");return[0,1,2,3,4,5].map(function(e){return t.clone().add(e,"weeks")}).filter(function(t){return e.props.fixedHeight||e.isWeekInMonth(t)}).map(function(t,n){return a["default"].createElement(s["default"],{key:n,day:t,month:e.props.day.month(),onDayClick:e.handleDayClick,minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__month",role:"listbox"},this.renderWeeks())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(3),a=o(r),i=n(11),s=o(i),l=a["default"].createClass({displayName:"Week",propTypes:{day:a["default"].PropTypes.object.isRequired,endDate:a["default"].PropTypes.object,excludeDates:a["default"].PropTypes.array,filterDate:a["default"].PropTypes.func,includeDates:a["default"].PropTypes.array,maxDate:a["default"].PropTypes.object,minDate:a["default"].PropTypes.object,month:a["default"].PropTypes.number,onDayClick:a["default"].PropTypes.func,selected:a["default"].PropTypes.object,startDate:a["default"].PropTypes.object},handleDayClick:function(e){this.props.onDayClick&&this.props.onDayClick(e)},renderDays:function(){var e=this,t=this.props.day.clone().startOf("week");return[0,1,2,3,4,5,6].map(function(n){var o=t.clone().add(n,"days");return a["default"].createElement(s["default"],{key:n,day:o,month:e.props.month,onClick:e.handleDayClick.bind(e,o),minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,includeDates:e.props.includeDates,filterDate:e.props.filterDate,selected:e.props.selected,startDate:e.props.startDate,endDate:e.props.endDate})})},render:function(){return a["default"].createElement("div",{className:"react-datepicker__week"},this.renderDays())}});e.exports=l},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}var r=n(2),a=o(r),i=n(3),s=o(i),l=n(12),p=o(l),d=n(4),f=s["default"].createClass({displayName:"Day",propTypes:{day:s["default"].PropTypes.object.isRequired,endDate:s["default"].PropTypes.object,excludeDates:s["default"].PropTypes.array,filterDate:s["default"].PropTypes.func,includeDates:s["default"].PropTypes.array,maxDate:s["default"].PropTypes.object,minDate:s["default"].PropTypes.object,month:s["default"].PropTypes.number,onClick:s["default"].PropTypes.func,selected:s["default"].PropTypes.object,startDate:s["default"].PropTypes.object},handleClick:function(e){!this.isDisabled()&&this.props.onClick&&this.props.onClick(e)},isSameDay:function(e){return(0,d.isSameDay)(this.props.day,e)},isDisabled:function(){return(0,d.isDayDisabled)(this.props.day,this.props)},isInRange:function(){var e=this.props,t=e.day,n=e.startDate,o=e.endDate;if(!n||!o)return!1;var r=n.clone().startOf("day").subtract(1,"seconds"),a=o.clone().startOf("day").add(1,"seconds");return t.clone().startOf("day").isBetween(r,a)},isWeekend:function(){var e=this.props.day.day();return 0===e||6===e},isOutsideMonth:function(){return void 0!==this.props.month&&this.props.month!==this.props.day.month()},getClassNames:function(){return(0,p["default"])("react-datepicker__day",{"react-datepicker__day--disabled":this.isDisabled(),"react-datepicker__day--selected":this.isSameDay(this.props.selected),"react-datepicker__day--in-range":this.isInRange(),"react-datepicker__day--today":this.isSameDay((0,a["default"])()),"react-datepicker__day--weekend":this.isWeekend(),"react-datepicker__day--outside-month":this.isOutsideMonth()})},render:function(){return s["default"].createElement("div",{className:this.getClassNames(),onClick:this.handleClick,"aria-label":"day-"+this.props.day.date(),role:"option"},this.props.day.date())}});e.exports=f},function(e,t,n){var o,r;/*!
-		  Copyright (c) 2016 Jed Watson.
-		  Licensed under the MIT License (MIT), see
-		  http://jedwatson.github.io/classnames
-		*/
-	!function(){"use strict";function n(){for(var e=[],t=0;t<arguments.length;t++){var o=arguments[t];if(o){var r=typeof o;if("string"===r||"number"===r)e.push(o);else if(Array.isArray(o))e.push(n.apply(null,o));else if("object"===r)for(var i in o)a.call(o,i)&&o[i]&&e.push(i)}}return e.join(" ")}var a={}.hasOwnProperty;"undefined"!=typeof e&&e.exports?e.exports=n:(o=[],r=function(){return n}.apply(t,o),!(void 0!==r&&(e.exports=r)))}()},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function r(e,t){var n={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(n[o]=e[o]);return n}function a(e,t,n){var o=e.children,r=s.Children.count(o);return r<=0?new Error(n+" expects at least one child to use as the target element."):r>2?new Error("Only a max of two children allowed in "+n+"."):void 0}var i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},s=n(3),l=o(s),p=n(14),d=o(p),f=n(15),u=o(f),c=["top left","top center","top right","middle left","middle center","middle right","bottom left","bottom center","bottom right"],h=l["default"].createClass({displayName:"TetherComponent",propTypes:{attachment:s.PropTypes.oneOf(c).isRequired,children:a,className:s.PropTypes.string,classPrefix:s.PropTypes.string,classes:s.PropTypes.object,constraints:s.PropTypes.array,enabled:s.PropTypes.bool,id:s.PropTypes.string,offset:s.PropTypes.string,optimizations:s.PropTypes.object,renderElementTag:s.PropTypes.string,renderElementTo:s.PropTypes.any,style:s.PropTypes.object,targetAttachment:s.PropTypes.oneOf(c),targetModifier:s.PropTypes.string,targetOffset:s.PropTypes.string},getDefaultProps:function(){return{renderElementTag:"div",renderElementTo:null}},componentDidMount:function(){this._targetNode=d["default"].findDOMNode(this),this._update()},componentDidUpdate:function(){this._update()},componentWillUnmount:function(){this._destroy()},disable:function(){this._tether.disable()},enable:function(){this._tether.enable()},position:function(){this._tether.position()},_destroy:function(){this._elementParentNode&&(d["default"].unmountComponentAtNode(this._elementParentNode),this._elementParentNode.parentNode.removeChild(this._elementParentNode)),this._tether&&this._tether.destroy(),this._elementParentNode=null,this._tether=null},_update:function(){var e=this,t=this.props,n=t.children,o=t.renderElementTag,r=t.renderElementTo,a=n[1];if(!a)return void(this._tether&&this._destroy());if(!this._elementParentNode){this._elementParentNode=document.createElement(o);var i=r||document.body;i.appendChild(this._elementParentNode)}d["default"].unstable_renderSubtreeIntoContainer(this,a,this._elementParentNode,function(){e._updateTether()})},_updateTether:function(){var e=this.props,t=(e.renderElementTag,e.renderElementTo,r(e,["renderElementTag","renderElementTo"])),n=i({target:this._targetNode,element:this._elementParentNode},t);this._tether?this._tether.setOptions(n):this._tether=new u["default"](n),this._tether.position()},render:function(){var e=this.props.children,t=null;return s.Children.forEach(e,function(e,n){if(0===n)return void(t=e)}),t}});e.exports=h},function(e,t){e.exports=o},function(e,t,n){var o,r;/*! tether 1.3.4 */
-	!function(a,i){o=i,r="function"==typeof o?o.call(t,n,t,e):o,!(void 0!==r&&(e.exports=r))}(this,function(e,t,n){"use strict";function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e){var t=e.getBoundingClientRect(),n={};for(var o in t)n[o]=t[o];if(e.ownerDocument!==document){var a=e.ownerDocument.defaultView.frameElement;if(a){var i=r(a);n.top+=i.top,n.bottom+=i.top,n.left+=i.left,n.right+=i.left}}return n}function a(e){var t=getComputedStyle(e)||{},n=t.position,o=[];if("fixed"===n)return[e];for(var r=e;(r=r.parentNode)&&r&&1===r.nodeType;){var a=void 0;try{a=getComputedStyle(r)}catch(i){}if("undefined"==typeof a||null===a)return o.push(r),o;var s=a,l=s.overflow,p=s.overflowX,d=s.overflowY;/(auto|scroll)/.test(l+d+p)&&("absolute"!==n||["relative","absolute","fixed"].indexOf(a.position)>=0)&&o.push(r)}return o.push(e.ownerDocument.body),e.ownerDocument!==document&&o.push(e.ownerDocument.defaultView),o}function i(){_&&document.body.removeChild(_),_=null}function s(e){var t=void 0;e===document?(t=document,e=document.documentElement):t=e.ownerDocument;var n=t.documentElement,o=r(e),a=k();return o.top-=a.top,o.left-=a.left,"undefined"==typeof o.width&&(o.width=document.body.scrollWidth-o.left-o.right),"undefined"==typeof o.height&&(o.height=document.body.scrollHeight-o.top-o.bottom),o.top=o.top-n.clientTop,o.left=o.left-n.clientLeft,o.right=t.body.clientWidth-o.width-o.left,o.bottom=t.body.clientHeight-o.height-o.top,o}function l(e){return e.offsetParent||document.documentElement}function p(){var e=document.createElement("div");e.style.width="100%",e.style.height="200px";var t=document.createElement("div");d(t.style,{position:"absolute",top:0,left:0,pointerEvents:"none",visibility:"hidden",width:"200px",height:"150px",overflow:"hidden"}),t.appendChild(e),document.body.appendChild(t);var n=e.offsetWidth;t.style.overflow="scroll";var o=e.offsetWidth;n===o&&(o=t.clientWidth),document.body.removeChild(t);var r=n-o;return{width:r,height:r}}function d(){var e=arguments.length<=0||void 0===arguments[0]?{}:arguments[0],t=[];return Array.prototype.push.apply(t,arguments),t.slice(1).forEach(function(t){if(t)for(var n in t)({}).hasOwnProperty.call(t,n)&&(e[n]=t[n])}),e}function f(e,t){if("undefined"!=typeof e.classList)t.split(" ").forEach(function(t){t.trim()&&e.classList.remove(t)});else{var n=new RegExp("(^| )"+t.split(" ").join("|")+"( |$)","gi"),o=h(e).replace(n," ");m(e,o)}}function u(e,t){if("undefined"!=typeof e.classList)t.split(" ").forEach(function(t){t.trim()&&e.classList.add(t)});else{f(e,t);var n=h(e)+(" "+t);m(e,n)}}function c(e,t){if("undefined"!=typeof e.classList)return e.classList.contains(t);var n=h(e);return new RegExp("(^| )"+t+"( |$)","gi").test(n)}function h(e){return e.className instanceof e.ownerDocument.defaultView.SVGAnimatedString?e.className.baseVal:e.className}function m(e,t){e.setAttribute("class",t)}function y(e,t,n){n.forEach(function(n){t.indexOf(n)===-1&&c(e,n)&&f(e,n)}),t.forEach(function(t){c(e,t)||u(e,t)})}function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function g(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}function v(e,t){var n=arguments.length<=2||void 0===arguments[2]?1:arguments[2];return e+n>=t&&t>=e-n}function b(){return"undefined"!=typeof performance&&"undefined"!=typeof performance.now?performance.now():+new Date}function D(){for(var e={top:0,left:0},t=arguments.length,n=Array(t),o=0;o<t;o++)n[o]=arguments[o];return n.forEach(function(t){var n=t.top,o=t.left;"string"==typeof n&&(n=parseFloat(n,10)),"string"==typeof o&&(o=parseFloat(o,10)),e.top+=n,e.left+=o}),e}function T(e,t){return"string"==typeof e.left&&e.left.indexOf("%")!==-1&&(e.left=parseFloat(e.left,10)/100*t.width),"string"==typeof e.top&&e.top.indexOf("%")!==-1&&(e.top=parseFloat(e.top,10)/100*t.height),e}function C(e,t){return"scrollParent"===t?t=e.scrollParents[0]:"window"===t&&(t=[pageXOffset,pageYOffset,innerWidth+pageXOffset,innerHeight+pageYOffset]),t===document&&(t=t.documentElement),"undefined"!=typeof t.nodeType&&!function(){var e=t,n=s(t),o=n,r=getComputedStyle(t);if(t=[o.left,o.top,n.width+o.left,n.height+o.top],e.ownerDocument!==document){var a=e.ownerDocument.defaultView;t[0]+=a.pageXOffset,t[1]+=a.pageYOffset,t[2]+=a.pageXOffset,t[3]+=a.pageYOffset}K.forEach(function(e,n){e=e[0].toUpperCase()+e.substr(1),"Top"===e||"Left"===e?t[n]+=parseFloat(r["border"+e+"Width"]):t[n]-=parseFloat(r["border"+e+"Width"])})}(),t}var P=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}(),w=void 0;"undefined"==typeof w&&(w={modules:[]});var _=null,x=function(){var e=0;return function(){return++e}}(),O={},k=function(){var e=_;e||(e=document.createElement("div"),e.setAttribute("data-tether-id",x()),d(e.style,{top:0,left:0,position:"absolute"}),document.body.appendChild(e),_=e);var t=e.getAttribute("data-tether-id");return"undefined"==typeof O[t]&&(O[t]=r(e),j(function(){delete O[t]})),O[t]},E=[],j=function(e){E.push(e)},S=function(){for(var e=void 0;e=E.pop();)e()},N=function(){function e(){o(this,e)}return P(e,[{key:"on",value:function(e,t,n){var o=!(arguments.length<=3||void 0===arguments[3])&&arguments[3];"undefined"==typeof this.bindings&&(this.bindings={}),"undefined"==typeof this.bindings[e]&&(this.bindings[e]=[]),this.bindings[e].push({handler:t,ctx:n,once:o})}},{key:"once",value:function(e,t,n){this.on(e,t,n,!0)}},{key:"off",value:function(e,t){if("undefined"!=typeof this.bindings&&"undefined"!=typeof this.bindings[e])if("undefined"==typeof t)delete this.bindings[e];else for(var n=0;n<this.bindings[e].length;)this.bindings[e][n].handler===t?this.bindings[e].splice(n,1):++n}},{key:"trigger",value:function(e){if("undefined"!=typeof this.bindings&&this.bindings[e]){for(var t=0,n=arguments.length,o=Array(n>1?n-1:0),r=1;r<n;r++)o[r-1]=arguments[r];for(;t<this.bindings[e].length;){var a=this.bindings[e][t],i=a.handler,s=a.ctx,l=a.once,p=s;"undefined"==typeof p&&(p=this),i.apply(p,o),l?this.bindings[e].splice(t,1):++t}}}}]),e}();w.Utils={getActualBoundingClientRect:r,getScrollParents:a,getBounds:s,getOffsetParent:l,extend:d,addClass:u,removeClass:f,hasClass:c,updateClasses:y,defer:j,flush:S,uniqueId:x,Evented:N,getScrollBarSize:p,removeUtilElements:i};var M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),P=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}(),A=function(e,t,n){for(var o=!0;o;){var r=e,a=t,i=n;o=!1,null===r&&(r=Function.prototype);var s=Object.getOwnPropertyDescriptor(r,a);if(void 0!==s){if("value"in s)return s.value;var l=s.get;if(void 0===l)return;return l.call(i)}var p=Object.getPrototypeOf(r);if(null===p)return;e=p,t=a,n=i,o=!0,s=p=void 0}};if("undefined"==typeof w)throw new Error("You must include the utils.js file before tether.js");var B=w.Utils,a=B.getScrollParents,s=B.getBounds,l=B.getOffsetParent,d=B.extend,u=B.addClass,f=B.removeClass,y=B.updateClasses,j=B.defer,S=B.flush,p=B.getScrollBarSize,i=B.removeUtilElements,F=function(){if("undefined"==typeof document)return"";for(var e=document.createElement("div"),t=["transform","WebkitTransform","OTransform","MozTransform","msTransform"],n=0;n<t.length;++n){var o=t[n];if(void 0!==e.style[o])return o}}(),Y=[],W=function(){Y.forEach(function(e){e.position(!1)}),S()};!function(){var e=null,t=null,n=null,o=function r(){return"undefined"!=typeof t&&t>16?(t=Math.min(t-16,250),void(n=setTimeout(r,250))):void("undefined"!=typeof e&&b()-e<10||(null!=n&&(clearTimeout(n),n=null),e=b(),W(),t=b()-e))};"undefined"!=typeof window&&"undefined"!=typeof window.addEventListener&&["resize","scroll","touchmove"].forEach(function(e){window.addEventListener(e,o)})}();var q={center:"center",left:"right",right:"left"},I={middle:"middle",top:"bottom",bottom:"top"},R={top:0,left:0,middle:"50%",center:"50%",bottom:"100%",right:"100%"},z=function(e,t){var n=e.left,o=e.top;return"auto"===n&&(n=q[t.left]),"auto"===o&&(o=I[t.top]),{left:n,top:o}},H=function(e){var t=e.left,n=e.top;return"undefined"!=typeof R[e.left]&&(t=R[e.left]),"undefined"!=typeof R[e.top]&&(n=R[e.top]),{left:t,top:n}},L=function(e){var t=e.split(" "),n=M(t,2),o=n[0],r=n[1];return{top:o,left:r}},V=L,X=function(e){function t(e){var n=this;o(this,t),A(Object.getPrototypeOf(t.prototype),"constructor",this).call(this),this.position=this.position.bind(this),Y.push(this),this.history=[],this.setOptions(e,!1),w.modules.forEach(function(e){"undefined"!=typeof e.initialize&&e.initialize.call(n)}),this.position()}return g(t,e),P(t,[{key:"getClass",value:function(){var e=arguments.length<=0||void 0===arguments[0]?"":arguments[0],t=this.options.classes;return"undefined"!=typeof t&&t[e]?this.options.classes[e]:this.options.classPrefix?this.options.classPrefix+"-"+e:e}},{key:"setOptions",value:function(e){var t=this,n=arguments.length<=1||void 0===arguments[1]||arguments[1],o={offset:"0 0",targetOffset:"0 0",targetAttachment:"auto auto",classPrefix:"tether"};this.options=d(o,e);var r=this.options,i=r.element,s=r.target,l=r.targetModifier;if(this.element=i,this.target=s,this.targetModifier=l,"viewport"===this.target?(this.target=document.body,this.targetModifier="visible"):"scroll-handle"===this.target&&(this.target=document.body,this.targetModifier="scroll-handle"),["element","target"].forEach(function(e){if("undefined"==typeof t[e])throw new Error("Tether Error: Both element and target must be defined");"undefined"!=typeof t[e].jquery?t[e]=t[e][0]:"string"==typeof t[e]&&(t[e]=document.querySelector(t[e]))}),u(this.element,this.getClass("element")),this.options.addTargetClasses!==!1&&u(this.target,this.getClass("target")),!this.options.attachment)throw new Error("Tether Error: You must provide an attachment");this.targetAttachment=V(this.options.targetAttachment),this.attachment=V(this.options.attachment),this.offset=L(this.options.offset),this.targetOffset=L(this.options.targetOffset),"undefined"!=typeof this.scrollParents&&this.disable(),"scroll-handle"===this.targetModifier?this.scrollParents=[this.target]:this.scrollParents=a(this.target),this.options.enabled!==!1&&this.enable(n)}},{key:"getTargetBounds",value:function(){if("undefined"==typeof this.targetModifier)return s(this.target);if("visible"===this.targetModifier){if(this.target===document.body)return{top:pageYOffset,left:pageXOffset,height:innerHeight,width:innerWidth};var e=s(this.target),t={height:e.height,width:e.width,top:e.top,left:e.left};return t.height=Math.min(t.height,e.height-(pageYOffset-e.top)),t.height=Math.min(t.height,e.height-(e.top+e.height-(pageYOffset+innerHeight))),t.height=Math.min(innerHeight,t.height),t.height-=2,t.width=Math.min(t.width,e.width-(pageXOffset-e.left)),t.width=Math.min(t.width,e.width-(e.left+e.width-(pageXOffset+innerWidth))),t.width=Math.min(innerWidth,t.width),t.width-=2,t.top<pageYOffset&&(t.top=pageYOffset),t.left<pageXOffset&&(t.left=pageXOffset),t}if("scroll-handle"===this.targetModifier){var e=void 0,n=this.target;n===document.body?(n=document.documentElement,e={left:pageXOffset,top:pageYOffset,height:innerHeight,width:innerWidth}):e=s(n);var o=getComputedStyle(n),r=n.scrollWidth>n.clientWidth||[o.overflow,o.overflowX].indexOf("scroll")>=0||this.target!==document.body,a=0;r&&(a=15);var i=e.height-parseFloat(o.borderTopWidth)-parseFloat(o.borderBottomWidth)-a,t={width:15,height:.975*i*(i/n.scrollHeight),left:e.left+e.width-parseFloat(o.borderLeftWidth)-15},l=0;i<408&&this.target===document.body&&(l=-11e-5*Math.pow(i,2)-.00727*i+22.58),this.target!==document.body&&(t.height=Math.max(t.height,24));var p=this.target.scrollTop/(n.scrollHeight-i);return t.top=p*(i-t.height-l)+e.top+parseFloat(o.borderTopWidth),this.target===document.body&&(t.height=Math.max(t.height,24)),t}}},{key:"clearCache",value:function(){this._cache={}}},{key:"cache",value:function(e,t){return"undefined"==typeof this._cache&&(this._cache={}),"undefined"==typeof this._cache[e]&&(this._cache[e]=t.call(this)),this._cache[e]}},{key:"enable",value:function(){var e=this,t=arguments.length<=0||void 0===arguments[0]||arguments[0];this.options.addTargetClasses!==!1&&u(this.target,this.getClass("enabled")),u(this.element,this.getClass("enabled")),this.enabled=!0,this.scrollParents.forEach(function(t){t!==e.target.ownerDocument&&t.addEventListener("scroll",e.position)}),t&&this.position()}},{key:"disable",value:function(){var e=this;f(this.target,this.getClass("enabled")),f(this.element,this.getClass("enabled")),this.enabled=!1,"undefined"!=typeof this.scrollParents&&this.scrollParents.forEach(function(t){t.removeEventListener("scroll",e.position)})}},{key:"destroy",value:function(){var e=this;this.disable(),Y.forEach(function(t,n){t===e&&Y.splice(n,1)}),0===Y.length&&i()}},{key:"updateAttachClasses",value:function(e,t){var n=this;e=e||this.attachment,t=t||this.targetAttachment;var o=["left","top","bottom","right","middle","center"];"undefined"!=typeof this._addAttachClasses&&this._addAttachClasses.length&&this._addAttachClasses.splice(0,this._addAttachClasses.length),"undefined"==typeof this._addAttachClasses&&(this._addAttachClasses=[]);var r=this._addAttachClasses;e.top&&r.push(this.getClass("element-attached")+"-"+e.top),e.left&&r.push(this.getClass("element-attached")+"-"+e.left),t.top&&r.push(this.getClass("target-attached")+"-"+t.top),t.left&&r.push(this.getClass("target-attached")+"-"+t.left);var a=[];o.forEach(function(e){a.push(n.getClass("element-attached")+"-"+e),a.push(n.getClass("target-attached")+"-"+e)}),j(function(){"undefined"!=typeof n._addAttachClasses&&(y(n.element,n._addAttachClasses,a),n.options.addTargetClasses!==!1&&y(n.target,n._addAttachClasses,a),delete n._addAttachClasses)})}},{key:"position",value:function(){var e=this,t=arguments.length<=0||void 0===arguments[0]||arguments[0];if(this.enabled){this.clearCache();var n=z(this.targetAttachment,this.attachment);this.updateAttachClasses(this.attachment,n);var o=this.cache("element-bounds",function(){return s(e.element)}),r=o.width,a=o.height;if(0===r&&0===a&&"undefined"!=typeof this.lastSize){var i=this.lastSize;r=i.width,a=i.height}else this.lastSize={width:r,height:a};var d=this.cache("target-bounds",function(){return e.getTargetBounds()}),f=d,u=T(H(this.attachment),{width:r,height:a}),c=T(H(n),f),h=T(this.offset,{width:r,height:a}),m=T(this.targetOffset,f);u=D(u,h),c=D(c,m);for(var y=d.left+c.left-u.left,g=d.top+c.top-u.top,v=0;v<w.modules.length;++v){var b=w.modules[v],C=b.position.call(this,{left:y,top:g,targetAttachment:n,targetPos:d,elementPos:o,offset:u,targetOffset:c,manualOffset:h,manualTargetOffset:m,scrollbarSize:O,attachment:this.attachment});if(C===!1)return!1;"undefined"!=typeof C&&"object"==typeof C&&(g=C.top,y=C.left)}var P={page:{top:g,left:y},viewport:{top:g-pageYOffset,bottom:pageYOffset-g-a+innerHeight,left:y-pageXOffset,right:pageXOffset-y-r+innerWidth}},_=this.target.ownerDocument,x=_.defaultView,O=void 0;return _.body.scrollWidth>x.innerWidth&&(O=this.cache("scrollbar-size",p),P.viewport.bottom-=O.height),_.body.scrollHeight>x.innerHeight&&(O=this.cache("scrollbar-size",p),P.viewport.right-=O.width),["","static"].indexOf(_.body.style.position)!==-1&&["","static"].indexOf(_.body.parentElement.style.position)!==-1||(P.page.bottom=_.body.scrollHeight-g-a,P.page.right=_.body.scrollWidth-y-r),"undefined"!=typeof this.options.optimizations&&this.options.optimizations.moveElement!==!1&&"undefined"==typeof this.targetModifier&&!function(){var t=e.cache("target-offsetparent",function(){return l(e.target)}),n=e.cache("target-offsetparent-bounds",function(){return s(t)}),o=getComputedStyle(t),r=n,a={};if(["Top","Left","Bottom","Right"].forEach(function(e){a[e.toLowerCase()]=parseFloat(o["border"+e+"Width"])}),n.right=_.body.scrollWidth-n.left-r.width+a.right,n.bottom=_.body.scrollHeight-n.top-r.height+a.bottom,P.page.top>=n.top+a.top&&P.page.bottom>=n.bottom&&P.page.left>=n.left+a.left&&P.page.right>=n.right){var i=t.scrollTop,p=t.scrollLeft;P.offset={top:P.page.top-n.top+i-a.top,left:P.page.left-n.left+p-a.left}}}(),this.move(P),this.history.unshift(P),this.history.length>3&&this.history.pop(),t&&S(),!0}}},{key:"move",value:function(e){var t=this;if("undefined"!=typeof this.element.parentNode){var n={};for(var o in e){n[o]={};for(var r in e[o]){for(var a=!1,i=0;i<this.history.length;++i){var s=this.history[i];if("undefined"!=typeof s[o]&&!v(s[o][r],e[o][r])){a=!0;break}}a||(n[o][r]=!0)}}var p={top:"",left:"",right:"",bottom:""},f=function(e,n){var o="undefined"!=typeof t.options.optimizations,r=o?t.options.optimizations.gpu:null;if(r!==!1){var a=void 0,i=void 0;e.top?(p.top=0,a=n.top):(p.bottom=0,a=-n.bottom),e.left?(p.left=0,i=n.left):(p.right=0,i=-n.right),p[F]="translateX("+Math.round(i)+"px) translateY("+Math.round(a)+"px)","msTransform"!==F&&(p[F]+=" translateZ(0)")}else e.top?p.top=n.top+"px":p.bottom=n.bottom+"px",e.left?p.left=n.left+"px":p.right=n.right+"px"},u=!1;if((n.page.top||n.page.bottom)&&(n.page.left||n.page.right)?(p.position="absolute",f(n.page,e.page)):(n.viewport.top||n.viewport.bottom)&&(n.viewport.left||n.viewport.right)?(p.position="fixed",f(n.viewport,e.viewport)):"undefined"!=typeof n.offset&&n.offset.top&&n.offset.left?!function(){p.position="absolute";var o=t.cache("target-offsetparent",function(){return l(t.target)});l(t.element)!==o&&j(function(){t.element.parentNode.removeChild(t.element),o.appendChild(t.element)}),f(n.offset,e.offset),u=!0}():(p.position="absolute",f({top:!0,left:!0},e.page)),!u){for(var c=!0,h=this.element.parentNode;h&&1===h.nodeType&&"BODY"!==h.tagName;){if("static"!==getComputedStyle(h).position){c=!1;break}h=h.parentNode}c||(this.element.parentNode.removeChild(this.element),this.element.ownerDocument.body.appendChild(this.element))}var m={},y=!1;for(var r in p){var g=p[r],b=this.element.style[r];b!==g&&(y=!0,m[r]=g)}y&&j(function(){d(t.element.style,m),t.trigger("repositioned")})}}}]),t}(N);X.modules=[],w.position=W;var U=d(X,w),M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),B=w.Utils,s=B.getBounds,d=B.extend,y=B.updateClasses,j=B.defer,K=["left","top","right","bottom"];w.modules.push({position:function(e){var t=this,n=e.top,o=e.left,r=e.targetAttachment;if(!this.options.constraints)return!0;var a=this.cache("element-bounds",function(){return s(t.element)}),i=a.height,l=a.width;if(0===l&&0===i&&"undefined"!=typeof this.lastSize){var p=this.lastSize;l=p.width,i=p.height}var f=this.cache("target-bounds",function(){return t.getTargetBounds()}),u=f.height,c=f.width,h=[this.getClass("pinned"),this.getClass("out-of-bounds")];this.options.constraints.forEach(function(e){var t=e.outOfBoundsClass,n=e.pinnedClass;t&&h.push(t),n&&h.push(n)}),h.forEach(function(e){["left","top","right","bottom"].forEach(function(t){h.push(e+"-"+t)})});var m=[],g=d({},r),v=d({},this.attachment);return this.options.constraints.forEach(function(e){var a=e.to,s=e.attachment,p=e.pin;"undefined"==typeof s&&(s="");var d=void 0,f=void 0;if(s.indexOf(" ")>=0){var h=s.split(" "),y=M(h,2);f=y[0],d=y[1]}else d=f=s;var b=C(t,a);"target"!==f&&"both"!==f||(n<b[1]&&"top"===g.top&&(n+=u,g.top="bottom"),n+i>b[3]&&"bottom"===g.top&&(n-=u,g.top="top")),"together"===f&&("top"===g.top&&("bottom"===v.top&&n<b[1]?(n+=u,g.top="bottom",n+=i,v.top="top"):"top"===v.top&&n+i>b[3]&&n-(i-u)>=b[1]&&(n-=i-u,g.top="bottom",v.top="bottom")),"bottom"===g.top&&("top"===v.top&&n+i>b[3]?(n-=u,g.top="top",n-=i,v.top="bottom"):"bottom"===v.top&&n<b[1]&&n+(2*i-u)<=b[3]&&(n+=i-u,g.top="top",v.top="top")),"middle"===g.top&&(n+i>b[3]&&"top"===v.top?(n-=i,v.top="bottom"):n<b[1]&&"bottom"===v.top&&(n+=i,v.top="top"))),"target"!==d&&"both"!==d||(o<b[0]&&"left"===g.left&&(o+=c,g.left="right"),o+l>b[2]&&"right"===g.left&&(o-=c,g.left="left")),"together"===d&&(o<b[0]&&"left"===g.left?"right"===v.left?(o+=c,g.left="right",o+=l,v.left="left"):"left"===v.left&&(o+=c,g.left="right",o-=l,v.left="right"):o+l>b[2]&&"right"===g.left?"left"===v.left?(o-=c,g.left="left",o-=l,v.left="right"):"right"===v.left&&(o-=c,g.left="left",o+=l,v.left="left"):"center"===g.left&&(o+l>b[2]&&"left"===v.left?(o-=l,v.left="right"):o<b[0]&&"right"===v.left&&(o+=l,v.left="left"))),"element"!==f&&"both"!==f||(n<b[1]&&"bottom"===v.top&&(n+=i,v.top="top"),n+i>b[3]&&"top"===v.top&&(n-=i,v.top="bottom")),"element"!==d&&"both"!==d||(o<b[0]&&("right"===v.left?(o+=l,v.left="left"):"center"===v.left&&(o+=l/2,v.left="left")),o+l>b[2]&&("left"===v.left?(o-=l,v.left="right"):"center"===v.left&&(o-=l/2,v.left="right"))),"string"==typeof p?p=p.split(",").map(function(e){return e.trim()}):p===!0&&(p=["top","left","right","bottom"]),p=p||[];var D=[],T=[];n<b[1]&&(p.indexOf("top")>=0?(n=b[1],D.push("top")):T.push("top")),n+i>b[3]&&(p.indexOf("bottom")>=0?(n=b[3]-i,D.push("bottom")):T.push("bottom")),o<b[0]&&(p.indexOf("left")>=0?(o=b[0],D.push("left")):T.push("left")),o+l>b[2]&&(p.indexOf("right")>=0?(o=b[2]-l,D.push("right")):T.push("right")),D.length&&!function(){var e=void 0;e="undefined"!=typeof t.options.pinnedClass?t.options.pinnedClass:t.getClass("pinned"),m.push(e),D.forEach(function(t){m.push(e+"-"+t)})}(),T.length&&!function(){var e=void 0;e="undefined"!=typeof t.options.outOfBoundsClass?t.options.outOfBoundsClass:t.getClass("out-of-bounds"),m.push(e),T.forEach(function(t){m.push(e+"-"+t)})}(),(D.indexOf("left")>=0||D.indexOf("right")>=0)&&(v.left=g.left=!1),(D.indexOf("top")>=0||D.indexOf("bottom")>=0)&&(v.top=g.top=!1),g.top===r.top&&g.left===r.left&&v.top===t.attachment.top&&v.left===t.attachment.left||(t.updateAttachClasses(v,g),t.trigger("update",{attachment:v,targetAttachment:g}))}),j(function(){t.options.addTargetClasses!==!1&&y(t.target,m,h),y(t.element,m,h)}),{top:n,left:o}}});var B=w.Utils,s=B.getBounds,y=B.updateClasses,j=B.defer;w.modules.push({position:function(e){var t=this,n=e.top,o=e.left,r=this.cache("element-bounds",function(){return s(t.element)}),a=r.height,i=r.width,l=this.getTargetBounds(),p=n+a,d=o+i,f=[];n<=l.bottom&&p>=l.top&&["left","right"].forEach(function(e){var t=l[e];t!==o&&t!==d||f.push(e)}),o<=l.right&&d>=l.left&&["top","bottom"].forEach(function(e){var t=l[e];t!==n&&t!==p||f.push(e)});var u=[],c=[],h=["left","top","right","bottom"];return u.push(this.getClass("abutted")),h.forEach(function(e){u.push(t.getClass("abutted")+"-"+e)}),f.length&&c.push(this.getClass("abutted")),f.forEach(function(e){c.push(t.getClass("abutted")+"-"+e)}),j(function(){t.options.addTargetClasses!==!1&&y(t.target,c,u),y(t.element,c,u)}),!0}});var M=function(){function e(e,t){var n=[],o=!0,r=!1,a=void 0;try{for(var i,s=e[Symbol.iterator]();!(o=(i=s.next()).done)&&(n.push(i.value),!t||n.length!==t);o=!0);}catch(l){r=!0,a=l}finally{try{!o&&s["return"]&&s["return"]()}finally{if(r)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}();return w.modules.push({position:function(e){var t=e.top,n=e.left;if(this.options.shift){var o=this.options.shift;"function"==typeof this.options.shift&&(o=this.options.shift.call(this,{top:t,left:n}));var r=void 0,a=void 0;if("string"==typeof o){o=o.split(" "),o[1]=o[1]||o[0];var i=o,s=M(i,2);r=s[0],a=s[1],r=parseFloat(r,10),a=parseFloat(a,10)}else r=o.top,a=o.left;return t+=r,n+=a,{top:t,left:n}}}}),U})}])});
-
-/***/ },
-/* 358 */
+/* 346 */
 /*!*****************************************!*\
   !*** ./~/react-onclickoutside/index.js ***!
   \*****************************************/
@@ -45891,7 +44613,7 @@
 
 
 /***/ },
-/* 359 */
+/* 347 */
 /*!*********************************************************!*\
   !*** ./app/components/courses/update-course-display.js ***!
   \*********************************************************/
@@ -45909,15 +44631,15 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 322);
+	var _reactGeosuggest = __webpack_require__(/*! react-geosuggest */ 328);
 	
 	var _reactGeosuggest2 = _interopRequireDefault(_reactGeosuggest);
 	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
 	
 	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
 	
-	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 286);
 	
 	var _modalStyles2 = _interopRequireDefault(_modalStyles);
 	
@@ -45925,8 +44647,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DatePicker = __webpack_require__(/*! react-datepicker */ 357);
-	var moment = __webpack_require__(/*! moment */ 346);
+	var DatePicker = __webpack_require__(/*! react-datepicker */ 343);
+	var moment = __webpack_require__(/*! moment */ 344);
 	moment().format();
 	
 	var DATABASE_URL = "http://localhost:8080";
@@ -46018,8 +44740,8 @@
 	          onCourseSubmit: this.handleCourseUpdate,
 	          course: this.state.courseData
 	        }),
-	        _react2.default.createElement('input', { type: 'submit', onClick: _reactRouter.browserHistory.goBack, value: 'Nevermind', className: 'form-submit-button fifty' }),
-	        _react2.default.createElement('input', { type: 'submit', onClick: this.handleCourseDelete, value: 'Delete this Course', className: 'form-submit-button fifty' })
+	        _react2.default.createElement('input', { type: 'submit', onClick: _reactRouter.browserHistory.goBack, value: 'Nevermind', className: 'btn-warning form-submit-button fifty' }),
+	        _react2.default.createElement('input', { type: 'submit', onClick: this.handleCourseDelete, value: 'Delete Course', className: 'btn-danger form-submit-button fifty fifty-right' })
 	      )
 	    );
 	  }
@@ -46158,7 +44880,7 @@
 	          country: 'us',
 	          onSuggestSelect: this.onSuggestSelect
 	        }),
-	        _react2.default.createElement('input', { type: 'submit', value: 'Update Your Course!', className: 'form-submit-button' })
+	        _react2.default.createElement('input', { type: 'submit', value: 'Update Course', className: 'btn-success form-submit-button' })
 	      )
 	    );
 	  }
@@ -46171,7 +44893,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps)(UpdateCourseDisplay);
 
 /***/ },
-/* 360 */
+/* 348 */
 /*!******************************************!*\
   !*** ./app/components/user-dashboard.js ***!
   \******************************************/
@@ -46189,7 +44911,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 361);
+	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 349);
 	
 	var _courseList2 = _interopRequireDefault(_courseList);
 	
@@ -46288,7 +45010,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps)(UserDashboard);
 
 /***/ },
-/* 361 */
+/* 349 */
 /*!***********************************************!*\
   !*** ./app/components/courses/course-list.js ***!
   \***********************************************/
@@ -46304,7 +45026,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 338);
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 350);
 	
 	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
 	
@@ -46314,7 +45036,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _course = __webpack_require__(/*! ./course.js */ 304);
+	var _course = __webpack_require__(/*! ./course.js */ 325);
 	
 	var _course2 = _interopRequireDefault(_course);
 	
@@ -46363,7 +45085,73 @@
 	exports.default = CourseList;
 
 /***/ },
-/* 362 */
+/* 350 */
+/*!****************************************!*\
+  !*** ./~/superagent-no-cache/index.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var ie
+	try {
+	  ie = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"ie\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))
+	} catch (e) {
+	  ie = __webpack_require__(/*! component-ie */ 351)
+	}
+	
+	function with_query_strings (request) {
+	  request._query = [Date.now().toString()]
+	  return request
+	}
+	
+	module.exports = function _superagentNoCache (request, mockIE) {
+	  request.set('X-Requested-With', 'XMLHttpRequest')
+	  request.set('Cache-Control', 'no-cache,no-store,must-revalidate,max-age=-1')
+	
+	  if (ie || mockIE) {
+	    with_query_strings(request)
+	  }
+	
+	  return request
+	}
+
+
+/***/ },
+/* 351 */
+/*!*********************************!*\
+  !*** ./~/component-ie/index.js ***!
+  \*********************************/
+/***/ function(module, exports) {
+
+	/**
+	 * Export `ie`.
+	 */
+	
+	module.exports = ie();
+	
+	/**
+	 * Initialize `ie`
+	 *
+	 * @return {Number|undefined}
+	 * @api public
+	 */
+	
+	function ie() {
+	  for( var v = 3,
+	           el = document.createElement('b'),
+	           // empty array as loop breaker (and exception-avoider) for non-IE and IE10+
+	           all = el.all || [];
+	       // i tag not well-formed since we know that IE5-IE9 won't mind
+	       el.innerHTML = '<!--[if gt IE ' + (++v) + ']><i><![endif]-->',
+	       all[0];
+	     );
+	  // return the documentMode for IE10+ compatibility
+	  // non-IE will get undefined
+	  return v > 4 ? v : document.documentMode;
+	}
+
+
+/***/ },
+/* 352 */
 /*!****************************************************!*\
   !*** ./app/components/messages/message-display.js ***!
   \****************************************************/
@@ -46385,21 +45173,21 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
 	
 	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
 	
-	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 286);
 	
 	var _modalStyles2 = _interopRequireDefault(_modalStyles);
 	
-	var _threadList = __webpack_require__(/*! ./thread-list.js */ 363);
+	var _threadList = __webpack_require__(/*! ./thread-list.js */ 353);
 	
 	var _threadList2 = _interopRequireDefault(_threadList);
 	
-	var _threadMessageDisplay = __webpack_require__(/*! ./thread-message-display.js */ 366);
+	var _messageList = __webpack_require__(/*! ./message-list.js */ 356);
 	
-	var _threadMessageDisplay2 = _interopRequireDefault(_threadMessageDisplay);
+	var _messageList2 = _interopRequireDefault(_messageList);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -46504,7 +45292,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-7' },
-	            _react2.default.createElement(_threadMessageDisplay2.default, {
+	            _react2.default.createElement(_messageList2.default, {
 	              data: this.state.messages,
 	              handleMessageSubmit: this.handleMessageSubmit
 	            })
@@ -46519,7 +45307,7 @@
 	exports.default = MessageDisplay;
 
 /***/ },
-/* 363 */
+/* 353 */
 /*!************************************************!*\
   !*** ./app/components/messages/thread-list.js ***!
   \************************************************/
@@ -46537,7 +45325,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _thread = __webpack_require__(/*! ./thread.js */ 364);
+	var _thread = __webpack_require__(/*! ./thread.js */ 354);
 	
 	var _thread2 = _interopRequireDefault(_thread);
 	
@@ -46586,7 +45374,7 @@
 	exports.default = ThreadList;
 
 /***/ },
-/* 364 */
+/* 354 */
 /*!*******************************************!*\
   !*** ./app/components/messages/thread.js ***!
   \*******************************************/
@@ -46604,7 +45392,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _trashIcon = __webpack_require__(/*! ../icons/trash-icon.js */ 365);
+	var _trashIcon = __webpack_require__(/*! ../icons/trash-icon.js */ 355);
 	
 	var _trashIcon2 = _interopRequireDefault(_trashIcon);
 	
@@ -46721,7 +45509,7 @@
 	exports.default = Thread;
 
 /***/ },
-/* 365 */
+/* 355 */
 /*!********************************************!*\
   !*** ./app/components/icons/trash-icon.js ***!
   \********************************************/
@@ -46737,7 +45525,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 289);
 	
 	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 	
@@ -46758,10 +45546,10 @@
 	exports.default = TrashIcon;
 
 /***/ },
-/* 366 */
-/*!***********************************************************!*\
-  !*** ./app/components/messages/thread-message-display.js ***!
-  \***********************************************************/
+/* 356 */
+/*!*************************************************!*\
+  !*** ./app/components/messages/message-list.js ***!
+  \*************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46776,7 +45564,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
-	var _message = __webpack_require__(/*! ./message.js */ 367);
+	var _message = __webpack_require__(/*! ./message.js */ 357);
 	
 	var _message2 = _interopRequireDefault(_message);
 	
@@ -46840,7 +45628,7 @@
 	exports.default = MessageList;
 
 /***/ },
-/* 367 */
+/* 357 */
 /*!********************************************!*\
   !*** ./app/components/messages/message.js ***!
   \********************************************/
@@ -46860,7 +45648,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var moment = __webpack_require__(/*! moment */ 346);
+	var moment = __webpack_require__(/*! moment */ 344);
 	moment().format();
 	
 	var Message = _react2.default.createClass({
@@ -46900,10 +45688,10 @@
 	exports.default = Message;
 
 /***/ },
-/* 368 */
-/*!*****************************************!*\
-  !*** ./app/components/error-display.js ***!
-  \*****************************************/
+/* 358 */
+/*!************************************!*\
+  !*** ./app/components/404-page.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46948,10 +45736,478 @@
 	exports.default = ErrorDisplay;
 
 /***/ },
-/* 369 */
-/*!********************************************************!*\
-  !*** ./app/components/landing-page/map/map-display.js ***!
-  \********************************************************/
+/* 359 */
+/*!*********************************************************!*\
+  !*** ./app/components/courses/single-course-display.js ***!
+  \*********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _leftDisplay = __webpack_require__(/*! ./course-information/left-display.js */ 360);
+	
+	var _leftDisplay2 = _interopRequireDefault(_leftDisplay);
+	
+	var _middleDisplay = __webpack_require__(/*! ./course-information/middle-display.js */ 361);
+	
+	var _middleDisplay2 = _interopRequireDefault(_middleDisplay);
+	
+	var _rightDisplay = __webpack_require__(/*! ./course-information/right-display.js */ 362);
+	
+	var _rightDisplay2 = _interopRequireDefault(_rightDisplay);
+	
+	var _rosterList = __webpack_require__(/*! ./roster-list.js */ 365);
+	
+	var _rosterList2 = _interopRequireDefault(_rosterList);
+	
+	var _reviewList = __webpack_require__(/*! ./review-list.js */ 366);
+	
+	var _reviewList2 = _interopRequireDefault(_reviewList);
+	
+	var _commentBoard = __webpack_require__(/*! ./comments/comment-board.js */ 367);
+	
+	var _commentBoard2 = _interopRequireDefault(_commentBoard);
+	
+	var _initiateMessageForm = __webpack_require__(/*! ./initiate-message-form.js */ 369);
+	
+	var _initiateMessageForm2 = _interopRequireDefault(_initiateMessageForm);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 277);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 286);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
+	var _modalStylesMargin = __webpack_require__(/*! ../styles/modal-styles-margin.js */ 370);
+	
+	var _modalStylesMargin2 = _interopRequireDefault(_modalStylesMargin);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var DATABASE_URL = "http://localhost:8080";
+	
+	var SingleCourseDisplay = _react2.default.createClass({
+	  displayName: 'SingleCourseDisplay',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      courseData: [],
+	      roster: [],
+	      commentBoard: [],
+	      reviews: [],
+	      displayReviews: false,
+	      isUserEnrolledInCourse: false,
+	      student_to_be_messaged: null
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var id = this.props.params.id;
+	    this.getCourseDataFromAPI(id, this.getReviewsFromAPI);
+	    this.getRosterFromAPI(id);
+	    this.getCommentBoardFromAPI(id);
+	  },
+	
+	  getCourseDataFromAPI: function getCourseDataFromAPI(id, callback) {
+	    _superagent2.default.get(DATABASE_URL + "/classes/" + id).end(function (err, res) {
+	      if (err) {
+	        _reactRouter.browserHistory.push('/error');
+	      } else {
+	        this.setState({ courseData: res.body[0] });
+	        if (callback) {
+	          callback(this.state.courseData.user_id);
+	        } else {
+	          this.showModal();
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  refreshCourseDataAfterUnenrolling: function refreshCourseDataAfterUnenrolling(id) {
+	    _superagent2.default.get(DATABASE_URL + "/classes/" + id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing this course from the API");
+	      } else {
+	        this.setState({ courseData: res.body[0] });
+	        getRosterFromAPI(id);
+	      }
+	    }.bind(this));
+	  },
+	
+	  getRosterFromAPI: function getRosterFromAPI(id) {
+	    _superagent2.default.get(DATABASE_URL + "/rosters/" + id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing this roster from the API");
+	      } else {
+	        var roster = res.body;
+	        if (sessionStorage.user_id) {
+	          for (var i = 0; i < roster.length; i++) {
+	            if (sessionStorage.user_id == roster[i].id) {
+	              this.setState({ roster: roster, isUserEnrolledInCourse: true });
+	            } else {
+	              this.setState({ roster: roster });
+	            }
+	          }
+	        } else {
+	          this.setState({ roster: roster });
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  getCommentBoardFromAPI: function getCommentBoardFromAPI(id) {
+	    _superagent2.default.get(DATABASE_URL + "/classes/" + id + "/comments").end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing course comments from the API");
+	      } else {
+	        this.setState({ commentBoard: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleCommentSubmit: function handleCommentSubmit(comment) {
+	    var user_id = Number(sessionStorage.user_id);
+	    var id = this.props.params.id;
+	    _superagent2.default.post(DATABASE_URL + "/classes/" + id + "/comments").send(comment).send({ class_id: id }).send({ commenter_id: user_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        this.getCommentBoardFromAPI(id);
+	      }
+	    }.bind(this));
+	  },
+	
+	  getReviewsFromAPI: function getReviewsFromAPI(id) {
+	    _superagent2.default.get(DATABASE_URL + "/users/" + id + "/reviews").end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing the reviews from the API");
+	      } else {
+	        this.setState({ reviews: res.body });
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleReviewDisplay: function handleReviewDisplay() {
+	    this.setState({ displayReviews: !this.state.displayReviews });
+	  },
+	
+	  handleUserSignup: function handleUserSignup() {
+	    var id = this.props.params.id;
+	    var seats_remaining = this.state.courseData.seats_remaining - 1;
+	    _superagent2.default.put(DATABASE_URL + "/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error signing up for this course.");
+	      } else {
+	        this.updateRoster();
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleUserUnenrollSeatsRemaining: function handleUserUnenrollSeatsRemaining() {
+	    var id = this.props.params.id;
+	    var seats_remaining = this.state.courseData.seats_remaining + 1;
+	    _superagent2.default.put(DATABASE_URL + "/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error signing up for this course.");
+	      } else {
+	        this.refreshCourseDataAfterUnenrolling(id);
+	        this.updateRosterUnenroll();
+	      }
+	    }.bind(this));
+	  },
+	
+	  updateRosterUnenroll: function updateRosterUnenroll() {
+	    var id = this.props.params.id;
+	    var user_id = Number(sessionStorage.user_id);
+	    _superagent2.default.del(DATABASE_URL + "/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error in deleting this user.");
+	      } else {
+	        this.getRosterFromAPI(id);
+	        this.hideUnenrollModal();
+	        this.showModalConfirmUnenroll();
+	      }
+	    }.bind(this));
+	  },
+	
+	  updateRoster: function updateRoster() {
+	    var id = this.props.params.id;
+	    var user_id = Number(sessionStorage.user_id);
+	    _superagent2.default.post(DATABASE_URL + "/rosters/" + id).send({ user_id: user_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error adding a roster field.");
+	      } else {
+	        this.getRosterFromAPI(id);
+	        this.getCourseDataFromAPI(id);
+	      }
+	    }.bind(this));
+	  },
+	
+	  initiateMessageClick: function initiateMessageClick() {
+	    var instructor_id = this.state.courseData.user_id;
+	    var sender_id = Number(sessionStorage.user_id);
+	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + sender_id + '/' + instructor_id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing info from the API");
+	      } else {
+	        if (res.body.exists == true) {
+	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
+	        } else {
+	          this.showMessageModal();
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  initiateMessageClickFromInstructor: function initiateMessageClickFromInstructor(student_id) {
+	    console.log(student_id);
+	    this.setState({ student_to_be_messaged: student_id });
+	    var instructor_id = Number(sessionStorage.user_id);
+	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing info from the API");
+	      } else {
+	        if (res.body.exists == true) {
+	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
+	        } else {
+	          this.showMessageModal();
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleMessageThreadCreation: function handleMessageThreadCreation(message) {
+	    var sender_id = Number(sessionStorage.user_id);
+	    var recipient_id = null;
+	    if (Number(sessionStorage.user_id) == this.state.courseData.user_id) {
+	      recipient_id = this.state.student_to_be_messaged;
+	    } else {
+	      recipient_id = this.state.courseData.user_id;
+	    }
+	    _superagent2.default.post(DATABASE_URL + "/messages/threads").send({ message: message }).send({ class_id: this.state.courseData.id }).send({ sender_id: sender_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        this.handleMessageSubmit(res.body[0], sender_id, recipient_id, message);
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleMessageSubmit: function handleMessageSubmit(thread_id, sender_id, recipient_id, message) {
+	    console.log(thread_id, sender_id, recipient_id, message);
+	    _superagent2.default.post(DATABASE_URL + "/messages/" + sender_id).send({ message: message.message }).send({ thread_id: thread_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        this.hideMessageModal();
+	      }
+	    }.bind(this));
+	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	  },
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	  },
+	
+	  showUnenrollModal: function showUnenrollModal() {
+	    this.refs.modalUnenroll.show();
+	  },
+	  hideUnenrollModal: function hideUnenrollModal() {
+	    this.refs.modalUnenroll.hide();
+	  },
+	
+	  showModalConfirmUnenroll: function showModalConfirmUnenroll() {
+	    this.refs.modalConfirmUnenroll.show();
+	  },
+	  hideModalConfirmUnenroll: function hideModalConfirmUnenroll() {
+	    this.refs.modalConfirmUnenroll.hide();
+	    _reactRouter.browserHistory.push('/');
+	  },
+	
+	  showMessageModal: function showMessageModal() {
+	    this.refs.modalMessage.show();
+	  },
+	  hideMessageModal: function hideMessageModal() {
+	    this.refs.modalMessage.hide();
+	    this.showMessageConfirmationModal();
+	  },
+	  hideMessageModalCancel: function hideMessageModalCancel() {
+	    this.refs.modalMessage.hide();
+	  },
+	
+	  showMessageConfirmationModal: function showMessageConfirmationModal() {
+	    this.refs.modalMessageConfirmation.show();
+	  },
+	  hideMessageConfirmationModal: function hideMessageConfirmationModal() {
+	    this.refs.modalMessageConfirmation.hide();
+	  },
+	
+	  render: function render() {
+	
+	    var reviews = this.state.reviews.length > 0 && this.state.displayReviews ? _react2.default.createElement(_reviewList2.default, {
+	      data: this.state.reviews
+	    }) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row', id: 'single-course-display' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-3 no-padding' },
+	          _react2.default.createElement(_leftDisplay2.default, {
+	            data: this.state.courseData
+	          })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-7' },
+	          _react2.default.createElement(_middleDisplay2.default, {
+	            data: this.state.courseData,
+	            reviews: this.state.reviews,
+	            displayReviews: this.state.displayReviews,
+	            handleReviewDisplay: this.handleReviewDisplay
+	          })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2 no-padding' },
+	          _react2.default.createElement(_rightDisplay2.default, {
+	            data: this.state.courseData,
+	            handleUserSignup: this.handleUserSignup,
+	            showUnenrollModal: this.showUnenrollModal,
+	            reviews: this.state.reviews,
+	            isUserEnrolledInCourse: this.state.isUserEnrolledInCourse,
+	            initiateMessageClick: this.initiateMessageClick
+	          })
+	        )
+	      ),
+	      reviews,
+	      _react2.default.createElement(_rosterList2.default, {
+	        data: this.state.roster,
+	        instructor_id: this.state.courseData.user_id,
+	        initiateMessageClick: this.initiateMessageClickFromInstructor
+	      }),
+	      _react2.default.createElement(_commentBoard2.default, {
+	        data: this.state.commentBoard,
+	        instructor_id: this.state.courseData.user_id,
+	        handleCommentSubmit: this.handleCommentSubmit,
+	        isUserEnrolledInCourse: this.state.isUserEnrolledInCourse
+	      }),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modal', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'You are all signed up!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideModal },
+	          'Close'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modalUnenroll', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'Are you sure you want to leave this class?'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStylesMargin2.default.btn, onClick: this.handleUserUnenrollSeatsRemaining },
+	          'Yes'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideUnenrollModal },
+	          'Cancel'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modalConfirmUnenroll', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'You are no longer enrolled in this course.'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideModalConfirmUnenroll },
+	          'Close'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        {
+	          ref: 'modalMessage',
+	          style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'Message:'
+	        ),
+	        _react2.default.createElement(_initiateMessageForm2.default, {
+	          handleMessageSubmit: this.handleMessageThreadCreation
+	        }),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideMessageModalCancel },
+	          'Cancel'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modalMessageConfirmation', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'Message sent!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideMessageConfirmationModal },
+	          'Close'
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(SingleCourseDisplay);
+
+/***/ },
+/* 360 */
+/*!*******************************************************************!*\
+  !*** ./app/components/courses/course-information/left-display.js ***!
+  \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46964,194 +46220,459 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 350);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	var _marker = __webpack_require__(/*! ./marker.js */ 371);
-	
-	var _marker2 = _interopRequireDefault(_marker);
-	
-	var _listItem = __webpack_require__(/*! ./list-item.js */ 370);
-	
-	var _listItem2 = _interopRequireDefault(_listItem);
-	
-	var _googleMapReact = __webpack_require__(/*! google-map-react */ 280);
-	
-	var _googleMapReact2 = _interopRequireDefault(_googleMapReact);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var MapDisplay = _react2.default.createClass({
-	  displayName: 'MapDisplay',
+	var CourseDateTimePlaceInstructorDisplay = _react2.default.createClass({
+	  displayName: 'CourseDateTimePlaceInstructorDisplay',
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'left-course-display center' },
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'bold' },
+	        this.props.data.date
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.data.start_time,
+	        ' to ',
+	        this.props.data.end_time
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'bold' },
+	        this.props.data.address
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        this.props.data.city,
+	        ', ',
+	        this.props.data.state
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'btn-div' },
+	        '$',
+	        this.props.data.price
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = CourseDateTimePlaceInstructorDisplay;
+
+/***/ },
+/* 361 */
+/*!*********************************************************************!*\
+  !*** ./app/components/courses/course-information/middle-display.js ***!
+  \*********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 350);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var TitleDescriptionPrereqDisplay = _react2.default.createClass({
+	  displayName: 'TitleDescriptionPrereqDisplay',
 	
 	
 	  render: function render() {
 	
-	    var markerCount = 0;
-	    var mapMarkers = this.props.data.map(function (marker, index) {
-	      var filterTextLowerCase = this.props.filterText.toLowerCase();
-	      var markerTitleLowerCase = marker.title.toLowerCase();
-	      var radius = this.props.radius;
-	      var userLat = this.props.lat;
-	      var userLng = this.props.lng;
-	      var withinLatRadius = marker.lat < userLat + radius && marker.lat > userLat - radius;
-	      var withinLngRadius = marker.lng > userLng - radius && marker.lng < userLng + radius;
-	      var withinRadius = marker.lng > userLng - radius && marker.lng < userLng + radius && marker.lat < userLat + radius && marker.lat > userLat - radius;
+	    var showReviews = this.props.displayReviews && this.props.reviews.length > 0 ? "Hide Instructor Reviews" : null;
 	
-	      if (this.props.filterText !== '' && markerTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
-	        return;
-	      }
-	      if (withinRadius === false) {
-	        return;
-	      }
-	      markerCount++;
+	    var hideReviews = !this.props.displayReviews && this.props.reviews.length > 0 ? "Show Instructor Reviews" : null;
 	
-	      return _react2.default.createElement(_marker2.default, {
-	        lat: marker.lat,
-	        lng: marker.lng,
-	        key: "marker:" + marker.id,
-	        order: markerCount,
-	        id: marker.id });
-	    }.bind(this));
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { id: 'title-container' },
+	        _react2.default.createElement(
+	          'h2',
+	          { id: 'course-title' },
+	          this.props.data.title
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { id: 'course-description' },
+	        this.props.data.description
+	      ),
+	      _react2.default.createElement('hr', null),
+	      _react2.default.createElement(
+	        'p',
+	        { id: 'course-prereqs' },
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'bold' },
+	          'Prerequisites: '
+	        ),
+	        this.props.data.prerequisites
+	      ),
+	      _react2.default.createElement('hr', null),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'bold orange right pointer', onClick: this.props.handleReviewDisplay },
+	        showReviews,
+	        hideReviews
+	      )
+	    );
+	  }
+	});
 	
-	    var listCount = 0;
-	    var ListItems = this.props.data.map(function (item, index) {
-	      var filterTextLowerCase = this.props.filterText.toLowerCase();
-	      var itemTitleLowerCase = item.title.toLowerCase();
-	      var radius = this.props.radius;
-	      var userLat = this.props.lat;
-	      var userLng = this.props.lng;
-	      var withinLatRadius = item.lat < userLat + radius && item.lat > userLat - radius;
-	      var withinLngRadius = item.lng > userLng - radius && item.lng < userLng + radius;
-	      var withinRadius = item.lng > userLng - radius && item.lng < userLng + radius && item.lat < userLat + radius && item.lat > userLat - radius;
+	exports.default = TitleDescriptionPrereqDisplay;
+
+/***/ },
+/* 362 */
+/*!********************************************************************!*\
+  !*** ./app/components/courses/course-information/right-display.js ***!
+  \********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	      if (this.props.filterText !== '' && itemTitleLowerCase.indexOf(filterTextLowerCase) === -1) {
-	        return;
-	      }
-	      if (withinRadius === false) {
-	        return;
-	      }
-	      listCount++;
+	var _react = __webpack_require__(/*! react */ 1);
 	
-	      return _react2.default.createElement(_listItem2.default, {
-	        title: item.title,
-	        date: item.date,
-	        start_time: item.start_time,
-	        key: "list-item:" + item.id,
-	        order: listCount,
-	        id: item.id });
-	    }.bind(this));
+	var _react2 = _interopRequireDefault(_react);
 	
-	    var numberOfResults = this.props.data.length;
-	    for (var i = 0; i < mapMarkers.length; i++) {
-	      if (mapMarkers[i] == undefined) {
-	        numberOfResults -= 1;
-	      }
-	    };
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 350);
 	
-	    var noClasses = numberOfResults === 0 ? _react2.default.createElement(
-	      'h3',
-	      { className: 'center no-classes-message' },
-	      'There are no classes that match this search.'
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _taughtBy = __webpack_require__(/*! ./taught-by.js */ 363);
+	
+	var _taughtBy2 = _interopRequireDefault(_taughtBy);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RightDisplay = _react2.default.createClass({
+	  displayName: 'RightDisplay',
+	
+	  render: function render() {
+	
+	    var classFull = this.props.data.seats_remaining == 0 ? _react2.default.createElement(
+	      'div',
+	      { className: 'btn-div' },
+	      'No Seats Remaining'
+	    ) : _react2.default.createElement(
+	      'div',
+	      { className: 'btn-div' },
+	      this.props.data.seats_remaining,
+	      ' seats left'
+	    );
+	
+	    var updateCourseButton = Number(sessionStorage.user_id) == this.props.data.user_id ? _react2.default.createElement(
+	      _reactRouter.Link,
+	      { className: 'link-plain', to: '/update/' + this.props.data.id },
+	      _react2.default.createElement(
+	        'div',
+	        { onClick: this.props.handleCourseUpdate, className: 'btn-danger btn-div' },
+	        'Update or Delete Course'
+	      )
+	    ) : null;
+	
+	    var signupButton = sessionStorage.first_name && !this.props.isUserEnrolledInCourse && !(Number(sessionStorage.user_id) == this.props.data.user_id) && !this.props.data.seats_remaining == 0 ? _react2.default.createElement(
+	      'div',
+	      { onClick: this.props.handleUserSignup, className: 'btn-success btn-div pointer' },
+	      'Sign Up'
+	    ) : null;
+	
+	    var loginButton = !sessionStorage.first_name && !this.props.data.seats_remaining == 0 ? _react2.default.createElement(
+	      _reactRouter.Link,
+	      { className: 'link-plain', to: '/login' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'btn-success btn-div' },
+	        'Log In',
+	        _react2.default.createElement('br', null),
+	        'to Sign Up'
+	      )
+	    ) : null;
+	
+	    var enrolledInCourse = this.props.isUserEnrolledInCourse ? _react2.default.createElement(
+	      'div',
+	      { className: 'btn-div' },
+	      'Enrolled!'
+	    ) : null;
+	
+	    var leaveClass = this.props.isUserEnrolledInCourse ? _react2.default.createElement(
+	      'div',
+	      { onClick: this.props.showUnenrollModal, className: 'btn-div btn-danger pointer' },
+	      'Leave Class'
 	    ) : null;
 	
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'row lowindex' },
-	      noClasses,
-	      _react2.default.createElement('div', { className: 'col-sm-1' }),
+	      null,
+	      updateCourseButton,
+	      signupButton,
+	      loginButton,
+	      enrolledInCourse,
+	      leaveClass,
+	      classFull,
+	      _react2.default.createElement(_taughtBy2.default, {
+	        data: this.props.data,
+	        initiateMessageClick: this.props.initiateMessageClick
+	      })
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(RightDisplay);
+
+/***/ },
+/* 363 */
+/*!****************************************************************!*\
+  !*** ./app/components/courses/course-information/taught-by.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 350);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _messageIcon = __webpack_require__(/*! ../../icons/message-icon.js */ 364);
+	
+	var _messageIcon2 = _interopRequireDefault(_messageIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var TaughtBy = _react2.default.createClass({
+	  displayName: 'TaughtBy',
+	
+	
+	  initiateMessageClick: function initiateMessageClick() {
+	    this.props.initiateMessageClick();
+	  },
+	
+	  render: function render() {
+	
+	    var sendMessageOption = sessionStorage.user_id && Number(sessionStorage.user_id) !== this.props.data.user_id ? _react2.default.createElement(
+	      'span',
+	      { onClick: this.initiateMessageClick, className: 'pointer' },
+	      _react2.default.createElement(_messageIcon2.default, null),
+	      'Message'
+	    ) : null;
+	
+	    var instructorImageStyle = {
+	      backgroundImage: 'url(' + this.props.data.profile_pic + ')'
+	    };
+	
+	    var taughtBy = this.props.data.user_id == Number(sessionStorage.user_id) ? _react2.default.createElement(
+	      'p',
+	      { className: 'line-height-one' },
+	      'you!'
+	    ) : _react2.default.createElement(
+	      'p',
+	      { className: 'line-height-one' },
+	      this.props.data.first_name,
+	      '    ',
+	      this.props.data.last_name
+	    );
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'center', id: 'taught-by' },
+	      _react2.default.createElement(
+	        'p',
+	        _defineProperty({ className: 'line-height-one' }, 'className', 'bold'),
+	        'Taught by:'
+	      ),
+	      taughtBy,
+	      _react2.default.createElement('div', { className: 'instructor-profile-img',
+	        style: instructorImageStyle }),
+	      sendMessageOption
+	    );
+	  }
+	});
+	
+	exports.default = TaughtBy;
+
+/***/ },
+/* 364 */
+/*!**********************************************!*\
+  !*** ./app/components/icons/message-icon.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 289);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MessageIcon = _react2.default.createClass({
+	  displayName: 'MessageIcon',
+	
+	  render: function render() {
+	    return _react2.default.createElement(_reactFontawesome2.default, {
+	      name: 'envelope',
+	      size: 'lg',
+	      style: { marginRight: '5px', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
+	    });
+	  }
+	});
+	
+	exports.default = MessageIcon;
+
+/***/ },
+/* 365 */
+/*!***********************************************!*\
+  !*** ./app/components/courses/roster-list.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _messageIcon = __webpack_require__(/*! ../icons/message-icon.js */ 364);
+	
+	var _messageIcon2 = _interopRequireDefault(_messageIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RosterList = _react2.default.createClass({
+	  displayName: 'RosterList',
+	
+	
+	  render: function render() {
+	
+	    var noStudents = this.props.data.length === 0 ? _react2.default.createElement(
+	      'p',
+	      { className: 'center no-data-message' },
+	      'There are no students enrolled. ',
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { className: 'link-plain link-orange', to: '/login' },
+	        'Be the first!'
+	      )
+	    ) : null;
+	
+	    var rosterNodes = this.props.data.map(function (student) {
+	      return _react2.default.createElement(Student, {
+	        first_name: student.first_name,
+	        instructor_id: this.props.instructor_id,
+	        last_name: student.last_name,
+	        profile_pic: student.profile_pic,
+	        key: student.id,
+	        id: student.id,
+	        initiateMessageClick: this.props.initiateMessageClick });
+	    }.bind(this));
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { id: 'roster-review-comments-div' },
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-6 lowindex' },
+	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'map' },
+	          { className: 'col-sm-12' },
 	          _react2.default.createElement(
-	            _googleMapReact2.default,
-	            {
-	              bootstrapURLKeys: {
-	                key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
-	                language: 'en'
-	              },
-	              defaultCenter: this.props.center,
-	              defaultZoom: this.props.zoom },
-	            mapMarkers
+	            'h2',
+	            { className: 'center' },
+	            'Course Roster'
 	          )
 	        )
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-4 margins' },
+	        { className: 'row' },
+	        noStudents,
+	        _react2.default.createElement('div', { className: 'col-sm-2' }),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'map-list-style' },
-	          noClasses,
-	          ListItems
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = MapDisplay;
-
-/***/ },
-/* 370 */
-/*!******************************************************!*\
-  !*** ./app/components/landing-page/map/list-item.js ***!
-  \******************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 208);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Item = _react2.default.createClass({
-	  displayName: 'Item',
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'map-list-item' },
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/courses/' + this.props.id },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
+	          { className: 'col-sm-8 roster-list' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-sm-2 list-marker-style' },
-	            this.props.order
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-10' },
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'bold map-item-title' },
-	              this.props.title
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'map-item-date' },
-	              this.props.date
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              '@ ',
-	              this.props.start_time
-	            )
+	            { className: 'row' },
+	            rosterNodes
 	          )
 	        )
 	      )
@@ -47159,13 +46680,50 @@
 	  }
 	});
 	
-	exports.default = Item;
+	var Student = _react2.default.createClass({
+	  displayName: 'Student',
+	
+	
+	  initiateMessageClick: function initiateMessageClick() {
+	    console.log("send that fool a message!");
+	    this.props.initiateMessageClick(this.props.id);
+	  },
+	
+	  render: function render() {
+	
+	    var sendMessageOption = sessionStorage.user_id && Number(sessionStorage.user_id) == this.props.instructor_id ? _react2.default.createElement(
+	      'span',
+	      { onClick: this.initiateMessageClick, className: 'message-student pointer' },
+	      _react2.default.createElement(_messageIcon2.default, null)
+	    ) : null;
+	
+	    var studentImageStyle = {
+	      backgroundImage: 'url(' + this.props.profile_pic + ')'
+	    };
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'col-sm-3' },
+	      _react2.default.createElement(
+	        'h3',
+	        { className: 'center' },
+	        this.props.first_name,
+	        ' ',
+	        this.props.last_name
+	      ),
+	      sendMessageOption,
+	      _react2.default.createElement('div', { className: 'student-profile-img center', style: studentImageStyle })
+	    );
+	  }
+	});
+	
+	exports.default = RosterList;
 
 /***/ },
-/* 371 */
-/*!***************************************************!*\
-  !*** ./app/components/landing-page/map/marker.js ***!
-  \***************************************************/
+/* 366 */
+/*!***********************************************!*\
+  !*** ./app/components/courses/review-list.js ***!
+  \***********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47178,55 +46736,528 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Marker = _react2.default.createClass({
-	  displayName: 'Marker',
+	var moment = __webpack_require__(/*! moment */ 344);
+	moment().format();
 	
-	  propTypes: {
-	    $hover: _react.PropTypes.bool
-	  },
+	var ReviewList = _react2.default.createClass({
+	  displayName: 'ReviewList',
+	
+	
 	  render: function render() {
-	    var markerStyle = {
-	      position: 'absolute',
-	      width: '32px',
-	      height: '32px',
-	      backgroundColor: 'orange',
-	      color: 'black',
-	      textAlign: 'center',
-	      fontSize: '2.5em',
-	      letterSpacing: '-2px',
-	      fontWeight: '700',
-	      border: '2px solid black',
-	      borderRadius: '100%'
-	    };
-	    var markerStyleHover = {
-	      position: 'absolute',
-	      width: '32px',
-	      height: '32px',
-	      backgroundColor: 'black',
-	      color: 'orange',
-	      textAlign: 'center',
-	      fontSize: '2.5em',
-	      letterSpacing: '-2px',
-	      fontWeight: '700',
-	      border: '2px solid orange',
-	      borderRadius: '100%'
-	    };
-	
-	    var style = this.props.$hover ? markerStyleHover : markerStyle;
+	    var reviewNodes = this.props.data.map(function (review) {
+	      return _react2.default.createElement(Review, {
+	        date: moment(review.creation_date).format("MMMM Do YYYY"),
+	        name: review.first_name + ' ' + review.last_name,
+	        profile_pic: review.profile_pic,
+	        review: review.review,
+	        key: "review" + review.id
+	      });
+	    });
 	
 	    return _react2.default.createElement(
 	      'div',
-	      { style: style },
-	      this.props.order
+	      { id: 'roster-review-comments-div' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'center' },
+	            'Instructor Reviews'
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement('div', { className: 'col-sm-2' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-10 roster-list' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            reviewNodes
+	          )
+	        )
+	      )
 	    );
 	  }
 	});
 	
-	exports.default = Marker;
+	var Review = _react2.default.createClass({
+	  displayName: 'Review',
+	
+	
+	  render: function render() {
+	
+	    var reviewerImageStyle = {
+	      backgroundImage: 'url(' + this.props.profile_pic + ')'
+	    };
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement('div', { className: 'col-sm-3 reviewer-image-style', style: reviewerImageStyle }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-9' },
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'reviewer-name' },
+	          this.props.name
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.date
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'review-message' },
+	          this.props.review
+	        ),
+	        _react2.default.createElement('hr', null)
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = ReviewList;
+
+/***/ },
+/* 367 */
+/*!**********************************************************!*\
+  !*** ./app/components/courses/comments/comment-board.js ***!
+  \**********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _addCommentForm = __webpack_require__(/*! ./add-comment-form.js */ 368);
+	
+	var _addCommentForm2 = _interopRequireDefault(_addCommentForm);
+	
+	var _comment = __webpack_require__(/*! ./comment.js */ 371);
+	
+	var _comment2 = _interopRequireDefault(_comment);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var moment = __webpack_require__(/*! moment */ 344);
+	moment().format();
+	
+	
+	var CommentBoard = _react2.default.createClass({
+	  displayName: 'CommentBoard',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      displayForm: false
+	    };
+	  },
+	
+	  handleFormDisplay: function handleFormDisplay() {
+	    this.setState({ displayForm: !this.state.displayForm });
+	  },
+	
+	  render: function render() {
+	
+	    var noCommentsNotLogged = this.props.data.length == 0 && !sessionStorage.first_name ? _react2.default.createElement(
+	      'p',
+	      { className: 'center no-data-message' },
+	      'No comments. ',
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { className: 'link-plain link-orange', to: '/login' },
+	        'Log in and sign up'
+	      ),
+	      ' to start commenting!'
+	    ) : null;
+	
+	    var noCommentsLogged = this.props.data.length == 0 && sessionStorage.first_name ? _react2.default.createElement(
+	      'p',
+	      { className: 'center no-data-message' },
+	      'Be the first to add a comment!'
+	    ) : null;
+	
+	    var commentNodes = this.props.data.map(function (comment) {
+	      return _react2.default.createElement(_comment2.default, {
+	        date: moment(comment.comment_date).format("MMMM Do YYYY"),
+	        name: comment.first_name + ' ' + comment.last_name,
+	        profile_pic: comment.profile_pic,
+	        comment: comment.comment,
+	        key: "review" + comment.id
+	      });
+	    });
+	
+	    var addCommentButton = this.props.isUserEnrolledInCourse || this.props.instructor_id == Number(sessionStorage.user_id) ? _react2.default.createElement(
+	      'div',
+	      { className: 'row no-margin' },
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'add-comment', onClick: this.handleFormDisplay },
+	        '+ add comment'
+	      )
+	    ) : null;
+	
+	    var addCommentForm = this.state.displayForm ? _react2.default.createElement(_addCommentForm2.default, {
+	      handleCommentSubmit: this.props.handleCommentSubmit,
+	      changeFormDisplay: this.handleFormDisplay
+	    }) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { id: 'roster-review-comments-div' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'center' },
+	            'Comment Board'
+	          )
+	        )
+	      ),
+	      addCommentButton,
+	      addCommentForm,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        noCommentsNotLogged,
+	        noCommentsLogged,
+	        _react2.default.createElement('div', { className: 'col-sm-2' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-10 roster-list' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            commentNodes
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var mapStateToProps = function mapStateToProps(store) {
+	  return store;
+	};
+	module.exports = (0, _reactRedux.connect)(mapStateToProps)(CommentBoard);
+
+/***/ },
+/* 368 */
+/*!*************************************************************!*\
+  !*** ./app/components/courses/comments/add-comment-form.js ***!
+  \*************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var moment = __webpack_require__(/*! moment */ 344);
+	moment().format();
+	
+	var AddCommentForm = _react2.default.createClass({
+	  displayName: 'AddCommentForm',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return { comment: '' };
+	  },
+	  handleCommentChange: function handleCommentChange(event) {
+	    this.setState({ comment: event.target.value });
+	  },
+	  handleSubmit: function handleSubmit(event) {
+	    event.preventDefault();
+	
+	    var comment = this.state.comment.trim();
+	
+	    if (!comment) {
+	      console.log("Please fill out a comment before submitting");
+	      return;
+	    } else {
+	      this.props.changeFormDisplay();
+	      this.props.handleCommentSubmit({
+	        comment: comment
+	      });
+	    }
+	    this.setState({
+	      comment: ''
+	    });
+	  },
+	
+	  render: function render() {
+	
+	    var textAreaStyle = {
+	      width: "80%",
+	      marginLeft: "10%",
+	      borderColor: "gray"
+	    };
+	
+	    var submitCommentButton = _defineProperty({
+	      marginTop: "-30px",
+	      padding: "0",
+	      width: "15%",
+	      marginLeft: "78%",
+	      fontSize: ".7em",
+	      height: "30px"
+	    }, 'width', "12%");
+	
+	    return _react2.default.createElement(
+	      'form',
+	      { className: 'commentSubmitForm', onSubmit: this.handleSubmit },
+	      _react2.default.createElement('textarea', {
+	        type: 'text',
+	        placeholder: 'type comment here...',
+	        style: textAreaStyle,
+	        value: this.state.comment,
+	        onChange: this.handleCommentChange }),
+	      _react2.default.createElement('input', { type: 'submit', value: 'Add Comment', style: submitCommentButton, className: 'btn-success form-submit-button' })
+	    );
+	  }
+	});
+	
+	exports.default = AddCommentForm;
+
+/***/ },
+/* 369 */
+/*!*********************************************************!*\
+  !*** ./app/components/courses/initiate-message-form.js ***!
+  \*********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 270);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 208);
+	
+	var _modalStylesMargin = __webpack_require__(/*! ../styles/modal-styles-margin.js */ 370);
+	
+	var _modalStylesMargin2 = _interopRequireDefault(_modalStylesMargin);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var moment = __webpack_require__(/*! moment */ 344);
+	moment().format();
+	
+	var InitiateMessageForm = _react2.default.createClass({
+	  displayName: 'InitiateMessageForm',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      message: ''
+	    };
+	  },
+	
+	  handleMessageSubmit: function handleMessageSubmit(message) {
+	    this.props.handleMessageSubmit(message);
+	  },
+	
+	  handleMessageChange: function handleMessageChange(event) {
+	    this.setState({ message: event.target.value });
+	  },
+	
+	  handleSubmit: function handleSubmit(event) {
+	    event.preventDefault();
+	    var message = this.state.message.trim();
+	    if (!message) {
+	      return;
+	    } else {
+	      this.handleMessageSubmit({
+	        message: message
+	      });
+	    }
+	    this.setState({
+	      message: ''
+	    });
+	  },
+	
+	  render: function render() {
+	
+	    var textAreaStyle = {
+	      width: "80%",
+	      marginLeft: "10%"
+	    };
+	
+	    return _react2.default.createElement(
+	      'form',
+	      { onSubmit: this.handleSubmit },
+	      _react2.default.createElement('textarea', {
+	        type: 'text',
+	        style: textAreaStyle,
+	        required: true,
+	        placeholder: 'type message here...',
+	        value: this.state.message,
+	        onChange: this.handleMessageChange }),
+	      _react2.default.createElement(
+	        'button',
+	        { style: _modalStylesMargin2.default.btn, onClick: this.handleSubmit },
+	        'Send'
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = InitiateMessageForm;
+
+/***/ },
+/* 370 */
+/*!******************************************************!*\
+  !*** ./app/components/styles/modal-styles-margin.js ***!
+  \******************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var modalStylesMargin = {
+	  btn: {
+	    padding: '1em 2em',
+	    width: '25%',
+	    margin: '1em 0 0 37.5%',
+	    outline: 'none',
+	    fontSize: 16,
+	    fontWeight: '600',
+	    background: 'orange',
+	    color: '#FFFFFF',
+	    border: 'none',
+	    borderRadius: '3px'
+	  },
+	  container: {
+	    padding: '2em',
+	    textAlign: 'center',
+	    borderRadius: '3px'
+	  },
+	  title: {
+	    margin: 0,
+	    padding: '2em 1em 0 1em',
+	    fontSize: '1.5em',
+	    color: 'orange',
+	    textAlign: 'center',
+	    fontWeight: 400
+	  }
+	};
+	
+	exports.default = modalStylesMargin;
+
+/***/ },
+/* 371 */
+/*!****************************************************!*\
+  !*** ./app/components/courses/comments/comment.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Comment = _react2.default.createClass({
+	  displayName: 'Comment',
+	
+	
+	  render: function render() {
+	
+	    var commenterImageStyle = {
+	      backgroundImage: 'url(' + this.props.profile_pic + ')'
+	    };
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement('div', { className: 'col-sm-3 commenter-image', style: commenterImageStyle }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-9' },
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'reviewer-name' },
+	          this.props.name
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.date
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'review-message' },
+	          this.props.comment
+	        ),
+	        _react2.default.createElement('hr', null)
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Comment;
 
 /***/ }
 /******/ ]);

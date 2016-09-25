@@ -5,7 +5,7 @@ import request from 'superagent';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../styles/modal-styles.js';
 import ThreadList from './thread-list.js';
-import MessageList from './thread-message-display.js';
+import MessageList from './message-list.js';
 
 var DATABASE_URL ="http://localhost:8080";
 

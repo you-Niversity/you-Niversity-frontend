@@ -97,8 +97,8 @@ var UpdateCourseDisplay = React.createClass({
             onCourseSubmit={this.handleCourseUpdate}
             course={this.state.courseData}
           />
-          <input type="submit" onClick={browserHistory.goBack} value="Nevermind" className="form-submit-button fifty" />
-          <input type="submit" onClick={this.handleCourseDelete} value="Delete this Course" className="form-submit-button fifty" />
+          <input type="submit" onClick={browserHistory.goBack} value="Nevermind" className="btn-warning form-submit-button fifty" />
+          <input type="submit" onClick={this.handleCourseDelete} value="Delete Course" className="btn-danger form-submit-button fifty fifty-right" />
         </div>
       </div>
     );
@@ -234,7 +234,7 @@ var UpdateCourseForm = React.createClass({
           country="us"
           onSuggestSelect={this.onSuggestSelect}
         />
-        <input type="submit" value="Update Your Course!" className="form-submit-button"/>
+        <input type="submit" value="Update Course" className="btn-success form-submit-button"/>
       </div>
       </form>
     )

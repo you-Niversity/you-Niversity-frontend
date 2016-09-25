@@ -3,7 +3,7 @@ import React, {PropTypes, Component} from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import Course from '../courses/course.js';
 
-var CourseListDisplay = React.createClass({
+var CourseList = React.createClass({
   render: function() {
     var courseNodes = this.props.data.map(function(course) {
       var filterTextLowerCase = this.props.filterText.toLowerCase();
@@ -60,4 +60,4 @@ var CourseListDisplay = React.createClass({
   }
 });
 
-export default CourseListDisplay;
+export default CourseList;

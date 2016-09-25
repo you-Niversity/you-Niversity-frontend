@@ -3,17 +3,17 @@
 import React from 'react';
 import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
-import CourseDateTimePlaceInstructorDisplay from './left-display.js';
-import TitleDescriptionPrereqDisplay from './middle-display.js';
-import RightDisplay from './right-display.js';
-import RosterList from '../roster-list.js';
-import ReviewList from '../review-list.js';
-import CommentBoard from '../comment-board.js';
-import InitiateMessageForm from '../initiate-message-form.js';
+import CourseDateTimePlaceInstructorDisplay from './course-information/left-display.js';
+import TitleDescriptionPrereqDisplay from './course-information/middle-display.js';
+import RightDisplay from './course-information/right-display.js';
+import RosterList from './roster-list.js';
+import ReviewList from './review-list.js';
+import CommentBoard from './comments/comment-board.js';
+import InitiateMessageForm from './initiate-message-form.js';
 import { connect } from 'react-redux';
 import Modal from 'boron/OutlineModal';
-import modalStyles from '../../styles/modal-styles.js';
-import modalStylesMargin from '../../styles/modal-styles-margin.js';
+import modalStyles from '../styles/modal-styles.js';
+import modalStylesMargin from '../styles/modal-styles-margin.js';
 
 var DATABASE_URL ="http://localhost:8080";
 
@@ -362,7 +362,9 @@ var SingleCourseDisplay = React.createClass({
 
           <CommentBoard
             data={this.state.commentBoard}
+            instructor_id={this.state.courseData.user_id}
             handleCommentSubmit={this.handleCommentSubmit}
+            isUserEnrolledInCourse={this.state.isUserEnrolledInCourse}
           />
 
           <Modal ref="modal" style={modalStyles.container}>

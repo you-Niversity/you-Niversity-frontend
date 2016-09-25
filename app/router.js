@@ -4,20 +4,19 @@ import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 
 //import layouts here
-
-
-//import components here
-import LandingPage from './components/landing-page/landing-page';
-import LoginDisplay from './components/login-form';
-import SingleCourseDisplay from './components/courses/single-course-display/single-course-display.js';
 import PrimaryTemplate from './components/primary-template';
 import SecondaryTemplate from './components/secondary-template';
+import LandingPage from './components/landing-page/landing-page';
+
+//import components here
+import LoginDisplay from './components/login-form';
+import SingleCourseDisplay from './components/courses/single-course-display.js';
 import SignUpDisplay from './components/signup-form.js';
 import AddCourseDisplay from './components/courses/add-course-display.js';
 import UpdateCourseDisplay from './components/courses/update-course-display.js';
 import UserDashboard from './components/user-dashboard.js';
 import MessageDisplay from './components/messages/message-display.js';
-import ErrorDisplay from './components/error-display.js';
+import ErrorDisplay from './components/404-page.js';
 
 var AppRouter = React.createClass({
   render: function () {

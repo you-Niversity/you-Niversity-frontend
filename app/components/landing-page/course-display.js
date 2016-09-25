@@ -7,7 +7,7 @@ import MapIcon from '../icons/map-icon.js';
 import ListIcon from '../icons/list-icon.js';
 
 import MapDisplay from './map/map-display.js';
-import CourseListDisplay from './course-list-display.js';
+import CourseList from './course-list.js';
 
 var DATABASE_URL ="http://localhost:8080";
 
@@ -55,7 +55,7 @@ var CourseDisplay = React.createClass({
         : null;
 
     var listView = (this.state.showList && this.state.data.length > 0) ?
-        <CourseListDisplay
+        <CourseList
           data={this.state.data}
           filterText={this.props.filterText}
           lat={Number(this.props.lat)}

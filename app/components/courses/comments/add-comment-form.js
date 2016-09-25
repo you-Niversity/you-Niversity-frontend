@@ -35,15 +35,33 @@ var AddCommentForm = React.createClass({
   },
 
   render: function(){
+
+    var textAreaStyle = {
+      width: "80%",
+      marginLeft: "10%",
+      borderColor: "gray"
+    }
+
+    var submitCommentButton = {
+      marginTop: "-30px",
+      padding: "0",
+      width: "15%",
+      marginLeft: "78%",
+      fontSize: ".7em",
+      height: "30px",
+      width: "12%"
+    }
+
     return (
       <form className="commentSubmitForm" onSubmit={this.handleSubmit}>
         <textarea
           type="text"
-          placeholder="comment"
+          placeholder="type comment here..."
+          style={textAreaStyle}
           value={this.state.comment}
           onChange={this.handleCommentChange}>
         </textarea>
-        <input type="submit" value="Add Comment" className="form-submit-button"/>
+        <input type="submit" value="Add Comment" style={submitCommentButton} className="btn-success form-submit-button"/>
       </form>
     );
   }
