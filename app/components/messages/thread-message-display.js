@@ -19,6 +19,7 @@ var MessageList = React.createClass({
   handleSubmit: function(){
     console.log('send post request now');
     this.props.handleMessageSubmit(this.state.message);
+    this.setState({message: ''});
   },
 
   render: function(){
@@ -53,7 +54,7 @@ var MessageList = React.createClass({
             value={this.state.message}
             onChange={this.handleMessageChange}>
           </textarea>
-          <input type="submit" value="Send" className="form-submit-button"/>
+          <input type="submit" value="Send" className="btn-success form-submit-button submit-message-button"/>
         </form>
       </div>
     )

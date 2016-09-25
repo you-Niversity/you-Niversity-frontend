@@ -5,6 +5,8 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
 import Geosuggest from 'react-geosuggest';
 import { connect } from 'react-redux';
+import Modal from 'boron/OutlineModal';
+import modalStyles from '../styles/modal-styles.js';
 
 var DatePicker = require('react-datepicker');
 var moment = require('moment');
@@ -13,11 +15,13 @@ moment().format();
 var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 
 
+
 var AddCourseDisplay = React.createClass({
 
   getInitialState: function(){
     return {
-      data:[]
+      data:[],
+      newCourseID: null
     };
   },
 
@@ -38,20 +42,31 @@ var AddCourseDisplay = React.createClass({
       .send({state: course.location[5]})
       .end(function(err, res){
         if (err || !res.ok) {
-          console.log("there was an error in creating this class");
           browserHistory.push('/error');
         } else {
-          console.log("successfully created class");
-          browserHistory.push('/users/' + user_id);
-
+          var newCourseID = res.body[0];
+          this.setState({newCourseID: newCourseID})
+          this.showModal();
         }
-      });
+      }.bind(this));
   },
+
+  showModal: function(){
+      this.refs.modal.show();
+  },
+  hideModal: function(){
+    this.refs.modal.hide();
+    browserHistory.push('/courses/' + this.state.newCourseID);
+  },
+
   render: function(){
     return (
       <div className="row create-course">
         <h2>Create a Course</h2>
-
+          <Modal ref="modal" style={modalStyles.container}>
+              <h2 style={modalStyles.title}>Class created!</h2>
+              <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
+          </Modal>
         <div className="col-sm-1"></div>
         <div className="col-sm-10 create-course-form form-display">
           <AddCourseForm

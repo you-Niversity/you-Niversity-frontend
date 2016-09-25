@@ -28,7 +28,8 @@ var SingleCourseDisplay = React.createClass({
       commentBoard: [],
       reviews: [],
       displayReviews: false,
-      isUserEnrolledInCourse: false
+      isUserEnrolledInCourse: false,
+      student_to_be_messaged: null
     };
   },
 
@@ -262,9 +263,38 @@ var SingleCourseDisplay = React.createClass({
       }.bind(this))
   },
 
+  initiateMessageClickFromInstructor: function(student_id){
+    console.log(student_id);
+    this.setState({student_to_be_messaged: student_id});
+    var instructor_id = Number(sessionStorage.user_id);
+    request
+      .get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id)
+      .end(function(err, res){
+        if(err){
+          console.log("There was an error grabbing info from the API");
+        } else {
+          if (res.body.exists == true) {
+            browserHistory.push('/messages/' + sessionStorage.user_id)
+          } else {
+            console.log("make the modal show");
+            this.showMessageModal();
+          }
+        }
+      }.bind(this))
+  },
+
   handleMessageThreadCreation: function(message){
-    var sender_id = sessionStorage.user_id;
-    var recipient_id = this.state.courseData.user_id;
+    var sender_id = Number(sessionStorage.user_id);
+    var recipient_id = null;
+    if (Number(sessionStorage.user_id) == this.state.courseData.user_id) {
+      recipient_id = this.state.student_to_be_messaged;
+
+      console.log('instructor is sending a message');
+    } else {
+      console.log('student is sending a message');
+      recipient_id = this.state.courseData.user_id;
+
+    }
     request
       .post(DATABASE_URL + "/messages/threads")
       .send({message: message})
@@ -339,6 +369,8 @@ var SingleCourseDisplay = React.createClass({
 
           <RosterList
             data={this.state.roster}
+            instructor_id={this.state.courseData.user_id}
+            initiateMessageClick={this.initiateMessageClickFromInstructor}
           />
 
           <CommentBoard

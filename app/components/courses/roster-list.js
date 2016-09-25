@@ -3,6 +3,8 @@
 import React from 'react';
 import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import MessageIcon from '../icons/message-icon.js';
+
 
 var RosterList = React.createClass({
   render: function(){
@@ -16,12 +18,15 @@ var RosterList = React.createClass({
       return (
         <Student
           first_name={student.first_name}
+          instructor_id={this.props.instructor_id}
           last_name={student.last_name}
           profile_pic={student.profile_pic}
-          key={student.id}>
+          key={student.id}
+          id={student.id}
+          initiateMessageClick={this.props.initiateMessageClick}>
         </Student>
       )
-    });
+    }.bind(this));
 
     return (
       <div id="roster-review-comments-div">
@@ -46,7 +51,16 @@ var RosterList = React.createClass({
 
 var Student = React.createClass({
 
+  initiateMessageClick: function(){
+    console.log("send that fool a message!");
+    this.props.initiateMessageClick(this.props.id)
+  },
+
   render: function(){
+
+    var sendMessageOption = (sessionStorage.user_id && Number(sessionStorage.user_id) == this.props.instructor_id) ?
+      <span onClick={this.initiateMessageClick} className="message-student pointer"><MessageIcon /></span>
+      : null;
 
     var studentImageStyle = {
       backgroundImage: 'url(' + this.props.profile_pic + ')',
@@ -55,7 +69,9 @@ var Student = React.createClass({
     return (
       <div className="col-sm-3">
         <h3 className="center">{this.props.first_name} {this.props.last_name}</h3>
+        {sendMessageOption}
         <div className="student-profile-img center" style={studentImageStyle}></div>
+
       </div>
     )
   }

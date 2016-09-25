@@ -39166,15 +39166,10 @@
 	      return;
 	    }
 	
-	    if (this.props.loginErrorMessage !== null) {
-	      console.log('form component sees error wooooo');
-	      return;
-	    } else {
-	      this.props.onLoginSubmit({
-	        email: email,
-	        password: password
-	      });
-	    }
+	    this.props.onLoginSubmit({
+	      email: email,
+	      password: password
+	    });
 	
 	    this.setState({
 	      email: '',
@@ -39203,12 +39198,14 @@
 	      { className: 'userLoginForm', onSubmit: this.handleSubmit },
 	      _react2.default.createElement('input', {
 	        type: 'text',
+	        required: true,
 	        placeholder: 'email',
 	        value: this.state.email,
 	        onChange: this.handleEmailChange
 	      }),
 	      _react2.default.createElement('input', {
 	        type: 'password',
+	        required: true,
 	        placeholder: 'password',
 	        value: this.state.password,
 	        onChange: this.handlePasswordChange
@@ -39310,7 +39307,8 @@
 	      commentBoard: [],
 	      reviews: [],
 	      displayReviews: false,
-	      isUserEnrolledInCourse: false
+	      isUserEnrolledInCourse: false,
+	      student_to_be_messaged: null
 	    };
 	  },
 	
@@ -39514,9 +39512,35 @@
 	    }.bind(this));
 	  },
 	
+	  initiateMessageClickFromInstructor: function initiateMessageClickFromInstructor(student_id) {
+	    console.log(student_id);
+	    this.setState({ student_to_be_messaged: student_id });
+	    var instructor_id = Number(sessionStorage.user_id);
+	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing info from the API");
+	      } else {
+	        if (res.body.exists == true) {
+	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
+	        } else {
+	          console.log("make the modal show");
+	          this.showMessageModal();
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
 	  handleMessageThreadCreation: function handleMessageThreadCreation(message) {
-	    var sender_id = sessionStorage.user_id;
-	    var recipient_id = this.state.courseData.user_id;
+	    var sender_id = Number(sessionStorage.user_id);
+	    var recipient_id = null;
+	    if (Number(sessionStorage.user_id) == this.state.courseData.user_id) {
+	      recipient_id = this.state.student_to_be_messaged;
+	
+	      console.log('instructor is sending a message');
+	    } else {
+	      console.log('student is sending a message');
+	      recipient_id = this.state.courseData.user_id;
+	    }
 	    _superagent2.default.post(DATABASE_URL + "/messages/threads").send({ message: message }).send({ class_id: this.state.courseData.id }).send({ sender_id: sender_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error submitting this comment.");
@@ -39584,7 +39608,9 @@
 	      ),
 	      reviews,
 	      _react2.default.createElement(_rosterList2.default, {
-	        data: this.state.roster
+	        data: this.state.roster,
+	        instructor_id: this.state.courseData.user_id,
+	        initiateMessageClick: this.initiateMessageClickFromInstructor
 	      }),
 	      _react2.default.createElement(_commentBoard2.default, {
 	        data: this.state.commentBoard,
@@ -40152,6 +40178,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
+	var _messageIcon = __webpack_require__(/*! ../icons/message-icon.js */ 341);
+	
+	var _messageIcon2 = _interopRequireDefault(_messageIcon);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var RosterList = _react2.default.createClass({
@@ -40173,10 +40203,13 @@
 	    var rosterNodes = this.props.data.map(function (student) {
 	      return _react2.default.createElement(Student, {
 	        first_name: student.first_name,
+	        instructor_id: this.props.instructor_id,
 	        last_name: student.last_name,
 	        profile_pic: student.profile_pic,
-	        key: student.id });
-	    });
+	        key: student.id,
+	        id: student.id,
+	        initiateMessageClick: this.props.initiateMessageClick });
+	    }.bind(this));
 	
 	    return _react2.default.createElement(
 	      'div',
@@ -40217,7 +40250,18 @@
 	  displayName: 'Student',
 	
 	
+	  initiateMessageClick: function initiateMessageClick() {
+	    console.log("send that fool a message!");
+	    this.props.initiateMessageClick(this.props.id);
+	  },
+	
 	  render: function render() {
+	
+	    var sendMessageOption = sessionStorage.user_id && Number(sessionStorage.user_id) == this.props.instructor_id ? _react2.default.createElement(
+	      'span',
+	      { onClick: this.initiateMessageClick, className: 'message-student pointer' },
+	      _react2.default.createElement(_messageIcon2.default, null)
+	    ) : null;
 	
 	    var studentImageStyle = {
 	      backgroundImage: 'url(' + this.props.profile_pic + ')'
@@ -40233,6 +40277,7 @@
 	        ' ',
 	        this.props.last_name
 	      ),
+	      sendMessageOption,
 	      _react2.default.createElement('div', { className: 'student-profile-img center', style: studentImageStyle })
 	    );
 	  }
@@ -45683,6 +45728,14 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 172);
 	
+	var _OutlineModal = __webpack_require__(/*! boron/OutlineModal */ 307);
+	
+	var _OutlineModal2 = _interopRequireDefault(_OutlineModal);
+	
+	var _modalStyles = __webpack_require__(/*! ../styles/modal-styles.js */ 316);
+	
+	var _modalStyles2 = _interopRequireDefault(_modalStyles);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var DatePicker = __webpack_require__(/*! react-datepicker */ 355);
@@ -45697,7 +45750,8 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      data: []
+	      data: [],
+	      newCourseID: null
 	    };
 	  },
 	
@@ -45707,14 +45761,23 @@
 	    var user_id = sessionStorage.user_id;
 	    _superagent2.default.post(DATABASE_URL + "/classes").send(course).send({ user_id: user_id }).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ unix_timestamp: unix_timestamp }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
 	      if (err || !res.ok) {
-	        console.log("there was an error in creating this class");
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
-	        console.log("successfully created class");
-	        _reactRouter.browserHistory.push('/users/' + user_id);
+	        var newCourseID = res.body[0];
+	        this.setState({ newCourseID: newCourseID });
+	        this.showModal();
 	      }
-	    });
+	    }.bind(this));
 	  },
+	
+	  showModal: function showModal() {
+	    this.refs.modal.show();
+	  },
+	  hideModal: function hideModal() {
+	    this.refs.modal.hide();
+	    _reactRouter.browserHistory.push('/courses/' + this.state.newCourseID);
+	  },
+	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -45723,6 +45786,20 @@
 	        'h2',
 	        null,
 	        'Create a Course'
+	      ),
+	      _react2.default.createElement(
+	        _OutlineModal2.default,
+	        { ref: 'modal', style: _modalStyles2.default.container },
+	        _react2.default.createElement(
+	          'h2',
+	          { style: _modalStyles2.default.title },
+	          'Class created!'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { style: _modalStyles2.default.btn, onClick: this.hideModal },
+	          'Close'
+	        )
 	      ),
 	      _react2.default.createElement('div', { className: 'col-sm-1' }),
 	      _react2.default.createElement(
@@ -46924,6 +47001,7 @@
 	  handleSubmit: function handleSubmit() {
 	    console.log('send post request now');
 	    this.props.handleMessageSubmit(this.state.message);
+	    this.setState({ message: '' });
 	  },
 	
 	  render: function render() {
@@ -46956,7 +47034,7 @@
 	          required: true,
 	          value: this.state.message,
 	          onChange: this.handleMessageChange }),
-	        _react2.default.createElement('input', { type: 'submit', value: 'Send', className: 'form-submit-button' })
+	        _react2.default.createElement('input', { type: 'submit', value: 'Send', className: 'btn-success form-submit-button submit-message-button' })
 	      )
 	    );
 	  }

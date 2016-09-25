@@ -99,15 +99,10 @@ var UserLoginForm = React.createClass({
       return;
     }
 
-    if(this.props.loginErrorMessage !== null) {
-      console.log('form component sees error wooooo');
-      return;
-    } else {
       this.props.onLoginSubmit({
         email: email,
         password: password
       });
-    }
 
     this.setState({
       email: '',
@@ -131,19 +126,20 @@ var UserLoginForm = React.createClass({
       <form className="userLoginForm" onSubmit={this.handleSubmit}>
         <input
           type="text"
+          required
           placeholder="email"
           value={this.state.email}
           onChange={this.handleEmailChange}
         />
         <input
           type="password"
+          required
           placeholder="password"
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
         {errMessage}
-        <input type="submit" value="Login" className="btn-success
- form-submit-button"/>
+        <input type="submit" value="Login" className="btn-success form-submit-button"/>
       </form>
     )
   }

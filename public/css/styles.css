@@ -350,6 +350,7 @@ hr {
 	width: 80%;
 	padding-bottom: 80%;
 	margin-left: 10%;
+	margin-top: -15px;
 	margin-bottom: 10px;
 	border-radius: 100%;
 	border: 2px solid orange;
@@ -580,6 +581,15 @@ hr {
 	font-weight: 400;
 	padding-bottom: 10px;
 	color: white;
+}
+.message-student {
+	margin: 10px 0 10px 13px;
+}
+.fa-envelope {
+	color: orange;
+}
+.submit-message-button {
+	width: 98%;
 }
 
 /*footer*/
