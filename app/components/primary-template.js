@@ -56,7 +56,8 @@ var PrimaryTemplate = React.createClass({
     var nav = (sessionStorage.first_name) ?
       <NavbarLoggedIn
         showModal={this.showModal}
-        unreadMessages={this.state.unreadMessages}
+        unreadMessagesExist={this.state.unreadMessagesExist}
+        checkForUnreadMessages={this.checkForUnreadMessages}
       />
       : <Navbar />;
 

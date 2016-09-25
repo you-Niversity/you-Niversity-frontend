@@ -6,9 +6,34 @@ import TrashIcon from '../icons/trash-icon.js';
 
 var Thread = React.createClass({
 
-  onThreadClick: function(){
-    this.props.onThreadClick(this.props.id);
+  getInitialState: function(){
+    return {
+      unread_messages: this.props.unread
+    }
   },
+
+  onThreadClick: function(){
+    this.setState({unread_messages: false});
+    this.props.onThreadClick(this.props.id);
+    this.updateThreadMessageStatusInDatabase(this.props.id);
+  },
+
+  updateThreadMessageStatusInDatabase: function(thread_id){
+    console.log('we will write the post request here');
+    request
+      .put(DATABASE_URL + "/messages/thread/" + thread_id)
+      .send({unread_messages: false})
+      .end(function(err, res){
+        if (err || !res.ok) {
+          console.log("there was an error");
+          browserHistory.push('/error');
+        } else {
+          console.log("successfully changed thread status!");
+          console.log("next, re-render the navbar somehow...");
+        }
+      });
+  },
+
   onTrashClick: function(){
     this.props.onTrashClick(this.props.id);
   },
@@ -24,16 +49,39 @@ var Thread = React.createClass({
       height: "50px"
     }
 
+    var selectedStyle = {
+      backgroundColor: 'lightgray',
+      borderLeft: "2px solid orange"
+    }
+
+    var selected = (this.state.unread_messages) ?
+        <div onClick={this.onThreadClick} style={selectedStyle} className="row single-thread">
+          <h3>new message!</h3>
+
+          <div className="col-sm-2" style={profilePic}></div>
+          <div className="col-sm-8">
+            <h2>{this.props.sender_first_name} {this.props.sender_last_name}</h2>
+            <h3>{this.props.title}</h3>
+          </div>
+          <div className="col-sm-2" onClick={this.onTrashClick}>
+            <TrashIcon />
+          </div>
+        </div>
+    :
+        <div onClick={this.onThreadClick} className="row single-thread">
+          <div className="col-sm-2" style={profilePic}></div>
+          <div className="col-sm-8">
+            <h2>{this.props.sender_first_name} {this.props.sender_last_name}</h2>
+            <h3>{this.props.title}</h3>
+          </div>
+          <div className="col-sm-2" onClick={this.onTrashClick}>
+            <TrashIcon />
+          </div>
+        </div>
+
     return (
-      <div onClick={this.onThreadClick} className="row single-thread">
-        <div className="col-sm-2" style={profilePic}></div>
-        <div className="col-sm-8">
-          <h2>{this.props.sender_first_name} {this.props.sender_last_name}</h2>
-          <h3>{this.props.title}</h3>
-        </div>
-        <div className="col-sm-2" onClick={this.onTrashClick}>
-          <TrashIcon />
-        </div>
+      <div>
+        {selected}
       </div>
 
     )

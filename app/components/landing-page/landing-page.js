@@ -1,6 +1,7 @@
 'use strict';
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import request from 'superagent';
 import CourseDisplay from './course-display.js';
 import Navbar from '../navbar.js';
 import NavbarLoggedIn from '../navbar-logged-in.js';
@@ -14,6 +15,7 @@ import Loading from 'react-loading';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../styles/modal-styles.js';
 
+var DATABASE_URL ="http://localhost:8080";
 
 var LandingPage = React.createClass({
 
@@ -26,15 +28,35 @@ var LandingPage = React.createClass({
       zoom: 9,
       city: 'Fort Collins',
       state: 'CO',
-      filterText: ''
+      filterText: '',
+      unreadMessagesExist: null
     };
   },
 
   componentDidMount: function(){
+    if (sessionStorage.user_id) {
+      this.checkForUnreadMessages();
+    }
+
     this.getUserLocation(this.geocodeLatLng);
+
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
     }
+  },
+
+  checkForUnreadMessages: function(){
+    console.log('checking for unread messages');
+    request
+      .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
+      .end(function(err, res){
+        if (err){
+          browserHistory.push('/error');
+        } else {
+          this.setState({unreadMessagesExist: res.body.unread_messages});
+          console.log(this.state.unreadMessagesExist);
+        }
+      }.bind(this))
   },
 
   handleUserInput: function(filterText){
@@ -125,7 +147,10 @@ var LandingPage = React.createClass({
       />;
 
     var loggedInNav = (sessionStorage.first_name) ?
-      <NavbarLoggedIn />
+      <NavbarLoggedIn
+        unreadMessagesExist={this.state.unreadMessagesExist}
+        checkForUnreadMessages={this.checkForUnreadMessages}
+      />
       : null;
 
     var nav = (!sessionStorage.first_name) ?

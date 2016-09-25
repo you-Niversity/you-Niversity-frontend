@@ -5,22 +5,17 @@ import Thread from './thread.js';
 
 var ThreadList = React.createClass({
 
-
-
   render: function(){
-    console.log(this.props.data);
     var threadNodes = this.props.data.map(function(thread, index) {
       var sender_first_name = thread.sender_first_name;
       var sender_last_name = thread.sender_last_name;
       var sender_profile_pic = thread.sender_profile_pic;
 
       if (thread.sender_first_name === sessionStorage.first_name) {
-        console.log(thread.sender_first_name, sessionStorage.first_name);
         sender_first_name = thread.recipient_first_name;
         sender_last_name = thread.recipient_last_name;
         sender_profile_pic = thread.recipient_profile_pic;
       }
-
 
       return (
         <Thread

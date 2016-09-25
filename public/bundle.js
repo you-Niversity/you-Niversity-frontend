@@ -30307,6 +30307,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 208);
 	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
 	var _courseDisplay = __webpack_require__(/*! ./course-display.js */ 270);
 	
 	var _courseDisplay2 = _interopRequireDefault(_courseDisplay);
@@ -30353,6 +30357,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var DATABASE_URL = "http://localhost:8080";
+	
 	var LandingPage = _react2.default.createClass({
 	  displayName: 'LandingPage',
 	
@@ -30366,15 +30372,33 @@
 	      zoom: 9,
 	      city: 'Fort Collins',
 	      state: 'CO',
-	      filterText: ''
+	      filterText: '',
+	      unreadMessagesExist: null
 	    };
 	  },
 	
 	  componentDidMount: function componentDidMount() {
+	    if (sessionStorage.user_id) {
+	      this.checkForUnreadMessages();
+	    }
+	
 	    this.getUserLocation(this.geocodeLatLng);
+	
 	    if (!this.props.userState.profile && sessionStorage.user_id) {
 	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
 	    }
+	  },
+	
+	  checkForUnreadMessages: function checkForUnreadMessages() {
+	    console.log('checking for unread messages');
+	    _superagent2.default.get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id).end(function (err, res) {
+	      if (err) {
+	        _reactRouter.browserHistory.push('/error');
+	      } else {
+	        this.setState({ unreadMessagesExist: res.body.unread_messages });
+	        console.log(this.state.unreadMessagesExist);
+	      }
+	    }.bind(this));
 	  },
 	
 	  handleUserInput: function handleUserInput(filterText) {
@@ -30466,7 +30490,10 @@
 	      state: this.state.state
 	    });
 	
-	    var loggedInNav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, null) : null;
+	    var loggedInNav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, {
+	      unreadMessagesExist: this.state.unreadMessagesExist,
+	      checkForUnreadMessages: this.checkForUnreadMessages
+	    }) : null;
 	
 	    var nav = !sessionStorage.first_name ? _react2.default.createElement(_navbar2.default, null) : null;
 	
@@ -36009,11 +36036,19 @@
 	
 	var _newMessagesIcon2 = _interopRequireDefault(_newMessagesIcon);
 	
+	var _messageAlert = __webpack_require__(/*! ./icons/message-alert.js */ 368);
+	
+	var _messageAlert2 = _interopRequireDefault(_messageAlert);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var NavbarLoggedIn = _react2.default.createClass({
 	  displayName: 'NavbarLoggedIn',
 	
+	
+	  componentDidMount: function componentDidMount() {
+	    this.props.checkForUnreadMessages();
+	  },
 	
 	  handleLogoutSubmit: function handleLogoutSubmit(e) {
 	    e.preventDefault();
@@ -36043,6 +36078,8 @@
 	    var userPic = {
 	      backgroundImage: 'url(' + image_url + ')'
 	    };
+	
+	    var unreadMessagesExist = this.props.unreadMessagesExist ? _react2.default.createElement(_messageAlert2.default, null) : null;
 	
 	    return _react2.default.createElement(
 	      'nav',
@@ -36109,7 +36146,8 @@
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/messages/' + id },
-	                _react2.default.createElement(_newMessagesIcon2.default, null)
+	                _react2.default.createElement(_newMessagesIcon2.default, null),
+	                unreadMessagesExist
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -45219,7 +45257,8 @@
 	  render: function render() {
 	    var nav = sessionStorage.first_name ? _react2.default.createElement(_navbarLoggedIn2.default, {
 	      showModal: this.showModal,
-	      unreadMessages: this.state.unreadMessages
+	      unreadMessagesExist: this.state.unreadMessagesExist,
+	      checkForUnreadMessages: this.checkForUnreadMessages
 	    }) : _react2.default.createElement(_navbar2.default, null);
 	
 	    return _react2.default.createElement(
@@ -46671,7 +46710,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var DATABASE_URL = "http://localhost:8080";
-	var ATABASE_URL = "https://localhost:8080";
 	
 	var MessageDisplay = _react2.default.createClass({
 	  displayName: 'MessageDisplay',
@@ -46839,14 +46877,12 @@
 	
 	
 	  render: function render() {
-	    console.log(this.props.data);
 	    var threadNodes = this.props.data.map(function (thread, index) {
 	      var sender_first_name = thread.sender_first_name;
 	      var sender_last_name = thread.sender_last_name;
 	      var sender_profile_pic = thread.sender_profile_pic;
 	
 	      if (thread.sender_first_name === sessionStorage.first_name) {
-	        console.log(thread.sender_first_name, sessionStorage.first_name);
 	        sender_first_name = thread.recipient_first_name;
 	        sender_last_name = thread.recipient_last_name;
 	        sender_profile_pic = thread.recipient_profile_pic;
@@ -46907,9 +46943,31 @@
 	  displayName: 'Thread',
 	
 	
-	  onThreadClick: function onThreadClick() {
-	    this.props.onThreadClick(this.props.id);
+	  getInitialState: function getInitialState() {
+	    return {
+	      unread_messages: this.props.unread
+	    };
 	  },
+	
+	  onThreadClick: function onThreadClick() {
+	    this.setState({ unread_messages: false });
+	    this.props.onThreadClick(this.props.id);
+	    this.updateThreadMessageStatusInDatabase(this.props.id);
+	  },
+	
+	  updateThreadMessageStatusInDatabase: function updateThreadMessageStatusInDatabase(thread_id) {
+	    console.log('we will write the post request here');
+	    request.put(DATABASE_URL + "/messages/thread/" + thread_id).send({ unread_messages: false }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error");
+	        _reactRouter.browserHistory.push('/error');
+	      } else {
+	        console.log("successfully changed thread status!");
+	        console.log("next, re-render the navbar somehow...");
+	      }
+	    });
+	  },
+	
 	  onTrashClick: function onTrashClick() {
 	    this.props.onTrashClick(this.props.id);
 	  },
@@ -46925,7 +46983,42 @@
 	      height: "50px"
 	    };
 	
-	    return _react2.default.createElement(
+	    var selectedStyle = {
+	      backgroundColor: 'lightgray',
+	      borderLeft: "2px solid orange"
+	    };
+	
+	    var selected = this.state.unread_messages ? _react2.default.createElement(
+	      'div',
+	      { onClick: this.onThreadClick, style: selectedStyle, className: 'row single-thread' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'new message!'
+	      ),
+	      _react2.default.createElement('div', { className: 'col-sm-2', style: profilePic }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-8' },
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          this.props.sender_first_name,
+	          ' ',
+	          this.props.sender_last_name
+	        ),
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          this.props.title
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-2', onClick: this.onTrashClick },
+	        _react2.default.createElement(_trashIcon2.default, null)
+	      )
+	    ) : _react2.default.createElement(
 	      'div',
 	      { onClick: this.onThreadClick, className: 'row single-thread' },
 	      _react2.default.createElement('div', { className: 'col-sm-2', style: profilePic }),
@@ -46950,6 +47043,12 @@
 	        { className: 'col-sm-2', onClick: this.onTrashClick },
 	        _react2.default.createElement(_trashIcon2.default, null)
 	      )
+	    );
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      selected
 	    );
 	  }
 	});
@@ -47190,6 +47289,43 @@
 	});
 	
 	exports.default = ErrorDisplay;
+
+/***/ },
+/* 368 */
+/*!***********************************************!*\
+  !*** ./app/components/icons/message-alert.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MessageAlertIcon = _react2.default.createClass({
+	  displayName: 'MessageAlertIcon',
+	
+	  render: function render() {
+	    return _react2.default.createElement(_reactFontawesome2.default, {
+	      name: 'bell',
+	      size: 'lg',
+	      style: { fontSize: '1em', cursor: 'pointer', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
+	    });
+	  }
+	});
+	
+	exports.default = MessageAlertIcon;
 
 /***/ }
 /******/ ]);

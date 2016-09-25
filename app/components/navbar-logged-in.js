@@ -7,8 +7,14 @@ import { connect } from 'react-redux';
 import store from '../store';
 import { userLogoutSuccess } from '../actions/user-actions';
 import NewMessagesIcon from './icons/new-messages-icon.js';
+import MessageAlertIcon from './icons/message-alert.js';
+
 
 var NavbarLoggedIn = React.createClass({
+
+  componentDidMount: function(){
+    this.props.checkForUnreadMessages();
+  },
 
   handleLogoutSubmit: function(e){
     e.preventDefault();
@@ -39,6 +45,10 @@ var NavbarLoggedIn = React.createClass({
       backgroundImage: 'url(' + image_url + ')',
     }
 
+    var unreadMessagesExist = (this.props.unreadMessagesExist) ?
+      <MessageAlertIcon />
+      : null;
+
     return (
 
       <nav className="row">
@@ -58,7 +68,12 @@ var NavbarLoggedIn = React.createClass({
             </div>
             <ul className="nav navbar-nav navbar-right">
               <li><Link to="/addcourse">+ add course</Link></li>
-              <li><Link to={'/messages/'+ id}><NewMessagesIcon /></Link></li>
+
+
+
+              <li><Link to={'/messages/'+ id}><NewMessagesIcon />{unreadMessagesExist}</Link></li>
+
+
 
               <li className="dropdown-toggle pointer" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   welcome, {first_name}

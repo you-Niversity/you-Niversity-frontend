@@ -554,9 +554,8 @@ hr {
 	background-color: #ebebeb;
 	border-left: 2px solid orange;
 }
-.single-thread:focus {
+.single-thread-selected {
 	background-color: orange;
-	border-left: 2px solid white;
 }
 .single-thread h2 {
 	font-size: 1.3em;
@@ -595,6 +594,11 @@ hr {
 }
 .fa-envelope {
 	color: orange;
+}
+.fa-bell {
+	color: white;
+	padding: 0;
+	margin-left: -1px;
 }
 .submit-message-button {
 	width: 15%;
