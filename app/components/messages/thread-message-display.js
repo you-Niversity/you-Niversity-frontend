@@ -39,7 +39,10 @@ var MessageList = React.createClass({
 
     var textArea = {
       width: "98%",
-      height: "100px"
+      height: "100px",
+      marginTop: '0',
+      borderColor: 'gray'
+
     }
 
     return (
@@ -48,7 +51,7 @@ var MessageList = React.createClass({
         <form onSubmit={this.handleSubmit}>
           <textarea
             type="text"
-            placeholder="reply"
+            placeholder="type here to reply..."
             style={textArea}
             required
             value={this.state.message}

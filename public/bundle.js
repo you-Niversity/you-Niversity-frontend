@@ -36005,6 +36005,10 @@
 	
 	var _userActions = __webpack_require__(/*! ../actions/user-actions */ 317);
 	
+	var _newMessagesIcon = __webpack_require__(/*! ./icons/new-messages-icon.js */ 367);
+	
+	var _newMessagesIcon2 = _interopRequireDefault(_newMessagesIcon);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var NavbarLoggedIn = _react2.default.createClass({
@@ -36037,13 +36041,7 @@
 	    var image_url = sessionStorage.getItem('image_url');
 	
 	    var userPic = {
-	      width: "65px",
-	      height: "65px",
-	      marginTop: "-25px",
-	      borderRadius: "100%",
-	      backgroundImage: 'url(' + image_url + ')',
-	      backgroundSize: "cover",
-	      backgroundPosition: "center"
+	      backgroundImage: 'url(' + image_url + ')'
 	    };
 	
 	    return _react2.default.createElement(
@@ -36107,6 +36105,15 @@
 	            ),
 	            _react2.default.createElement(
 	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/messages/' + id },
+	                _react2.default.createElement(_newMessagesIcon2.default, null)
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
 	              { className: 'dropdown-toggle pointer', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
 	              'welcome, ',
 	              first_name,
@@ -36129,15 +36136,6 @@
 	                null,
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
-	                  { to: '/messages/' + id },
-	                  'Messages'
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                  _reactRouter.Link,
 	                  { to: '#', onClick: this.handleLogoutSubmit },
 	                  'Logout'
 	                )
@@ -36146,7 +36144,7 @@
 	            _react2.default.createElement(
 	              'li',
 	              null,
-	              _react2.default.createElement('div', { style: userPic })
+	              _react2.default.createElement('div', { className: 'nav-user-img', style: userPic })
 	            )
 	          )
 	        )
@@ -47017,7 +47015,10 @@
 	
 	    var textArea = {
 	      width: "98%",
-	      height: "100px"
+	      height: "100px",
+	      marginTop: '0',
+	      borderColor: 'gray'
+	
 	    };
 	
 	    return _react2.default.createElement(
@@ -47029,7 +47030,7 @@
 	        { onSubmit: this.handleSubmit },
 	        _react2.default.createElement('textarea', {
 	          type: 'text',
-	          placeholder: 'reply',
+	          placeholder: 'type here to reply...',
 	          style: textArea,
 	          required: true,
 	          value: this.state.message,
@@ -47149,6 +47150,43 @@
 	});
 	
 	exports.default = ErrorDisplay;
+
+/***/ },
+/* 367 */
+/*!***************************************************!*\
+  !*** ./app/components/icons/new-messages-icon.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 277);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NewMessagesIcon = _react2.default.createClass({
+	  displayName: 'NewMessagesIcon',
+	
+	  render: function render() {
+	    return _react2.default.createElement(_reactFontawesome2.default, {
+	      name: 'comments',
+	      size: 'lg',
+	      style: { fontSize: '1.6em', cursor: 'pointer', color: 'orange', textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }
+	    });
+	  }
+	});
+	
+	exports.default = NewMessagesIcon;
 
 /***/ }
 /******/ ]);

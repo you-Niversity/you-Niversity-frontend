@@ -6,6 +6,7 @@ import modalStyles from './styles/modal-styles.js';
 import { connect } from 'react-redux';
 import store from '../store';
 import { userLogoutSuccess } from '../actions/user-actions';
+import NewMessagesIcon from './icons/new-messages-icon.js';
 
 var NavbarLoggedIn = React.createClass({
 
@@ -35,13 +36,7 @@ var NavbarLoggedIn = React.createClass({
     var image_url = sessionStorage.getItem('image_url');
 
     var userPic = {
-      width: "65px",
-      height: "65px",
-      marginTop: "-25px",
-      borderRadius: "100%",
       backgroundImage: 'url(' + image_url + ')',
-      backgroundSize: "cover",
-      backgroundPosition: "center"
     }
 
     return (
@@ -63,17 +58,18 @@ var NavbarLoggedIn = React.createClass({
             </div>
             <ul className="nav navbar-nav navbar-right">
               <li><Link to="/addcourse">+ add course</Link></li>
+              <li><Link to={'/messages/'+ id}><NewMessagesIcon /></Link></li>
 
-                <li className="dropdown-toggle pointer" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <li className="dropdown-toggle pointer" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   welcome, {first_name}
                   <span className="caret"></span>
-                </li>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li><Link to={'/users/'+ id}>Dashboard</Link></li>
-                  <li><Link to={'/messages/'+ id}>Messages</Link></li>
-                  <li><Link to="#" onClick={this.handleLogoutSubmit}>Logout</Link></li>
+              </li>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><Link to={'/users/'+ id}>Dashboard</Link></li>
+
+                <li><Link to="#" onClick={this.handleLogoutSubmit}>Logout</Link></li>
                 </ul>
-              <li><div style={userPic}></div></li>
+              <li><div className="nav-user-img" style={userPic}></div></li>
             </ul>
 
 

@@ -101,6 +101,14 @@ ol, ul {
 	border-radius: 3px;
 	background-color: rgba(255, 255, 255, 0.25);
 }
+.nav-user-img {
+	width: 65px;
+	height: 65px;
+	margin-top: -25px;
+	border-radius: 100%;
+	background-size: cover;
+	background-position: center;
+}
 .dashboard-nav>li>a {
 	width: 100%;
 	color: white;
@@ -589,7 +597,11 @@ hr {
 	color: orange;
 }
 .submit-message-button {
-	width: 98%;
+	width: 15%;
+	height: 30px;
+	margin-left: 83%;
+	margin-top: -30px;
+	font-size: .8em;
 }
 
 /*footer*/
