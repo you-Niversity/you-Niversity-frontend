@@ -2,7 +2,9 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import TrashIcon from '../icons/trash-icon.js';
+import request from 'superagent';
 
+var DATABASE_URL ="http://localhost:8080";
 
 var Thread = React.createClass({
 
@@ -19,7 +21,6 @@ var Thread = React.createClass({
   },
 
   updateThreadMessageStatusInDatabase: function(thread_id){
-    console.log('we will write the post request here');
     request
       .put(DATABASE_URL + "/messages/thread/" + thread_id)
       .send({unread_messages: false})
@@ -28,7 +29,6 @@ var Thread = React.createClass({
           console.log("there was an error");
           browserHistory.push('/error');
         } else {
-          console.log("successfully changed thread status!");
           console.log("next, re-render the navbar somehow...");
         }
       });

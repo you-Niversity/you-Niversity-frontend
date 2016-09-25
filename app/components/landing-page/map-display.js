@@ -179,6 +179,7 @@ var Marker = React.createClass({
       color: 'black',
       textAlign: 'center',
       fontSize: '2.5em',
+      letterSpacing: '-2px',
       fontWeight: '700',
       border: '2px solid black',
       borderRadius: '100%'
@@ -191,6 +192,7 @@ var Marker = React.createClass({
       color: 'orange',
       textAlign: 'center',
       fontSize: '2.5em',
+      letterSpacing: '-2px',
       fontWeight: '700',
       border: '2px solid orange',
       borderRadius: '100%'
