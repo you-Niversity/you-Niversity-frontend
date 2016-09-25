@@ -16,7 +16,6 @@ var CourseListDisplay = React.createClass({
       var withinLngRadius = (course.lng > (userLng - radius) && course.lng < (userLng + radius));
       var withinRadius = ((course.lng > (userLng - radius) && course.lng < (userLng + radius)) && (course.lat < (userLat + radius) && course.lat > (userLat - radius)));
 
-
       if ((this.props.filterText !== '' && courseTitleLowerCase.indexOf(filterTextLowerCase) === -1)){
         return;
       }
@@ -57,7 +56,6 @@ var CourseListDisplay = React.createClass({
             </div>
           </div>
       </div>
-
     );
   }
 });

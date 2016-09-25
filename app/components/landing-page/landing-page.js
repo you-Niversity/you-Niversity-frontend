@@ -37,16 +37,13 @@ var LandingPage = React.createClass({
     if (sessionStorage.user_id) {
       this.checkForUnreadMessages();
     }
-
     this.getUserLocation(this.geocodeLatLng);
-
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
     }
   },
 
   checkForUnreadMessages: function(){
-    console.log('checking for unread messages');
     request
       .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
       .end(function(err, res){
@@ -54,7 +51,6 @@ var LandingPage = React.createClass({
           browserHistory.push('/error');
         } else {
           this.setState({unreadMessagesExist: res.body.unread_messages});
-          console.log(this.state.unreadMessagesExist);
         }
       }.bind(this))
   },
@@ -66,7 +62,6 @@ var LandingPage = React.createClass({
   },
 
   handleRadiusInput: function(radius){
-    console.log(radius.zoom);
     var data = JSON.parse(radius);
     this.setState({
       radius: data.radius, zoom: data.zoom
@@ -91,24 +86,20 @@ var LandingPage = React.createClass({
   geocodeLatLng: function() {
     var geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(this.state.lat, this.state.lng);
-
     geocoder.geocode({'location': latlng}, function(results, status) {
       if (status === 'OK') {
         if (results[1]) {
           var city = results[0].address_components[2].long_name;
           var state = results[0].address_components[4].short_name;
-
           this.setState({city: city, state: state});
           sessionStorage.setItem('city', city);
           sessionStorage.setItem('state', state);
           sessionStorage.setItem('lat', this.state.lat);
           sessionStorage.setItem('lng', this.state.lng);
         } else {
-          console.log('No results found.');
           this.showModal();
         }
       } else {
-        console.log('the geocoder failed...', status);
         this.showModal();
       }
     }.bind(this));
@@ -171,7 +162,6 @@ var LandingPage = React.createClass({
                 {nav}
                 <WelcomeText />
                 {searchOrSpin}
-
               </div>
             </div>
           </div>

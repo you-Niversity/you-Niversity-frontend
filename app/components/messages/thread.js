@@ -42,23 +42,13 @@ var Thread = React.createClass({
 
     var profilePic = {
       backgroundImage: 'url(' + this.props.sender_profile_pic + ')',
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      borderRadius: "100%",
-      width: "50px",
-      height: "50px"
-    }
-
-    var selectedStyle = {
-      backgroundColor: 'lightgray',
-      borderLeft: "2px solid orange"
     }
 
     var selected = (this.state.unread_messages) ?
-        <div onClick={this.onThreadClick} style={selectedStyle} className="row single-thread">
+        <div onClick={this.onThreadClick} className="row single-thread selected-thread">
           <h3>new message!</h3>
 
-          <div className="col-sm-2" style={profilePic}></div>
+          <div className="col-sm-2 message-sender-pic" style={profilePic}></div>
           <div className="col-sm-8">
             <h2>{this.props.sender_first_name} {this.props.sender_last_name}</h2>
             <h3>{this.props.title}</h3>
@@ -69,7 +59,7 @@ var Thread = React.createClass({
         </div>
     :
         <div onClick={this.onThreadClick} className="row single-thread">
-          <div className="col-sm-2" style={profilePic}></div>
+          <div className="col-sm-2 message-sender-pic" style={profilePic}></div>
           <div className="col-sm-8">
             <h2>{this.props.sender_first_name} {this.props.sender_last_name}</h2>
             <h3>{this.props.title}</h3>
@@ -83,10 +73,8 @@ var Thread = React.createClass({
       <div>
         {selected}
       </div>
-
     )
   }
 })
-
 
 export default Thread;

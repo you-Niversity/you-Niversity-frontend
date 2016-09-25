@@ -27,25 +27,19 @@ var UpdateCourseDisplay = React.createClass({
       .get(DATABASE_URL + "/classes/" + id)
       .end(function(err, res){
         if(err){
-          console.log("There was an error grabbing this course from the API");
           browserHistory.push('/error');
         } else {
-          console.log(res.body[0]);
           this.setState({courseData: res.body[0]});
-          console.log(this.state.courseData.unix_timestamp);
-          console.log(moment(moment.unix(this.state.courseData.unix_timestamp)._d).format("MMMM Do YYYY"));
         }
       }.bind(this))
   },
 
   componentDidMount: function(){
     var id = this.props.params.id;
-    console.log(id);
     this.getCourseDataFromAPI(id);
   },
 
   handleCourseUpdate: function(course){
-    console.log(course);
     var user_id = sessionStorage.user_id;
     request
       .put(DATABASE_URL + "/classes/:id")
@@ -58,12 +52,9 @@ var UpdateCourseDisplay = React.createClass({
       .send({state: course.location[5]})
       .end(function(err, res){
         if (err || !res.ok) {
-          console.log("there was an error in updating this class");
           browserHistory.push('/error');
         } else {
-          console.log("successfully updated the class");
           browserHistory.push('/users/' + user_id);
-
         }
       });
   },
@@ -74,13 +65,9 @@ var UpdateCourseDisplay = React.createClass({
       .del(DATABASE_URL + '/classes/' + id)
       .end(function(err, res){
         if (err || !res.ok) {
-          console.log("there was an error in updating this class");
           browserHistory.push('/error');
         } else {
-          console.log("successfully deleted the class");
           this.showModal()
-          {/*browserHistory.push('/users/' + sessionStorage.user_id);*/}
-
         }
       }.bind(this));
   },
@@ -104,7 +91,6 @@ var UpdateCourseDisplay = React.createClass({
         </Modal>
 
         <h2>Update this Course</h2>
-
         <div className="col-sm-1"></div>
         <div className="col-sm-10 create-course-form form-display">
           <UpdateCourseForm
@@ -258,4 +244,5 @@ var UpdateCourseForm = React.createClass({
 const mapStateToProps = function(store) {
   return store;
 }
+
 module.exports = connect(mapStateToProps)(UpdateCourseDisplay);

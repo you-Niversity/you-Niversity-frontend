@@ -7,8 +7,7 @@ var ErrorDisplay = React.createClass({
 
     return (
       <div id="error-page" className="center">
-        <h1 className="orange
-">Just who do we think we are,<br/> keeping you from youNiversity course information?</h1>
+        <h1 className="orange">Just who do we think we are,<br/> keeping you from youNiversity course information?</h1>
         <img src="../../images/angryowl.jpg" />
         <h1>Sorry about that. Something happened while we were fetching information from our server...</h1>
       </div>

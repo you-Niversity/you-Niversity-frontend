@@ -40,7 +40,6 @@ var SecondaryTemplate = React.createClass({
   }
 });
 
-
 const mapStateToProps = function(store) {
   return store;
 }

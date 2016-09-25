@@ -9,26 +9,6 @@ var MapDisplay = React.createClass({
 
   render: function(){
 
-    var mapStyle = {
-      width: '100%',
-      marginLeft: '17px',
-      height: '400px',
-      marginBottom: '50px',
-      border: '2px solid orange'
-
-    }
-    var listStyle = {
-      width: "100%",
-      height: '400px',
-      border: '2px solid orange',
-      padding: 0,
-      overflowX: 'scroll'
-    }
-    var margins = {
-      margin: '0 -15px 50px -15px'
-    }
-
-
     var markerCount = 0;
     var listCount = 0;
 
@@ -111,7 +91,7 @@ var MapDisplay = React.createClass({
       {noClasses}
         <div className="col-sm-1"></div>
         <div className="col-sm-6 lowindex">
-          <div style={mapStyle} id="map">
+          <div id="map">
             <GoogleMap
               bootstrapURLKeys={{
                 key: 'AIzaSyDaVSO3W6l76rQI433gCNbvkdSAvkdKv4Y',
@@ -123,8 +103,8 @@ var MapDisplay = React.createClass({
             </GoogleMap>
           </div>
         </div>
-        <div className="col-sm-4 lowindex" style={margins}>
-          <div style={listStyle}>
+        <div className="col-sm-4 margins">
+          <div className="map-list-style">
             {noClasses}
             {ListItems}
           </div>
@@ -138,18 +118,11 @@ var MapDisplay = React.createClass({
 var Item = React.createClass({
   render: function(){
 
-    var markerStyle = {
-      color: 'black',
-      fontSize: '2em',
-      fontWeight: '700',
-      textAlign: 'right'
-    }
-
     return (
       <div className="map-list-item">
         <Link to={'/courses/'+this.props.id}>
           <div className="row">
-            <div className="col-sm-2" style={markerStyle}>{this.props.order}</div>
+            <div className="col-sm-2 list-marker-style">{this.props.order}</div>
             <div className="col-sm-10">
               <p className="bold map-item-title">{this.props.title}</p>
               <p className="map-item-date">{this.props.date}</p>
@@ -165,8 +138,6 @@ var Item = React.createClass({
 var Marker = React.createClass({
 
   propTypes: {
-    // GoogleMap pass $hover props to hovered components
-    // to detect hover it uses internal mechanism, explained in x_distance_hover example
     $hover: PropTypes.bool,
   },
 

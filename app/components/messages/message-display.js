@@ -87,63 +87,32 @@ var MessageDisplay = React.createClass({
 
   render: function(){
 
-    var messageBoxStyle = {
-      border: "2px solid orange",
-      margin: "65px 0 75px 0",
-      width: "100%",
-    }
-
-    var headerStyle = {
-      color: "orange",
-      fontSize: "2.5em",
-      fontWeight: "700",
-      padding: "10px"
-    }
-    var footerStyle={
-      backgroundColor: "orange",
-      height: '20px',
-      marginRight: '0px'
-    }
-
-    var noMargins = {
-      margin: '0 0 0 15px'
-    }
-
     return (
-      <div style={messageBoxStyle}>
-        <div className="row" style={noMargins}>
-            <div className="row" style={headerStyle}>
+      <div className="message-box">
+        <div className="row message-header">
+            <div className="row inbox-header">
               <h1 >Inbox</h1>
             </div>
             <div className="row">
               <div className="col-sm-5">
-
                 <ThreadList
                   data={this.state.threads}
                   onThreadClick={this.onThreadClick}
                   deleteThread={this.deleteThread}
                 />
-
               </div>
-
               <div className="col-sm-7">
-
-              <MessageList
-                data={this.state.messages}
-                handleMessageSubmit={this.handleMessageSubmit}
-              />
-
+                <MessageList
+                  data={this.state.messages}
+                  handleMessageSubmit={this.handleMessageSubmit}
+                />
               </div>
             </div>
-
-            <div className="row" style={footerStyle}>
-            </div>
+            <div className="row message-footer"></div>
         </div>
       </div>
     )
   }
-
 });
-
 
 export default MessageDisplay;

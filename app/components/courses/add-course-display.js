@@ -14,8 +14,6 @@ moment().format();
 
 var DATABASE_URL ="http://localhost:8080";
 
-
-
 var AddCourseDisplay = React.createClass({
 
   getInitialState: function(){
@@ -201,15 +199,8 @@ var AddCourseForm = React.createClass({
           onSuggestSelect={this.onSuggestSelect}
           value={this.state.location}
         />
-        <input type="submit" value="Create Your Course!" className="btn-success
-
- form-submit-button"/>
-
+        <input type="submit" value="Create Your Course!" className="btn-success form-submit-button"/>
       </div>
-
-
-
-
       </form>
     )
   }

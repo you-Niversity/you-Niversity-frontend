@@ -30381,22 +30381,18 @@
 	    if (sessionStorage.user_id) {
 	      this.checkForUnreadMessages();
 	    }
-	
 	    this.getUserLocation(this.geocodeLatLng);
-	
 	    if (!this.props.userState.profile && sessionStorage.user_id) {
 	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
 	    }
 	  },
 	
 	  checkForUnreadMessages: function checkForUnreadMessages() {
-	    console.log('checking for unread messages');
 	    _superagent2.default.get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id).end(function (err, res) {
 	      if (err) {
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
 	        this.setState({ unreadMessagesExist: res.body.unread_messages });
-	        console.log(this.state.unreadMessagesExist);
 	      }
 	    }.bind(this));
 	  },
@@ -30408,7 +30404,6 @@
 	  },
 	
 	  handleRadiusInput: function handleRadiusInput(radius) {
-	    console.log(radius.zoom);
 	    var data = JSON.parse(radius);
 	    this.setState({
 	      radius: data.radius, zoom: data.zoom
@@ -30433,24 +30428,20 @@
 	  geocodeLatLng: function geocodeLatLng() {
 	    var geocoder = new google.maps.Geocoder();
 	    var latlng = new google.maps.LatLng(this.state.lat, this.state.lng);
-	
 	    geocoder.geocode({ 'location': latlng }, function (results, status) {
 	      if (status === 'OK') {
 	        if (results[1]) {
 	          var city = results[0].address_components[2].long_name;
 	          var state = results[0].address_components[4].short_name;
-	
 	          this.setState({ city: city, state: state });
 	          sessionStorage.setItem('city', city);
 	          sessionStorage.setItem('state', state);
 	          sessionStorage.setItem('lat', this.state.lat);
 	          sessionStorage.setItem('lng', this.state.lng);
 	        } else {
-	          console.log('No results found.');
 	          this.showModal();
 	        }
 	      } else {
-	        console.log('the geocoder failed...', status);
 	        this.showModal();
 	      }
 	    }.bind(this));
@@ -32492,25 +32483,6 @@
 	
 	  render: function render() {
 	
-	    var mapStyle = {
-	      width: '100%',
-	      marginLeft: '17px',
-	      height: '400px',
-	      marginBottom: '50px',
-	      border: '2px solid orange'
-	
-	    };
-	    var listStyle = {
-	      width: "100%",
-	      height: '400px',
-	      border: '2px solid orange',
-	      padding: 0,
-	      overflowX: 'scroll'
-	    };
-	    var margins = {
-	      margin: '0 -15px 50px -15px'
-	    };
-	
 	    var markerCount = 0;
 	    var listCount = 0;
 	
@@ -32594,7 +32566,7 @@
 	        { className: 'col-sm-6 lowindex' },
 	        _react2.default.createElement(
 	          'div',
-	          { style: mapStyle, id: 'map' },
+	          { id: 'map' },
 	          _react2.default.createElement(
 	            _googleMapReact2.default,
 	            {
@@ -32610,10 +32582,10 @@
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-4 lowindex', style: margins },
+	        { className: 'col-sm-4 margins' },
 	        _react2.default.createElement(
 	          'div',
-	          { style: listStyle },
+	          { className: 'map-list-style' },
 	          noClasses,
 	          ListItems
 	        )
@@ -32628,13 +32600,6 @@
 	
 	  render: function render() {
 	
-	    var markerStyle = {
-	      color: 'black',
-	      fontSize: '2em',
-	      fontWeight: '700',
-	      textAlign: 'right'
-	    };
-	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'map-list-item' },
@@ -32646,7 +32611,7 @@
 	          { className: 'row' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-sm-2', style: markerStyle },
+	            { className: 'col-sm-2 list-marker-style' },
 	            this.props.order
 	          ),
 	          _react2.default.createElement(
@@ -32680,8 +32645,6 @@
 	
 	
 	  propTypes: {
-	    // GoogleMap pass $hover props to hovered components
-	    // to detect hover it uses internal mechanism, explained in x_distance_hover example
 	    $hover: _react.PropTypes.bool
 	  },
 	
@@ -35881,6 +35844,7 @@
 	
 	
 	  render: function render() {
+	
 	    var courseStyle = {
 	      backgroundImage: 'url(' + this.props.image_url + ')',
 	      color: 'white'
@@ -36057,7 +36021,6 @@
 	    sessionStorage.removeItem('first_name');
 	    sessionStorage.removeItem('image_url');
 	    sessionStorage.removeItem('user_id');
-	
 	    this.showModal();
 	  },
 	
@@ -37081,7 +37044,6 @@
 	  onSuggestSelect: function onSuggestSelect(suggest) {
 	    this.props.handleLocationInput(suggest);
 	    this.setState({ lat: suggest.location.lat, lng: suggest.location.lng });
-	    console.log(this.state);
 	  },
 	
 	  render: function render() {
@@ -38833,7 +38795,7 @@
 	            'About ',
 	            _react2.default.createElement(
 	              'span',
-	              { className: 'orange\n' },
+	              { className: 'orange' },
 	              'yoU'
 	            ),
 	            'niversity'
@@ -39182,17 +39144,18 @@
 	  handleLoginSubmit: function handleLoginSubmit(user) {
 	    _superagent2.default.post(DATABASE_URL + "/auth/login").send(user).end(function (err, res) {
 	      if (err || !res.ok) {
-	
 	        var errorMessage = JSON.parse(res.text).message;
 	        this.setState({ loginErrorMessage: errorMessage, err: true });
 	      } else {
-	        this.props.login(res.body);
-	
-	        sessionStorage.setItem('first_name', this.props.userState.profile.first_name);
-	        sessionStorage.setItem('user_id', this.props.userState.profile.id);
-	        sessionStorage.setItem('image_url', res.body.profile.profile_pic);
-	
-	        this.showModal();
+	        if (!res.body.token) {
+	          this.setState({ loginErrorMessage: 'Sorry, but there was a problem in loggin you in.', err: true });
+	        } else {
+	          this.props.login(res.body);
+	          sessionStorage.setItem('first_name', this.props.userState.profile.first_name);
+	          sessionStorage.setItem('user_id', this.props.userState.profile.id);
+	          sessionStorage.setItem('image_url', res.body.profile.profile_pic);
+	          this.showModal();
+	        }
 	      }
 	    }.bind(this));
 	  },
@@ -39249,7 +39212,6 @@
 	      )
 	    );
 	  }
-	
 	});
 	
 	var UserLoginForm = _react2.default.createClass({
@@ -39267,11 +39229,8 @@
 	
 	  handleSubmit: function handleSubmit(event) {
 	    event.preventDefault();
-	
 	    var email = this.state.email.trim();
 	    var password = this.state.password.trim();
-	    {/*console.log(this.props.loginErrorMessage !== null);
-	      console.log(this.props.err);*/}
 	
 	    if (!email || !password) {
 	      console.log('some fields are missing');
@@ -39290,24 +39249,16 @@
 	  },
 	
 	  render: function render() {
-	    {/*console.log(this.props.loginErrorMessage);
-	      console.log(this.props.err);*/}
-	
-	    var errorMessageStyle = {
-	      color: 'red',
-	      fontWeight: 'bold',
-	      margin: '10px 0'
-	    };
 	
 	    var errMessage = this.props.err ? _react2.default.createElement(
 	      'p',
-	      { style: errorMessageStyle },
+	      { className: 'error-message' },
 	      this.props.loginErrorMessage
 	    ) : null;
 	
 	    return _react2.default.createElement(
 	      'form',
-	      { className: 'userLoginForm', onSubmit: this.handleSubmit },
+	      { onSubmit: this.handleSubmit },
 	      _react2.default.createElement('input', {
 	        type: 'text',
 	        required: true,
@@ -39411,7 +39362,6 @@
 	
 	
 	  getInitialState: function getInitialState() {
-	
 	    return {
 	      courseData: [],
 	      roster: [],
@@ -39516,7 +39466,6 @@
 	  handleUserSignup: function handleUserSignup() {
 	    var id = this.props.params.id;
 	    var seats_remaining = this.state.courseData.seats_remaining - 1;
-	
 	    _superagent2.default.put(DATABASE_URL + "/classes/" + id + "/signup").send({ seats_remaining: seats_remaining }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error signing up for this course.");
@@ -39566,6 +39515,67 @@
 	    }.bind(this));
 	  },
 	
+	  initiateMessageClick: function initiateMessageClick() {
+	    var instructor_id = this.state.courseData.user_id;
+	    var sender_id = Number(sessionStorage.user_id);
+	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + sender_id + '/' + instructor_id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing info from the API");
+	      } else {
+	        if (res.body.exists == true) {
+	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
+	        } else {
+	          this.showMessageModal();
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  initiateMessageClickFromInstructor: function initiateMessageClickFromInstructor(student_id) {
+	    console.log(student_id);
+	    this.setState({ student_to_be_messaged: student_id });
+	    var instructor_id = Number(sessionStorage.user_id);
+	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id).end(function (err, res) {
+	      if (err) {
+	        console.log("There was an error grabbing info from the API");
+	      } else {
+	        if (res.body.exists == true) {
+	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
+	        } else {
+	          this.showMessageModal();
+	        }
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleMessageThreadCreation: function handleMessageThreadCreation(message) {
+	    var sender_id = Number(sessionStorage.user_id);
+	    var recipient_id = null;
+	    if (Number(sessionStorage.user_id) == this.state.courseData.user_id) {
+	      recipient_id = this.state.student_to_be_messaged;
+	    } else {
+	      recipient_id = this.state.courseData.user_id;
+	    }
+	    _superagent2.default.post(DATABASE_URL + "/messages/threads").send({ message: message }).send({ class_id: this.state.courseData.id }).send({ sender_id: sender_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        this.handleMessageSubmit(res.body[0], sender_id, recipient_id, message);
+	      }
+	    }.bind(this));
+	  },
+	
+	  handleMessageSubmit: function handleMessageSubmit(thread_id, sender_id, recipient_id, message) {
+	    console.log(thread_id, sender_id, recipient_id, message);
+	    _superagent2.default.post(DATABASE_URL + "/messages/" + sender_id).send({ message: message.message }).send({ thread_id: thread_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
+	      if (err || !res.ok) {
+	        console.log("there was an error submitting this comment.");
+	      } else {
+	        this.hideMessageModal();
+	      }
+	    }.bind(this));
+	  },
+	
 	  showModal: function showModal() {
 	    this.refs.modal.show();
 	  },
@@ -39604,75 +39614,6 @@
 	  },
 	  hideMessageConfirmationModal: function hideMessageConfirmationModal() {
 	    this.refs.modalMessageConfirmation.hide();
-	  },
-	
-	  initiateMessageClick: function initiateMessageClick() {
-	    var instructor_id = this.state.courseData.user_id;
-	    var sender_id = Number(sessionStorage.user_id);
-	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + sender_id + '/' + instructor_id).end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing info from the API");
-	      } else {
-	        if (res.body.exists == true) {
-	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
-	        } else {
-	          console.log("make the modal show");
-	          this.showMessageModal();
-	        }
-	      }
-	    }.bind(this));
-	  },
-	
-	  initiateMessageClickFromInstructor: function initiateMessageClickFromInstructor(student_id) {
-	    console.log(student_id);
-	    this.setState({ student_to_be_messaged: student_id });
-	    var instructor_id = Number(sessionStorage.user_id);
-	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id).end(function (err, res) {
-	      if (err) {
-	        console.log("There was an error grabbing info from the API");
-	      } else {
-	        if (res.body.exists == true) {
-	          _reactRouter.browserHistory.push('/messages/' + sessionStorage.user_id);
-	        } else {
-	          console.log("make the modal show");
-	          this.showMessageModal();
-	        }
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleMessageThreadCreation: function handleMessageThreadCreation(message) {
-	    var sender_id = Number(sessionStorage.user_id);
-	    var recipient_id = null;
-	    if (Number(sessionStorage.user_id) == this.state.courseData.user_id) {
-	      recipient_id = this.state.student_to_be_messaged;
-	
-	      console.log('instructor is sending a message');
-	    } else {
-	      console.log('student is sending a message');
-	      recipient_id = this.state.courseData.user_id;
-	    }
-	    _superagent2.default.post(DATABASE_URL + "/messages/threads").send({ message: message }).send({ class_id: this.state.courseData.id }).send({ sender_id: sender_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error submitting this comment.");
-	      } else {
-	        console.log("we submitted the thread!!!");
-	        console.log(res.body[0]);
-	        this.handleMessageSubmit(res.body[0], sender_id, recipient_id, message);
-	      }
-	    }.bind(this));
-	  },
-	
-	  handleMessageSubmit: function handleMessageSubmit(thread_id, sender_id, recipient_id, message) {
-	    console.log(thread_id, sender_id, recipient_id, message);
-	    _superagent2.default.post(DATABASE_URL + "/messages/" + sender_id).send({ message: message.message }).send({ thread_id: thread_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
-	      if (err || !res.ok) {
-	        console.log("there was an error submitting this comment.");
-	      } else {
-	        console.log('next we must decide where to redirect. Perhaps show a modal.');
-	        this.hideMessageModal();
-	      }
-	    }.bind(this));
 	  },
 	
 	  render: function render() {
@@ -39814,6 +39755,7 @@
 	var mapStateToProps = function mapStateToProps(store) {
 	  return store;
 	};
+	
 	module.exports = (0, _reactRedux.connect)(mapStateToProps)(SingleCourseDisplay);
 
 /***/ },
@@ -39986,6 +39928,7 @@
 	var TitleDescriptionPrereqDisplay = _react2.default.createClass({
 	  displayName: 'TitleDescriptionPrereqDisplay',
 	
+	
 	  render: function render() {
 	
 	    var showReviews = this.props.displayReviews && this.props.reviews.length > 0 ? "Hide Instructor Reviews" : null;
@@ -40140,6 +40083,7 @@
 	var mapStateToProps = function mapStateToProps(store) {
 	  return store;
 	};
+	
 	module.exports = (0, _reactRedux.connect)(mapStateToProps)(RightDisplay);
 
 /***/ },
@@ -40175,6 +40119,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var TaughtBy = _react2.default.createClass({
 	  displayName: 'TaughtBy',
 	
@@ -40195,17 +40141,14 @@
 	    var instructorImageStyle = {
 	      backgroundImage: 'url(' + this.props.data.profile_pic + ')'
 	    };
-	    var lineHeight = {
-	      lineHeight: 1
-	    };
 	
 	    var taughtBy = this.props.data.user_id == Number(sessionStorage.user_id) ? _react2.default.createElement(
 	      'p',
-	      { style: lineHeight },
+	      { className: 'line-height-one' },
 	      'you!'
 	    ) : _react2.default.createElement(
 	      'p',
-	      { style: lineHeight },
+	      { className: 'line-height-one' },
 	      this.props.data.first_name,
 	      '    ',
 	      this.props.data.last_name
@@ -40216,7 +40159,7 @@
 	      { className: 'center', id: 'taught-by' },
 	      _react2.default.createElement(
 	        'p',
-	        { style: lineHeight, className: 'bold' },
+	        _defineProperty({ className: 'line-height-one' }, 'className', 'bold'),
 	        'Taught by:'
 	      ),
 	      taughtBy,
@@ -40298,6 +40241,7 @@
 	var RosterList = _react2.default.createClass({
 	  displayName: 'RosterList',
 	
+	
 	  render: function render() {
 	
 	    var noStudents = this.props.data.length === 0 ? _react2.default.createElement(
@@ -40306,7 +40250,7 @@
 	      'There are no students enrolled. ',
 	      _react2.default.createElement(
 	        _reactRouter.Link,
-	        { className: 'link-plain link-orange\n', to: '/login' },
+	        { className: 'link-plain link-orange', to: '/login' },
 	        'Be the first!'
 	      )
 	    ) : null;
@@ -40427,8 +40371,8 @@
 	var ReviewList = _react2.default.createClass({
 	  displayName: 'ReviewList',
 	
-	  render: function render() {
 	
+	  render: function render() {
 	    var reviewNodes = this.props.data.map(function (review) {
 	      return _react2.default.createElement(Review, {
 	        date: moment(review.creation_date).format("MMMM Do YYYY"),
@@ -40480,37 +40424,19 @@
 	  render: function render() {
 	
 	    var reviewerImageStyle = {
-	      backgroundImage: 'url(' + this.props.profile_pic + ')',
-	      backgroundSize: 'cover',
-	      backgroundPosition: 'center',
-	      borderRadius: "100%",
-	      border: "2px solid orange",
-	      width: "60px",
-	      height: "60px"
-	    };
-	
-	    var nameStyle = {
-	      color: "orange",
-	      fontWeight: "700",
-	      fontSize: "1.3em",
-	      padding: "10px 0"
-	    };
-	    var commentStyle = {
-	      fontSize: "1.1em",
-	      fontWeight: "400",
-	      padding: "10px 0"
+	      backgroundImage: 'url(' + this.props.profile_pic + ')'
 	    };
 	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
-	      _react2.default.createElement('div', { className: 'col-sm-3', style: reviewerImageStyle }),
+	      _react2.default.createElement('div', { className: 'col-sm-3 reviewer-image-style', style: reviewerImageStyle }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-9' },
 	        _react2.default.createElement(
 	          'p',
-	          { style: nameStyle },
+	          { className: 'reviewer-name' },
 	          this.props.name
 	        ),
 	        _react2.default.createElement(
@@ -40520,7 +40446,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          { style: commentStyle },
+	          { className: 'review-message' },
 	          this.props.review
 	        ),
 	        _react2.default.createElement('hr', null)
@@ -44941,37 +44867,19 @@
 	  render: function render() {
 	
 	    var commenterImageStyle = {
-	      backgroundImage: 'url(' + this.props.profile_pic + ')',
-	      backgroundSize: 'cover',
-	      backgroundPosition: 'center',
-	      borderRadius: "100%",
-	      border: "2px solid orange",
-	      width: "60px",
-	      height: "60px"
-	    };
-	
-	    var nameStyle = {
-	      color: "orange",
-	      fontWeight: "700",
-	      fontSize: "1.3em",
-	      padding: "10px 0"
-	    };
-	    var commentStyle = {
-	      fontSize: "1.1em",
-	      fontWeight: "400",
-	      padding: "10px 0"
+	      backgroundImage: 'url(' + this.props.profile_pic + ')'
 	    };
 	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'row' },
-	      _react2.default.createElement('div', { className: 'col-sm-3', style: commenterImageStyle }),
+	      _react2.default.createElement('div', { className: 'col-sm-3 commenter-image', style: commenterImageStyle }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-9' },
 	        _react2.default.createElement(
 	          'p',
-	          { style: nameStyle },
+	          { className: 'reviewer-name' },
 	          this.props.name
 	        ),
 	        _react2.default.createElement(
@@ -44981,7 +44889,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          { style: commentStyle },
+	          { className: 'review-message' },
 	          this.props.comment
 	        ),
 	        _react2.default.createElement('hr', null)
@@ -45109,6 +45017,7 @@
 	      message: ''
 	    };
 	  },
+	
 	  handleMessageSubmit: function handleMessageSubmit(message) {
 	    this.props.handleMessageSubmit(message);
 	  },
@@ -45119,11 +45028,8 @@
 	
 	  handleSubmit: function handleSubmit(event) {
 	    event.preventDefault();
-	
 	    var message = this.state.message.trim();
-	
 	    if (!message) {
-	      console.log("Please fill out a comment before submitting");
 	      return;
 	    } else {
 	      this.handleMessageSubmit({
@@ -45266,20 +45172,17 @@
 	
 	  componentDidMount: function componentDidMount() {
 	    this.checkForUnreadMessages();
-	
 	    if (!this.props.userState.profile && sessionStorage.user_id) {
 	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
 	    }
 	  },
 	
 	  checkForUnreadMessages: function checkForUnreadMessages() {
-	    console.log('checking for unread messages');
 	    _superagent2.default.get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id).end(function (err, res) {
 	      if (err) {
 	        browserHistory.push('/error');
 	      } else {
 	        this.setState({ unreadMessagesExist: res.body.unread_messages });
-	        console.log(this.state);
 	      }
 	    }.bind(this));
 	  },
@@ -45562,7 +45465,6 @@
 	      if (err || !res.ok) {
 	        console.log("there was an error in creating this user");
 	      } else {
-	        console.log("successfully created user");
 	        sessionStorage.setItem('first_name', user.first_name);
 	        sessionStorage.setItem('user_id', res.body.id);
 	        sessionStorage.setItem('image_url', user.profile_pic);
@@ -45673,7 +45575,6 @@
 	    var passwordMinimumCharsError = false;
 	
 	    if (!first_name || !last_name || !email || !profile_pic || !city || !state || !password || !confirm_password) {
-	      console.log('All fields required.');
 	      allFieldsRequiredError = true;
 	    } else {
 	      allFieldsRequiredError = false;
@@ -45716,27 +45617,21 @@
 	
 	  render: function render() {
 	
-	    var errorMessageStyle = {
-	      color: 'red',
-	      fontWeight: 'bold',
-	      margin: '10px 0'
-	    };
-	
 	    var passwordErrorMessage = this.state.passwordMatchingError ? _react2.default.createElement(
 	      'p',
-	      { style: errorMessageStyle },
+	      { className: 'error-message' },
 	      '*passwords do not match'
 	    ) : null;
 	
 	    var passwordMinimumCharsError = this.state.passwordMinimumCharsError ? _react2.default.createElement(
 	      'p',
-	      { style: errorMessageStyle },
+	      { className: 'error-message' },
 	      '*password should be at least 8 characters'
 	    ) : null;
 	
 	    var requiredFieldsErrorMessage = this.state.allFieldsRequiredError ? _react2.default.createElement(
 	      'p',
-	      { style: errorMessageStyle },
+	      { className: 'error-message' },
 	      '*all fields required'
 	    ) : null;
 	
@@ -45750,24 +45645,28 @@
 	        { className: 'col-sm-6' },
 	        _react2.default.createElement('input', {
 	          type: 'text',
+	          required: true,
 	          placeholder: 'first name',
 	          value: this.state.first_name,
 	          onChange: this.handleFirstNameChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
+	          required: true,
 	          placeholder: 'last name',
 	          value: this.state.last_name,
 	          onChange: this.handleLastNameChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
+	          required: true,
 	          placeholder: 'email',
 	          value: this.state.email,
 	          onChange: this.handleEmailChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
+	          required: true,
 	          placeholder: 'profile picture url',
 	          value: this.state.profile_pic,
 	          onChange: this.handleProfilePicChange
@@ -45778,24 +45677,28 @@
 	        { className: 'col-sm-6' },
 	        _react2.default.createElement('input', {
 	          type: 'text',
+	          required: true,
 	          placeholder: 'city',
 	          value: this.state.city,
 	          onChange: this.handleCityChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
+	          required: true,
 	          placeholder: 'state',
 	          value: this.state.state,
 	          onChange: this.handleStateChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'password',
+	          required: true,
 	          placeholder: 'password (8 character minimum)',
 	          value: this.state.password,
 	          onChange: this.handlePasswordChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'password',
+	          required: true,
 	          placeholder: 'confirm password',
 	          value: this.state.confirm_password,
 	          onChange: this.handleConfirmPasswordChange
@@ -46276,32 +46179,24 @@
 	  getCourseDataFromAPI: function getCourseDataFromAPI(id) {
 	    _superagent2.default.get(DATABASE_URL + "/classes/" + id).end(function (err, res) {
 	      if (err) {
-	        console.log("There was an error grabbing this course from the API");
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
-	        console.log(res.body[0]);
 	        this.setState({ courseData: res.body[0] });
-	        console.log(this.state.courseData.unix_timestamp);
-	        console.log(moment(moment.unix(this.state.courseData.unix_timestamp)._d).format("MMMM Do YYYY"));
 	      }
 	    }.bind(this));
 	  },
 	
 	  componentDidMount: function componentDidMount() {
 	    var id = this.props.params.id;
-	    console.log(id);
 	    this.getCourseDataFromAPI(id);
 	  },
 	
 	  handleCourseUpdate: function handleCourseUpdate(course) {
-	    console.log(course);
 	    var user_id = sessionStorage.user_id;
 	    _superagent2.default.put(DATABASE_URL + "/classes/:id").send(course).send({ date: moment(course.date._d).format("MMMM Do YYYY") }).send({ lat: course.location[0] }).send({ lng: course.location[1] }).send({ address: course.location[2] + ' ' + course.location[3] }).send({ city: course.location[4] }).send({ state: course.location[5] }).end(function (err, res) {
 	      if (err || !res.ok) {
-	        console.log("there was an error in updating this class");
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
-	        console.log("successfully updated the class");
 	        _reactRouter.browserHistory.push('/users/' + user_id);
 	      }
 	    });
@@ -46311,12 +46206,9 @@
 	    var id = this.state.courseData.id;
 	    _superagent2.default.del(DATABASE_URL + '/classes/' + id).end(function (err, res) {
 	      if (err || !res.ok) {
-	        console.log("there was an error in updating this class");
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
-	        console.log("successfully deleted the class");
 	        this.showModal();
-	        {/*browserHistory.push('/users/' + sessionStorage.user_id);*/}
 	      }
 	    }.bind(this));
 	  },
@@ -46510,6 +46402,7 @@
 	var mapStateToProps = function mapStateToProps(store) {
 	  return store;
 	};
+	
 	module.exports = (0, _reactRedux.connect)(mapStateToProps)(UpdateCourseDisplay);
 
 /***/ },
@@ -46556,7 +46449,6 @@
 	  getUserDataFromAPI: function getUserDataFromAPI(id) {
 	    _superagent2.default.get(DATABASE_URL + "/users/" + id).end(function (err, res) {
 	      if (err) {
-	        console.log("error getting user data");
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
 	        this.setState({ userData: res.body[0] });
@@ -46567,7 +46459,6 @@
 	  getClassesTeachingFromAPI: function getClassesTeachingFromAPI(id) {
 	    _superagent2.default.get(DATABASE_URL + "/users/" + id + "/teaching").end(function (err, res) {
 	      if (err) {
-	        console.log("error getting user data");
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
 	        this.setState({ classesTeaching: res.body });
@@ -46578,7 +46469,6 @@
 	  getClassesTakingFromAPI: function getClassesTakingFromAPI(id) {
 	    _superagent2.default.get(DATABASE_URL + "/users/" + id + "/taking").end(function (err, res) {
 	      if (err) {
-	        console.log("error getting user data");
 	        _reactRouter.browserHistory.push('/error');
 	      } else {
 	        this.setState({ classesTaking: res.body });
@@ -46819,37 +46709,15 @@
 	
 	  render: function render() {
 	
-	    var messageBoxStyle = {
-	      border: "2px solid orange",
-	      margin: "65px 0 75px 0",
-	      width: "100%"
-	    };
-	
-	    var headerStyle = {
-	      color: "orange",
-	      fontSize: "2.5em",
-	      fontWeight: "700",
-	      padding: "10px"
-	    };
-	    var footerStyle = {
-	      backgroundColor: "orange",
-	      height: '20px',
-	      marginRight: '0px'
-	    };
-	
-	    var noMargins = {
-	      margin: '0 0 0 15px'
-	    };
-	
 	    return _react2.default.createElement(
 	      'div',
-	      { style: messageBoxStyle },
+	      { className: 'message-box' },
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'row', style: noMargins },
+	        { className: 'row message-header' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'row', style: headerStyle },
+	          { className: 'row inbox-header' },
 	          _react2.default.createElement(
 	            'h1',
 	            null,
@@ -46877,11 +46745,10 @@
 	            })
 	          )
 	        ),
-	        _react2.default.createElement('div', { className: 'row', style: footerStyle })
+	        _react2.default.createElement('div', { className: 'row message-footer' })
 	      )
 	    );
 	  }
-	
 	});
 	
 	exports.default = MessageDisplay;
@@ -47018,28 +46885,18 @@
 	  render: function render() {
 	
 	    var profilePic = {
-	      backgroundImage: 'url(' + this.props.sender_profile_pic + ')',
-	      backgroundSize: "cover",
-	      backgroundPosition: "center",
-	      borderRadius: "100%",
-	      width: "50px",
-	      height: "50px"
-	    };
-	
-	    var selectedStyle = {
-	      backgroundColor: 'lightgray',
-	      borderLeft: "2px solid orange"
+	      backgroundImage: 'url(' + this.props.sender_profile_pic + ')'
 	    };
 	
 	    var selected = this.state.unread_messages ? _react2.default.createElement(
 	      'div',
-	      { onClick: this.onThreadClick, style: selectedStyle, className: 'row single-thread' },
+	      { onClick: this.onThreadClick, className: 'row single-thread selected-thread' },
 	      _react2.default.createElement(
 	        'h3',
 	        null,
 	        'new message!'
 	      ),
-	      _react2.default.createElement('div', { className: 'col-sm-2', style: profilePic }),
+	      _react2.default.createElement('div', { className: 'col-sm-2 message-sender-pic', style: profilePic }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-8' },
@@ -47064,7 +46921,7 @@
 	    ) : _react2.default.createElement(
 	      'div',
 	      { onClick: this.onThreadClick, className: 'row single-thread' },
-	      _react2.default.createElement('div', { className: 'col-sm-2', style: profilePic }),
+	      _react2.default.createElement('div', { className: 'col-sm-2 message-sender-pic', style: profilePic }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-8' },
@@ -47195,14 +47052,6 @@
 	        sender_first_name: message.sender_first_name });
 	    }.bind(this));
 	
-	    var textArea = {
-	      width: "98%",
-	      height: "100px",
-	      marginTop: '0',
-	      borderColor: 'gray'
-	
-	    };
-	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'message-list' },
@@ -47213,7 +47062,7 @@
 	        _react2.default.createElement('textarea', {
 	          type: 'text',
 	          placeholder: 'type here to reply...',
-	          style: textArea,
+	          className: 'message-textbox',
 	          required: true,
 	          value: this.state.message,
 	          onChange: this.handleMessageChange }),
@@ -47252,8 +47101,8 @@
 	var Message = _react2.default.createClass({
 	  displayName: 'Message',
 	
-	  render: function render() {
 	
+	  render: function render() {
 	    var date = moment(this.props.date).format("MMMM Do");
 	
 	    return _react2.default.createElement(
@@ -47316,7 +47165,7 @@
 	      { id: 'error-page', className: 'center' },
 	      _react2.default.createElement(
 	        'h1',
-	        { className: 'orange\n' },
+	        { className: 'orange' },
 	        'Just who do we think we are,',
 	        _react2.default.createElement('br', null),
 	        ' keeping you from youNiversity course information?'

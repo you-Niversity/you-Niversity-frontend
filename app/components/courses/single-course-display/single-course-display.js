@@ -20,7 +20,6 @@ var DATABASE_URL ="http://localhost:8080";
 var SingleCourseDisplay = React.createClass({
 
   getInitialState: function(){
-
     return {
       courseData: [],
       roster: [],
@@ -140,7 +139,6 @@ var SingleCourseDisplay = React.createClass({
   handleUserSignup: function(){
     var id = this.props.params.id;
     var seats_remaining = this.state.courseData.seats_remaining - 1;
-
     request
       .put(DATABASE_URL + "/classes/" + id + "/signup")
       .send({seats_remaining: seats_remaining})
@@ -202,6 +200,82 @@ var SingleCourseDisplay = React.createClass({
       }.bind(this))
   },
 
+  initiateMessageClick: function(){
+    var instructor_id = this.state.courseData.user_id;
+    var sender_id = Number(sessionStorage.user_id);
+    request
+      .get(DATABASE_URL + "/messages/threadcheck/" + sender_id + '/' + instructor_id)
+      .end(function(err, res){
+        if(err){
+          console.log("There was an error grabbing info from the API");
+        } else {
+          if (res.body.exists == true) {
+            browserHistory.push('/messages/' + sessionStorage.user_id)
+          } else {
+            this.showMessageModal();
+          }
+        }
+      }.bind(this))
+  },
+
+  initiateMessageClickFromInstructor: function(student_id){
+    console.log(student_id);
+    this.setState({student_to_be_messaged: student_id});
+    var instructor_id = Number(sessionStorage.user_id);
+    request
+      .get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id)
+      .end(function(err, res){
+        if(err){
+          console.log("There was an error grabbing info from the API");
+        } else {
+          if (res.body.exists == true) {
+            browserHistory.push('/messages/' + sessionStorage.user_id)
+          } else {
+            this.showMessageModal();
+          }
+        }
+      }.bind(this))
+  },
+
+  handleMessageThreadCreation: function(message){
+    var sender_id = Number(sessionStorage.user_id);
+    var recipient_id = null;
+    if (Number(sessionStorage.user_id) == this.state.courseData.user_id) {
+      recipient_id = this.state.student_to_be_messaged;
+    } else {
+      recipient_id = this.state.courseData.user_id;
+    }
+    request
+      .post(DATABASE_URL + "/messages/threads")
+      .send({message: message})
+      .send({class_id: this.state.courseData.id})
+      .send({sender_id: sender_id})
+      .send({recipient_id: recipient_id})
+      .end(function(err, res){
+        if(err || !res.ok) {
+          console.log("there was an error submitting this comment.");
+        } else {
+          this.handleMessageSubmit(res.body[0], sender_id, recipient_id, message);
+        }
+      }.bind(this))
+  },
+
+  handleMessageSubmit: function(thread_id, sender_id, recipient_id, message){
+    console.log(thread_id, sender_id, recipient_id, message);
+    request
+      .post(DATABASE_URL + "/messages/" + sender_id)
+      .send({message: message.message})
+      .send({thread_id: thread_id})
+      .send({recipient_id: recipient_id})
+      .end(function(err, res){
+        if(err || !res.ok) {
+          console.log("there was an error submitting this comment.");
+        } else {
+          this.hideMessageModal();
+        }
+      }.bind(this))
+  },
+
   showModal: function(){
       this.refs.modal.show();
   },
@@ -240,92 +314,6 @@ var SingleCourseDisplay = React.createClass({
   },
   hideMessageConfirmationModal: function(){
       this.refs.modalMessageConfirmation.hide();
-  },
-
-
-  initiateMessageClick: function(){
-    var instructor_id = this.state.courseData.user_id;
-    var sender_id = Number(sessionStorage.user_id);
-    request
-      .get(DATABASE_URL + "/messages/threadcheck/" + sender_id + '/' + instructor_id)
-      .end(function(err, res){
-        if(err){
-          console.log("There was an error grabbing info from the API");
-        } else {
-          if (res.body.exists == true) {
-            browserHistory.push('/messages/' + sessionStorage.user_id)
-          } else {
-            console.log("make the modal show");
-            this.showMessageModal();
-          }
-        }
-      }.bind(this))
-  },
-
-  initiateMessageClickFromInstructor: function(student_id){
-    console.log(student_id);
-    this.setState({student_to_be_messaged: student_id});
-    var instructor_id = Number(sessionStorage.user_id);
-    request
-      .get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id)
-      .end(function(err, res){
-        if(err){
-          console.log("There was an error grabbing info from the API");
-        } else {
-          if (res.body.exists == true) {
-            browserHistory.push('/messages/' + sessionStorage.user_id)
-          } else {
-            console.log("make the modal show");
-            this.showMessageModal();
-          }
-        }
-      }.bind(this))
-  },
-
-  handleMessageThreadCreation: function(message){
-    var sender_id = Number(sessionStorage.user_id);
-    var recipient_id = null;
-    if (Number(sessionStorage.user_id) == this.state.courseData.user_id) {
-      recipient_id = this.state.student_to_be_messaged;
-
-      console.log('instructor is sending a message');
-    } else {
-      console.log('student is sending a message');
-      recipient_id = this.state.courseData.user_id;
-
-    }
-    request
-      .post(DATABASE_URL + "/messages/threads")
-      .send({message: message})
-      .send({class_id: this.state.courseData.id})
-      .send({sender_id: sender_id})
-      .send({recipient_id: recipient_id})
-      .end(function(err, res){
-        if(err || !res.ok) {
-          console.log("there was an error submitting this comment.");
-        } else {
-          console.log("we submitted the thread!!!");
-          console.log(res.body[0]);
-          this.handleMessageSubmit(res.body[0], sender_id, recipient_id, message);
-        }
-      }.bind(this))
-  },
-
-  handleMessageSubmit: function(thread_id, sender_id, recipient_id, message){
-    console.log(thread_id, sender_id, recipient_id, message);
-    request
-      .post(DATABASE_URL + "/messages/" + sender_id)
-      .send({message: message.message})
-      .send({thread_id: thread_id})
-      .send({recipient_id: recipient_id})
-      .end(function(err, res){
-        if(err || !res.ok) {
-          console.log("there was an error submitting this comment.");
-        } else {
-          console.log('next we must decide where to redirect. Perhaps show a modal.');
-          this.hideMessageModal();
-        }
-      }.bind(this))
   },
 
   render: function(){
@@ -416,4 +404,5 @@ var SingleCourseDisplay = React.createClass({
 const mapStateToProps = function(store) {
   return store;
 }
+
 module.exports = connect(mapStateToProps)(SingleCourseDisplay);

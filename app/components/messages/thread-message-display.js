@@ -37,14 +37,6 @@ var MessageList = React.createClass({
       )
     }.bind(this));
 
-    var textArea = {
-      width: "98%",
-      height: "100px",
-      marginTop: '0',
-      borderColor: 'gray'
-
-    }
-
     return (
       <div className="message-list">
         {messageNodes}
@@ -52,7 +44,7 @@ var MessageList = React.createClass({
           <textarea
             type="text"
             placeholder="type here to reply..."
-            style={textArea}
+            className="message-textbox"
             required
             value={this.state.message}
             onChange={this.handleMessageChange}>
@@ -63,6 +55,5 @@ var MessageList = React.createClass({
     )
   }
 })
-
 
 export default MessageList;

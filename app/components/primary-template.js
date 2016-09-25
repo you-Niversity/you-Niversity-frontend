@@ -23,14 +23,12 @@ var PrimaryTemplate = React.createClass({
 
   componentDidMount: function(){
     this.checkForUnreadMessages();
-
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
     }
   },
 
   checkForUnreadMessages: function(){
-    console.log('checking for unread messages');
     request
       .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
       .end(function(err, res){
@@ -38,7 +36,6 @@ var PrimaryTemplate = React.createClass({
           browserHistory.push('/error');
         } else {
           this.setState({unreadMessagesExist: res.body.unread_messages});
-          console.log(this.state);
         }
       }.bind(this))
   },
@@ -68,19 +65,15 @@ var PrimaryTemplate = React.createClass({
             <div id="secondary-div-row" className="row">
               <div className="col-sm-2"></div>
               <div id="center-content" className="col-sm-8">
-
                 {nav}
                 {this.props.children}
-
                 <LogoutModal ref="modal" style={modalStyles.container}>
                     <h2 style={modalStyles.title}>Thanks for stopping by...see you soon!</h2>
                     <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
                 </LogoutModal>
-
               </div>
             </div>
           </div>
-
         </div>
         <div>
           <Footer />

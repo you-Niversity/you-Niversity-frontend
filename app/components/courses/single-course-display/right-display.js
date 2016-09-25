@@ -14,22 +14,16 @@ var RightDisplay = React.createClass({
       <div className="btn-div">No Seats Remaining</div>
       : <div className="btn-div">{this.props.data.seats_remaining} seats left</div>;
 
-
-
     var updateCourseButton = (Number(sessionStorage.user_id) == this.props.data.user_id) ?
       <Link className="link-plain" to={'/update/' + this.props.data.id}><div onClick={this.props.handleCourseUpdate} className="btn-danger btn-div">Update or Delete Course</div></Link>
       : null;
 
     var signupButton = (sessionStorage.first_name && !this.props.isUserEnrolledInCourse && !(Number(sessionStorage.user_id) == this.props.data.user_id) && (!this.props.data.seats_remaining == 0)) ?
-      <div onClick={this.props.handleUserSignup} className="btn-success
-
- btn-div pointer">Sign Up</div>
+      <div onClick={this.props.handleUserSignup} className="btn-success btn-div pointer">Sign Up</div>
       : null;
 
     var loginButton = (!sessionStorage.first_name && (!this.props.data.seats_remaining == 0)) ?
-      <Link className="link-plain" to="/login"><div className="btn-success
-
- btn-div">Log In<br/>to Sign Up</div></Link>
+      <Link className="link-plain" to="/login"><div className="btn-success btn-div">Log In<br/>to Sign Up</div></Link>
       : null;
 
     var enrolledInCourse = (this.props.isUserEnrolledInCourse) ?
@@ -42,7 +36,6 @@ var RightDisplay = React.createClass({
 
     return (
       <div>
-
         {updateCourseButton}
         {signupButton}
         {loginButton}
@@ -61,4 +54,5 @@ var RightDisplay = React.createClass({
 const mapStateToProps = function(store) {
   return store;
 }
+
 module.exports = connect(mapStateToProps)(RightDisplay);

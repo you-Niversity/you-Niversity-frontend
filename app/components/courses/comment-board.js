@@ -101,34 +101,16 @@ var Comment = React.createClass({
   render: function(){
 
     var commenterImageStyle = {
-      backgroundImage: 'url(' + this.props.profile_pic + ')',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      borderRadius: "100%",
-      border: "2px solid orange",
-      width: "60px",
-      height: "60px"
-    }
-
-    var nameStyle = {
-      color: "orange",
-      fontWeight: "700",
-      fontSize: "1.3em",
-      padding: "10px 0"
-    }
-    var commentStyle = {
-      fontSize: "1.1em",
-      fontWeight: "400",
-      padding: "10px 0"
+      backgroundImage: 'url(' + this.props.profile_pic + ')'
     }
 
     return (
       <div className="row">
-        <div className="col-sm-3" style={commenterImageStyle}></div>
+        <div className="col-sm-3 commenter-image" style={commenterImageStyle}></div>
         <div className="col-sm-9">
-          <p style={nameStyle}>{this.props.name}</p>
+          <p className="reviewer-name">{this.props.name}</p>
           <p>{this.props.date}</p>
-          <p style={commentStyle}>{this.props.comment}</p>
+          <p className="review-message">{this.props.comment}</p>
           <hr />
         </div>
       </div>

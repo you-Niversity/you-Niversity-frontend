@@ -6,6 +6,7 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 var Course = React.createClass({
 
   render: function() {
+    
     var courseStyle = {
       backgroundImage: 'url(' + this.props.image_url + ')',
       color: 'white'

@@ -87,5 +87,4 @@ var CourseDisplay = React.createClass({
   }
 });
 
-
 export default CourseDisplay;

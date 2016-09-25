@@ -285,10 +285,35 @@ hr {
 .right {
 	text-align: right;
 }
+.line-height-one {
+	line-height: 1;
+}
 .fifty {
 	width: 47%;
 	margin-left: 2%;
 	margin-top: 0;
+}
+.error-message {
+	color: red;
+	font-weight: 700;
+	margin: 10px 0;
+}
+#map {
+	width: 100%;
+	margin-left: 17px;
+	height: 400px;
+	margin-bottom: 50px;
+	border: 2px solid orange;
+}
+.map-list-style {
+	width: 100%;
+	height: 400px;
+	border: 2px solid orange;
+	padding: 0;
+	overflow-x: scroll;
+}
+.margins {
+	margin: 0 -15px 50px -15px;
 }
 .map-list-item {
 	padding: 10px;
@@ -312,6 +337,13 @@ hr {
 	font-weight: 400;
 	color: orange;
 }
+.list-marker-style {
+	color: black;
+	font-size: 2em;
+	font-weight: 700;
+	text-align: right;
+}
+
 .left-course-display {
 	padding: 10px;
 	font-size: 1.5em;
@@ -414,6 +446,33 @@ hr {
 #roster-review-comments-div h3 {
 	font-size: 1.3em;
 	margin-bottom: 10px;
+}
+.reviewer-image-style {
+	background-size: cover;
+	background-position: center;
+	border-radius: 100%;
+	border: 2px solid orange;
+	width: 60px;
+	height: 60px;
+}
+.reviewer-name {
+	color: orange;
+	font-weight: 700;
+	font-size: 1.3em;
+	padding: 10px 0;
+}
+.review-message {
+  font-size: 1.1em;
+  font-weight: 400;
+  padding: 10px 0;
+}
+.commenter-image {
+	background-size: cover;
+	background-position: center;
+	border-radius: 100%;
+	border: 2px solid orange;
+	width: 60px;
+	height: 60px;
 }
 .roster-list {
 	margin-top: 20px;
@@ -561,8 +620,22 @@ hr {
 	font-size: 1.3em;
 	font-weight: 400;
 }
-.single-thread h3 {
-
+.message-sender-pic {
+	background-position: center;
+	background-size: cover;
+	border-radius: 100%;
+	width: 50px;
+	height: 50px;
+}
+.selected-thread {
+	background-color: #ebebeb;
+	border-left: 2px solid orange;
+}
+.message-textbox {
+	width: 98%;
+	height: 100px;
+	margin-top: 0;
+	border-color: gray;
 }
 .fa-trash-o {
 	margin: 15px 0 0 30px;
@@ -588,6 +661,25 @@ hr {
 	font-weight: 400;
 	padding-bottom: 10px;
 	color: white;
+}
+.message-box {
+	border: 2px solid orange;
+	margin: 65px 0 75px 0;
+	width: 100%;
+}
+.inbox-header {
+	color: orange;
+	font-size: 2.5em;
+	font-weight: 700;
+	padding: 10px;
+}
+.message-header {
+	margin: 0 0 0 15px;
+}
+.message-footer {
+	background-color: orange;
+	height: 20px;
+	margin-right: 0;
 }
 .message-student {
 	margin: 10px 0 10px 13px;
@@ -634,7 +726,6 @@ footer img {
 	width: 40px;
 	margin: 20px 0 10px 0;
 }
-.orange
- {
+.orange {
 	color: orange;
 }

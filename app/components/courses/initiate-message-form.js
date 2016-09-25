@@ -15,6 +15,7 @@ var InitiateMessageForm = React.createClass({
       message: ''
     })
   },
+
   handleMessageSubmit: function(message){
     this.props.handleMessageSubmit(message)
   },
@@ -25,11 +26,8 @@ var InitiateMessageForm = React.createClass({
 
   handleSubmit: function(event){
     event.preventDefault();
-
     var message = this.state.message.trim();
-
     if (!message){
-      console.log("Please fill out a comment before submitting");
       return;
     } else {
       this.handleMessageSubmit({

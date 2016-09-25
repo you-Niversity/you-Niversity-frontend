@@ -21,7 +21,6 @@ var SignupDisplay = React.createClass({
         if (err || !res.ok) {
           console.log("there was an error in creating this user");
         } else {
-          console.log("successfully created user");
           sessionStorage.setItem('first_name', user.first_name);
           sessionStorage.setItem('user_id', res.body.id);
           sessionStorage.setItem('image_url', user.profile_pic);
@@ -106,7 +105,6 @@ var AddUserForm = React.createClass({
     var passwordMinimumCharsError = false;
 
       if(!first_name || !last_name || !email || !profile_pic || !city || !state || !password || !confirm_password){
-        console.log('All fields required.');
         allFieldsRequiredError = true;
       } else {
         allFieldsRequiredError = false;
@@ -125,7 +123,6 @@ var AddUserForm = React.createClass({
       } else {
         passwordMatchingError = false;
       }
-
 
       if (allFieldsRequiredError === true || passwordMatchingError === true || passwordMinimumCharsError === true) {
         console.log("An error needs to be addressed");
@@ -150,17 +147,11 @@ var AddUserForm = React.createClass({
 
   render: function() {
 
-    var errorMessageStyle = {
-      color: 'red',
-      fontWeight: 'bold',
-      margin: '10px 0'
-    }
+    var passwordErrorMessage = (this.state.passwordMatchingError) ? <p className="error-message">*passwords do not match</p> : null;
 
-    var passwordErrorMessage = (this.state.passwordMatchingError) ? <p style={errorMessageStyle}>*passwords do not match</p> : null;
+    var passwordMinimumCharsError = (this.state.passwordMinimumCharsError) ? <p className="error-message">*password should be at least 8 characters</p> : null;
 
-    var passwordMinimumCharsError = (this.state.passwordMinimumCharsError) ? <p style={errorMessageStyle}>*password should be at least 8 characters</p> : null;
-
-    var requiredFieldsErrorMessage = (this.state.allFieldsRequiredError) ? <p style={errorMessageStyle}>*all fields required</p> : null;
+    var requiredFieldsErrorMessage = (this.state.allFieldsRequiredError) ? <p className="error-message">*all fields required</p> : null;
 
     return (
       <form className="addUserForm" onSubmit={this.handleSubmit}>
@@ -170,24 +161,28 @@ var AddUserForm = React.createClass({
       <div className="col-sm-6">
         <input
           type="text"
+          required
           placeholder="first name"
           value={this.state.first_name}
           onChange={this.handleFirstNameChange}
         />
         <input
           type="text"
+          required
           placeholder="last name"
           value={this.state.last_name}
           onChange={this.handleLastNameChange}
         />
         <input
           type="text"
+          required
           placeholder="email"
           value={this.state.email}
           onChange={this.handleEmailChange}
         />
         <input
           type="text"
+          required
           placeholder="profile picture url"
           value={this.state.profile_pic}
           onChange={this.handleProfilePicChange}
@@ -196,24 +191,28 @@ var AddUserForm = React.createClass({
       <div className="col-sm-6">
         <input
           type="text"
+          required
           placeholder="city"
           value={this.state.city}
           onChange={this.handleCityChange}
         />
         <input
           type="text"
+          required
           placeholder="state"
           value={this.state.state}
           onChange={this.handleStateChange}
         />
         <input
           type="password"
+          required
           placeholder="password (8 character minimum)"
           value={this.state.password}
           onChange={this.handlePasswordChange}
         />
         <input
           type="password"
+          required
           placeholder="confirm password"
           value={this.state.confirm_password}
           onChange={this.handleConfirmPasswordChange}
@@ -224,7 +223,6 @@ var AddUserForm = React.createClass({
     )
   }
 });
-
 
 const mapStateToProps = function(store) {
   return store;

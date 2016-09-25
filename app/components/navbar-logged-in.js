@@ -21,7 +21,6 @@ var NavbarLoggedIn = React.createClass({
     sessionStorage.removeItem('first_name');
     sessionStorage.removeItem('image_url');
     sessionStorage.removeItem('user_id');
-
     this.showModal();
   },
 
@@ -52,12 +51,10 @@ var NavbarLoggedIn = React.createClass({
     return (
 
       <nav className="row">
-
         <Modal ref="modal" style={modalStyles.container}>
             <p style={modalStyles.title}>Thanks for stopping by...see you soon!</p>
             <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
         </Modal>
-
         <nav className="navbar">
           <div className="container-fluid">
             <div className="navbar-header">
@@ -68,27 +65,17 @@ var NavbarLoggedIn = React.createClass({
             </div>
             <ul className="nav navbar-nav navbar-right">
               <li><Link to="/addcourse">+ add course</Link></li>
-
-
-
               <li><Link to={'/messages/'+ id}><NewMessagesIcon />{unreadMessagesExist}</Link></li>
-
-
-
               <li className="dropdown-toggle pointer" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                   welcome, {first_name}
                   <span className="caret"></span>
               </li>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li><Link to={'/users/'+ id}>Dashboard</Link></li>
-
                 <li><Link to="#" onClick={this.handleLogoutSubmit}>Logout</Link></li>
                 </ul>
               <li><div className="nav-user-img" style={userPic}></div></li>
             </ul>
-
-
-
           </div>
         </nav>
       </nav>

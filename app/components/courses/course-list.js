@@ -6,7 +6,6 @@ import request from 'superagent';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import Course from './course.js';
 
-
 var CourseList = React.createClass({
   render: function() {
 
@@ -32,7 +31,6 @@ var CourseList = React.createClass({
             </div>
           </div>
       </div>
-
     );
   }
 });

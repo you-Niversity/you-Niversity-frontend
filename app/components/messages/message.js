@@ -5,8 +5,8 @@ var moment = require('moment');
 moment().format();
 
 var Message = React.createClass({
-  render: function(){
 
+  render: function(){
     var date = moment(this.props.date).format("MMMM Do");
 
     return (

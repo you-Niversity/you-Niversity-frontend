@@ -45,5 +45,4 @@ var ThreadList = React.createClass({
   }
 })
 
-
 export default ThreadList;

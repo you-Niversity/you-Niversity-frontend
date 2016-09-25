@@ -2,7 +2,6 @@
 import React from 'react';
 import Geosuggest from 'react-geosuggest';
 
-
 var SearchBar = React.createClass({
 
   getInitialState: function(){
@@ -29,13 +28,11 @@ var SearchBar = React.createClass({
   onSuggestSelect: function(suggest){
     this.props.handleLocationInput(suggest);
     this.setState({lat:suggest.location.lat, lng:suggest.location.lng});
-    console.log(this.state);
   },
 
   render: function() {
 
     var location = this.props.city + ', ' + this.props.state;
-
 
     return (
         <div id="landing-search-div" className="row animated fadeIn">
@@ -63,7 +60,6 @@ var SearchBar = React.createClass({
                   miles of
                 </h4>
               </div>
-
               <div className="col-sm-5" id="search-geosuggest">
                 <Geosuggest
                   placeholder={location}
