@@ -5,7 +5,7 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import CourseList from './courses/course-list.js';
 import { connect } from 'react-redux';
 
-var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
+var DATABASE_URL ="http://localhost:8080";
 
 var UserDashboard = React.createClass({
 

@@ -9,7 +9,7 @@ import ListIcon from '../icons/list-icon.js';
 import MapDisplay from './map-display.js';
 import CourseListDisplay from './course-list-display.js';
 
-var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
+var DATABASE_URL ="http://localhost:8080";
 
 var CourseDisplay = React.createClass({
   getInitialState: function() {

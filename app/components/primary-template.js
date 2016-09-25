@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import request from 'superagent';
 import Navbar from './navbar.js';
 import NavbarLoggedIn from './navbar-logged-in.js';
 import LogoutModal from 'boron/OutlineModal';
@@ -8,42 +9,38 @@ import Footer from './footer.js';
 import { connect } from 'react-redux';
 import store from '../store';
 import { userLoginSuccess } from '../actions/user-actions';
+import modalStyles from './styles/modal-styles.js';
 
-
-var modalStyles = {
-  btn: {
-    padding: '1em 2em',
-    width: '25%',
-    margin: '1em 0 2em 37.5%',
-    outline: 'none',
-    fontSize: 16,
-    fontWeight: '600',
-    background: 'orange',
-    color: '#FFFFFF',
-    border: 'none',
-    borderRadius: '3px'
-  },
-  container: {
-    padding: '2em',
-    textAlign: 'center'
-  },
-  title: {
-    margin: 0,
-    paddingTop: '2em',
-    fontSize: '1.5em',
-    color: 'orange',
-    textAlign: 'center',
-    fontWeight: 400
-  }
-};
-
+var DATABASE_URL ="http://localhost:8080";
 
 var PrimaryTemplate = React.createClass({
 
+  getInitialState: function() {
+    return {
+      unreadMessagesExist: null
+    };
+  },
+
   componentDidMount: function(){
+    this.checkForUnreadMessages();
+
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
     }
+  },
+
+  checkForUnreadMessages: function(){
+    console.log('checking for unread messages');
+    request
+      .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
+      .end(function(err, res){
+        if (err){
+          browserHistory.push('/error');
+        } else {
+          this.setState({unreadMessagesExist: res.body.unread_messages});
+          console.log(this.state);
+        }
+      }.bind(this))
   },
 
   showModal: function(){
@@ -59,6 +56,7 @@ var PrimaryTemplate = React.createClass({
     var nav = (sessionStorage.first_name) ?
       <NavbarLoggedIn
         showModal={this.showModal}
+        unreadMessages={this.state.unreadMessages}
       />
       : <Navbar />;
 
