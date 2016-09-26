@@ -15,7 +15,7 @@ import Loading from 'react-loading';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../styles/modal-styles.js';
 
-var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
+var DATABASE_URL ="http://localhost:8080";
 
 var LandingPage = React.createClass({
 
@@ -28,31 +28,16 @@ var LandingPage = React.createClass({
       zoom: 9,
       city: 'Fort Collins',
       state: 'CO',
-      filterText: '',
-      unreadMessagesExist: null
+      filterText: ''
     };
   },
 
   componentDidMount: function(){
-    if (sessionStorage.user_id) {
-      this.checkForUnreadMessages();
-    }
+
     this.getUserLocation(this.geocodeLatLng);
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
     }
-  },
-
-  checkForUnreadMessages: function(){
-    request
-      .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
-      .end(function(err, res){
-        if (err){
-          browserHistory.push('/error');
-        } else {
-          this.setState({unreadMessagesExist: res.body.unread_messages});
-        }
-      }.bind(this))
   },
 
   handleUserInput: function(filterText){
@@ -139,8 +124,6 @@ var LandingPage = React.createClass({
 
     var loggedInNav = (sessionStorage.first_name) ?
       <NavbarLoggedIn
-        unreadMessagesExist={this.state.unreadMessagesExist}
-        checkForUnreadMessages={this.checkForUnreadMessages}
       />
       : null;
 

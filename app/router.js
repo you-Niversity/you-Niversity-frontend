@@ -16,7 +16,7 @@ import AddCourseDisplay from './components/courses/add-course-display.js';
 import UpdateCourseDisplay from './components/courses/update-course-display.js';
 import UserDashboard from './components/user-dashboard.js';
 import MessageDisplay from './components/messages/message-display.js';
-import ErrorDisplay from './components/404-page.js';
+import ErrorDisplay from './components/server-error-page.js';
 
 var AppRouter = React.createClass({
   render: function () {

@@ -12,10 +12,6 @@ import MessageAlertIcon from './icons/message-alert.js';
 
 var NavbarLoggedIn = React.createClass({
 
-  componentDidMount: function(){
-    this.props.checkForUnreadMessages();
-  },
-
   handleLogoutSubmit: function(e){
     e.preventDefault();
     sessionStorage.removeItem('first_name');
@@ -44,7 +40,7 @@ var NavbarLoggedIn = React.createClass({
       backgroundImage: 'url(' + image_url + ')',
     }
 
-    var unreadMessagesExist = (this.props.unreadMessagesExist) ?
+    var unreadMessagesExist = (this.props.messageState.unreadMessages) ?
       <MessageAlertIcon />
       : null;
 

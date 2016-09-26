@@ -5,10 +5,11 @@ import request from 'superagent';
 import { connect } from 'react-redux';
 import store from '../store';
 import { userLoginSuccess } from '../actions/user-actions';
+import { unreadMessages } from '../actions/message-actions';
 import Modal from 'boron/OutlineModal';
 import modalStyles from './styles/modal-styles.js';
 
-var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
+var DATABASE_URL ="http://localhost:8080";
 
  var LoginDisplay = React.createClass({
 
@@ -35,11 +36,25 @@ var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
             sessionStorage.setItem('first_name', this.props.userState.profile.first_name);
             sessionStorage.setItem('user_id', this.props.userState.profile.id);
             sessionStorage.setItem('image_url', res.body.profile.profile_pic);
+            this.checkForUnreadMessages();
             this.showModal();
           }
         }
       }.bind(this));
   },
+
+  checkForUnreadMessages: function(){
+      request
+        .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
+        .end(function(err, res){
+          if (err){
+            console.log('where is the roster?');
+          } else {
+            sessionStorage.setItem('unreadMessagesExist', res.body.unread_messages);
+            this.props.checkForUnreadMessages(res.body.unread_messages);
+          }
+        }.bind(this))
+    },
 
   showModal: function(){
       this.refs.modal.show();
@@ -138,6 +153,9 @@ const mapDispatchToProps = function(dispatch){
   return {
     login: function(user){
       dispatch(userLoginSuccess(user));
+    },
+    checkForUnreadMessages: function(unread) {
+      dispatch(unreadMessages(unread))
     }
   }
 }

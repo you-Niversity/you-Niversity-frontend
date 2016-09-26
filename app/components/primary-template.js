@@ -11,34 +11,16 @@ import store from '../store';
 import { userLoginSuccess } from '../actions/user-actions';
 import modalStyles from './styles/modal-styles.js';
 
-var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
+var DATABASE_URL ="http://localhost:8080";
 
 var PrimaryTemplate = React.createClass({
 
-  getInitialState: function() {
-    return {
-      unreadMessagesExist: null
-    };
-  },
-
   componentDidMount: function(){
+    console.log(this.props.messageState);
+    console.log(this.props);
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
-
-      this.checkForUnreadMessages();
     }
-  },
-
-  checkForUnreadMessages: function(){
-    request
-      .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
-      .end(function(err, res){
-        if (err){
-          console.log('where is the roster?');
-        } else {
-          this.setState({unreadMessagesExist: res.body.unread_messages});
-        }
-      }.bind(this))
   },
 
   showModal: function(){
@@ -54,8 +36,6 @@ var PrimaryTemplate = React.createClass({
     var nav = (sessionStorage.first_name) ?
       <NavbarLoggedIn
         showModal={this.showModal}
-        unreadMessagesExist={this.state.unreadMessagesExist}
-        checkForUnreadMessages={this.checkForUnreadMessages}
       />
       : <Navbar />;
 

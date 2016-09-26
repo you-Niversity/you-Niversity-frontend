@@ -84,7 +84,7 @@ var MapDisplay = React.createClass({
       : null;
 
     return (
-      <div className="row lowindex">
+      <div className="row lowindex animated fadeIn">
       {noClasses}
         <div className="col-sm-1"></div>
         <div className="col-sm-6 lowindex">

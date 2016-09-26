@@ -1,10 +1,13 @@
 'use strict';
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import { connect } from 'react-redux';
+import store from '../../store';
+import { unreadMessages } from '../../actions/message-actions';
 import TrashIcon from '../icons/trash-icon.js';
 import request from 'superagent';
 
-var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
+var DATABASE_URL ="http://localhost:8080";
 
 var Thread = React.createClass({
 
@@ -50,9 +53,25 @@ var Thread = React.createClass({
           browserHistory.push('/error');
         } else {
           console.log("next, re-render the navbar somehow...");
+          this.checkForUnreadMessages();
         }
-      });
+      }.bind(this));
   },
+
+  checkForUnreadMessages: function(){
+    console.log(sessionStorage.user_id);
+      request
+        .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
+        .end(function(err, res){
+          if (err){
+            console.log('where is the roster?');
+          } else {
+            sessionStorage.setItem('unreadMessagesExist', res.body.unread_messages);
+            sessionStorage.setItem('unreadMessagesExist', res.body.unread_messages);
+            this.props.checkForUnreadMessages(res.body.unread_messages);
+          }
+        }.bind(this))
+    },
 
   onTrashClick: function(){
     this.props.onTrashClick(this.props.id);
@@ -98,4 +117,15 @@ var Thread = React.createClass({
   }
 })
 
-export default Thread;
+const mapStateToProps = function(store) {
+  return store;
+}
+const mapDispatchToProps = function(dispatch){
+  return {
+    checkForUnreadMessages: function(unread) {
+      dispatch(unreadMessages(unread))
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Thread);

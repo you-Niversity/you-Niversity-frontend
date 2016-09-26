@@ -5,7 +5,6 @@ import * as types from '../actions/action-types';
 const initialState= {};
 
 const userReducer = function(state = initialState, action) {
-
   switch(action.type) {
 
     case types.USER_LOGIN_SUCCESS:
@@ -16,7 +15,6 @@ const userReducer = function(state = initialState, action) {
 
   }
   return state;
-}
-
+};
 
 export default userReducer;

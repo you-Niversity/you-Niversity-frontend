@@ -15,7 +15,7 @@ import Modal from 'boron/OutlineModal';
 import modalStyles from '../styles/modal-styles.js';
 import modalStylesMargin from '../styles/modal-styles-margin.js';
 
-var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
+var DATABASE_URL ="http://localhost:8080";
 
 var SingleCourseDisplay = React.createClass({
 

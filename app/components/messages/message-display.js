@@ -2,12 +2,14 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import request from 'superagent';
+import { connect } from 'react-redux';
+import store from '../../store';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../styles/modal-styles.js';
 import ThreadList from './thread-list.js';
 import MessageList from './message-list.js';
 
-var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
+var DATABASE_URL ="http://localhost:8080";
 
 var MessageDisplay = React.createClass({
 
@@ -21,7 +23,7 @@ var MessageDisplay = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log(this.props);
+    console.log(this.props.messageState);
     var id = this.props.params.id;
     this.getThreadDataFromAPI(id, this.getMessageDataFromAPI);
   },
@@ -117,4 +119,8 @@ var MessageDisplay = React.createClass({
   }
 });
 
-export default MessageDisplay;
+const mapStateToProps = function(store) {
+  return store;
+}
+
+module.exports = connect(mapStateToProps)(MessageDisplay);
