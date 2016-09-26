@@ -58,6 +58,10 @@ var Student = React.createClass({
 
   render: function(){
 
+    var studentImageStyle = {
+      backgroundImage: 'url(' + this.props.profile_pic + ')'
+    }
+
     var sendMessageOption = (sessionStorage.user_id && Number(sessionStorage.user_id) == this.props.instructor_id) ?
       <div><span onClick={this.initiateMessageClick} className="message-student pointer"><MessageIcon /></span>
       <div className="student-profile-img center" style={studentImageStyle}></div></div>

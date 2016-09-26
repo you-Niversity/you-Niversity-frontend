@@ -21,6 +21,7 @@ var MessageDisplay = React.createClass({
   },
 
   componentDidMount: function(){
+    console.log(this.props);
     var id = this.props.params.id;
     this.getThreadDataFromAPI(id, this.getMessageDataFromAPI);
   },
@@ -97,6 +98,7 @@ var MessageDisplay = React.createClass({
               <div className="col-sm-5">
                 <ThreadList
                   data={this.state.threads}
+                  messages={this.state.messages}
                   onThreadClick={this.onThreadClick}
                   deleteThread={this.deleteThread}
                 />

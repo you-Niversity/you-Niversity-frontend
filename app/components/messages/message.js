@@ -7,7 +7,7 @@ moment().format();
 var Message = React.createClass({
 
   render: function(){
-    var date = moment(this.props.date).format("MMMM Do");
+    var date = moment(this.props.date).format("MMMM Do, h:hh a");
 
     return (
       <div className="single-message">

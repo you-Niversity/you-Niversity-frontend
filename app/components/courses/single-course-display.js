@@ -219,7 +219,6 @@ var SingleCourseDisplay = React.createClass({
   },
 
   initiateMessageClickFromInstructor: function(student_id){
-    console.log(student_id);
     this.setState({student_to_be_messaged: student_id});
     var instructor_id = Number(sessionStorage.user_id);
     request
@@ -261,7 +260,6 @@ var SingleCourseDisplay = React.createClass({
   },
 
   handleMessageSubmit: function(thread_id, sender_id, recipient_id, message){
-    console.log(thread_id, sender_id, recipient_id, message);
     request
       .post(DATABASE_URL + "/messages/" + sender_id)
       .send({message: message.message})

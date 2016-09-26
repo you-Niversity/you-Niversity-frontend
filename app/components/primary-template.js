@@ -22,9 +22,10 @@ var PrimaryTemplate = React.createClass({
   },
 
   componentDidMount: function(){
-    this.checkForUnreadMessages();
     if((!this.props.userState.profile) && (sessionStorage.user_id)) {
       this.props.login({profile: {first_name: sessionStorage.first_name, user_id: sessionStorage.user_id}});
+
+      this.checkForUnreadMessages();
     }
   },
 
@@ -33,7 +34,7 @@ var PrimaryTemplate = React.createClass({
       .get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id)
       .end(function(err, res){
         if (err){
-          browserHistory.push('/error');
+          console.log('where is the roster?');
         } else {
           this.setState({unreadMessagesExist: res.body.unread_messages});
         }

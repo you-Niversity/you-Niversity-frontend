@@ -30351,16 +30351,17 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    this.checkForUnreadMessages();
 	    if (!this.props.userState.profile && sessionStorage.user_id) {
 	      this.props.login({ profile: { first_name: sessionStorage.first_name, user_id: sessionStorage.user_id } });
+	
+	      this.checkForUnreadMessages();
 	    }
 	  },
 	
 	  checkForUnreadMessages: function checkForUnreadMessages() {
 	    _superagent2.default.get(DATABASE_URL + "/messages/unread/" + sessionStorage.user_id).end(function (err, res) {
 	      if (err) {
-	        browserHistory.push('/error');
+	        console.log('where is the roster?');
 	      } else {
 	        this.setState({ unreadMessagesExist: res.body.unread_messages });
 	      }
@@ -39882,7 +39883,6 @@
 	  },
 	
 	  initiateMessageClickFromInstructor: function initiateMessageClickFromInstructor(student_id) {
-	    console.log(student_id);
 	    this.setState({ student_to_be_messaged: student_id });
 	    var instructor_id = Number(sessionStorage.user_id);
 	    _superagent2.default.get(DATABASE_URL + "/messages/threadcheck/" + student_id + '/' + instructor_id).end(function (err, res) {
@@ -39916,7 +39916,6 @@
 	  },
 	
 	  handleMessageSubmit: function handleMessageSubmit(thread_id, sender_id, recipient_id, message) {
-	    console.log(thread_id, sender_id, recipient_id, message);
 	    _superagent2.default.post(DATABASE_URL + "/messages/" + sender_id).send({ message: message.message }).send({ thread_id: thread_id }).send({ recipient_id: recipient_id }).end(function (err, res) {
 	      if (err || !res.ok) {
 	        console.log("there was an error submitting this comment.");
@@ -40663,6 +40662,10 @@
 	  },
 	
 	  render: function render() {
+	
+	    var studentImageStyle = {
+	      backgroundImage: 'url(' + this.props.profile_pic + ')'
+	    };
 	
 	    var sendMessageOption = sessionStorage.user_id && Number(sessionStorage.user_id) == this.props.instructor_id ? _react2.default.createElement(
 	      'div',
@@ -46735,6 +46738,7 @@
 	  },
 	
 	  componentDidMount: function componentDidMount() {
+	    console.log(this.props);
 	    var id = this.props.params.id;
 	    this.getThreadDataFromAPI(id, this.getMessageDataFromAPI);
 	  },
@@ -46813,6 +46817,7 @@
 	            { className: 'col-sm-5' },
 	            _react2.default.createElement(_threadList2.default, {
 	              data: this.state.threads,
+	              messages: this.state.messages,
 	              onThreadClick: this.onThreadClick,
 	              deleteThread: this.deleteThread
 	            })
@@ -46938,8 +46943,26 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      unread_messages: this.props.unread
+	      unread_messages: this.props.unread,
+	      messages: []
 	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    this.getMessageDataFromAPI();
+	  },
+	
+	  getMessageDataFromAPI: function getMessageDataFromAPI() {
+	    _superagent2.default.get(DATABASE_URL + "/messages/thread/" + this.props.id).end(function (err, res) {
+	      if (err) {
+	        _reactRouter.browserHistory.push('/error');
+	      } else {
+	        this.setState({ messages: res.body });
+	        if (this.state.messages.length === 1 && this.state.messages[0].sender_id == Number(sessionStorage.user_id)) {
+	          this.setState({ unread_messages: false });
+	        }
+	      }
+	    }.bind(this));
 	  },
 	
 	  onThreadClick: function onThreadClick() {
@@ -46972,15 +46995,15 @@
 	    var selected = this.state.unread_messages ? _react2.default.createElement(
 	      'div',
 	      { onClick: this.onThreadClick, className: 'row single-thread selected-thread' },
-	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        'new message!'
-	      ),
 	      _react2.default.createElement('div', { className: 'col-sm-2 message-sender-pic', style: profilePic }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-8' },
+	        _react2.default.createElement(
+	          'h3',
+	          { className: 'new-message' },
+	          'new message!'
+	        ),
 	        _react2.default.createElement(
 	          'h2',
 	          null,
@@ -47184,7 +47207,7 @@
 	
 	
 	  render: function render() {
-	    var date = moment(this.props.date).format("MMMM Do");
+	    var date = moment(this.props.date).format("MMMM Do, h:hh a");
 	
 	    return _react2.default.createElement(
 	      'div',

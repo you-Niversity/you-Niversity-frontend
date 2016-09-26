@@ -631,6 +631,11 @@ hr {
 	font-size: 1.3em;
 	font-weight: 400;
 }
+.new-message {
+	font-weight: 700;
+	color: orange;
+	margin-bottom: 5px;
+}
 .message-sender-pic {
 	background-position: center;
 	background-size: cover;
