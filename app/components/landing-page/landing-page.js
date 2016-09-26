@@ -15,7 +15,7 @@ import Loading from 'react-loading';
 import Modal from 'boron/OutlineModal';
 import modalStyles from '../styles/modal-styles.js';
 
-var DATABASE_URL ="http://localhost:8080";
+var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
 
 var LandingPage = React.createClass({
 

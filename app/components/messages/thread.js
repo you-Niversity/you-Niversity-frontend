@@ -4,7 +4,7 @@ import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
 import TrashIcon from '../icons/trash-icon.js';
 import request from 'superagent';
 
-var DATABASE_URL ="http://localhost:8080";
+var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
 
 var Thread = React.createClass({
 
