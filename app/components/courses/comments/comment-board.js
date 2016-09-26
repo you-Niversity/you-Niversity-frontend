@@ -31,6 +31,8 @@ var CommentBoard = React.createClass({
       <p className="center no-data-message">Be the first to add a comment!</p>
       : null;
 
+    var noCommentsLoggedNotSignedUp = (this.props.data.length == 0);
+
     var commentNodes = this.props.data.map(function(comment){
       return (
         <Comment

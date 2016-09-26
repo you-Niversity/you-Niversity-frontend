@@ -45190,6 +45190,8 @@
 	      'Be the first to add a comment!'
 	    ) : null;
 	
+	    var noCommentsLoggedNotSignedUp = this.props.data.length == 0;
+	
 	    var commentNodes = this.props.data.map(function (comment) {
 	      return _react2.default.createElement(_comment2.default, {
 	        date: moment(comment.comment_date).format("MMMM Do YYYY"),
@@ -46010,7 +46012,7 @@
 	    var location = this.state.location;
 	    var start_time = this.state.start_time;
 	    var end_time = this.state.end_time;
-	    if (!title) {
+	    if (!title || !description || !prerequisites || !price || !seats || !date || !location || !start_time || !end_time) {
 	      return;
 	    }
 	    this.props.onCourseSubmit({ title: title, description: description, prerequisites: prerequisites, price: price, total_seats: seats, image_url: image_url, date: date, location: location, start_time: start_time, end_time: end_time });
@@ -46028,22 +46030,26 @@
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          placeholder: 'course title',
+	          required: true,
 	          value: this.state.title,
 	          onChange: this.handleTitleChange
 	        }),
 	        _react2.default.createElement('textarea', {
 	          placeholder: 'Write a description of the course here.',
 	          rows: '10',
+	          required: true,
 	          value: this.state.description,
 	          onChange: this.handleDescriptionChange }),
 	        _react2.default.createElement('textarea', {
 	          placeholder: 'What knowledge, skills or materials should a student have before taking this course?',
 	          rows: '10',
+	          required: true,
 	          value: this.state.prerequisites,
 	          onChange: this.handlePrereqChange }),
 	        _react2.default.createElement('input', {
 	          type: 'number',
 	          placeholder: 'price per seat',
+	          required: true,
 	          value: this.state.price,
 	          onChange: this.handlePriceChange
 	        })
@@ -46054,34 +46060,40 @@
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          placeholder: 'number of seats',
+	          required: true,
 	          value: this.state.seats,
 	          onChange: this.handleSeatsChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          placeholder: 'image_url',
+	          required: true,
 	          value: this.state.image_url,
 	          onChange: this.handleImageUrlChange
 	        }),
 	        _react2.default.createElement(DatePicker, {
 	          selected: this.state.date,
+	          required: true,
 	          onChange: this.handleDateChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          placeholder: 'start time, ex: 6:30 a.m.',
+	          required: true,
 	          value: this.state.start_time,
 	          onChange: this.handleStartTimeChange
 	        }),
 	        _react2.default.createElement('input', {
 	          type: 'text',
 	          placeholder: 'end time, ex: 6:30 a.m.',
+	          required: true,
 	          value: this.state.end_time,
 	          onChange: this.handleEndTimeChange
 	        }),
 	        _react2.default.createElement(_reactGeosuggest2.default, {
 	          placeholder: 'meeting place',
 	          country: 'us',
+	          required: true,
 	          onSuggestSelect: this.onSuggestSelect,
 	          value: this.state.location
 	        }),
