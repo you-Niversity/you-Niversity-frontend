@@ -46,12 +46,14 @@ var MessageDisplay = React.createClass({
   },
 
   getMessageDataFromAPI: function(id){
+    console.log(id);
     request
       .get(DATABASE_URL + "/messages/thread/" + id)
       .end(function(err, res){
         if(err){
           browserHistory.push('/error');
         } else {
+          console.log(res.body);
           this.setState({messages: res.body, currentThread: res.body[0].thread_id});
         }
       }.bind(this))
