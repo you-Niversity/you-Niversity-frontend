@@ -59,8 +59,10 @@ var Student = React.createClass({
   render: function(){
 
     var sendMessageOption = (sessionStorage.user_id && Number(sessionStorage.user_id) == this.props.instructor_id) ?
-      <span onClick={this.initiateMessageClick} className="message-student pointer"><MessageIcon /></span>
-      : null;
+      <div><span onClick={this.initiateMessageClick} className="message-student pointer"><MessageIcon /></span>
+      <div className="student-profile-img center" style={studentImageStyle}></div></div>
+      :
+      <div className="student-profile-img no-top-margin center" style={studentImageStyle}></div>;
 
     var studentImageStyle = {
       backgroundImage: 'url(' + this.props.profile_pic + ')',
@@ -70,7 +72,6 @@ var Student = React.createClass({
       <div className="col-sm-3">
         <h3 className="center">{this.props.first_name} {this.props.last_name}</h3>
         {sendMessageOption}
-        <div className="student-profile-img center" style={studentImageStyle}></div>
       </div>
     )
   }

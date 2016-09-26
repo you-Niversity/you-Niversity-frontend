@@ -403,6 +403,9 @@ hr {
 	background-size: cover;
 	background-position: center;
 }
+.no-top-margin {
+	margin-top: 0;
+}
 .btn-div {
 	background-color: orange;
 	border-radius: 3px;
