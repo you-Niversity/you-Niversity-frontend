@@ -46865,6 +46865,33 @@
 	
 	  render: function render() {
 	
+	    var ifThreadsExist = this.state.threads.length == 0 ? _react2.default.createElement(
+	      'h1',
+	      { className: 'no-classes-yet orange bold center' },
+	      'You are not a part of any conversations yet.'
+	    ) : _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-5' },
+	        _react2.default.createElement(_threadList2.default, {
+	          data: this.state.threads,
+	          messages: this.state.messages,
+	          onThreadClick: this.onThreadClick,
+	          deleteThread: this.deleteThread
+	        })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-7' },
+	        _react2.default.createElement(_messageList2.default, {
+	          data: this.state.messages,
+	          handleMessageSubmit: this.handleMessageSubmit
+	        })
+	      )
+	    );
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'message-box' },
@@ -46880,28 +46907,7 @@
 	            'Inbox'
 	          )
 	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-5' },
-	            _react2.default.createElement(_threadList2.default, {
-	              data: this.state.threads,
-	              messages: this.state.messages,
-	              onThreadClick: this.onThreadClick,
-	              deleteThread: this.deleteThread
-	            })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-7' },
-	            _react2.default.createElement(_messageList2.default, {
-	              data: this.state.messages,
-	              handleMessageSubmit: this.handleMessageSubmit
-	            })
-	          )
-	        ),
+	        ifThreadsExist,
 	        _react2.default.createElement('div', { className: 'row message-footer' })
 	      )
 	    );

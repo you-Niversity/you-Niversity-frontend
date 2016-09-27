@@ -92,28 +92,35 @@ var MessageDisplay = React.createClass({
 
   render: function(){
 
+    var ifThreadsExist = (this.state.threads.length == 0) ?
+      <h1 className="no-classes-yet orange bold center">You are not a part of any conversations yet.</h1>
+    :
+      <div className="row">
+        <div className="col-sm-5">
+          <ThreadList
+            data={this.state.threads}
+            messages={this.state.messages}
+            onThreadClick={this.onThreadClick}
+            deleteThread={this.deleteThread}
+          />
+        </div>
+        <div className="col-sm-7">
+          <MessageList
+            data={this.state.messages}
+            handleMessageSubmit={this.handleMessageSubmit}
+          />
+        </div>
+      </div>;
+
+
+
     return (
       <div className="message-box">
         <div className="row message-header">
             <div className="row inbox-header">
               <h1 >Inbox</h1>
             </div>
-            <div className="row">
-              <div className="col-sm-5">
-                <ThreadList
-                  data={this.state.threads}
-                  messages={this.state.messages}
-                  onThreadClick={this.onThreadClick}
-                  deleteThread={this.deleteThread}
-                />
-              </div>
-              <div className="col-sm-7">
-                <MessageList
-                  data={this.state.messages}
-                  handleMessageSubmit={this.handleMessageSubmit}
-                />
-              </div>
-            </div>
+              {ifThreadsExist}
             <div className="row message-footer"></div>
         </div>
       </div>
