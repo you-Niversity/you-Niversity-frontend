@@ -24516,15 +24516,15 @@
 	
 	var _userDashboard2 = _interopRequireDefault(_userDashboard);
 	
-	var _messageDisplay = __webpack_require__(/*! ./components/messages/message-display.js */ 366);
+	var _messageDisplay = __webpack_require__(/*! ./components/messages/message-display.js */ 367);
 	
 	var _messageDisplay2 = _interopRequireDefault(_messageDisplay);
 	
-	var _serverErrorPage = __webpack_require__(/*! ./components/server-error-page.js */ 372);
+	var _serverErrorPage = __webpack_require__(/*! ./components/server-error-page.js */ 373);
 	
 	var _serverErrorPage2 = _interopRequireDefault(_serverErrorPage);
 	
-	var _aboutMe = __webpack_require__(/*! ./components/about-me.js */ 373);
+	var _aboutMe = __webpack_require__(/*! ./components/about-me.js */ 374);
 	
 	var _aboutMe2 = _interopRequireDefault(_aboutMe);
 	
@@ -46566,7 +46566,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 209);
 	
-	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 374);
+	var _courseList = __webpack_require__(/*! ./courses/course-list.js */ 366);
 	
 	var _courseList2 = _interopRequireDefault(_courseList);
 	
@@ -46675,6 +46675,81 @@
 
 /***/ },
 /* 366 */
+/*!***********************************************!*\
+  !*** ./app/components/courses/course-list.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 345);
+	
+	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 271);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 209);
+	
+	var _course = __webpack_require__(/*! ./course.js */ 326);
+	
+	var _course2 = _interopRequireDefault(_course);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CourseList = _react2.default.createClass({
+	  displayName: 'CourseList',
+	
+	  render: function render() {
+	
+	    var courseNodes = this.props.data.map(function (course) {
+	      return _react2.default.createElement(_course2.default, {
+	        title: course.title,
+	        image_url: course.image_url,
+	        date: course.date,
+	        key: course.class_id,
+	        id: course.class_id });
+	    }.bind(this));
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement('div', { className: 'col-sm-1' }),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-10', id: 'class-display' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            this.props.header
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'course-block', className: 'row' },
+	          courseNodes
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = CourseList;
+
+/***/ },
+/* 367 */
 /*!****************************************************!*\
   !*** ./app/components/messages/message-display.js ***!
   \****************************************************/
@@ -46706,11 +46781,11 @@
 	
 	var _modalStyles2 = _interopRequireDefault(_modalStyles);
 	
-	var _threadList = __webpack_require__(/*! ./thread-list.js */ 367);
+	var _threadList = __webpack_require__(/*! ./thread-list.js */ 368);
 	
 	var _threadList2 = _interopRequireDefault(_threadList);
 	
-	var _messageList = __webpack_require__(/*! ./message-list.js */ 370);
+	var _messageList = __webpack_require__(/*! ./message-list.js */ 371);
 	
 	var _messageList2 = _interopRequireDefault(_messageList);
 	
@@ -46840,7 +46915,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps)(MessageDisplay);
 
 /***/ },
-/* 367 */
+/* 368 */
 /*!************************************************!*\
   !*** ./app/components/messages/thread-list.js ***!
   \************************************************/
@@ -46858,7 +46933,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 209);
 	
-	var _thread = __webpack_require__(/*! ./thread.js */ 368);
+	var _thread = __webpack_require__(/*! ./thread.js */ 369);
 	
 	var _thread2 = _interopRequireDefault(_thread);
 	
@@ -46907,7 +46982,7 @@
 	exports.default = ThreadList;
 
 /***/ },
-/* 368 */
+/* 369 */
 /*!*******************************************!*\
   !*** ./app/components/messages/thread.js ***!
   \*******************************************/
@@ -46929,7 +47004,7 @@
 	
 	var _messageActions = __webpack_require__(/*! ../../actions/message-actions */ 342);
 	
-	var _trashIcon = __webpack_require__(/*! ../icons/trash-icon.js */ 369);
+	var _trashIcon = __webpack_require__(/*! ../icons/trash-icon.js */ 370);
 	
 	var _trashIcon2 = _interopRequireDefault(_trashIcon);
 	
@@ -47089,7 +47164,7 @@
 	module.exports = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Thread);
 
 /***/ },
-/* 369 */
+/* 370 */
 /*!********************************************!*\
   !*** ./app/components/icons/trash-icon.js ***!
   \********************************************/
@@ -47126,7 +47201,7 @@
 	exports.default = TrashIcon;
 
 /***/ },
-/* 370 */
+/* 371 */
 /*!*************************************************!*\
   !*** ./app/components/messages/message-list.js ***!
   \*************************************************/
@@ -47144,7 +47219,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 209);
 	
-	var _message = __webpack_require__(/*! ./message.js */ 371);
+	var _message = __webpack_require__(/*! ./message.js */ 372);
 	
 	var _message2 = _interopRequireDefault(_message);
 	
@@ -47208,7 +47283,7 @@
 	exports.default = MessageList;
 
 /***/ },
-/* 371 */
+/* 372 */
 /*!********************************************!*\
   !*** ./app/components/messages/message.js ***!
   \********************************************/
@@ -47268,7 +47343,7 @@
 	exports.default = Message;
 
 /***/ },
-/* 372 */
+/* 373 */
 /*!*********************************************!*\
   !*** ./app/components/server-error-page.js ***!
   \*********************************************/
@@ -47316,7 +47391,7 @@
 	exports.default = ErrorDisplay;
 
 /***/ },
-/* 373 */
+/* 374 */
 /*!************************************!*\
   !*** ./app/components/about-me.js ***!
   \************************************/
@@ -47506,81 +47581,6 @@
 	});
 	
 	exports.default = AboutMe;
-
-/***/ },
-/* 374 */
-/*!***********************************************!*\
-  !*** ./app/components/courses/course-list.js ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _superagentNoCache = __webpack_require__(/*! superagent-no-cache */ 345);
-	
-	var _superagentNoCache2 = _interopRequireDefault(_superagentNoCache);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 271);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 209);
-	
-	var _course = __webpack_require__(/*! ./course.js */ 326);
-	
-	var _course2 = _interopRequireDefault(_course);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CourseList = _react2.default.createClass({
-	  displayName: 'CourseList',
-	
-	  render: function render() {
-	
-	    var courseNodes = this.props.data.map(function (course) {
-	      return _react2.default.createElement(_course2.default, {
-	        title: course.title,
-	        image_url: course.image_url,
-	        date: course.date,
-	        key: course.class_id,
-	        id: course.class_id });
-	    }.bind(this));
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement('div', { className: 'col-sm-1' }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-10', id: 'class-display' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            this.props.header
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'course-block', className: 'row' },
-	          courseNodes
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = CourseList;
 
 /***/ }
 /******/ ]);

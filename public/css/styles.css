@@ -629,8 +629,8 @@ hr {
 	cursor: default;
 }
 .single-thread:hover {
-	background-color: #ebebeb;
-	border-left: 2px solid orange;
+	cursor: pointer;
+	color: orange;
 }
 .single-thread-selected {
 	background-color: orange;
