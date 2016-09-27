@@ -33,7 +33,7 @@ var SecondaryTemplate = React.createClass({
           </div>
         </div>
         <div>
-          <Footer />
+          <Footer/>
         </div>
       </div>
     );

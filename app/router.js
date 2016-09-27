@@ -17,6 +17,7 @@ import UpdateCourseDisplay from './components/courses/update-course-display.js';
 import UserDashboard from './components/user-dashboard.js';
 import MessageDisplay from './components/messages/message-display.js';
 import ErrorDisplay from './components/server-error-page.js';
+import AboutMe from './components/about-me.js';
 
 var AppRouter = React.createClass({
   render: function () {
@@ -54,6 +55,11 @@ var AppRouter = React.createClass({
         <Route path="/messages/:id">
           <Route component={PrimaryTemplate}>
             <IndexRoute component={MessageDisplay} />
+          </Route>
+        </Route>
+        <Route path="/about">
+          <Route component={SecondaryTemplate}>
+            <IndexRoute component={AboutMe} />
           </Route>
         </Route>
         <Route path="/error">

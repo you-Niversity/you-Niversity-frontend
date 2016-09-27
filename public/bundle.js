@@ -24524,11 +24524,13 @@
 	
 	var _serverErrorPage2 = _interopRequireDefault(_serverErrorPage);
 	
+	var _aboutMe = __webpack_require__(/*! ./components/about-me.js */ 374);
+	
+	var _aboutMe2 = _interopRequireDefault(_aboutMe);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//import components here
-	
-	//below is an example of ES6 destructuring
+	//import layouts here
 	var AppRouter = _react2.default.createClass({
 	  displayName: 'AppRouter',
 	
@@ -24598,6 +24600,15 @@
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Route,
+	        { path: '/about' },
+	        _react2.default.createElement(
+	          _reactRouter.Route,
+	          { component: _secondaryTemplate2.default },
+	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _aboutMe2.default })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Route,
 	        { path: '/error' },
 	        _react2.default.createElement(
 	          _reactRouter.Route,
@@ -24609,7 +24620,9 @@
 	  }
 	});
 	
-	//import layouts here
+	//import components here
+	
+	//below is an example of ES6 destructuring
 	exports.default = AppRouter;
 
 /***/ },
@@ -33258,7 +33271,7 @@
 	        null,
 	        _react2.default.createElement(
 	          _reactRouter.Link,
-	          { to: '#' },
+	          { to: '/about' },
 	          _react2.default.createElement(
 	            'p',
 	            null,
@@ -47382,6 +47395,185 @@
 	});
 	
 	exports.default = ErrorDisplay;
+
+/***/ },
+/* 374 */
+/*!************************************!*\
+  !*** ./app/components/about-me.js ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 209);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AboutMe = _react2.default.createClass({
+	  displayName: 'AboutMe',
+	
+	
+	  render: function render() {
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'message-box' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row message-header' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row inbox-header' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'About yoU',
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'white' },
+	              'niversity'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'about-youniversity-text' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'The idea for ',
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'orange bold' },
+	                'yoUniversity'
+	              ),
+	              ' was born while my husband, Aaron, and I were driving home from a long run in the mountains. We were reminiscing about our early days in the sport of ultrarunning, and how intimidating it had been in the beginning to tackle running really long distances. '
+	            ),
+	            ' ',
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'I mentioned how cool it would have been if one of the many ultra-athletes in the area offered reasonably-priced clinics or classes to help newbie ultrarunners learn how to best train, fuel, and prepare mentally for the somewhat-terrifying task of running something like a 100-mile race.'
+	            ),
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'It was here in the conversation that the idea for ',
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'orange bold' },
+	                'yoUniversity'
+	              ),
+	              ' sprang up. There should absolutely be a web application, we decided, that connected those with some skill or knowledge to share with those who are willing to pay for it. It would be an app, we thought, that served both the teachers and the learners, and as former teachers, we thought it should be an app that kept all of the money collected for classes right in the pockets of the instructors.'
+	            ),
+	            ' ',
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'From my first day at Galvanize, I knew that ',
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'orange bold' },
+	                'yoUniversity'
+	              ),
+	              ' would be my capstone project. I had months and months to cogitate on its purpose, audiences, form and features, and I am so stoked to have built it. As with any application, there is of course more work to be done, but I hope that your enjoyment of the site matches the pride I feel in the execution of the idea.'
+	            ),
+	            ' ',
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'bold' },
+	              'What am I most proud of here? Following are a list of the features that I encourage to you check out, both in the UI and code.'
+	            ),
+	            _react2.default.createElement('br', null)
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement('div', { className: 'col-sm-1' }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-5' },
+	              _react2.default.createElement(
+	                'ul',
+	                null,
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'On landing page, geolocation grabs a user\\s location which populates search bar'
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'Classes can be filtered by title, location, distance from location'
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'Search results are displayed in both list and map view'
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'Users validated with JWT tokens upon signup and login.'
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'Users receive email notifications when they sign up for the site, sign up for the class, receive a message from another user, or are in a class that has been updated in some way.'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-5' },
+	              _react2.default.createElement(
+	                'ul',
+	                null,
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'Between-user messaging is custom-built, with notifications when unread messages exist'
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'user and messaging information stored with Redux for instant, server-side updates'
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'Attention to detail. For example, most button text depends on app state. Notice how the "Log In to Sign Up" text changes depending on if a user is logged in, not the instructor, or already on the roster.'
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  'Server-side and client-side forms are validated'
+	                )
+	              )
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = AboutMe;
 
 /***/ }
 /******/ ]);
