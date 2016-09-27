@@ -30379,7 +30379,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var PrimaryTemplate = _react2.default.createClass({
 	  displayName: 'PrimaryTemplate',
@@ -33509,7 +33509,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var LandingPage = _react2.default.createClass({
 	  displayName: 'LandingPage',
@@ -33728,7 +33728,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var CourseDisplay = _react2.default.createClass({
 	  displayName: 'CourseDisplay',
@@ -39484,7 +39484,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var LoginDisplay = _react2.default.createClass({
 	  displayName: 'LoginDisplay',
@@ -39749,7 +39749,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var SingleCourseDisplay = _react2.default.createClass({
 	  displayName: 'SingleCourseDisplay',
@@ -45590,7 +45590,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var SignupDisplay = _react2.default.createClass({
 	  displayName: 'SignupDisplay',
@@ -45897,7 +45897,7 @@
 	var moment = __webpack_require__(/*! moment */ 353);
 	moment().format();
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var AddCourseDisplay = _react2.default.createClass({
 	  displayName: 'AddCourseDisplay',
@@ -46310,7 +46310,7 @@
 	var moment = __webpack_require__(/*! moment */ 353);
 	moment().format();
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var UpdateCourseDisplay = _react2.default.createClass({
 	  displayName: 'UpdateCourseDisplay',
@@ -46578,7 +46578,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var UserDashboard = _react2.default.createClass({
 	  displayName: 'UserDashboard',
@@ -46786,7 +46786,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var MessageDisplay = _react2.default.createClass({
 	  displayName: 'MessageDisplay',
@@ -47009,7 +47009,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DATABASE_URL = "http://localhost:8080";
+	var DATABASE_URL = "https://you-niversity-postgresql.herokuapp.com";
 	
 	var Thread = _react2.default.createClass({
 	  displayName: 'Thread',
