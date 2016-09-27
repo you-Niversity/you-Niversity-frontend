@@ -62,6 +62,8 @@ var UserDashboard = React.createClass({
 
   render: function(){
 
+
+
     var teachingDisplay = (this.state.classesTeaching.length > 0) ?
     <CourseList
       data={this.state.classesTeaching}
@@ -76,10 +78,17 @@ var UserDashboard = React.createClass({
     /> :
     null;
 
+    var noClasses = (this.state.classesTaking.length == 0 && this.state.classesTeaching.length == 0) ?
+      <h1 className="no-classes-yet orange bold center">Not teaching or taking any classes? <br />You better start browsing or creating classes!</h1>
+    : null;
+
     return (
       <div>
       <div className="dashboard-display">
-        <div className="teaching-block">{teachingDisplay}</div>
+        {noClasses}
+        <div className="teaching-block">
+          {teachingDisplay}
+        </div>
         <div className="taking-block">{takingDisplay}</div>
       </div>
       </div>

@@ -60,6 +60,11 @@ ol, ul {
 	height: 275px;
 	background-position: center;
 }
+.no-classes-yet {
+	font-size: 2em;
+	margin-bottom: 140px;
+	margin-top: 150px;
+}
 .margin-bottom {
 	margin-bottom: 50px;
 }
