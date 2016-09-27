@@ -9,7 +9,7 @@ import { unreadMessages } from '../actions/message-actions';
 import Modal from 'boron/OutlineModal';
 import modalStyles from './styles/modal-styles.js';
 
-var DATABASE_URL ="http://localhost:8080";
+var DATABASE_URL ="https://you-niversity-postgresql.herokuapp.com";
 
  var LoginDisplay = React.createClass({
 
@@ -72,7 +72,7 @@ var DATABASE_URL ="http://localhost:8080";
             <button style={modalStyles.btn} onClick={this.hideModal}>Close</button>
         </Modal>
         <div className="col-sm-4"></div>
-        <div className="col-sm-4 form-display">
+        <div className="col-sm-4 form-display login-form-display">
           <div className="login-display">
             <UserLoginForm
               onLoginSubmit={this.handleLoginSubmit}

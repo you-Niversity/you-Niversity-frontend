@@ -249,6 +249,9 @@ hr {
 	border: 2px solid orange;
 	border-radius: 3px;
 }
+.login-form-display {
+	margin-bottom: 70px;
+}
 .form-display input, .form-display textarea {
 	border: 2px solid #b5b5b5;
 }

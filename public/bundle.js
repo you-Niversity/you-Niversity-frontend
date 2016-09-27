@@ -37460,6 +37460,7 @@
 	  },
 	
 	  onSuggestSelect: function onSuggestSelect(suggest) {
+	    console.log(suggest.location);
 	    this.props.handleLocationInput(suggest);
 	    this.setState({ lat: suggest.location.lat, lng: suggest.location.lng });
 	  },
@@ -39557,7 +39558,7 @@
 	      _react2.default.createElement('div', { className: 'col-sm-4' }),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'col-sm-4 form-display' },
+	        { className: 'col-sm-4 form-display login-form-display' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'login-display' },
@@ -40203,11 +40204,8 @@
 	      _react2.default.createElement(
 	        'p',
 	        { className: 'bold' },
-	        this.props.data.address
-	      ),
-	      _react2.default.createElement(
-	        'p',
-	        null,
+	        this.props.data.address,
+	        ' ',
 	        this.props.data.city,
 	        ', ',
 	        this.props.data.state
