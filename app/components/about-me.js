@@ -47,7 +47,7 @@ var AboutMe = React.createClass({
                 <p className="bold">Please feel free to contact me at:</p>
                 <p className="bold orange">kristenlfoster@gmail.com</p>
                 <p className="bold">or check out my professional website and portfolio at:</p>
-                <p className="bold orange pointer"><Link to="https://www.kristenfoster-marks.com">KristenFoster-Marks.com</Link></p>
+                <Link to="https://www.kristenfoster-marks.com">KristenFoster-Marks.com</Link>
                 <br />
               </div>
             </div>
