@@ -47438,7 +47438,7 @@
 	            'About yoU',
 	            _react2.default.createElement(
 	              'span',
-	              { className: 'white' },
+	              { className: 'white center' },
 	              'niversity'
 	            )
 	          )
@@ -47471,33 +47471,20 @@
 	            _react2.default.createElement(
 	              'p',
 	              null,
-	              'It was here in the conversation that the idea for ',
+	              'Thus, the idea for ',
 	              _react2.default.createElement(
 	                'span',
 	                { className: 'orange bold' },
 	                'yoUniversity'
 	              ),
-	              ' sprang up. There should absolutely be a web application, we decided, that connected those with some skill or knowledge to share with those who are willing to pay for it. It would be an app, we thought, that served both the teachers and the learners, and as former teachers, we thought it should be an app that kept all of the money collected for classes right in the pockets of the instructors.'
-	            ),
-	            ' ',
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'From my first day at Galvanize, I knew that ',
-	              _react2.default.createElement(
-	                'span',
-	                { className: 'orange bold' },
-	                'yoUniversity'
-	              ),
-	              ' would be my capstone project. I had months and months to cogitate on its purpose, audiences, form and features, and I am so stoked to have built it. As with any application, there is of course more work to be done, but I hope that your enjoyment of the site matches the pride I feel in the execution of the idea.'
+	              ' was conceived. There should absolutely be a web application, we decided, that connected those with some skill or knowledge to share with those willing to pay for it, an app that served both the teachers offering classes and the learners wanting to take them. And, as former teachers, we knew it should be an app that keeps all of the money collected for classes right in the pockets of the instructors.'
 	            ),
 	            ' ',
 	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
 	              'p',
 	              { className: 'bold' },
-	              'What am I most proud of here? Following are a list of the features that I encourage to you check out, both in the UI and code.'
+	              'Any developer knows that the work is never done, and there are plenty more features that I plan to add to yoUniversity, including payment options and a mobile version. In the meantime, though, following are a list of the features that I encourage to you check out, both in the UI and the code.'
 	            ),
 	            _react2.default.createElement('br', null)
 	          ),
@@ -47552,7 +47539,7 @@
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  'user and messaging information stored with Redux for instant, server-side updates'
+	                  'User and messaging information stored with Redux for instant, server-side updates'
 	                ),
 	                _react2.default.createElement(
 	                  'li',
@@ -47566,6 +47553,36 @@
 	                )
 	              )
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row center' },
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'bold' },
+	              'Please feel free to contact me at:'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'bold orange' },
+	              'kristenlfoster@gmail.com'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'bold' },
+	              'or check out my professional website and portfolio at:'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'bold orange pointer' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: 'www.kristenfoster-marks.com' },
+	                'KristenFoster-Marks.com'
+	              )
+	            ),
+	            _react2.default.createElement('br', null)
 	          )
 	        )
 	      )
