@@ -18,7 +18,7 @@ var SignupDisplay = React.createClass({
       .post(DATABASE_URL + "/auth/signup")
       .send(user)
       .end(function(err, res){
-        if (err || !res.ok) {
+        if (err) {
           console.log("there was an error in creating this user");
         } else {
           sessionStorage.setItem('first_name', user.first_name);
