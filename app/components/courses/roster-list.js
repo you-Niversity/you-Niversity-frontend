@@ -10,8 +10,12 @@ var RosterList = React.createClass({
 
   render: function(){
 
-    var noStudents = (this.props.data.length === 0) ?
+    var noStudents = (this.props.data.length === 0 && (this.props.instructor_id !== Number(sessionStorage.user_id))) ?
       <p className="center no-data-message">There are no students enrolled. <Link className="link-plain link-orange" to="/login">Be the first!</Link></p>
+      : null;
+
+    var noStudentsInstructor = (this.props.data.length === 0 && (this.props.instructor_id == Number(sessionStorage.user_id))) ?
+      <p className="center no-data-message">There are no students enrolled.</p>
       : null;
 
     var rosterNodes = this.props.data.map(function(student){
@@ -37,6 +41,7 @@ var RosterList = React.createClass({
         </div>
         <div className="row">
           {noStudents}
+          {noStudentsInstructor}
           <div className="col-sm-2"></div>
           <div className="col-sm-8 roster-list">
             <div className="row">

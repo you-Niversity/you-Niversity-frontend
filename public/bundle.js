@@ -40638,7 +40638,7 @@
 	
 	  render: function render() {
 	
-	    var noStudents = this.props.data.length === 0 ? _react2.default.createElement(
+	    var noStudents = this.props.data.length === 0 && this.props.instructor_id !== Number(sessionStorage.user_id) ? _react2.default.createElement(
 	      'p',
 	      { className: 'center no-data-message' },
 	      'There are no students enrolled. ',
@@ -40647,6 +40647,12 @@
 	        { className: 'link-plain link-orange', to: '/login' },
 	        'Be the first!'
 	      )
+	    ) : null;
+	
+	    var noStudentsInstructor = this.props.data.length === 0 && this.props.instructor_id == Number(sessionStorage.user_id) ? _react2.default.createElement(
+	      'p',
+	      { className: 'center no-data-message' },
+	      'There are no students enrolled.'
 	    ) : null;
 	
 	    var rosterNodes = this.props.data.map(function (student) {
@@ -40680,6 +40686,7 @@
 	        'div',
 	        { className: 'row' },
 	        noStudents,
+	        noStudentsInstructor,
 	        _react2.default.createElement('div', { className: 'col-sm-2' }),
 	        _react2.default.createElement(
 	          'div',
