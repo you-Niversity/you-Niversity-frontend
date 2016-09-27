@@ -10,7 +10,6 @@ var Footer = React.createClass({
         <footer>
             <Link to="/about"><p>About <span className="orange">yoU</span>niversity</p></Link>
             <Link to="https://github.com/you-Niversity"><img src="../../images/github.png" /></Link>
-            <Link to="https://kristenfoster-marks.com"><img src="../../images/github.png" /></Link>
             <Link to="https://www.linkedin.com/in/kristenfostermarks"><img src="../../images/linkedin.png" /></Link>
         </footer>
       </div>

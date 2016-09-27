@@ -40028,6 +40028,13 @@
 	      data: this.state.reviews
 	    }) : null;
 	
+	    var commentBoard = this.state.isUserEnrolledInCourse || Number(sessionStorage.user_id == this.state.courseData.user_id) ? _react2.default.createElement(_commentBoard2.default, {
+	      data: this.state.commentBoard,
+	      instructor_id: this.state.courseData.user_id,
+	      handleCommentSubmit: this.handleCommentSubmit,
+	      isUserEnrolledInCourse: this.state.isUserEnrolledInCourse
+	    }) : null;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -40070,12 +40077,7 @@
 	        instructor_id: this.state.courseData.user_id,
 	        initiateMessageClick: this.initiateMessageClickFromInstructor
 	      }),
-	      _react2.default.createElement(_commentBoard2.default, {
-	        data: this.state.commentBoard,
-	        instructor_id: this.state.courseData.user_id,
-	        handleCommentSubmit: this.handleCommentSubmit,
-	        isUserEnrolledInCourse: this.state.isUserEnrolledInCourse
-	      }),
+	      commentBoard,
 	      _react2.default.createElement(
 	        _OutlineModal2.default,
 	        { ref: 'modal', style: _modalStyles2.default.container },
@@ -47574,13 +47576,9 @@
 	              'or check out my professional website and portfolio at:'
 	            ),
 	            _react2.default.createElement(
-	              'p',
-	              { className: 'bold orange pointer' },
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: 'www.kristenfoster-marks.com' },
-	                'KristenFoster-Marks.com'
-	              )
+	              _reactRouter.Link,
+	              { to: 'https://www.kristenfoster-marks.com' },
+	              'KristenFoster-Marks.com'
 	            ),
 	            _react2.default.createElement('br', null)
 	          )

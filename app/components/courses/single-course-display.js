@@ -322,6 +322,15 @@ var SingleCourseDisplay = React.createClass({
       /> :
       null;
 
+    var commentBoard = (this.state.isUserEnrolledInCourse || Number(sessionStorage.user_id == this.state.courseData.user_id)) ?
+      <CommentBoard
+        data={this.state.commentBoard}
+        instructor_id={this.state.courseData.user_id}
+        handleCommentSubmit={this.handleCommentSubmit}
+        isUserEnrolledInCourse={this.state.isUserEnrolledInCourse}
+      />
+    : null;
+
     return (
         <div>
           <div className="row" id="single-course-display">
@@ -358,12 +367,7 @@ var SingleCourseDisplay = React.createClass({
             initiateMessageClick={this.initiateMessageClickFromInstructor}
           />
 
-          <CommentBoard
-            data={this.state.commentBoard}
-            instructor_id={this.state.courseData.user_id}
-            handleCommentSubmit={this.handleCommentSubmit}
-            isUserEnrolledInCourse={this.state.isUserEnrolledInCourse}
-          />
+          {commentBoard}
 
           <Modal ref="modal" style={modalStyles.container}>
               <h2 style={modalStyles.title}>You are all signed up!</h2>

@@ -51,7 +51,6 @@ var AboutMe = React.createClass({
                 <br />
               </div>
             </div>
-
         </div>
       </div>
     );
